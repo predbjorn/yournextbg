@@ -125,6 +125,31 @@ pnpm install
 pnpm dev           # http://localhost:3000
 ```
 
+## Supabase setup (optional for V1 — app runs without it)
+
+The auth and user-collection features need a Supabase project. The scoring
+engine, comparator, and game pages all work without it.
+
+1. **Copy env template:** `cp .env.example .env.local`
+2. **Fill in keys** from
+   [supabase.com/dashboard/project/_/settings/api](https://supabase.com/dashboard/project/_/settings/api):
+   - `NEXT_PUBLIC_SUPABASE_ANON_KEY` (public)
+   - `SUPABASE_SERVICE_ROLE_KEY` (server-only, never commit)
+3. **Apply the schema:** open the Supabase dashboard SQL editor and paste
+   `supabase/migrations/0000_initial_schema.sql`. Sets up `games`,
+   `collections`, `collection_items`, `bgg_cache` with RLS.
+4. **Verify connection:** `pnpm supabase:health`
+5. **Seed the catalog:** `pnpm seed:games` (upserts all 34 games)
+
+### Schema overview
+
+| Table | Purpose |
+|---|---|
+| `games` | Canonical scored catalog. Public read. |
+| `collections` | User lists (Owned, Wishlist, Played, Custom). User-scoped RLS. |
+| `collection_items` | Games in a list — by `game_id`, `bgg_id`, or free-form `manual_name`. |
+| `bgg_cache` | Server-side cache of BGG XML API responses. |
+
 ## Contributing
 
 Open for contributions on scoring data, methodology refinements, and UI improvements. Open an issue first to discuss scope. Score proposals should reference the calibration anchors in `src/data/games.ts`.
