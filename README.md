@@ -154,6 +154,12 @@ engine, comparator, and game pages all work without it.
 
 Open for contributions on scoring data, methodology refinements, and UI improvements. Open an issue first to discuss scope. Score proposals should reference the calibration anchors in `src/data/games.ts`.
 
+### Adding games to the catalog
+
+If you (or an LLM agent) want to add games to the catalog, **read [`docs/scoring-handoff.md`](./docs/scoring-handoff.md) first**. It's a self-contained briefing: full rubric, calibration anchors, workflow per game, quality bar, common pitfalls, and a prioritized target list of ~25 BGG-top games not yet scored.
+
+Logged reasoning per game lives in [`docs/scoring-log.md`](./docs/scoring-log.md).
+
 Areas that especially welcome contributions:
 - Scoring proposals for popular games (BGG top 200 prioritized)
 - Translations / multilingual support
