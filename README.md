@@ -1,36 +1,157 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# yournextbg
 
-## Getting Started
+> A board game recommendation engine built on a **12-axis profile**, not collaborative filtering. Find your next game based on what plays similarly at the table — not just what other people happen to own.
 
-First, run the development server:
+**Status:** Pre-launch. Methodology and prototype validated; scoring catalog being built.
+**Live site:** [yournextbg.com](https://yournextbg.com) *(coming soon)*
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+---
+
+## Why another recommender?
+
+[BoardGameGeek](https://boardgamegeek.com)'s "Fans Also Like" is collaborative filtering: it surfaces games that *the same people* tend to rate highly. That works, but it has known failure modes:
+
+- **Collection-bubble bias** — heavy euro fans co-rate other heavy euros highly, even when the *experience* at the table is very different.
+- **Cold-start failure** — niche or new games don't have enough ratings to produce useful neighbors.
+- **No explanation** — you find out which games other people liked. You don't find out *why* the games are similar or where they diverge.
+
+`yournextbg` takes a **feature-based** approach: every game gets scored on 12 carefully chosen axes that, according to a literature review of design frameworks (MDA, Quantic Foundry's empirical motivation study, Engelstein's input/output randomness, Wehrlegig's design notes) and reviewer/forum debates over near-identical games (Brass: Birmingham vs Lancashire, Voidfall vs Eclipse, Wingspan vs the rest), are the dimensions that *actually predict* whether one player will love a game that another bounces off.
+
+Once scored, two games can be compared by **weighted Euclidean distance** in 12-dimensional profile space. The result: you can find similar games even when no one has ever rated both of them, and you get a concrete answer to "why?" — the axes where they differ most.
+
+## The 12 axes
+
+Organized into 4 "branches" of a skill tree. Each axis is scored 0–10.
+
+### 🧠 Tanke — *how much brainwork?*
+| Axis | What it measures |
+|---|---|
+| **Vekt** | Rules and concept overhead. Hive is vekt 2 / dybde 9. |
+| **Dybde** | Decision-tree size, independent of rules complexity. |
+| **Density** | Meaningful choices per minute on your turn. |
+
+### ⚔️ Interaksjon — *how multiplayer is the multiplayer?*
+| Axis | What it measures |
+|---|---|
+| **Inter** | Do other players' actions disrupt your plans? Wingspan = 2, Brass = 9. |
+| **Konflikt** | Direct hostile actions. *Orthogonal to interaction* — Sidereal Confluence is interaction 10 / konflikt 1. |
+| **Forhandl** | Does winning require talking? John Company = 10, Wingspan = 0. |
+
+### 🎲 Flaks — *where does luck live?*
+| Axis | What it measures |
+|---|---|
+| **Input** | Luck *before* your decisions (card draws, market refresh). |
+| **Output** | Luck *after* your decisions (combat dice, reveals). |
+| **Innhente** | Catch-up strength. High = strong rubber-band; low = runaway-leader risk. |
+
+### 🎭 Opplevelse — *how does it feel?*
+| Axis | What it measures |
+|---|---|
+| **Tema** | Pasted-on vs mechanically baked-in. Tapestry = 3, Spirit Island = 10. |
+| **Motor** | Engine/combo payoff arc. Race for the Galaxy = 10, Carcassonne = 2. |
+| **Narrativ** | Does a session tell a story or repeat? Legacy games = 10, Catan = 1. |
+
+Plus three **meta axes** that gate or contextualize rather than encode taste:
+- **Solo** quality (0–10)
+- **Fiddliness** (upkeep/bookkeeping, 0–10)
+- **Player-count fit vector** (per-count score: 1P / 2P / 3P / 4P / 5+P)
+
+## Lenses — how to compare
+
+A single similarity metric doesn't fit all questions. `yournextbg` defines five lenses that re-weight the 12 axes for different purposes:
+
+| Lens | Weights highest | When to use |
+|---|---|---|
+| **Standard** | Vekt ×2.0, Inter ×1.8, Output ×1.4 | Default. Research-backed gate axes. |
+| **Tilsvarende vekt** | Vekt ×3.0, Dybde ×2.2 | "Find me something in the same complexity class." |
+| **Samme opplevelse** | Inter ×2.5, Tema ×2.2, Narrativ ×2.0 | "I don't care about weight — find the same vibe." |
+| **Samme flaks-profil** | Input/Output ×2.5 | "I love (or hate) dice — keep that the same." |
+| **Uvektet** | All ×1.0 | Raw Euclidean. The original v1 engine. |
+
+The math:
+
+```
+distance² = Σ wᵢ × (aᵢ − bᵢ)²
+similarity = 1 − distance / maxDistance   ∈ [0, 1]
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+where `maxDistance = √(Σ wᵢ × 100)` — the distance produced if every axis differs by the maximum 10 points.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## How games get scored
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Manually scoring 99,000+ games doesn't scale. The plan, in order:
 
-## Learn More
+1. **Editorial seed** — 34 anchor games scored manually with rubric calibration (where we are now).
+2. **LLM-assisted scoring** — Claude reads each rulebook + BGG description against the rubric and proposes scores. A human reviewer (you) approves or adjusts in a Next.js admin route. ~30–50 games/day reviewed once the prompt is stable.
+3. **ML extrapolation** (later) — train a regressor on the editorial set + BGG features (mechanics, weight, designer) to bootstrap scores for the long tail, with confidence intervals.
 
-To learn more about Next.js, take a look at the following resources:
+All scores are stored in Postgres (Supabase) with full audit trail — who scored, when, why.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Tech stack
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **Web:** Next.js 16 (App Router) + React 19 + TypeScript + Tailwind 4. SEO-first: every game gets a server-rendered page with `schema.org/Game` JSON-LD, Open Graph, and a slot in the sitemap.
+- **Data:** Supabase (Postgres + Auth + Storage + Edge Functions). Free tier sufficient through V1.
+- **Hosting:** Vercel (web) + Supabase (everything else).
+- **BGG integration:** Server-side proxy to the BGG XML API2 with aggressive caching (game metadata is near-static; 30-day TTL is fine).
+- **Mobile (V2):** Native Swift + Kotlin, generated from an OpenAPI spec.
 
-## Deploy on Vercel
+## Project structure
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```
+yournextbg/
+├── src/
+│   ├── app/                  Next.js App Router (pages, layouts)
+│   ├── data/                 Typed seed catalog + BGG refs
+│   │   ├── games.ts
+│   │   ├── bgg-refs.ts
+│   │   └── types.ts
+│   ├── lib/
+│   │   └── scoring/          Pure-functional scoring engine
+│   │       ├── axes.ts       12-axis definitions
+│   │       ├── lenses.ts     Weight presets
+│   │       └── similarity.ts Weighted Euclidean
+│   └── components/           UI (radar, comparator, score panels)
+├── scripts/                  LLM scoring pipeline, BGG sync
+└── supabase/                 Migrations, seed
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Getting started
+
+Requires Node 22 (see `.nvmrc`).
+
+```bash
+nvm use            # or install Node 22
+pnpm install
+pnpm dev           # http://localhost:3000
+```
+
+## Contributing
+
+Open for contributions on scoring data, methodology refinements, and UI improvements. Open an issue first to discuss scope. Score proposals should reference the calibration anchors in `src/data/games.ts`.
+
+Areas that especially welcome contributions:
+- Scoring proposals for popular games (BGG top 200 prioritized)
+- Translations / multilingual support
+- Mobile clients (Swift, Kotlin)
+- BGG XML API client improvements
+
+## Sources & methodology references
+
+The 12-axis rubric was distilled from a literature review covering:
+
+- Hunicke, LeBlanc & Zubek — *MDA Framework: 8 Kinds of Fun* (2004)
+- Quantic Foundry — *Board Game Motivation Profile v2* (40,000+ player survey)
+- Geoff Engelstein — *Input vs Output Randomness*
+- Mark Rosewater — *Timmy / Johnny / Spike psychographics*
+- Erik Twice — Brass: Birmingham vs Lancashire analysis
+- Reviewer/forum debates across Shut Up & Sit Down, Heavy Cardboard, BGG forums, r/boardgames
+
+BGG "Fans Also Like" benchmark data sourced from [recommend.games](https://recommend.games) — Turi Create matrix-factorization recommender trained on public BGG ratings.
+
+## License
+
+MIT. See [LICENSE](./LICENSE).
+
+---
+
+*Not affiliated with BoardGameGeek. BGG is a trademark of BoardGameGeek, LLC.*

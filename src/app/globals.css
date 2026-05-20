@@ -1,26 +1,67 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* surfaces */
+  --bg:        #0d1117;
+  --bg-elev:   #161b22;
+  --bg-card:   #1c2128;
+  --border:    #2d333b;
+
+  /* ink */
+  --ink:       #e6edf3;
+  --ink-dim:   #8b949e;
+  --ink-mute:  #6e7681;
+
+  /* accents */
+  --accent:        #f78166;
+  --accent-deep:   #db6d4d;
+  --gold:          #d4a458;
+  --steel:         #58a6ff;
+  --success:       #3fb950;
+  --weight-heavy:  #bc4749;
+  --weight-medium: #d4a458;
+  --weight-epic:   #8957e5;
+
+  /* branches */
+  --branch-tanke:       #58a6ff;
+  --branch-interaksjon: #f78166;
+  --branch-flaks:       #d4a458;
+  --branch-opplevelse:  #8957e5;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-bg: var(--bg);
+  --color-bg-elev: var(--bg-elev);
+  --color-bg-card: var(--bg-card);
+  --color-border: var(--border);
+  --color-ink: var(--ink);
+  --color-ink-dim: var(--ink-dim);
+  --color-ink-mute: var(--ink-mute);
+  --color-accent: var(--accent);
+  --color-steel: var(--steel);
+  --color-gold: var(--gold);
+  --color-success: var(--success);
+  --color-branch-tanke: var(--branch-tanke);
+  --color-branch-interaksjon: var(--branch-interaksjon);
+  --color-branch-flaks: var(--branch-flaks);
+  --color-branch-opplevelse: var(--branch-opplevelse);
+
+  --font-serif: var(--font-newsreader), Georgia, serif;
+  --font-mono:  var(--font-jetbrains-mono), ui-monospace, monospace;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-serif);
+  line-height: 1.6;
+  font-size: 17px;
+  min-height: 100vh;
+  background-image:
+    radial-gradient(ellipse at top, rgba(247, 129, 102, 0.05) 0%, transparent 50%),
+    radial-gradient(ellipse at bottom right, rgba(137, 87, 229, 0.04) 0%, transparent 50%);
 }
