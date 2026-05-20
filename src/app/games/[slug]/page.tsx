@@ -33,14 +33,14 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const canonical = `/games/${game.slug}`;
 
   return {
-    title: `${game.name} — profile, similar games & 12-axis breakdown · yournextbg`,
+    title: `${game.name} — profile & similar games`,
     description: desc,
     alternates: { canonical },
     openGraph: {
-      title: `${game.name} — 12-axis profile · yournextbg`,
+      title: `${game.name} — 12-axis profile`,
       description: desc,
       type: "article",
-      url: `https://yournextbg.com${canonical}`,
+      url: canonical,
     },
     twitter: {
       card: "summary_large_image",

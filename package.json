@@ -10,6 +10,9 @@
     "seed:games": "tsx scripts/seed-games.ts",
     "supabase:health": "tsx scripts/supabase-health.ts"
   },
+  "engines": {
+    "node": ">=22.0.0"
+  },
   "dependencies": {
     "@supabase/ssr": "^0.10.3",
     "@supabase/supabase-js": "^2.106.0",
