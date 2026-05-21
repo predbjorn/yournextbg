@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "seed:games": "tsx scripts/seed-games.ts",
-    "supabase:health": "tsx scripts/supabase-health.ts"
+    "supabase:health": "tsx scripts/supabase-health.ts",
+    "reset:db": "tsx scripts/reset-db.ts"
   },
   "engines": {
     "node": ">=22.0.0"
@@ -24,11 +25,13 @@
     "@tailwindcss/oxide-darwin-arm64": "^4.3.0",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
+    "@types/pg": "^8.20.0",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "dotenv": "^17.4.2",
     "eslint": "^9",
     "eslint-config-next": "16.2.6",
+    "pg": "^8.21.0",
     "tailwindcss": "^4",
     "tsx": "^4.22.3",
     "typescript": "^5"
