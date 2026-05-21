@@ -598,3 +598,135 @@ Predicted closest: Catan, Welcome To. Same gateway cluster but with much higher 
 Predicted closest: Splendor (this batch's drafting/optimization neighbor), Welcome To, Quacks. rec.games confirmed Azul lives in the same neighborhood as Splendor.
 
 ---
+
+## Batch 04 — Priority 2 (2026-05-21)
+
+6 games added: Speakeasy, Galactic Cruise, Luthier, Molly House, Arydia, Corps of Discovery. Catalog grows 57 → 63. Closes out the Priority-2 watchlist from `scoring-handoff.md`. These are all 2024–2025 titles with thinner public reasoning than the Priority-1 set; scored from rulebook/review knowledge + recommend.games cluster cross-check. BGG XML API is still 401-gated, so direct BGG metadata pulls are skipped.
+
+---
+
+## Speakeasy (BGG 375459)
+
+**Scores:** [9, 9, 8, 7, 5, 3, 4, 1, 4, 8, 7, 5] · **Solo:** 7 · **Fiddly:** 9 · **Best:** [2P, 3P] · **Category:** heavy-euro
+
+- Weight 9: Lacerda heavy (BGG community weight 4.5+). Same class as Voidfall (9), heavier than Brass (8).
+- Depth 9: multi-step actions with deep alliance-and-bribe trees; not Brass-deep (10).
+- Density 8: classic Lacerda — every action triggers 3-4 sub-effects.
+- Interaction 7: gangster placement contests space; supply chain shared; alliance system pulls everyone into each other's plans. Heavier than TM (3), lighter than Brass (10).
+- Conflict 5: rival families muscle each other off territory; structural rather than dice-combat. Brass-class.
+- Negotiation 3: alliance-bidding is a real layer but constrained (not John Company 10).
+- Input 4: card/event draw is modest.
+- Output 1: deterministic resolution (Lacerda hallmark).
+- Catchup 4: euro-balanced; weak rubber-band.
+- Theme 8: prohibition NYC integrates into mechanics (heat, federal raids, families). Brass-class theme integration.
+- Engine 7: action capability escalates; not pure engine (no Race-for-the-Galaxy eruption).
+- Narrative 5: era progression with heat escalation but no story.
+
+Predicted closest: Voidfall, Brass (in catalog), Through the Ages. rec.games cluster (Inventions, Sankoré, Shackleton Base, Shipyard 2E, Zhanguo, Stupor Mundi) is all heavy-euro and confirms the neighborhood — no direct catalog overlap from rec.games (the Lacerda/heavy-euro neighborhood is undercatalogued).
+
+---
+
+## Galactic Cruise (BGG 391137)
+
+**Scores:** [7, 8, 7, 5, 2, 0, 5, 1, 4, 6, 8, 4] · **Solo:** 8 · **Fiddly:** 6 · **Best:** [2P, 3P] · **Category:** heavy-euro
+
+- Weight 7: BGG ~3.8. Same class as Ark Nova (7), heavier than TM (6).
+- Depth 8: meaningful path differentiation across departments and ship layout.
+- Density 7: full hands of options per turn, classic worker-placement density.
+- Interaction 5: shared worker spots + shared event tracks. TM-class (3) but with more contention because workers block. Lighter than Brass (10).
+- Conflict 2: no direct attacks.
+- Negotiation 0.
+- Input 5: card draw + event variance.
+- Output 1: deterministic.
+- Catchup 4.
+- Theme 6: charming cruise theme but mechanics are familiar worker-placement; not Sleeping-Gods-baked-in.
+- Engine 8: clear engine arc as departments synergize; ramps hard.
+- Narrative 4: cruise progresses across rounds but no story-arc.
+
+Predicted closest: Ark Nova, TM, SETI (in catalog). rec.games cluster: Ezra and Nehemiah, Minos, Evacuation, Inventors/Scholars of South Tigris, Shackleton Base, Pampero, Inventions, Barcelona, Galileo Galilei — all medium-heavy worker placement euros. No direct catalog overlap from rec.games but my Standard-lens neighbors (Ark Nova, TM, SETI) should rank highly.
+
+---
+
+## Luthier (BGG 371330)
+
+**Scores:** [6, 7, 6, 4, 1, 0, 5, 2, 5, 6, 7, 3] · **Solo:** 7 · **Fiddly:** 5 · **Best:** [2P, 3P] · **Category:** heavy-euro
+
+- Weight 6: medium-heavy. Same class as TM (6), Castles of Burgundy (6), Concordia-adjacent (5).
+- Depth 7: solid optimization puzzle with custom-die assignment.
+- Density 6: clean turns.
+- Interaction 4: shared market/commission slots; mostly parallel play. Wingspan-class (4).
+- Conflict 1: trivial.
+- Negotiation 0.
+- Input 5: dice + card draw.
+- Output 2: dice are assigned (input-luck primary); some output on commissions.
+- Catchup 5: balanced.
+- Theme 6: Renaissance instrument-crafting is novel but the mechanics could re-skin to any commission-fulfilment euro.
+- Engine 7: capability escalation via apprentices + workshop upgrades.
+- Narrative 3: minor session arc.
+
+Predicted closest: Castles of Burgundy, Concordia, Ark Nova (lighter), SETI. rec.games cluster: Minos, Ostia, Skara Brae, Ezra & Nehemiah, Galactic Cruise (this batch ✓), House of Fado, Stupor Mundi, Inventors of South Tigris, Shackleton Base, Windmill Valley — medium-heavy euro. Within-batch overlap with Galactic Cruise expected.
+
+---
+
+## Molly House (BGG 359871)
+
+**Scores:** [5, 7, 5, 8, 6, 7, 7, 5, 5, 9, 4, 7] · **Solo:** 0 · **Fiddly:** 6 · **Best:** [3P, 4P, 5P] · **Category:** geek
+
+- Weight 5: BGG ~2.9. Concordia-class (5). Higher than its component count suggests because the indictment system is non-trivial.
+- Depth 7: hand management + party-building + push-your-luck pivots. Wehrle-typical depth at moderate weight.
+- Density 5: turns are quick but each one is a real pivot.
+- Interaction 8: semi-coop with traitor potential. Everyone affects everyone via party-joining, denouncing, and indictments. Wehrle's signature emergent interaction — Brass-class without the economic chains.
+- Conflict 6: denouncing is direct hostile action — players actively send each other to jail. More than Brass (5), less than Root (9).
+- Negotiation 7: party participation and split decisions are negotiated openly; high but not John Company (10).
+- Input 7: dice + card draw heavily. Push-your-luck reveals at parties.
+- Output 5: dice rolls resolve some events; not all luck is pre-decision.
+- Catchup 5: indictments rebalance leaders structurally.
+- Theme 10: theme and mechanics are inseparable — secrecy, queer joy, betrayal, the Society itself. Spirit-Island-class theme integration.
+- Engine 4: not really an engine game; capability stays fairly flat.
+- Narrative 7: rounds escalate Society heat; clear arc within a session.
+
+Predicted closest: Arcs, Root, John Company (in catalog). rec.games top neighbor: Oath (Wehrle) — confirms the cluster perfectly. The whole semi-coop-with-traitor space is well-represented by Arcs/Root/John Company in our catalog.
+
+---
+
+## Arydia: The Paths We Dare Tread (BGG 219650)
+
+**Scores:** [7, 7, 5, 6, 0, 5, 6, 5, 5, 10, 5, 9] · **Solo:** 9 · **Fiddly:** 8 · **Best:** [1P, 2P] · **Category:** solo
+
+- Weight 7: campaign-game weight. Same class as Sleeping Gods (7), Arkham LCG (7); lighter than Gloomhaven (8).
+- Depth 7: deep across the campaign, individual sessions less so.
+- Density 5: adventure-game pacing — exploration > turn density.
+- Interaction 6: co-op coordination matters; party play.
+- Conflict 0: pure co-op.
+- Negotiation 5: party coordination, Gloomhaven-class (5).
+- Input 6: encounter cards + map reveals.
+- Output 5: card/dice combat has output luck.
+- Catchup 5: scaling difficulty, balanced.
+- Theme 10: full open-world fantasy world. Sleeping-Gods-class.
+- Engine 5: per-character growth, not pure engine.
+- Narrative 9: branching open-world narrative; Sleeping Gods anchor (9).
+
+Predicted closest: Sleeping Gods, Tainted Grail, Earthborne Rangers, Arkham LCG (in catalog). rec.games cluster: Elder Scrolls BG, Stars of Akarios, Dragon Eclipse, Isofarian Guard, Agemonia, Aeon Trespass: Odyssey, Primal, STALKER, burncycle — sandbox/campaign solo-coop adventure. Strong overlap with our solo cluster expected.
+
+---
+
+## Corps of Discovery (BGG 396895)
+
+**Scores:** [6, 6, 5, 6, 1, 5, 6, 4, 5, 9, 4, 8] · **Solo:** 8 · **Fiddly:** 7 · **Best:** [2P, 3P] · **Category:** solo
+
+- Weight 6: medium. Lighter than Tainted Grail (7), heavier than Pandemic Legacy (4). Earthborne Rangers (6) class.
+- Depth 6: scenario-driven; decisions exist but are constrained by the script.
+- Density 5.
+- Interaction 6: co-op coordination.
+- Conflict 1: NPC hostility but no PvP.
+- Negotiation 5: party coordination.
+- Input 6: encounter cards + dice.
+- Output 4: dice and event reveals on actions.
+- Catchup 5.
+- Theme 9: Lewis & Clark is unusual and well-evoked; not quite Spirit-Island-baked-in (10).
+- Engine 4: scenario-based, no engine.
+- Narrative 8: campaign with branching choices; less open-world than Arydia (9), more directed than Tainted Grail (10) suggests but similar magnitude.
+
+Predicted closest: Earthborne Rangers, Tainted Grail, Pandemic Legacy, Arydia (this batch). rec.games returns weak data (small thematic games, mostly off-target) — confidence is lower here. Catalog neighbors should still cluster solidly in the campaign-coop space.
+
+---
