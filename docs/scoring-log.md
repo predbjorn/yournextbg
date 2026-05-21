@@ -347,3 +347,195 @@ Template — copy and fill in:
 - rec.games returned broken results — model artifact. Calibration via anchors only.
 
 ---
+
+## Batch 02 — Priority-1 continuation (2026-05-21)
+
+10 games added: Lost Ruins of Arnak, Power Grid, Agricola, Caverna, A Feast for Odin, Brass: Lancashire, Eclipse: Second Dawn, Cascadia, Splendor, Marvel Champions.
+
+Catalog grows 44 → 54. rec.games neighborhoods were usable for all 10 this batch.
+
+---
+
+## Lost Ruins of Arnak (BGG 312484)
+
+**Scores:** [5, 7, 6, 5, 2, 0, 6, 2, 5, 6, 7, 3] · **Solo:** 7 · **Fiddly:** 5 · **Best:** [2P, 3P] · **Category:** heavy-euro
+
+- Vekt 5: BGG 2.88. Between Wingspan (4) and TM (6).
+- Dybde 7: WP + deckbuilder + exploration creates multiple paths.
+- Density 6: turns moderately weighty.
+- Inter 5: shared worker spots + card market + exploration tile competition.
+- Konflikt 2 · Forhandl 0.
+- Input 6: card draws + exploration reveal + market refresh.
+- Output 2: minor encounter dice.
+- Innhente 5: research track ladder; no rubber-band.
+- Tema 6: Indiana-Jones feel integrates fine.
+- Motor 7: deckbuilder side compounds nicely.
+- Narrativ 3.
+
+Predicted closest: Everdell, Wingspan, Ark Nova. rec.games: Paladins of WK, Architects of WK, Everdell (✓), Viscounts of WK, White Castle. Catalog overlap: Everdell. ✓
+
+---
+
+## Power Grid (BGG 2651)
+
+**Scores:** [6, 8, 6, 8, 4, 2, 4, 0, 8, 5, 6, 3] · **Solo:** 0 · **Fiddly:** 5 · **Best:** [4P, 5P] · **Category:** heavy-euro
+
+- Vekt 6: same class as TM (6).
+- Dybde 8: bidding + resource timing + turn-order manipulation is deep.
+- Density 6: post-auction turns are quick.
+- Inter 8: auction + shared resource market + city placement contention. Very interactive.
+- Konflikt 4: blocking only.
+- Forhandl 2: bidding interaction.
+- Input 4: plant-market shuffle.
+- Output 0: deterministic.
+- Innhente 8: anchored in handoff doc (Power Grid = 8).
+- Tema 5 · Motor 6 · Narrativ 3.
+
+Predicted closest: Concordia, Castles of Burgundy. rec.games top: Acquire, Steam, Age of Steam, Puerto Rico, 1830 — older economic classics; no catalog overlap yet, but the engine should still cluster it near other interactive economic euros.
+
+---
+
+## Agricola (BGG 31260)
+
+**Scores:** [7, 9, 7, 7, 3, 0, 6, 0, 4, 7, 6, 3] · **Solo:** 7 · **Fiddly:** 7 · **Best:** [3P, 4P] · **Category:** heavy-euro
+
+- Vekt 7: BGG 3.62. Slightly lighter than Le Havre (8) in catalog.
+- Dybde 9: famously deep card-driven worker placement.
+- Density 7: WP turns dense.
+- Inter 7: blocking workers is core — higher than Le Havre (5).
+- Konflikt 3 · Forhandl 0.
+- Input 6: occupation/minor-improvement hands are luck of the draw.
+- Output 0.
+- Innhente 4: feeding pressure mildly equalizing.
+- Tema 7: farming feels like farming.
+- Motor 6 · Narrativ 3.
+
+Predicted closest: Le Havre (in catalog), Caverna (this batch), Feast for Odin (this batch). rec.games confirms: Le Havre, Ora et Labora, Feast for Odin, Fields of Arle. ✓
+
+---
+
+## Caverna: The Cave Farmers (BGG 102794)
+
+**Scores:** [8, 9, 6, 6, 3, 0, 4, 0, 5, 7, 7, 3] · **Solo:** 7 · **Fiddly:** 8 · **Best:** [3P] · **Category:** heavy-euro
+
+- Vekt 8: BGG 3.84 — heavier than Agricola (7) via bigger building catalog and dwarf races.
+- Dybde 9: huge option space.
+- Density 6: longer turns / more downtime than Agricola.
+- Inter 6: more action spaces than Agricola → less forced contention.
+- Konflikt 3: weapons exist but soft.
+- Forhandl 0.
+- Input 4: no occupation cards — less random than Agricola.
+- Output 0 · Innhente 5.
+- Tema 7 · Motor 7 · Narrativ 3.
+
+Predicted closest: Agricola, Le Havre, Feast for Odin. rec.games confirms tight cluster: Feast for Odin, Fields of Arle, Le Havre, Ora et Labora, Clans of Caledonia (✓). ✓
+
+---
+
+## A Feast for Odin (BGG 177736)
+
+**Scores:** [9, 10, 6, 5, 2, 0, 5, 2, 4, 7, 7, 4] · **Solo:** 8 · **Fiddly:** 9 · **Best:** [2P, 3P, 4P] · **Category:** heavy-euro
+
+- Vekt 9: BGG 3.97. Same class as Voidfall/Gaia (9).
+- Dybde 10: gigantic action board, many strategies. Famous for AP.
+- Density 6: long turns dilute density.
+- Inter 5: shared action board with blocking but plenty of options to dodge.
+- Konflikt 2: raiding is solo-feeling.
+- Forhandl 0.
+- Input 5: card draws (occupation/weapon/exploration).
+- Output 2: minor.
+- Innhente 4 · Tema 7 · Motor 7 · Narrativ 4.
+
+Predicted closest: Caverna, Agricola, Le Havre. rec.games: Fields of Arle, Caverna (✓ this batch), Hallertau, Glass Road, Clans of Caledonia (✓). ✓
+
+---
+
+## Brass: Lancashire (BGG 28720)
+
+**Scores:** [8, 10, 9, 10, 5, 2, 6, 1, 5, 7, 7, 4] · **Solo:** 4 · **Fiddly:** 6 · **Best:** [3P, 4P] · **Category:** geek
+
+- Mostly tracks Birmingham (`brass-birmingham`) with deliberate small diffs:
+  - Forhandl 2 (vs Bham 3): no beer-borrowing.
+  - Innhente 5 (vs Bham 6): less forgiving of mistakes.
+  - Tema 7 (vs Bham 8): no beer culture aspect — purer abstraction.
+- Vekt 8 / Dybde 10 / Density 9 / Inter 10 / Konflikt 5 / Input 6 / Output 1 / Motor 7 / Narrativ 4.
+
+Predicted closest: Brass: Birmingham (in catalog) — should rank near the top, possibly #1. rec.games: Age of Steam, Steam, Great Zimbabwe, Barrage (✓), Food Chain Magnate, Mombasa. Catalog overlap: Barrage. ✓
+
+---
+
+## Eclipse: Second Dawn for the Galaxy (BGG 246900)
+
+**Scores:** [7, 9, 6, 8, 7, 3, 5, 6, 4, 7, 9, 6] · **Solo:** 4 · **Fiddly:** 8 · **Best:** [4P] · **Category:** geek
+
+- Vekt 7: BGG 3.79. Same class as Scythe (7), much lighter than TI4 (10).
+- Dybde 9: tech tree + ship customization deep.
+- Density 6: downtime grows past 4P.
+- Inter 8: shared galaxy, war, interception.
+- Konflikt 7: combat is core; less than TI4 (8) due to no politics layer.
+- Forhandl 3: informal diplomacy.
+- Input 5: hex draw on exploration.
+- Output 6: combat dice. Same class as Catan (6).
+- Innhente 4 · Tema 7 · Motor 9 · Narrativ 6.
+
+Predicted closest: TI4, Scythe (in catalog), Rebellion (in catalog). rec.games: Clash of Cultures, Beyond the Sun, Civ ANew Dawn, Kemet, Forbidden Stars. No direct catalog overlap from rec.games, but TI4 should dominate the Standard-lens neighbors.
+
+---
+
+## Cascadia (BGG 295947)
+
+**Scores:** [2, 5, 5, 3, 0, 0, 6, 0, 6, 5, 4, 1] · **Solo:** 7 · **Fiddly:** 2 · **Best:** [2P] · **Category:** filler
+
+- Vekt 2: SdJ 2022. Welcome To anchor.
+- Dybde 5: scoring cards add modest variety.
+- Density 5: sparse decisions per turn.
+- Inter 3: shared tile+animal pool, mild contention. Parallel-play zone.
+- Konflikt 0 · Forhandl 0.
+- Input 6: tile/animal draw is the variance.
+- Output 0.
+- Innhente 6: short game, runaway hard.
+- Tema 5 · Motor 4 · Narrativ 1.
+
+Predicted closest: Welcome To, Wingspan. rec.games: Calico, Isle of Cats, Azul: Summer Pavilion, Cartographers, Sagrada — all tile/spatial puzzles. Cluster checks out.
+
+---
+
+## Splendor (BGG 148228)
+
+**Scores:** [2, 5, 5, 5, 1, 0, 4, 0, 6, 3, 8, 1] · **Solo:** 5 · **Fiddly:** 2 · **Best:** [2P, 3P] · **Category:** filler
+
+- Vekt 2: gateway.
+- Dybde 5: simple but optimization exists.
+- Density 5: one action per turn, fast pace.
+- Inter 5: gem-pool contention + card sniping. Higher than Wingspan (4) because contested-by-default.
+- Konflikt 1 · Forhandl 0.
+- Input 4: noble + card-row refresh.
+- Output 0 · Innhente 6.
+- Tema 3: pasted-on.
+- Motor 8: pure engine builder — cards → discounts → more cards.
+- Narrativ 1.
+
+Predicted closest: Welcome To, Quacks (light engine), Cat in the Box (filler). rec.games: Century: Spice Road, Century: Golem, Azul, Stone Age, Jaipur. Cluster checks out (gateway/quick).
+
+---
+
+## Marvel Champions (BGG 285774)
+
+**Scores:** [4, 7, 6, 7, 0, 5, 6, 4, 4, 8, 6, 4] · **Solo:** 9 · **Fiddly:** 5 · **Best:** [1P, 2P] · **Category:** solo
+
+- Vekt 4: card game, but lots of card interactions to track.
+- Dybde 7: deckbuilding outside game + tactical hero turn inside.
+- Density 6: heroes have real options per turn.
+- Inter 7: co-op coordination matters; threat distribution.
+- Konflikt 0 (co-op).
+- Forhandl 5: discussion, lighter than Pandemic (7).
+- Input 6: card draw heavy.
+- Output 4: encounter reveals + occasional dice swing.
+- Innhente 4 · Tema 8: heroes feel like the heroes.
+- Motor 6: per-game board-state ramp.
+- Narrativ 4: scenarios but no persistent campaign.
+
+Predicted closest: Arkham LCG (in catalog), Earthborne Rangers. rec.games confirms LCG cluster: LotR LCG, Arkham LCG (✓), Bloodborne BG, Marvel United, Final Girl. ✓
+
+---
+
