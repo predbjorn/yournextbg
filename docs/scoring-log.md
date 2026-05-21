@@ -954,3 +954,225 @@ Predicted closest: Brass: Birmingham (in catalog), Brass: Lancashire (in catalog
 Predicted closest: Brass: Birmingham, Brass: Lancashire (both in catalog), Food Chain Magnate (this batch). rec.games: Great Zimbabwe, Indonesia, Bus, 1830, Brass: Lancashire ✓, Shikoku, 18Chesapeake, FCM ✓, 1860, 1846 — Brass is the direct catalog hit from the rec.games top 10.
 
 ---
+
+## Batch 06 — README anchors + cluster tightening (2026-05-21)
+
+10 games added: Teotihuacan, The Gallerist, Praga Caput Regni, Lorenzo il Magnifico, Race for the Galaxy, Puerto Rico, Tigris & Euphrates, Sidereal Confluence, Cosmic Encounter, Hive. Catalog grows 73 → 83.
+
+Two-track selection:
+
+1. **README calibration anchors now in catalog** (previously cited but un-scored): Race for the Galaxy (Motor 10), Hive (Vekt 2/Dybde 9 elegance), Sidereal Confluence (Inter 10/Konflikt 1), Cosmic Encounter (Forhandl 9). Users searching for those reference games will land directly, and the comparator now shows the anchor itself rather than guessing at its position.
+
+2. **Cluster tightening** for the Pfister/Suchý/Garphill + Lacerda hubs batch 05 opened: Teotihuacan (5+ catalog hits in its rec.games top 10 now), The Gallerist (4th Lacerda — fills the Speakeasy neighborhood out), Praga, Lorenzo, plus old-school euros Puerto Rico + Tigris & Euphrates that recur as classic anchors.
+
+---
+
+## Teotihuacan: City of Gods (BGG 229853)
+
+**Scores:** [7, 8, 6, 5, 2, 0, 5, 1, 4, 5, 8, 4] · **Solo:** 7 · **Fiddly:** 7 · **Best:** [3P, 4P] · **Category:** heavy-euro
+
+- Weight 7: BGG 3.9. Same class as Maracaibo (7), Paladins (7).
+- Depth 8: clean optimization puzzle, multiple paths.
+- Density 6.
+- Interaction 5: rondel contention + worker bumping. TM-class+ (3 + 2 for bumping).
+- Conflict 2.
+- Negotiation 0.
+- Input 5: tile draw + ascension order.
+- Output 1.
+- Catchup 4.
+- Theme 5: pre-Columbian flavor mostly aesthetic.
+- Engine 8: dice growth + tech ramps hard.
+- Narrative 4: three eras with eclipse phases.
+
+Predicted closest: Maracaibo, Paladins, UWC, GWT (all in catalog). rec.games: Tekhenu, Maracaibo ✓, Praga ✓ (this batch), Marco Polo II, Lorenzo ✓ (this batch), Coimbra, Paladins ✓, Newton, UWC ✓, Bonfire — five catalog hits in top 10, hub status confirmed.
+
+---
+
+## The Gallerist (BGG 125153)
+
+**Scores:** [9, 10, 8, 6, 3, 2, 4, 1, 4, 8, 8, 5] · **Solo:** 7 · **Fiddly:** 9 · **Best:** [3P, 4P] · **Category:** heavy-euro
+
+- Weight 9: BGG 4.4. Lacerda heavy.
+- Depth 10: extremely deep — art investment, gallery, plaza, hired help.
+- Density 8.
+- Interaction 6: kicked-worker mechanic creates ripples; shared art market. Lisboa-class.
+- Conflict 3.
+- Negotiation 2.
+- Input 4: low randomness.
+- Output 1: deterministic.
+- Catchup 4.
+- Theme 8: art-market theme well-evoked — discovering artists, buying low, hyping reputation.
+- Engine 8.
+- Narrative 5.
+
+Predicted closest: Lisboa, On Mars, Kanban EV, Speakeasy (all in catalog). rec.games: Vinhos, Lisboa ✓, Kanban EV ✓, Kanban, Trickerion, On Mars ✓, CO2, Vinhos, Carnegie, Anachrony — three catalog hits in top 10, pure Lacerda cluster.
+
+---
+
+## Praga Caput Regni (BGG 308765)
+
+**Scores:** [7, 8, 7, 5, 1, 0, 5, 1, 5, 5, 8, 3] · **Solo:** 7 · **Fiddly:** 6 · **Best:** [2P, 3P, 4P] · **Category:** heavy-euro
+
+- Weight 7: BGG 4.0.
+- Depth 8: action-wheel scarcity drives deep optimization.
+- Density 7.
+- Interaction 5: shared action wheel with shifting prices — everyone's choices reshape the price landscape.
+- Conflict 1.
+- Negotiation 0.
+- Input 5.
+- Output 1.
+- Catchup 5.
+- Theme 5.
+- Engine 8: ramps via crane track + wall track + university.
+- Narrative 3.
+
+Predicted closest: Teotihuacan (this batch), Maracaibo, Paladins. rec.games: Darwin's Journey, Golem, Tekhenu, Boonlake, Tiletum, Newton, Maracaibo ✓, Cooper Island, Tawantinsuyu, Messina — Suchý/mid-weight cluster.
+
+---
+
+## Lorenzo il Magnifico (BGG 203993)
+
+**Scores:** [6, 7, 6, 5, 1, 0, 6, 2, 5, 5, 7, 4] · **Solo:** 6 · **Fiddly:** 6 · **Best:** [3P, 4P] · **Category:** heavy-euro
+
+- Weight 6: BGG 3.3. Same as Castles of Burgundy, TM.
+- Depth 7: solid optimization, leader cards add variety.
+- Density 6.
+- Interaction 5: shared spots, dice value matters for bumping.
+- Conflict 1.
+- Negotiation 0.
+- Input 6: dice + card market.
+- Output 2: dice are assigned but value drives access.
+- Catchup 5.
+- Theme 5.
+- Engine 7: development cards compound across epochs.
+- Narrative 4: three epochs + Vatican reports.
+
+Predicted closest: Castles of Burgundy (in catalog), Concordia (in catalog), Teotihuacan (this batch). rec.games: Marco Polo II, Coimbra, Grand Austria Hotel, Mombasa, Newton, Heaven & Ale, Marco Polo, Teotihuacan ✓ (this batch), Bora Bora, Pulsar — classic mid-weight euro hub.
+
+---
+
+## Race for the Galaxy (BGG 28143)
+
+**Scores:** [4, 9, 8, 3, 0, 0, 7, 1, 3, 4, 10, 3] · **Solo:** 6 · **Fiddly:** 4 · **Best:** [2P, 3P, 4P] · **Category:** heavy-euro
+
+- Weight 4: BGG 3.0 but iconography is a steep learning curve. Same class as Wingspan (4).
+- Depth 9: massive engine choice space, Brass-near depth at half the rules weight.
+- Density 8: simultaneous-decision pace is high.
+- Interaction 3: multiplayer solitaire; "leech" actions are the only meaningful interaction.
+- Conflict 0.
+- Negotiation 0.
+- Input 7: card draw is the engine of variance. TM-class (9) but a step lower.
+- Output 1: deterministic.
+- Catchup 3: leader can run away.
+- Theme 4: text-on-cards, pasted-on.
+- Engine 10: **README anchor** — eruptive late-game tableau payoff, the canonical Motor 10.
+- Narrative 3: race arc but no story.
+
+Predicted closest: TM, Wingspan, Splendor (all in catalog — engine-builders). rec.games: Glory to Rome, Innovation, Mottainai, Fairy Tale, Draft-a-Dragon, Netrunner, San Juan 2E, Res Arcana, Conflicting Kingdoms, The Dark — tableau/card cluster, no direct catalog overlap (this cluster is undercatalogued).
+
+---
+
+## Puerto Rico (BGG 3076)
+
+**Scores:** [5, 8, 7, 8, 3, 1, 3, 0, 4, 4, 7, 3] · **Solo:** 0 · **Fiddly:** 4 · **Best:** [4P, 5P] · **Category:** geek
+
+- Weight 5: BGG 3.3. Concordia-class (5).
+- Depth 8: role selection cascades deeply — short rules, brutal decision space.
+- Density 7.
+- Interaction 8: classic Inter — your role choices give others free actions, ship slots are contested. Heavier than typical euros.
+- Conflict 3: ship-slot blocking is hostile but indirect.
+- Negotiation 1.
+- Input 3: plantation tile draw.
+- Output 0: fully deterministic.
+- Catchup 4: weak rubber-band.
+- Theme 4: colonization is functional but famously pasted-on; theme has been critiqued for years.
+- Engine 7: building chains compound.
+- Narrative 3.
+
+Predicted closest: Concordia, Power Grid, Le Havre (all in catalog), Tigris & Euphrates (this batch). rec.games: Caylus, Princes of Florence, Saint Petersburg, Power Grid ✓, Goa, Power Grid Deluxe, Le Havre ✓, El Grande, Melodifestivalen, In the Year of the Dragon — old-school euros, two catalog hits.
+
+---
+
+## Tigris & Euphrates (BGG 42)
+
+**Scores:** [6, 9, 6, 9, 7, 1, 3, 1, 4, 4, 5, 4] · **Solo:** 0 · **Fiddly:** 4 · **Best:** [3P, 4P] · **Category:** geek
+
+- Weight 6: BGG 3.5.
+- Depth 9: Knizia-deep — short ruleset, brutal decision space.
+- Density 6.
+- Interaction 9: tile placement constantly triggers conflicts; external and internal conflicts are core. Brass-adjacent but not at 10.
+- Conflict 7: direct conflict resolution between kingdoms via tile commitment. Barrage-class (7).
+- Negotiation 1.
+- Input 3: tile draw.
+- Output 1: deterministic resolution.
+- Catchup 4.
+- Theme 4: civilization flavor; mechanics-first Knizia abstract.
+- Engine 5: scoring tracks build but not pure engine.
+- Narrative 4: civilization rise/fall feel.
+
+Predicted closest: Brass: Lancashire, Brass: Birmingham (in catalog), Puerto Rico (this batch), Inis (in catalog). rec.games: El Grande, Samurai, Through the Desert, Taj Mahal, Torres, Mexica, Bridges of Shangri-La, Stephenson's Rocket, Tikal, Steam — Knizia/area-control classics, no direct catalog overlap.
+
+---
+
+## Sidereal Confluence (BGG 202426)
+
+**Scores:** [6, 8, 8, 10, 1, 10, 4, 0, 5, 4, 7, 4] · **Solo:** 0 · **Fiddly:** 7 · **Best:** [7P, 8P, 9P] · **Category:** social
+
+- Weight 6: BGG 3.4 but real-time chaos elevates effective weight. Same as Tigris & Euphrates (6).
+- Depth 8: huge optimization space, asymmetric races, but messy under time pressure.
+- Density 8: continuous decisions during trading phase.
+- Interaction 10: **README anchor** — every player trades with every other constantly. Root-class (10).
+- Conflict 1: **README anchor** — no attacks, save for late-game sabotage by one race.
+- Negotiation 10: pure-negotiation game, John-Company-class (10).
+- Input 4: racial setup, modest card variance.
+- Output 0.
+- Catchup 5.
+- Theme 4: aliens flavor, mechanics-driven.
+- Engine 7: converter engines compound across rounds.
+- Narrative 4: era arc through expansion.
+
+Predicted closest: John Company (in catalog — only direct catalog match for the Inter 10/Negotiation 10 quadrant), Cosmic Encounter (this batch), BotC. rec.games returns mostly off-target (Sigil, Glory to Rome, New Frontiers, Sol, etc.) — this game is in its own niche, sparse catalog overlap expected and present.
+
+---
+
+## Cosmic Encounter (BGG 39463)
+
+**Scores:** [3, 6, 5, 10, 7, 9, 7, 4, 5, 6, 3, 5] · **Solo:** 0 · **Fiddly:** 5 · **Best:** [4P, 5P, 6P] · **Category:** social
+
+- Weight 3: BGG 2.55. Catan-class (3).
+- Depth 6: power-driven, less optimization more politics.
+- Density 5.
+- Interaction 10: every encounter pulls in alliances; everyone's always involved.
+- Conflict 7: direct attacks, planet capture. Barrage-class (7).
+- Negotiation 9: **README anchor** — alliance-making is the core mechanic.
+- Input 7: encounter card draw is the variance.
+- Output 4: encounter reveal.
+- Catchup 5.
+- Theme 6: alien powers feel like alien powers — but heavily mechanics-driven.
+- Engine 3.
+- Narrative 5: each game tells a chaos story.
+
+Predicted closest: John Company, BotC, Sidereal Confluence (this batch). rec.games returns near-noise — Cosmic Encounter is sui generis and rec.games doesn't model it well; relying on our category + Inter/Negotiation neighbors instead.
+
+---
+
+## Hive (BGG 2655)
+
+**Scores:** [2, 9, 6, 10, 8, 0, 0, 0, 1, 2, 1, 0] · **Solo:** 0 · **Fiddly:** 0 · **Best:** [2P] · **Category:** filler
+
+- Weight 2: **README anchor** — canonical "elegance" example (vekt 2 / dybde 9).
+- Depth 9: **README anchor** — chess-class depth at weight 2.
+- Density 6.
+- Interaction 10: zero-sum 2P abstract; every move is direct response.
+- Conflict 8: capture-the-queen surround mechanic is direct; not 10 because no piece elimination in base game.
+- Negotiation 0.
+- Input 0: zero randomness.
+- Output 0: zero randomness.
+- Catchup 1: no rubber-band, you can be losing the whole game (chess-class).
+- Theme 2: abstract; insect theme is pure flavor.
+- Engine 1: no engine.
+- Narrative 0.
+
+Predicted closest: no perfect catalog match. The Crew (in catalog, fiddly 1) shares the elegance/low-fiddly profile but is co-op. Welcome To (in catalog, fiddly 1) is parallel-play. Most catalog games will rank far. Hive may end up isolated in the Standard lens — that's correct for an abstract this distinctive. rec.games: Onitama, Quoridor, YINSH, Quarto, Abalone, Tak, Santorini, ZÈRTZ, Hnefatafl, DVONN — pure abstract 2P cluster, undercatalogued.
+
+---
