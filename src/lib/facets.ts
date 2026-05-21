@@ -77,7 +77,9 @@ export function styleTags(g: Game): StyleTag[] {
 
   // Order matters: gameSubtitle() uses tags[0] as the primary descriptor,
   // so most-defining traits come first.
-  if (conflict === 0) tags.push("co-op");
+  // Co-op requires both no conflict AND meaningful interaction — Wingspan
+  // and Cascadia have conflict=0 but are parallel-play, not co-op.
+  if (conflict <= 1 && interaction >= 6) tags.push("co-op");
 
   const best = g.playerCount?.best ?? [];
   if (best.length === 1 && best[0] === "2P") tags.push("two-player-duel");
