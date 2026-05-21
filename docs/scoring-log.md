@@ -1176,3 +1176,228 @@ Predicted closest: John Company, BotC, Sidereal Confluence (this batch). rec.gam
 Predicted closest: no perfect catalog match. The Crew (in catalog, fiddly 1) shares the elegance/low-fiddly profile but is co-op. Welcome To (in catalog, fiddly 1) is parallel-play. Most catalog games will rank far. Hive may end up isolated in the Standard lens — that's correct for an abstract this distinctive. rec.games: Onitama, Quoridor, YINSH, Quarto, Abalone, Tak, Santorini, ZÈRTZ, Hnefatafl, DVONN — pure abstract 2P cluster, undercatalogued.
 
 ---
+
+## Batch 07 — cluster fan-out (2026-05-21)
+
+10 games added: Caylus, Saint Petersburg, Innovation, Res Arcana, Glory to Rome, Vinhos Deluxe, Carnegie, El Grande, Onitama, Santorini. Catalog grows 83 → 93.
+
+Fans out across four tracks that batch 06 opened:
+- **Old-school heavy euro:** Caylus + Saint Petersburg (paired with Puerto Rico/Le Havre/Power Grid)
+- **RftG tableau cluster:** Innovation + Res Arcana + Glory to Rome (Race for the Galaxy now has real catalog neighbors)
+- **Abstract 2P:** Onitama + Santorini (paired with Hive — first three-game abstract cluster in catalog)
+- **Lacerda completion:** Vinhos Deluxe (the missing classic Lacerda) + Carnegie (Lacerda-adjacent Suchý-style)
+- **Knizia/area-control:** El Grande (paired with Tigris & Euphrates)
+
+Schema note: `category` and `categoryLabel` were removed from the `Game` type between batches; new entries here omit those fields. Section header comments in `games.ts` remain as code-structure hints only.
+
+---
+
+## Caylus (BGG 18602)
+
+**Scores:** [7, 9, 6, 8, 3, 1, 2, 0, 4, 5, 7, 3] · **Solo:** 0 · **Fiddly:** 6 · **Best:** [3P, 4P]
+
+- Weight 7: BGG 3.9.
+- Depth 9: original worker placement; deep building/income optimization.
+- Density 6.
+- Interaction 8: provost manipulation + shared building actions are the heart of the game. Higher than typical euros — closer to Puerto Rico (8).
+- Conflict 3: provost-blocking is structural hostility.
+- Negotiation 1.
+- Input 2: very low randomness, no card draw to speak of.
+- Output 0: fully deterministic.
+- Catchup 4.
+- Theme 5.
+- Engine 7: building chain compounds across rounds.
+- Narrative 3.
+
+Predicted closest: Puerto Rico, Power Grid, Le Havre (in catalog). rec.games: Goa, Princes of Florence, Puerto Rico ✓, In the Year of the Dragon, Le Havre ✓, Navegador, Tzolk'in, Notre Dame, Hansa Teutonica, Endeavor — two catalog hits in top 10.
+
+---
+
+## Saint Petersburg (BGG 9217)
+
+**Scores:** [4, 7, 5, 7, 2, 0, 5, 0, 5, 3, 7, 2] · **Solo:** 0 · **Fiddly:** 3 · **Best:** [3P, 4P]
+
+- Weight 4: BGG 2.5.
+- Depth 7: tight market-timing optimization.
+- Density 5.
+- Interaction 7: shared card market with sniping; tighter than Splendor (5). Card-supply is contended directly.
+- Conflict 2.
+- Negotiation 0.
+- Input 5: card market refresh drives turn-to-turn variance.
+- Output 0.
+- Catchup 5.
+- Theme 3: pasted-on.
+- Engine 7: economy compounds across phases.
+- Narrative 2.
+
+Predicted closest: Splendor, Concordia, Wingspan, Castles of Burgundy (in catalog). rec.games: Princes of Florence, Goa, San Juan, Notre Dame, Yspahan, San Juan 2E, Endeavor, Glen More, London, Pillars of the Earth — old-school euro, no direct catalog hits (cluster opportunity).
+
+---
+
+## Innovation (BGG 63888)
+
+**Scores:** [5, 9, 8, 7, 5, 0, 8, 2, 5, 4, 9, 4] · **Solo:** 0 · **Fiddly:** 5 · **Best:** [2P, 3P]
+
+- Weight 5: BGG 2.9 but icon density bumps effective complexity to Concordia-class.
+- Depth 9: Chudyk-deep — dogma combos chain wildly. Class with Brass (10).
+- Density 8: triggering combos per turn keeps you constantly making big choices.
+- Interaction 7: shared/demand dogmas force other players to act; heavier than RftG (3).
+- Conflict 5: "you steal" / "you transfer" dogmas are direct hostile actions.
+- Negotiation 0.
+- Input 8: card draw from age-piles is the game's variance engine. Heavier than RftG (7).
+- Output 2.
+- Catchup 5.
+- Theme 4: civilization flavor on cards, mechanics-first.
+- Engine 9: explosive late-age combos. Near-RftG (10) but capped by takeover possibility.
+- Narrative 4: civilization era arc.
+
+Predicted closest: Race for the Galaxy (in catalog — confirmed by rec.games), Glory to Rome (this batch), Through the Ages. rec.games: Glory to Rome ✓ (this batch), Impulse, Mottainai, Aegean Sea, RftG ✓, It's a Dog's Life, Urban Sprawl, Foolmania, Roll for the Galaxy, Moonsun — RftG and Glory to Rome both in top 10, cluster confirmed.
+
+---
+
+## Res Arcana (BGG 262712)
+
+**Scores:** [4, 7, 7, 5, 2, 0, 4, 1, 4, 5, 8, 3] · **Solo:** 0 · **Fiddly:** 4 · **Best:** [2P, 3P]
+
+- Weight 4: BGG 2.55.
+- Depth 7: starting hand + deck assembly are deep — the puzzle is fixed-deck optimization.
+- Density 7: tight 8-card decks make every turn a real choice.
+- Interaction 5: shared monuments + places of power create sniping.
+- Conflict 2: attack spells exist but rarely game-defining.
+- Negotiation 0.
+- Input 4: monument draw is limited variance.
+- Output 1.
+- Catchup 4.
+- Theme 5: mage theme works through artifact identities.
+- Engine 8: pure engine builder with explosive combo turns.
+- Narrative 3.
+
+Predicted closest: Race for the Galaxy, Splendor, Wingspan (in catalog), Innovation (this batch). rec.games: Paper Tales, Shards of Infinity, New Frontiers, It's a Wonderful World, Jump Drive, Imperial Settlers EotN, TM:AE, Radlands, Splendor Duel, Dale of Merchants — quick-deckbuilder cluster, no direct catalog hits but adjacent to RftG/Splendor.
+
+---
+
+## Glory to Rome (BGG 19857)
+
+**Scores:** [5, 9, 7, 8, 5, 0, 7, 1, 4, 5, 8, 4] · **Solo:** 0 · **Fiddly:** 5 · **Best:** [3P, 4P]
+
+- Weight 5: BGG 3.05.
+- Depth 9: Chudyk-deep — the cards are everything, multi-use, deeply interactive.
+- Density 7.
+- Interaction 8: follow/lead mechanic + shared pool + steal effects make every turn affect everyone.
+- Conflict 5: Legionary steals, Architect/Craftsman triggers cascade.
+- Negotiation 0.
+- Input 7: card draw from the deck drives variance.
+- Output 1.
+- Catchup 4.
+- Theme 5.
+- Engine 8: card combos accelerate brutally.
+- Narrative 4.
+
+Predicted closest: Innovation (this batch), Race for the Galaxy (in catalog). rec.games: Innovation ✓ (this batch), RftG ✓, Impulse, Hauntsville, Fleet, Lupus, Sidereal Confluence ✓ (in catalog), Archipelago, Hansa Teutonica, Keyflower — three catalog hits, RftG/Chudyk cluster confirmed.
+
+---
+
+## Vinhos: Deluxe Edition (BGG 175640)
+
+**Scores:** [9, 10, 8, 6, 3, 2, 5, 1, 4, 8, 8, 5] · **Solo:** 7 · **Fiddly:** 9 · **Best:** [3P, 4P]
+
+- Weight 9: BGG 4.4. Lacerda heavy, identical score profile to The Gallerist by design (both classic Lacerdas of similar weight, similar interaction footprint).
+- Depth 10.
+- Density 8.
+- Interaction 6: shared market + fair-presentations contested. Lisboa/Gallerist-class.
+- Conflict 3.
+- Negotiation 2.
+- Input 5.
+- Output 1.
+- Catchup 4.
+- Theme 8: wine production well-evoked through regional differences and aging.
+- Engine 8.
+- Narrative 5.
+
+Predicted closest: The Gallerist, Lisboa, Kanban EV, On Mars, Speakeasy (all in catalog). rec.games: Gallerist ✓, Lisboa ✓, Kanban, Kanban EV ✓, Trickerion, On Mars ✓, Carnegie ✓ (this batch), CO2, Coffee Traders, Clinic — five catalog hits in top 10, Lacerda cluster now densely populated.
+
+---
+
+## Carnegie (BGG 310873)
+
+**Scores:** [8, 9, 7, 5, 2, 0, 4, 1, 4, 6, 8, 4] · **Solo:** 7 · **Fiddly:** 8 · **Best:** [2P, 3P, 4P]
+
+- Weight 8: BGG 4.0 but the multi-effect action-loop bumps real weight up to Brass (8) / Caverna (8) class.
+- Depth 9.
+- Density 7.
+- Interaction 5: shared spots + route contention. Lighter than Lacerdas because no overt social-pressure mechanics.
+- Conflict 2.
+- Negotiation 0.
+- Input 4.
+- Output 1.
+- Catchup 4.
+- Theme 6: industrialist empire-building works but is one layer of abstraction beyond what Lacerda achieves with similar themes.
+- Engine 8: industrial growth ramps hard.
+- Narrative 4.
+
+Predicted closest: Caverna, Le Havre, Feast for Odin (in catalog), Vinhos Deluxe (this batch). rec.games: Darwin's Journey, Kanban EV ✓ (in catalog), Coffee Traders, Nucleum, Praga ✓ (in catalog), Boonlake, Golem, Messina 1347, Merv, GWT: Argentina — Suchý-Wallace mid-heavy cluster.
+
+---
+
+## El Grande (BGG 93)
+
+**Scores:** [5, 8, 6, 9, 5, 1, 3, 0, 4, 5, 4, 4] · **Solo:** 0 · **Fiddly:** 4 · **Best:** [4P, 5P]
+
+- Weight 5: BGG 3.05.
+- Depth 8: deep area-control optimization at modest weight.
+- Density 6.
+- Interaction 9: area majority is constant contention; every Caballero placement matters to every other player.
+- Conflict 5: aggressive Caballero placement, secret Castillo reveal.
+- Negotiation 1.
+- Input 3: card draw modest.
+- Output 0: fully deterministic.
+- Catchup 4.
+- Theme 5.
+- Engine 4: not an engine-builder.
+- Narrative 4: three scoring rounds give an arc.
+
+Predicted closest: Tigris & Euphrates, Puerto Rico (in catalog — both old-school high-Inter classics). rec.games: Samurai, Taj Mahal, Ra, Tikal, T&E ✓ (in catalog), Mexica, Amun-Re, Modern Art, Santiago, Through the Desert — Knizia-classic cluster, one catalog hit.
+
+---
+
+## Onitama (BGG 160477)
+
+**Scores:** [2, 7, 7, 10, 7, 0, 2, 0, 2, 2, 1, 0] · **Solo:** 0 · **Fiddly:** 1 · **Best:** [2P]
+
+- Weight 2: BGG 1.7. Same as Hive (2).
+- Depth 7: tactical depth from card-rotation; less deep than Hive (9) because the move space is smaller.
+- Density 7.
+- Interaction 10: 2P abstract, every move responds.
+- Conflict 7: capture mechanic + stone-vs-stream dual win condition. Less than Hive's queen-surround (8).
+- Negotiation 0.
+- Input 2: starting move cards are dealt randomly — minor variance per game.
+- Output 0.
+- Catchup 2.
+- Theme 2.
+- Engine 1.
+- Narrative 0.
+
+Predicted closest: Hive (in catalog), Santorini (this batch). rec.games: Santorini ✓ (this batch), Hive ✓ (in catalog), Quarto, Quoridor, Tak, Pentago, SHŌBU, YINSH, Hanamikoji, Battle Sheep — abstract 2P cluster, two catalog hits.
+
+---
+
+## Santorini (BGG 194655)
+
+**Scores:** [2, 6, 6, 10, 5, 0, 0, 0, 2, 3, 1, 0] · **Solo:** 0 · **Fiddly:** 1 · **Best:** [2P]
+
+- Weight 2: BGG 1.7.
+- Depth 6: tactical but less deep than Hive/Onitama because the win condition is more constrained.
+- Density 6.
+- Interaction 10: 2P spatial puzzle, every move responds.
+- Conflict 5: blocking is the main hostility; no capture in base game.
+- Negotiation 0.
+- Input 0: zero randomness in base game (god powers are pre-game variance).
+- Output 0.
+- Catchup 2.
+- Theme 3: Greek towers theme integrates into the win-by-climbing condition lightly.
+- Engine 1.
+- Narrative 0.
+
+Predicted closest: Onitama (this batch), Hive (in catalog). rec.games: Onitama ✓ (this batch), Hive ✓ (in catalog), Specter Ops, Raptor, Tak, Photosynthesis, YINSH, Mr. Jack, Quoridor, Mr. Jack in New York — abstract 2P cluster, two catalog hits.
+
+---
