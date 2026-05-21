@@ -730,3 +730,227 @@ Predicted closest: Sleeping Gods, Tainted Grail, Earthborne Rangers, Arkham LCG 
 Predicted closest: Earthborne Rangers, Tainted Grail, Pandemic Legacy, Arydia (this batch). rec.games returns weak data (small thematic games, mostly off-target) — confidence is lower here. Catalog neighbors should still cluster solidly in the campaign-coop space.
 
 ---
+
+## Batch 05 — Priority 3 hub games (2026-05-21)
+
+10 games added: Maracaibo, Great Western Trail, Underwater Cities, Paladins of the West Kingdom, Lisboa, On Mars, Kanban EV, Dune: Imperium, Food Chain Magnate, Age of Steam. Catalog grows 63 → 73.
+
+Selection logic: recurring "fans also like" hubs across the Priority-1/2 rec.games clusters + three Lacerdas to anchor the Speakeasy neighborhood that batch 04 opened. BGG XML is still 401-gated; all scoring done from rulebook/review knowledge + recommend.games cluster signals.
+
+Sub-clusters now well-represented in the catalog:
+- **Lacerda heavy-euro:** Speakeasy + Lisboa + On Mars + Kanban EV
+- **Pfister/Suchý/Garphill mid-weight euro:** Maracaibo + GWT + UWC + Paladins (these all cluster tightly via rec.games)
+- **Splotter brutal economic:** Food Chain Magnate + Age of Steam (with Brass: Birmingham + Brass: Lancashire already in catalog as the bridge)
+- **Deckbuilder hybrids:** Dune: Imperium + Lost Ruins of Arnak + Beyond the Sun
+
+---
+
+## Maracaibo (BGG 276025)
+
+**Scores:** [7, 9, 6, 5, 2, 0, 6, 1, 4, 6, 8, 5] · **Solo:** 8 · **Fiddly:** 7 · **Best:** [2P, 3P, 4P] · **Category:** heavy-euro
+
+- Weight 7: BGG 3.9. Same class as Ark Nova (7), GWT (7).
+- Depth 9: Pfister-deep — multiple viable strategies (combat, quest, city influence). Class of Brass (10) / Through the Ages (10).
+- Density 6.
+- Interaction 5: alliance contention + shared spots on the rondel-loop board; TM-class (3) but slightly higher.
+- Conflict 2: minimal direct combat.
+- Negotiation 0.
+- Input 6: card draw drives nation/quest variance.
+- Output 1: deterministic.
+- Catchup 4.
+- Theme 6: pasted-on Caribbean, mechanics-first.
+- Engine 8.
+- Narrative 5: campaign mode adds session-to-session arc.
+
+Predicted closest: GWT (this batch), Ark Nova, SETI, UWC (this batch). rec.games cluster (Praga, Marco Polo II, Teotihuacan, UWC ✓, Newton, Tekhenu, Boonlake, Paladins ✓, GWT ✓) is exactly the Pfister/Suchý/Garphill hub — this batch covers four of its members directly.
+
+---
+
+## Great Western Trail (BGG 193738)
+
+**Scores:** [7, 9, 6, 5, 2, 0, 5, 1, 5, 7, 8, 4] · **Solo:** 8 · **Fiddly:** 6 · **Best:** [3P, 4P] · **Category:** heavy-euro
+
+- Weight 7: BGG 3.7.
+- Depth 9: extremely deep — engineer, building, cattle, KC delivery, all viable.
+- Density 6.
+- Interaction 5: shared buildings + hazards on the trail.
+- Conflict 2: hazard blocking.
+- Negotiation 0.
+- Input 5: cattle market and card draw.
+- Output 1.
+- Catchup 5.
+- Theme 7: cattle drive really feels like a cattle drive (Pfister hallmark). Higher than Maracaibo's pasted-on Caribbean.
+- Engine 8: deck quality ramps hard, building chains compound.
+- Narrative 4.
+
+Predicted closest: Maracaibo (this batch), Ark Nova, UWC (this batch), Gaia Project (in catalog). rec.games returns Maracaibo, Mombasa, Marco Polo II, Teotihuacan, UWC ✓, Lorenzo, Gaia ✓, Marco Polo, Blackout, Hallertau — confirms the hub status.
+
+---
+
+## Underwater Cities (BGG 247763)
+
+**Scores:** [7, 8, 6, 5, 2, 0, 6, 1, 4, 4, 8, 3] · **Solo:** 8 · **Fiddly:** 6 · **Best:** [2P, 3P] · **Category:** heavy-euro
+
+- Weight 7: BGG 3.4.
+- Depth 8: card-matching puzzle is deep, three eras of escalating capability.
+- Density 6.
+- Interaction 5: shared worker spots.
+- Conflict 2.
+- Negotiation 0.
+- Input 6: card draw is the engine of variance.
+- Output 1.
+- Catchup 4.
+- Theme 4: underwater cities mostly aesthetic. Tapestry-class pasted-on (3).
+- Engine 8: clear three-era ramp.
+- Narrative 3.
+
+Predicted closest: Maracaibo, GWT, Paladins (all this batch), Ark Nova. rec.games: Praga, Maracaibo ✓, Newton, Pulsar, Coimbra, Paladins ✓, Teotihuacan, Marco Polo II, Lorenzo, Darwin's Journey.
+
+---
+
+## Paladins of the West Kingdom (BGG 266810)
+
+**Scores:** [7, 8, 7, 4, 1, 0, 6, 1, 4, 5, 8, 3] · **Solo:** 7 · **Fiddly:** 7 · **Best:** [2P, 3P, 4P] · **Category:** heavy-euro
+
+- Weight 7: BGG 3.8.
+- Depth 8: optimization puzzle, depth from action chaining + worker color matching.
+- Density 7: dense turns, lots packed in.
+- Interaction 4: parallel-play heavy — Wingspan-class.
+- Conflict 1.
+- Negotiation 0.
+- Input 6: paladin draw + worker market.
+- Output 1.
+- Catchup 4.
+- Theme 5.
+- Engine 8: ramp via paladins + workshops + suppression chain.
+- Narrative 3.
+
+Predicted closest: Maracaibo, UWC, GWT (all this batch), Ark Nova. rec.games: Viscounts (sibling), Maracaibo ✓, Teotihuacan, UWC ✓, Rajas, Praga, Coimbra, Tekhenu, Wayfarers, Altiplano.
+
+---
+
+## Lisboa (BGG 161533)
+
+**Scores:** [9, 10, 8, 6, 3, 2, 5, 1, 4, 8, 8, 5] · **Solo:** 6 · **Fiddly:** 9 · **Best:** [3P, 4P] · **Category:** heavy-euro
+
+- Weight 9: BGG 4.6. Same class as Voidfall (9), Speakeasy (9), Through the Ages (9).
+- Depth 10: extremely deep — many viable engines (building, ships, royal court).
+- Density 8: Lacerda multi-effect actions.
+- Interaction 6: shared officials + market shifts. Heavier than TM (3), lighter than Brass (10). Slightly less than Speakeasy (7) — no alliance-bidding.
+- Conflict 3: market manipulation as indirect hostility.
+- Negotiation 2: minor.
+- Input 5: card-driven officials reveal.
+- Output 1: deterministic (Lacerda hallmark).
+- Catchup 4.
+- Theme 8: Lisbon rebuilding integrates into mechanics — royal favors, church, commerce. Brass-class.
+- Engine 8.
+- Narrative 5: era arc.
+
+Predicted closest: Speakeasy, On Mars + Kanban EV (this batch), Voidfall (in catalog), Brass (in catalog). rec.games: Gallerist, Kanban EV ✓, Vinhos, On Mars ✓, Kanban, Trickerion, Carnegie, Weather Machine, CO2, Coffee Traders — Lacerda cluster.
+
+---
+
+## On Mars (BGG 184267)
+
+**Scores:** [10, 10, 8, 6, 3, 2, 5, 1, 4, 7, 9, 5] · **Solo:** 8 · **Fiddly:** 9 · **Best:** [3P, 4P] · **Category:** heavy-euro
+
+- Weight 10: BGG 4.7, heaviest Lacerda. Class of TI4 (10).
+- Depth 10: massive decision tree — orbit vs. surface, contracts, factions.
+- Density 8.
+- Interaction 6: shared spots + contract competition. Lisboa-class.
+- Conflict 3.
+- Negotiation 2.
+- Input 5.
+- Output 1.
+- Catchup 4.
+- Theme 7: Mars colonization feels appropriate but is one layer of abstraction beyond Lisboa.
+- Engine 9: massive engine through colony progression — class of TM (9).
+- Narrative 5: era flips between orbit and Mars phases.
+
+Predicted closest: Lisboa, Kanban EV, Speakeasy, Voidfall. rec.games: Kanban EV ✓, Lisboa ✓, Gallerist, Weather Machine, Trickerion, Vinhos, Kanban, Carnegie, Perseverance, Inventions.
+
+---
+
+## Kanban EV (BGG 284378)
+
+**Scores:** [9, 10, 9, 7, 3, 2, 4, 1, 4, 8, 8, 5] · **Solo:** 8 · **Fiddly:** 9 · **Best:** [3P, 4P] · **Category:** heavy-euro
+
+- Weight 9: BGG 4.6.
+- Depth 10: tight efficiency puzzle.
+- Density 9: highest density of the Lacerdas — every action triggers many effects.
+- Interaction 7: highest in the Lacerda cluster because of the performance-review meeting (Sandra). Players are openly competing for evaluation.
+- Conflict 3.
+- Negotiation 2.
+- Input 4: lowest input randomness of the Lacerdas.
+- Output 1.
+- Catchup 4.
+- Theme 8: factory pressure feels real, Sandra is genuinely intimidating.
+- Engine 8.
+- Narrative 5.
+
+Predicted closest: Lisboa, On Mars (this batch), Speakeasy. rec.games: Lisboa ✓, On Mars ✓, Gallerist, Vinhos, Carnegie, Weather Machine, Coffee Traders, Trickerion, Clinic, Darwin's Journey — pure Lacerda cluster.
+
+---
+
+## Dune: Imperium (BGG 316554)
+
+**Scores:** [5, 7, 6, 7, 5, 2, 7, 4, 5, 7, 7, 4] · **Solo:** 8 · **Fiddly:** 5 · **Best:** [3P, 4P] · **Category:** geek
+
+- Weight 5: BGG 3.0. Same class as Molly House (5) / Concordia (5). Genuinely mid-weight despite the deckbuilding label.
+- Depth 7: meaningful deckbuilding + leader choices, but it's a tight game.
+- Density 6.
+- Interaction 7: shared worker spots, combat zone, intrigue cards interact. Heavier than typical euros — earns geek category.
+- Conflict 5: combat is direct and decisive. Brass-class (5).
+- Negotiation 2: minor.
+- Input 7: card draw is heavy — you draw 5/round and they drive what you can do. TM-class (9) but a step lower.
+- Output 4: combat reveal + intrigue card reveals.
+- Catchup 5: intrigue cards as a rubber-band.
+- Theme 7: Dune theme well-evoked through leader powers, Sardaukar, spice trade.
+- Engine 7: deckbuilding engine arc.
+- Narrative 4.
+
+Predicted closest: Beyond the Sun (in catalog), Lost Ruins of Arnak (in catalog), Marvel Champions (in catalog). rec.games: Beyond the Sun ✓, LotR Duel for Middle-earth, Dwellings of Eldervale, Star Wars Deckbuilder, Radlands, Clank Catacombs, Lost Ruins of Arnak ✓ — strong signal, two direct catalog hits.
+
+---
+
+## Food Chain Magnate (BGG 175914)
+
+**Scores:** [8, 10, 8, 10, 6, 0, 1, 0, 2, 7, 6, 4] · **Solo:** 0 · **Fiddly:** 7 · **Best:** [4P, 5P] · **Category:** geek
+
+- Weight 8: BGG 4.2. Same class as Brass (8) / Caverna (8).
+- Depth 10: extremely deep — multiple viable strategies + tight market manipulation. Brass-class.
+- Density 8.
+- Interaction 10: maximum economic friction — every move ripples to every player. Brass-Birmingham-class (10). The defining FCM trait.
+- Conflict 6: undercutting, blocking, marketing wars. Aggressive but not direct attacks; higher than Brass (5) because price wars are explicitly hostile.
+- Negotiation 0: no formal negotiation; markets resolve everything.
+- Input 1: minimal randomness — initial scenario card and that's it. Chess-class (0).
+- Output 0: fully deterministic.
+- Catchup 2: weak — runaway leader is real if you nail the first marketing campaign. Risk-class (2).
+- Theme 7: fast food and corporate hierarchy theme well-baked in.
+- Engine 6: more positional/structural than engine — your corporate tree IS your power.
+- Narrative 4: era of expansion within a session.
+
+Predicted closest: Brass: Birmingham (in catalog), Brass: Lancashire (in catalog), Age of Steam (this batch). rec.games: Great Zimbabwe, Age of Steam ✓, Indonesia, Bus, 1830, Antiquity, Shikoku, Roads & Boats, Container, Dominant Species — Splotter / heavy economic / 18xx cluster.
+
+---
+
+## Age of Steam (BGG 4098)
+
+**Scores:** [8, 9, 7, 9, 5, 2, 1, 0, 3, 6, 7, 3] · **Solo:** 3 · **Fiddly:** 6 · **Best:** [4P, 5P] · **Category:** geek
+
+- Weight 8: BGG 3.9 but Wallace-brutal — community weight understates it for newcomers. Same class as Brass (8).
+- Depth 9: deep but more constrained than Brass — turn structure is rigid.
+- Density 7.
+- Interaction 9: shared track network + share auction + delivery routes that interlock. Brass-class but just under (10).
+- Conflict 5: aggressive blocking + undercutting deliveries; Brass-class.
+- Negotiation 2: minor.
+- Input 1: very low randomness — goods cubes refresh.
+- Output 0: deterministic.
+- Catchup 3: weak rubber-band; bankruptcy is real and unforgiving.
+- Theme 6: rail theme functional, less narrative than Brass.
+- Engine 7: locomotive upgrades + tile network.
+- Narrative 3.
+
+Predicted closest: Brass: Birmingham, Brass: Lancashire (both in catalog), Food Chain Magnate (this batch). rec.games: Great Zimbabwe, Indonesia, Bus, 1830, Brass: Lancashire ✓, Shikoku, 18Chesapeake, FCM ✓, 1860, 1846 — Brass is the direct catalog hit from the rec.games top 10.
+
+---
