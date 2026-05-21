@@ -23,10 +23,10 @@
   --weight-epic:   #8957e5;
 
   /* branches */
-  --branch-tanke:       #58a6ff;
-  --branch-interaksjon: #f78166;
-  --branch-flaks:       #d4a458;
-  --branch-opplevelse:  #8957e5;
+  --branch-thinking:    #58a6ff;
+  --branch-interaction: #f78166;
+  --branch-luck:        #d4a458;
+  --branch-experience:  #8957e5;
 }
 
 @theme inline {
@@ -41,10 +41,10 @@
   --color-steel: var(--steel);
   --color-gold: var(--gold);
   --color-success: var(--success);
-  --color-branch-tanke: var(--branch-tanke);
-  --color-branch-interaksjon: var(--branch-interaksjon);
-  --color-branch-flaks: var(--branch-flaks);
-  --color-branch-opplevelse: var(--branch-opplevelse);
+  --color-branch-thinking: var(--branch-thinking);
+  --color-branch-interaction: var(--branch-interaction);
+  --color-branch-luck: var(--branch-luck);
+  --color-branch-experience: var(--branch-experience);
 
   --font-serif: var(--font-newsreader), Georgia, serif;
   --font-mono:  var(--font-jetbrains-mono), ui-monospace, monospace;

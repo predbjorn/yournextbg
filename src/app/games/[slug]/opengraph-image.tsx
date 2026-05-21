@@ -6,6 +6,7 @@
 import { ImageResponse } from "next/og";
 import { AXES, BRANCHES, type Branch } from "@/lib/scoring";
 import { GAMES, getGameBySlug } from "@/data/games";
+import { gameSubtitle } from "@/lib/facets";
 
 export const alt = "Board game 12-axis profile";
 export const size = { width: 1200, height: 630 };
@@ -18,12 +19,12 @@ const INK_DIM = "#8b949e";
 const INK_MUTE = "#6e7681";
 const BORDER = "#2d333b";
 
-const BRANCH_ORDER: Branch[] = ["tanke", "interaksjon", "flaks", "opplevelse"];
+const BRANCH_ORDER: Branch[] = ["thinking", "interaction", "luck", "experience"];
 const BRANCH_LABEL: Record<Branch, string> = {
-  tanke: "Tanke",
-  interaksjon: "Interaksjon",
-  flaks: "Flaks",
-  opplevelse: "Opplevelse",
+  thinking: "Thinking",
+  interaction: "Interaction",
+  luck: "Luck",
+  experience: "Experience",
 };
 
 function branchAverage(scores: readonly number[], branch: Branch): number {
@@ -77,8 +78,8 @@ export default async function OG({ params }: { params: Promise<{ slug: string }>
             borderBottom: `1px solid ${BORDER}`,
           }}
         >
-          <span style={{ color: BRANCHES.interaksjon.color }}>yournextbg</span>
-          <span>{game.categoryLabel}</span>
+          <span style={{ color: BRANCHES.interaction.color }}>yournextbg</span>
+          <span>{gameSubtitle(game)}</span>
         </div>
 
         {/* Game name */}

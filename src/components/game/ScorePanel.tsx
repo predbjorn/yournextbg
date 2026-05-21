@@ -7,13 +7,13 @@ import { AXES, BRANCHES, type Branch } from "@/lib/scoring";
 import type { Game } from "@/data/types";
 import type { BranchProse } from "@/lib/seo/prose";
 
-const BRANCH_ORDER: Branch[] = ["tanke", "interaksjon", "flaks", "opplevelse"];
+const BRANCH_ORDER: Branch[] = ["thinking", "interaction", "luck", "experience"];
 
 const BRANCH_EMOJI: Record<Branch, string> = {
-  tanke: "🧠",
-  interaksjon: "⚔️",
-  flaks: "🎲",
-  opplevelse: "🎭",
+  thinking: "🧠",
+  interaction: "⚔️",
+  luck: "🎲",
+  experience: "🎭",
 };
 
 interface ScorePanelProps {

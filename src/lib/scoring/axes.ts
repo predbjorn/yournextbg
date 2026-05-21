@@ -5,21 +5,21 @@
  * The order of AXES is load-bearing: score vectors index by position.
  */
 
-export type Branch = "tanke" | "interaksjon" | "flaks" | "opplevelse";
+export type Branch = "thinking" | "interaction" | "luck" | "experience";
 
 export type AxisKey =
-  | "vekt"
-  | "dybde"
+  | "weight"
+  | "depth"
   | "density"
-  | "inter"
-  | "konflikt"
-  | "forhandl"
+  | "interaction"
+  | "conflict"
+  | "negotiation"
   | "input"
   | "output"
-  | "innhente"
-  | "tema"
-  | "motor"
-  | "narrativ";
+  | "catchup"
+  | "theme"
+  | "engine"
+  | "narrative";
 
 export interface Axis {
   key: AxisKey;
@@ -30,25 +30,25 @@ export interface Axis {
 }
 
 export const AXES: readonly Axis[] = [
-  // TANKE — cognition
-  { key: "vekt",     label: "Vekt",     branch: "tanke",       diffExplanation: "more rules to digest, higher learning curve" },
-  { key: "dybde",    label: "Dybde",    branch: "tanke",       diffExplanation: "deeper decision tree, higher skill ceiling" },
-  { key: "density",  label: "Density",  branch: "tanke",       diffExplanation: "more meaningful choices per minute, more brain-burn" },
+  // THINKING — cognition
+  { key: "weight",      label: "Weight",      branch: "thinking",    diffExplanation: "more rules to digest, higher learning curve" },
+  { key: "depth",       label: "Depth",       branch: "thinking",    diffExplanation: "deeper decision tree, higher skill ceiling" },
+  { key: "density",     label: "Density",     branch: "thinking",    diffExplanation: "more meaningful choices per minute, more brain-burn" },
 
-  // INTERAKSJON — multiplayer effect
-  { key: "inter",    label: "Inter",    branch: "interaksjon", diffExplanation: "players affect each other's plans more, less solitaire" },
-  { key: "konflikt", label: "Konflikt", branch: "interaksjon", diffExplanation: "more direct attacks, friendships tested" },
-  { key: "forhandl", label: "Forhandl", branch: "interaksjon", diffExplanation: "table talk required, diplomacy is mandatory" },
+  // INTERACTION — multiplayer effect
+  { key: "interaction", label: "Interaction", branch: "interaction", diffExplanation: "players affect each other's plans more, less solitaire" },
+  { key: "conflict",    label: "Conflict",    branch: "interaction", diffExplanation: "more direct attacks, friendships tested" },
+  { key: "negotiation", label: "Negotiation", branch: "interaction", diffExplanation: "table talk required, diplomacy is mandatory" },
 
-  // FLAKS — variance
-  { key: "input",    label: "Input",    branch: "flaks",       diffExplanation: "more card/setup luck to plan around" },
-  { key: "output",   label: "Output",   branch: "flaks",       diffExplanation: "more dice/reveal luck, plans can be upended" },
-  { key: "innhente", label: "Innhente", branch: "flaks",       diffExplanation: "stronger catch-up, no runaway leader" },
+  // LUCK — variance
+  { key: "input",       label: "Input",       branch: "luck",        diffExplanation: "more card/setup luck to plan around" },
+  { key: "output",      label: "Output",      branch: "luck",        diffExplanation: "more dice/reveal luck, plans can be upended" },
+  { key: "catchup",     label: "Catch-up",    branch: "luck",        diffExplanation: "stronger catch-up, no runaway leader" },
 
-  // OPPLEVELSE — experience
-  { key: "tema",     label: "Tema",     branch: "opplevelse",  diffExplanation: "theme is baked into the mechanics" },
-  { key: "motor",    label: "Motor",    branch: "opplevelse",  diffExplanation: "stronger engine-combo arc, explosive late-game turns" },
-  { key: "narrativ", label: "Narrativ", branch: "opplevelse",  diffExplanation: "tells a story, consequences persist" },
+  // EXPERIENCE
+  { key: "theme",       label: "Theme",       branch: "experience",  diffExplanation: "theme is baked into the mechanics" },
+  { key: "engine",      label: "Engine",      branch: "experience",  diffExplanation: "stronger engine-combo arc, explosive late-game turns" },
+  { key: "narrative",   label: "Narrative",   branch: "experience",  diffExplanation: "tells a story, consequences persist" },
 ] as const;
 
 export const AXIS_COUNT = AXES.length;
@@ -62,10 +62,10 @@ export type ScoreVector = readonly [
 ];
 
 export const BRANCHES: Record<Branch, { label: string; color: string; tagline: string }> = {
-  tanke:       { label: "Tanke",       color: "#58a6ff", tagline: "how much brainwork?" },
-  interaksjon: { label: "Interaksjon", color: "#f78166", tagline: "how multiplayer is the multiplayer?" },
-  flaks:       { label: "Flaks",       color: "#d4a458", tagline: "where does luck live?" },
-  opplevelse:  { label: "Opplevelse",  color: "#8957e5", tagline: "how does it feel?" },
+  thinking:    { label: "Thinking",    color: "#58a6ff", tagline: "how much brainwork?" },
+  interaction: { label: "Interaction", color: "#f78166", tagline: "how multiplayer is the multiplayer?" },
+  luck:        { label: "Luck",        color: "#d4a458", tagline: "where does luck live?" },
+  experience:  { label: "Experience",  color: "#8957e5", tagline: "how does it feel?" },
 };
 
 export function axisByKey(key: AxisKey): Axis {

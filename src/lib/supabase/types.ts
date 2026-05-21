@@ -8,14 +8,12 @@
  */
 
 import type { ScoreVector } from "@/lib/scoring";
-import type { Category, PlayerCount } from "@/data/types";
+import type { PlayerCount } from "@/data/types";
 
 export interface DbGame {
   id: string;
   slug: string;
   name: string;
-  category: Category;
-  category_label: string;
   bgg_id: number | null;
   scores: ScoreVector;
   solo: number;

@@ -13,20 +13,44 @@ import {
 } from "@/lib/scoring";
 import { GAMES, getGame } from "@/data/games";
 import { getBggRef } from "@/data/bgg-refs";
-import type { Category, Game } from "@/data/types";
+import type { Game } from "@/data/types";
+import {
+  WEIGHT_CLASSES,
+  PLAYER_FITS,
+  STYLE_TAGS,
+  weightClass,
+  playerFits,
+  styleTags,
+  gameSubtitle,
+  type WeightClass,
+  type PlayerFit,
+  type StyleTag,
+} from "@/lib/facets";
 import { Radar } from "./Radar";
 
-const CATEGORIES: { key: Category; label: string }[] = [
-  { key: "owned", label: "Owned" },
-  { key: "heavy-euro", label: "Heavy Euros" },
-  { key: "geek", label: "Geek-gjengen" },
-  { key: "social", label: "Social" },
-  { key: "filler", label: "Filler & dice" },
-  { key: "2p-epic", label: "Long 2P epics" },
-  { key: "solo", label: "Solo" },
-];
-
 const TOP_N = 10;
+
+interface Facets {
+  weight: Set<WeightClass>;
+  players: Set<PlayerFit>;
+  style: Set<StyleTag>;
+}
+
+function matchesFacets(g: Game, f: Facets, search: string): boolean {
+  if (f.weight.size > 0 && !f.weight.has(weightClass(g))) return false;
+  if (f.players.size > 0) {
+    const fits = playerFits(g);
+    if (!fits.some((p) => f.players.has(p))) return false;
+  }
+  if (f.style.size > 0) {
+    const tags = styleTags(g);
+    if (!tags.some((t) => f.style.has(t))) return false;
+  }
+  if (search.trim()) {
+    if (!g.name.toLowerCase().includes(search.trim().toLowerCase())) return false;
+  }
+  return true;
+}
 
 function clsxJoin(...xs: (string | false | null | undefined)[]): string {
   return xs.filter(Boolean).join(" ");
@@ -44,21 +68,74 @@ const PCT_COLOR: Record<"high" | "mid" | "low", string> = {
   low: "text-[var(--ink-mute)]",
 };
 
-function GameSelect({
+function FacetChips<K extends string>({
+  label,
+  options,
+  selected,
+  onToggle,
+}: {
+  label: string;
+  options: { key: K; label: string }[];
+  selected: Set<K>;
+  onToggle: (k: K) => void;
+}) {
+  return (
+    <div className="flex items-center gap-2 flex-wrap">
+      <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-[var(--ink-mute)] min-w-[58px]">
+        {label}
+      </span>
+      <div className="flex flex-wrap gap-1.5">
+        {options.map((o) => {
+          const active = selected.has(o.key);
+          return (
+            <button
+              key={o.key}
+              type="button"
+              onClick={() => onToggle(o.key)}
+              className={clsxJoin(
+                "border rounded-sm px-2.5 py-1",
+                "font-mono text-[10px] uppercase tracking-[0.08em]",
+                "transition-colors cursor-pointer",
+                active
+                  ? "bg-[rgba(247,129,102,0.1)] border-[var(--accent)] text-[var(--accent)]"
+                  : "bg-transparent border-[var(--border)] text-[var(--ink-dim)] hover:border-[var(--ink-mute)] hover:text-[var(--ink)]",
+              )}
+            >
+              {o.label}
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+function GamePicker({
   id,
   label,
   value,
   onChange,
+  facets,
   accent,
 }: {
   id: string;
   label: string;
   value: string;
   onChange: (v: string) => void;
+  facets: Facets;
   accent: "accent" | "steel";
 }) {
+  const [search, setSearch] = useState("");
   const accentColor = accent === "accent" ? "text-[var(--accent)]" : "text-[var(--steel)]";
   const focusBorder = accent === "accent" ? "focus:border-[var(--accent)]" : "focus:border-[var(--steel)]";
+
+  const matches = useMemo(
+    () => GAMES.filter((g) => matchesFacets(g, facets, search)),
+    [facets, search],
+  );
+
+  const selectedGame = value ? GAMES.find((g) => g.id === value) : null;
+
   return (
     <div>
       <label
@@ -70,40 +147,54 @@ function GameSelect({
       >
         {label}
       </label>
-      <select
-        id={id}
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        className={clsxJoin(
-          "w-full bg-[var(--bg)] border border-[var(--border)] text-[var(--ink)]",
-          "px-4 py-3 font-mono text-[13px] rounded-sm cursor-pointer outline-none",
-          "appearance-none transition-colors hover:border-[var(--ink-mute)]",
-          focusBorder,
-        )}
-        style={{
-          backgroundImage:
-            "url(\"data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3e%3cpath fill='%238b949e' d='M2 4l4 4 4-4z'/%3e%3c/svg%3e\")",
-          backgroundRepeat: "no-repeat",
-          backgroundPosition: "right 14px center",
-          backgroundSize: "10px",
-          paddingRight: 36,
-        }}
-      >
-        <option value="">— select —</option>
-        {CATEGORIES.map((c) => {
-          const games = GAMES.filter((g) => g.category === c.key);
-          if (games.length === 0) return null;
-          return (
-            <optgroup key={c.key} label={c.label}>
-              {games.map((g) => (
-                <option key={g.id} value={g.id}>
-                  {g.name}
-                </option>
-              ))}
-            </optgroup>
-          );
-        })}
-      </select>
+      <div className="bg-[var(--bg)] border border-[var(--border)] rounded-sm">
+        <input
+          id={id}
+          type="text"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          placeholder={selectedGame ? selectedGame.name : "Search games…"}
+          className={clsxJoin(
+            "w-full bg-transparent text-[var(--ink)] px-3 py-2.5",
+            "font-mono text-[12px] outline-none border-b border-[var(--border)]",
+            focusBorder,
+            "placeholder:text-[var(--ink-mute)]",
+          )}
+        />
+        <div className="max-h-[200px] overflow-y-auto">
+          {matches.length === 0 ? (
+            <div className="px-3 py-4 text-center font-mono text-[11px] text-[var(--ink-mute)] italic">
+              No games match these filters
+            </div>
+          ) : (
+            matches.map((g) => {
+              const active = g.id === value;
+              return (
+                <button
+                  key={g.id}
+                  type="button"
+                  onClick={() => {
+                    onChange(g.id);
+                    setSearch("");
+                  }}
+                  className={clsxJoin(
+                    "block w-full text-left px-3 py-2 transition-colors cursor-pointer",
+                    "border-b border-[var(--border)] last:border-b-0",
+                    active
+                      ? "bg-[rgba(247,129,102,0.08)] text-[var(--accent)]"
+                      : "text-[var(--ink)] hover:bg-[var(--bg-elev)]",
+                  )}
+                >
+                  <div className="font-serif text-[14px] leading-tight">{g.name}</div>
+                  <div className="font-mono text-[9px] uppercase tracking-[0.1em] text-[var(--ink-mute)] mt-0.5">
+                    {gameSubtitle(g)}
+                  </div>
+                </button>
+              );
+            })
+          )}
+        </div>
+      </div>
     </div>
   );
 }
@@ -239,10 +330,10 @@ function DiffHighlights({
   }
 
   const branchColor: Record<string, string> = {
-    tanke: "border-l-[var(--branch-tanke)]",
-    interaksjon: "border-l-[var(--branch-interaksjon)]",
-    flaks: "border-l-[var(--branch-flaks)]",
-    opplevelse: "border-l-[var(--branch-opplevelse)]",
+    thinking: "border-l-[var(--branch-thinking)]",
+    interaction: "border-l-[var(--branch-interaction)]",
+    luck: "border-l-[var(--branch-luck)]",
+    experience: "border-l-[var(--branch-experience)]",
   };
 
   return (
@@ -302,7 +393,7 @@ function SimilarList({
         <em className="italic font-light text-[var(--accent)]">{gameA.name}</em>
       </h3>
       <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-[var(--ink-mute)] mb-5">
-        Click a game to overlay it as Spill B
+        Click a game to overlay it as Game B
       </p>
       <div className="grid gap-2.5" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))" }}>
         {ranked.map((r, i) => {
@@ -328,7 +419,7 @@ function SimilarList({
                   {r.game.name}
                 </div>
                 <div className="font-mono text-[9px] uppercase tracking-[0.1em] text-[var(--ink-mute)]">
-                  {r.game.categoryLabel}
+                  {gameSubtitle(r.game)}
                 </div>
               </div>
               <div className={clsxJoin("font-mono text-[15px] font-bold text-right leading-none", PCT_COLOR[cls])}>
@@ -499,6 +590,25 @@ export function Comparator() {
   const [gameAId, setGameAId] = useState<string>("brass-birmingham");
   const [gameBId, setGameBId] = useState<string>("");
   const [lens, setLens] = useState<LensKey>(DEFAULT_LENS);
+  const [weightFilter, setWeightFilter] = useState<Set<WeightClass>>(new Set());
+  const [playerFilter, setPlayerFilter] = useState<Set<PlayerFit>>(new Set());
+  const [styleFilter, setStyleFilter] = useState<Set<StyleTag>>(new Set());
+
+  const facets: Facets = { weight: weightFilter, players: playerFilter, style: styleFilter };
+  const anyFacetActive = weightFilter.size + playerFilter.size + styleFilter.size > 0;
+
+  function toggle<K>(set: Set<K>, setter: (s: Set<K>) => void, k: K) {
+    const next = new Set(set);
+    if (next.has(k)) next.delete(k);
+    else next.add(k);
+    setter(next);
+  }
+
+  function clearFilters() {
+    setWeightFilter(new Set());
+    setPlayerFilter(new Set());
+    setStyleFilter(new Set());
+  }
 
   const gameA = gameAId ? getGame(gameAId) ?? null : null;
   const gameB = gameBId ? getGame(gameBId) ?? null : null;
@@ -526,19 +636,55 @@ export function Comparator() {
         Like <em className="italic font-light text-[var(--steel)]">this</em>? Then you&apos;ll probably also like…
       </h2>
       <p className="font-serif text-[17px] italic text-[var(--ink-dim)] max-w-2xl leading-snug mb-8">
-        Pick a game you know and love as <strong className="not-italic">Spill A</strong>. The engine computes
+        Pick a game you know and love as <strong className="not-italic">Game A</strong>. The engine computes
         profile distance in 12-dimensional space and finds the nearest neighbors. Overlay a candidate as{" "}
-        <strong className="not-italic">Spill B</strong> to see exactly where they diverge.
+        <strong className="not-italic">Game B</strong> to see exactly where they diverge.
       </p>
 
       <LensPicker value={lens} onChange={setLens} />
 
+      <div className="bg-[var(--bg)] border border-[var(--border)] p-5 mb-7 flex flex-col gap-3">
+        <div className="flex items-center justify-between gap-3">
+          <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--ink-mute)]">
+            Filter the catalog
+          </span>
+          {anyFacetActive && (
+            <button
+              type="button"
+              onClick={clearFilters}
+              className="font-mono text-[10px] uppercase tracking-[0.1em] text-[var(--ink-dim)] hover:text-[var(--accent)] cursor-pointer"
+            >
+              clear ✕
+            </button>
+          )}
+        </div>
+        <FacetChips
+          label="Weight"
+          options={WEIGHT_CLASSES}
+          selected={weightFilter}
+          onToggle={(k) => toggle(weightFilter, setWeightFilter, k)}
+        />
+        <FacetChips
+          label="Players"
+          options={PLAYER_FITS}
+          selected={playerFilter}
+          onToggle={(k) => toggle(playerFilter, setPlayerFilter, k)}
+        />
+        <FacetChips
+          label="Style"
+          options={STYLE_TAGS}
+          selected={styleFilter}
+          onToggle={(k) => toggle(styleFilter, setStyleFilter, k)}
+        />
+      </div>
+
       <div className="grid grid-cols-[1fr_auto_1fr] gap-5 items-end mb-9 max-md:grid-cols-1">
-        <GameSelect
+        <GamePicker
           id="game-a"
           label="Game A · reference"
           value={gameAId}
           onChange={setGameAId}
+          facets={facets}
           accent="accent"
         />
         <button
@@ -549,11 +695,12 @@ export function Comparator() {
         >
           ⇄
         </button>
-        <GameSelect
+        <GamePicker
           id="game-b"
           label="Game B · overlay (optional)"
           value={gameBId}
           onChange={setGameBId}
+          facets={facets}
           accent="steel"
         />
       </div>

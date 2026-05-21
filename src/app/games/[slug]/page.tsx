@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { GAMES, getGameBySlug } from "@/data/games";
+import { gameSubtitle } from "@/lib/facets";
 import { ScorePanel } from "@/components/game/ScorePanel";
 import { MetaStrip } from "@/components/game/MetaStrip";
 import { SimilarGamesList } from "@/components/game/SimilarGamesList";
@@ -88,7 +89,7 @@ export default async function GamePage({ params }: PageProps) {
             Games
           </Link>
           <span aria-hidden>›</span>
-          <span className="text-[var(--ink-dim)]">{game.categoryLabel}</span>
+          <span className="text-[var(--ink-dim)]">{gameSubtitle(game)}</span>
         </nav>
 
         <h1 className="font-serif font-bold text-[clamp(40px,6vw,72px)] leading-[0.95] tracking-[-0.03em] mb-4">
@@ -119,7 +120,7 @@ export default async function GamePage({ params }: PageProps) {
       {/* Lead paragraph — first prose block above the fold for SEO */}
       <section className="mb-10 max-w-3xl">
         <p className="text-[18px] leading-relaxed font-serif text-[var(--ink)]">
-          {prose.tanke} {prose.interaksjon}
+          {prose.thinking} {prose.interaction}
         </p>
       </section>
 
@@ -152,10 +153,10 @@ export default async function GamePage({ params }: PageProps) {
       {/* Second prose block — luck + experience */}
       <section className="mb-12 max-w-3xl">
         <p className="text-[17px] leading-relaxed font-serif text-[var(--ink)] mb-4">
-          {prose.flaks}
+          {prose.luck}
         </p>
         <p className="text-[17px] leading-relaxed font-serif text-[var(--ink)]">
-          {prose.opplevelse}
+          {prose.experience}
         </p>
       </section>
 

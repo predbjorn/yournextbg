@@ -19,8 +19,6 @@ create table if not exists public.games (
   id              text primary key,
   slug            text not null unique,
   name            text not null,
-  category        text not null,
-  category_label  text not null,
   bgg_id          integer unique,
   scores          jsonb not null,                 -- ScoreVector = [n,n,...] length 12
   solo            integer not null check (solo between 0 and 10),
@@ -32,11 +30,10 @@ create table if not exists public.games (
   updated_at      timestamptz not null default now()
 );
 
-create index if not exists games_category_idx on public.games (category);
-create index if not exists games_bgg_id_idx   on public.games (bgg_id);
+create index if not exists games_bgg_id_idx on public.games (bgg_id);
 
 comment on column public.games.scores is
-  'Length-12 jsonb array, axis order: vekt,dybde,density,inter,konflikt,forhandl,input,output,innhente,tema,motor,narrativ';
+  'Length-12 jsonb array, axis order: weight,depth,density,interaction,conflict,negotiation,input,output,catchup,theme,engine,narrative';
 
 -- ─── collections ────────────────────────────────────────────────────
 -- A user can have multiple named lists. Default kinds: owned, wishlist, played.

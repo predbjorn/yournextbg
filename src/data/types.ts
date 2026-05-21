@@ -1,14 +1,5 @@
 import type { ScoreVector } from "@/lib/scoring";
 
-export type Category =
-  | "owned"
-  | "heavy-euro"
-  | "geek"
-  | "social"
-  | "filler"
-  | "2p-epic"
-  | "solo";
-
 export interface PlayerCount {
   best: string[];   // e.g. ["3P", "4P"]
   good: string[];   // e.g. ["2P", "5P"]
@@ -19,8 +10,6 @@ export interface Game {
   id: string;
   slug: string;           // URL-friendly, used for /games/[slug]
   name: string;
-  category: Category;
-  categoryLabel: string;  // user-facing category breadcrumb
   bggId?: number;         // BGG numeric id when known
   scores: ScoreVector;
   /** Meta-axes not part of the 12 scored axes */

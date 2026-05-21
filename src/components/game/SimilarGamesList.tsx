@@ -6,6 +6,7 @@
 import Link from "next/link";
 import { DEFAULT_LENS, rankBySimilarity } from "@/lib/scoring";
 import { GAMES } from "@/data/games";
+import { gameSubtitle } from "@/lib/facets";
 import type { Game } from "@/data/types";
 
 interface SimilarGamesListProps {
@@ -36,7 +37,7 @@ export function SimilarGamesList({ game, limit = 6 }: SimilarGamesListProps) {
                 {r.game.name}
               </span>
               <span className="block font-mono text-[9px] uppercase tracking-[0.1em] text-[var(--ink-mute)] mt-0.5">
-                {r.game.categoryLabel}
+                {gameSubtitle(r.game)}
               </span>
             </span>
             <span className={`font-mono text-[14px] font-bold text-right leading-none ${cls}`}>

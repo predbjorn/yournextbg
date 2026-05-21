@@ -38,8 +38,6 @@ async function main() {
     id: g.id,
     slug: g.slug,
     name: g.name,
-    category: g.category,
-    category_label: g.categoryLabel,
     bgg_id: g.bggId ?? null,
     scores: g.scores,
     solo: g.solo,

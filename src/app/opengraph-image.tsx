@@ -13,10 +13,10 @@ const BG = "#0d1117";
 const INK = "#e6edf3";
 const INK_DIM = "#8b949e";
 const BRANCH = {
-  tanke: "#58a6ff",
-  interaksjon: "#f78166",
-  flaks: "#d4a458",
-  opplevelse: "#8957e5",
+  thinking: "#58a6ff",
+  interaction: "#f78166",
+  luck: "#d4a458",
+  experience: "#8957e5",
 };
 
 export default async function OG() {
@@ -55,7 +55,7 @@ export default async function OG() {
           <div
             style={{
               fontSize: 28,
-              color: BRANCH.interaksjon,
+              color: BRANCH.interaction,
               letterSpacing: 8,
               textTransform: "uppercase",
               fontFamily: "monospace",
@@ -91,7 +91,7 @@ export default async function OG() {
           }}
         >
           Find your{" "}
-          <span style={{ color: BRANCH.interaksjon, fontStyle: "italic", fontWeight: 800 }}>
+          <span style={{ color: BRANCH.interaction, fontStyle: "italic", fontWeight: 800 }}>
             &nbsp;next&nbsp;
           </span>{" "}
           board game.
