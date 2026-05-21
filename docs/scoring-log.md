@@ -539,3 +539,62 @@ Predicted closest: Arkham LCG (in catalog), Earthborne Rangers. rec.games confir
 
 ---
 
+## Batch 03 — Priority-1 closeout (2026-05-21)
+
+3 games added: Catan, Ticket to Ride, Azul. Catalog grows 54 → 57. Closes out the Priority-1 list from `scoring-handoff.md`. Skipped BGG 182028 (Through the Ages: A New Story of Civilization) — same game as in-catalog `through-the-ages` (BGG 25613), different edition; adding would duplicate.
+
+---
+
+## Catan (BGG 13)
+
+**Scores:** [3, 4, 5, 5, 3, 4, 4, 6, 3, 5, 4, 1] · **Solo:** 0 · **Fiddly:** 3 · **Best:** [4P] · **Category:** filler
+
+- Weight 3 / Depth 4 / Density 5 — all anchored directly in handoff doc.
+- Interaction 5: anchored in handoff (5–6 "indirect mechanical" zone).
+- Conflict 3: robber is direct hostility (steal + block) but mild compared to wargame anchors.
+- Negotiation 4: anchored (Catan = 4, trading).
+- Input 4: setup + dev-card draws.
+- Output 6: anchored (Catan = 6, dice every turn).
+- Catchup 3: weak rubber-band, runaway leader is canonical Catan complaint.
+- Theme 5 / Engine 4 / Narrative 1 — all anchored.
+
+Predicted closest: Welcome To, Quacks, Ticket to Ride (this batch). The trading layer separates it from pure tile-laying fillers.
+
+---
+
+## Ticket to Ride (BGG 9209)
+
+**Scores:** [3, 4, 3, 6, 4, 0, 5, 0, 4, 4, 3, 2] · **Solo:** 0 · **Fiddly:** 2 · **Best:** [3P, 4P] · **Category:** filler
+
+- Weight 3 / Density 3 — anchored.
+- Depth 4: route optimization is the real game; simple but real.
+- Interaction 6: route-blocking is the heart, brutal at 4–5P.
+- Conflict 4: aggressive blocking is part of the meta.
+- Negotiation 0: none.
+- Input 5: ticket and face-up train-card draws.
+- Output 0 · Catchup 4.
+- Theme 4 · Engine 3 · Narrative 2.
+
+Predicted closest: Catan, Welcome To. Same gateway cluster but with much higher interaction than Catan would suggest from weight alone.
+
+---
+
+## Azul (BGG 230802)
+
+**Scores:** [2, 6, 5, 7, 3, 0, 4, 0, 4, 3, 3, 1] · **Solo:** 4 · **Fiddly:** 1 · **Best:** [2P, 4P] · **Category:** filler
+
+- Weight 2: BGG 1.77, gateway.
+- Depth 6: deceptively deep for its weight — drafting + spatial puzzle interact.
+- Density 5.
+- Interaction 7: drafting from shared factories means every pick reshapes everyone's options. High for a gateway.
+- Conflict 3: forcing overflow tiles onto opponents is hostile.
+- Negotiation 0.
+- Input 4: tile-bag draws visible at factory refresh (input, not output).
+- Output 0 · Catchup 4.
+- Theme 3 (Tapestry anchor — pasted on).
+- Engine 3 · Narrative 1.
+- Fiddly 1: anchored in handoff (Azul = 1).
+
+Predicted closest: Splendor (this batch's drafting/optimization neighbor), Welcome To, Quacks. rec.games confirmed Azul lives in the same neighborhood as Splendor.
+
+---
