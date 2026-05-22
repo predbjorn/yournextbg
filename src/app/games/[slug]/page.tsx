@@ -6,9 +6,11 @@ import { gameSubtitle } from "@/lib/facets";
 import { ScorePanel } from "@/components/game/ScorePanel";
 import { MetaStrip } from "@/components/game/MetaStrip";
 import { SimilarGamesList } from "@/components/game/SimilarGamesList";
+import { generateFaq } from "@/lib/seo/faq";
 import {
   gameJsonLd,
   gameBreadcrumb,
+  faqJsonLd,
   jsonLdString,
 } from "@/lib/seo/json-ld";
 import {
@@ -59,6 +61,8 @@ export default async function GamePage({ params }: PageProps) {
 
   const prose = generateBranchProse(game);
   const closestSentence = closestNeighborSentence(game, GAMES);
+  const faq = generateFaq(game);
+  const faqLd = faqJsonLd(faq);
   const longDesc = longDescription(game);
   const jsonLd = gameJsonLd(game, longDesc);
   const breadcrumb = gameBreadcrumb(game);
@@ -75,6 +79,11 @@ export default async function GamePage({ params }: PageProps) {
         type="application/ld+json"
         // eslint-disable-next-line react/no-danger
         dangerouslySetInnerHTML={{ __html: jsonLdString(breadcrumb) }}
+      />
+      <script
+        type="application/ld+json"
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{ __html: jsonLdString(faqLd) }}
       />
 
       {/* Header */}
@@ -178,6 +187,28 @@ export default async function GamePage({ params }: PageProps) {
           full profile.
         </p>
         <SimilarGamesList game={game} limit={6} />
+      </section>
+
+      {/* FAQ — score-aware Q&A, also emitted as FAQPage JSON-LD above */}
+      <section className="mb-12">
+        <h2 className="font-serif text-3xl font-bold tracking-tight mb-2">
+          Frequently asked
+        </h2>
+        <p className="text-[var(--ink-dim)] italic mb-6 max-w-2xl">
+          Answers derived directly from {game.name}&apos;s 12-axis profile.
+        </p>
+        <dl className="max-w-3xl divide-y divide-[var(--border)]">
+          {faq.map((item) => (
+            <div key={item.q} className="py-4">
+              <dt className="font-serif font-semibold text-[17px] text-[var(--ink)] mb-1">
+                {item.q}
+              </dt>
+              <dd className="text-[16px] leading-relaxed text-[var(--ink-dim)]">
+                {item.a}
+              </dd>
+            </div>
+          ))}
+        </dl>
       </section>
 
       {/* CTA back to the comparator */}
