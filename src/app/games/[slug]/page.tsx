@@ -15,6 +15,7 @@ import {
   generateBranchProse,
   longDescription,
   metaDescription,
+  closestNeighborSentence,
 } from "@/lib/seo/prose";
 
 interface PageProps {
@@ -57,6 +58,7 @@ export default async function GamePage({ params }: PageProps) {
   if (!game) notFound();
 
   const prose = generateBranchProse(game);
+  const closestSentence = closestNeighborSentence(game, GAMES);
   const longDesc = longDescription(game);
   const jsonLd = gameJsonLd(game, longDesc);
   const breadcrumb = gameBreadcrumb(game);
@@ -122,6 +124,11 @@ export default async function GamePage({ params }: PageProps) {
         <p className="text-[18px] leading-relaxed font-serif text-[var(--ink)]">
           {prose.thinking} {prose.interaction}
         </p>
+        {closestSentence && (
+          <p className="mt-4 text-[16px] leading-relaxed font-serif text-[var(--ink-dim)] italic">
+            {closestSentence}
+          </p>
+        )}
       </section>
 
       {/* Meta strip: solo / fiddly / player counts */}
