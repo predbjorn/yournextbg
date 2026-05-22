@@ -2921,3 +2921,215 @@ Predicted closest: Codenames, Just One, Wavelength (in catalog — word-associat
 Predicted closest: Agricola, Caverna, A Feast for Odin, Le Havre (in catalog — Rosenberg parallel-play cluster).
 
 ---
+
+## Batch 15 — Wehrle gap, Spiel des Jahres pillars, 4X dudes-on-a-map (2026-05-22)
+
+## Oath: Chronicles of Empire and Exile (BGG 291572)
+
+**Scores:** [7, 10, 6, 10, 7, 6, 6, 5, 5, 8, 5, 9] · **Solo:** 3 · **Fiddly:** 8 · **Best:** [4P, 5P]
+
+- Weight 7: BGG 3.86. Role variability + persistent-state rules.
+- Depth 10: Asymmetric chancellor/exile + many viable strategies.
+- Density 6: Some downtime between turns.
+- Inter 10: Constant power-shifting; everyone's actions reshape the empire.
+- Conflict 7: Direct attacks, deck-stealing, exile.
+- Negotiation 6: Alliance + table-talk drives mid-game shifts.
+- Input 6: Card draws + secrets.
+- Output 5: Combat dice swing outcomes.
+- Catchup 5: Chancellor/exile asymmetry balances winners.
+- Theme 8: Persistent empire arc feels historical.
+- Engine 5: Builds within and across sessions.
+- Narrative 9: Each game adds to a legacy chronicle without permanent mutation.
+
+Predicted closest: Root, Pax Pamir 2E, John Company, Arcs (in catalog — Wehrle cluster).
+
+---
+
+## Kingdomino (BGG 204583)
+
+**Scores:** [1, 4, 5, 5, 2, 0, 6, 1, 4, 4, 2, 1] · **Solo:** 0 · **Fiddly:** 1 · **Best:** [3P, 4P]
+
+- Weight 1: BGG 1.21. Spiel des Jahres 2017.
+- Depth 4: Surprising tile-fitting depth for the rules weight.
+- Density 5.
+- Inter 5: Drafting from a shared pool with turn-order tension.
+- Conflict 2.
+- Negotiation 0.
+- Input 6: Tile-reveal variance.
+- Output 1.
+- Catchup 4: Turn order is selection-driven.
+- Theme 4.
+- Engine 2.
+- Narrative 1.
+
+Predicted closest: Carcassonne, Cascadia, Patchwork (in catalog — light tile-laying cluster).
+
+---
+
+## Mysterium (BGG 181304)
+
+**Scores:** [2, 4, 4, 8, 0, 3, 7, 2, 3, 7, 1, 6] · **Solo:** 0 · **Fiddly:** 3 · **Best:** [4P, 5P, 6P]
+
+- Weight 2: BGG 1.91.
+- Depth 4: Pattern-matching against surrealist art.
+- Density 4: Ghost player has long waits.
+- Inter 8: Communication is the entire game.
+- Conflict 0.
+- Negotiation 3: Players debate clue meanings.
+- Input 7: Card draw heavy.
+- Output 2.
+- Catchup 3.
+- Theme 7: Ghost-mystery vibe is immersive.
+- Engine 1.
+- Narrative 6: Investigation arc per session.
+
+Predicted closest: Dixit (this batch), Codenames, Just One, Hanabi (in catalog — restricted-info cluster).
+
+---
+
+## Dixit (BGG 39856)
+
+**Scores:** [1, 3, 3, 8, 1, 2, 5, 1, 4, 6, 0, 3] · **Solo:** 0 · **Fiddly:** 1 · **Best:** [4P, 5P, 6P]
+
+- Weight 1: BGG 1.21. Spiel des Jahres 2010.
+- Depth 3.
+- Density 3.
+- Inter 8: Voting + clue-giving drives every round.
+- Conflict 1.
+- Negotiation 2: Implicit communication via art.
+- Input 5.
+- Output 1.
+- Catchup 4: Scoring penalty for over-clear clues evens things.
+- Theme 6: Illustrations are the game.
+- Engine 0.
+- Narrative 3.
+
+Predicted closest: Mysterium (this batch), Wavelength, Codenames, Just One (in catalog — party/art cluster).
+
+---
+
+## Small World (BGG 40692)
+
+**Scores:** [3, 6, 5, 9, 7, 2, 5, 1, 6, 6, 3, 4] · **Solo:** 0 · **Fiddly:** 5 · **Best:** [3P, 4P]
+
+- Weight 3: BGG 2.37.
+- Depth 6: Power-combo selection + decline timing.
+- Density 5.
+- Inter 9: Direct area control across a tight map.
+- Conflict 7: Direct attacks are constant.
+- Negotiation 2.
+- Input 5: Race/power matchup variance.
+- Output 1: Mostly deterministic with reinforcement dice.
+- Catchup 6: Decline mechanic is the catch-up engine.
+- Theme 6: Fantasy races feel distinct.
+- Engine 3.
+- Narrative 4.
+
+Predicted closest: Inis, Five Tribes, Cosmic Encounter, Cthulhu Wars (in catalog — area-control with asymmetric powers cluster).
+
+---
+
+## Star Realms (BGG 147020)
+
+**Scores:** [2, 5, 6, 7, 7, 0, 7, 2, 4, 4, 8, 3] · **Solo:** 5 · **Fiddly:** 2 · **Best:** [2P]
+
+- Weight 2: BGG 1.83.
+- Depth 5: Faction synergy choices in shared trade row.
+- Density 6.
+- Inter 7: Direct combat-deckbuilder.
+- Conflict 7: HP-reduction attacks.
+- Negotiation 0.
+- Input 7: Big trade-row variance.
+- Output 2.
+- Catchup 4.
+- Theme 4.
+- Engine 8: Combos + faction synergies are core.
+- Narrative 3.
+
+Predicted closest: Aeon's End, Dominion, Slay the Spire (in catalog — deckbuilder cluster). 2P combat-deckbuilder sister.
+
+---
+
+## Furnace (BGG 318084)
+
+**Scores:** [3, 7, 6, 7, 3, 2, 4, 0, 5, 5, 9, 3] · **Solo:** 5 · **Fiddly:** 4 · **Best:** [3P, 4P]
+
+- Weight 3: BGG 2.51.
+- Depth 7: Tight auction-then-engine activation order.
+- Density 6.
+- Inter 7: Auctions with compensation mechanic create constant interaction.
+- Conflict 3.
+- Negotiation 2.
+- Input 4.
+- Output 0.
+- Catchup 5: Compensation system gives losers resources.
+- Theme 5.
+- Engine 9: Activation-order optimization is the puzzle.
+- Narrative 3.
+
+Predicted closest: Splendor, Race for the Galaxy, Concordia (in catalog — engine/auction cluster).
+
+---
+
+## Russian Railroads (BGG 144733)
+
+**Scores:** [5, 8, 7, 5, 3, 0, 4, 0, 4, 4, 9, 4] · **Solo:** 0 · **Fiddly:** 6 · **Best:** [3P, 4P]
+
+- Weight 5: BGG 3.39.
+- Depth 8.
+- Density 7.
+- Inter 5: Shared worker spots + engineer market.
+- Conflict 3.
+- Negotiation 0.
+- Input 4.
+- Output 0.
+- Catchup 4: Engineer cards add some variance.
+- Theme 4: Railroad theme is thin abstraction.
+- Engine 9: Engineer + factory + locomotive tracks compound.
+- Narrative 4.
+
+Predicted closest: Trajan, Yokohama, Castles of Burgundy, Le Havre (in catalog — heavy-engine WP cluster).
+
+---
+
+## Forbidden Stars (BGG 175155)
+
+**Scores:** [6, 9, 6, 10, 9, 3, 5, 5, 3, 10, 5, 7] · **Solo:** 0 · **Fiddly:** 7 · **Best:** [4P]
+
+- Weight 6: BGG 3.79.
+- Depth 9: Order tokens + tech + combat decks create layered strategy.
+- Density 6.
+- Inter 10: 4X direct conflict on a shared map.
+- Conflict 9: Combat is core.
+- Negotiation 3.
+- Input 5: Event deck variance.
+- Output 5: Combat-card reveal swings.
+- Catchup 3: Runaway possible.
+- Theme 10: WH40K faction asymmetry is iconic.
+- Engine 5: Tech compounds.
+- Narrative 7: 4X session arc.
+
+Predicted closest: TI4, Eclipse, Inis, Twilight Struggle (in catalog — 4X / heavy-conflict cluster).
+
+---
+
+## Rising Sun (BGG 205896)
+
+**Scores:** [5, 7, 6, 10, 8, 7, 5, 4, 4, 8, 4, 6] · **Solo:** 0 · **Fiddly:** 6 · **Best:** [4P, 5P]
+
+- Weight 5: BGG 3.18.
+- Depth 7.
+- Density 6.
+- Inter 10: Direct area control + mandatory negotiation phase each season.
+- Conflict 8: Direct attacks via war.
+- Negotiation 7: Tea-ceremony alliance + betrayal is core.
+- Input 5: Mandate card draw.
+- Output 4: War resolution has variance via honor + bonuses.
+- Catchup 4.
+- Theme 8: Feudal-Japan asymmetry integrated.
+- Engine 4.
+- Narrative 6: Season arc with shifting alliances.
+
+Predicted closest: Blood Rage, Inis, Cosmic Encounter, Cthulhu Wars (in catalog — Lang / area-control with alliances cluster).
+
+---
