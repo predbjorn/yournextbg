@@ -2709,3 +2709,215 @@ Predicted closest: Twilight Struggle, Watergate (batch 12), War of the Ring (in 
 Predicted closest: Lisboa, On Mars, Kanban EV, Vinhos Deluxe (in catalog — Lacerda heavy cluster).
 
 ---
+
+## Batch 14 — Hidden traitor, 6P politics, Chvátil/Knizia/Rosenberg hubs (2026-05-22)
+
+## Battlestar Galactica: The Board Game (BGG 37111)
+
+**Scores:** [6, 7, 5, 9, 5, 7, 7, 5, 4, 9, 3, 8] · **Solo:** 0 · **Fiddly:** 7 · **Best:** [5P, 6P]
+
+- Weight 6: BGG 3.32. Multi-track upkeep + crisis deck + sleeper agent reveal mid-game.
+- Depth 7: Suspicion + resource allocation + skill-check timing.
+- Density 5: Lots of waiting between turns.
+- Inter 9: Constant suspicion + skill-check contributions affect everyone.
+- Conflict 5: Cylons attack openly post-reveal.
+- Negotiation 7: Heavy table-talk and loyalty arguing.
+- Input 7: Big loyalty + skill + crisis card variance.
+- Output 5: Blind skill-check reveals swing outcomes.
+- Catchup 4.
+- Theme 9: Sleeper agents and show arc make it feel like the show.
+- Engine 3.
+- Narrative 8: Distance-to-Kobol + jump arc tells a session story.
+
+Predicted closest: BotC, Avalon, Cosmic Encounter, Dune (in catalog — hidden-info / semi-coop cluster).
+
+---
+
+## A Game of Thrones: The Board Game (Second Edition) (BGG 103343)
+
+**Scores:** [6, 9, 4, 10, 9, 7, 6, 1, 3, 10, 4, 9] · **Solo:** 0 · **Fiddly:** 7 · **Best:** [6P]
+
+- Weight 6: BGG 3.69. Simultaneous-order area-control with Westeros decks.
+- Depth 9: Long-term scheming + order-token bluffing.
+- Density 4: Lots of waiting; turn resolution is slow.
+- Inter 10: Direct hostile area control across a shared map.
+- Conflict 9: Open invasion, no peace enforcement.
+- Negotiation 7: Alliance / backstab is the game.
+- Input 6: Westeros + wildling event decks.
+- Output 1: Deterministic combat cards.
+- Catchup 3: Runaway risk if neighbors don't gang up.
+- Theme 10: Houses feel like their show counterparts.
+- Engine 4.
+- Narrative 9: Distinct mid-game arc (Stannis push, Dragon arc).
+
+Predicted closest: TI4, Root, War of the Ring, Rebellion (in catalog — heavy-interaction area-control cluster).
+
+---
+
+## Galaxy Trucker (BGG 31481)
+
+**Scores:** [2, 5, 8, 5, 3, 0, 8, 7, 4, 8, 2, 6] · **Solo:** 6 · **Fiddly:** 6 · **Best:** [3P, 4P]
+
+- Weight 2: BGG 2.18. Real-time build phase is the only meaningful rule.
+- Depth 5: Tile-fitting + risk planning is meaningful but bounded.
+- Density 8: Real-time phase is extreme; per-second decisions.
+- Inter 5: Parallel build, then chaotic encounters; tile-stealing.
+- Conflict 3: Light attack events.
+- Negotiation 0.
+- Input 8: Encounter deck variance is huge.
+- Output 7: Dice and event resolution.
+- Catchup 4: Three-flight reset structure helps.
+- Theme 8: Piloting a barely-held-together junk ship feels exactly right.
+- Engine 2.
+- Narrative 6: Three-flight session arc accumulates damage and stories.
+
+Predicted closest: Roll for the Galaxy, Quacks, Welcome To (in catalog — light-real-time/parallel cluster). Also Chvátil sister to Codenames/Mage Knight.
+
+---
+
+## Hansa Teutonica (BGG 43015)
+
+**Scores:** [5, 9, 7, 9, 4, 1, 1, 0, 5, 4, 6, 3] · **Solo:** 0 · **Fiddly:** 3 · **Best:** [4P, 5P]
+
+- Weight 5: BGG 3.13. Compact rules but high decision weight.
+- Depth 9: Tight strategic puzzle; many viable paths on a small board.
+- Density 7.
+- Inter 9: Aggressive bumping = direct denial.
+- Conflict 4: Bumping costs opponents actions but isn't lethal.
+- Negotiation 1.
+- Input 1: Near-deterministic.
+- Output 0: No randomness.
+- Catchup 5: Bumped pieces reinforce, evening positions.
+- Theme 4: Hanseatic merchants feel thin.
+- Engine 6: Upgrade abilities compound.
+- Narrative 3.
+
+Predicted closest: Concordia, Brass: Lancashire, Tigris & Euphrates (in catalog — interactive low-luck euro cluster).
+
+---
+
+## Dominant Species (BGG 62219)
+
+**Scores:** [8, 10, 6, 9, 7, 2, 5, 1, 4, 8, 6, 6] · **Solo:** 0 · **Fiddly:** 7 · **Best:** [4P, 5P]
+
+- Weight 8: BGG 4.06. Many phases + element-cube system + action card market.
+- Depth 10: Long-term tile and element control creates deep planning.
+- Density 6.
+- Inter 9: Direct adaptation/extinction effects across the board.
+- Conflict 7: Eating opposing species, displacing tiles.
+- Negotiation 2.
+- Input 5: Action card market variance.
+- Output 1.
+- Catchup 4.
+- Theme 8: Evolutionary arc + ice-age threats integrated mechanically.
+- Engine 6.
+- Narrative 6: Climate-driven session arc.
+
+Predicted closest: Brass: Birmingham, El Grande, TI4 (in catalog — heavy area-control cluster).
+
+---
+
+## Modern Art (BGG 118)
+
+**Scores:** [2, 7, 6, 9, 3, 4, 5, 1, 5, 4, 2, 3] · **Solo:** 0 · **Fiddly:** 2 · **Best:** [4P, 5P]
+
+- Weight 2: BGG 2.18. Five auction types but rules are light.
+- Depth 7: Sharp price-discovery and signaling game.
+- Density 6.
+- Inter 9: Auction interaction is constant.
+- Conflict 3: Bid sniping.
+- Negotiation 4: Bidding and pre-auction manipulation.
+- Input 5: Hand draws.
+- Output 1.
+- Catchup 5: Score resets per round.
+- Theme 4.
+- Engine 2.
+- Narrative 3.
+
+Predicted closest: Ra, El Grande, Tigris & Euphrates (in catalog — Knizia auction/classic-euro cluster).
+
+---
+
+## Coup (BGG 131357)
+
+**Scores:** [1, 4, 5, 9, 6, 4, 2, 0, 2, 3, 0, 1] · **Solo:** 0 · **Fiddly:** 1 · **Best:** [4P, 5P, 6P]
+
+- Weight 1: BGG 1.43.
+- Depth 4: Bluff-deduction is bounded.
+- Density 5.
+- Inter 9: Constant call-and-bluff.
+- Conflict 6: Direct elimination.
+- Negotiation 4: Pure bluff/call.
+- Input 2: Some card draw.
+- Output 0: Post-bluff resolution is deterministic.
+- Catchup 2: Elimination compounds.
+- Theme 3.
+- Engine 0.
+- Narrative 1.
+
+Predicted closest: Love Letter, Skull, Avalon (in catalog — micro-bluff cluster).
+
+---
+
+## Hanabi (BGG 98778)
+
+**Scores:** [1, 5, 4, 8, 0, 1, 5, 2, 3, 2, 2, 2] · **Solo:** 0 · **Fiddly:** 1 · **Best:** [3P, 4P]
+
+- Weight 1: BGG 1.71.
+- Depth 5: Restricted-communication co-op puzzle has surprising depth.
+- Density 4.
+- Inter 8: Every clue and play feeds the table.
+- Conflict 0.
+- Negotiation 1: Communication is restricted, not negotiated.
+- Input 5.
+- Output 2.
+- Catchup 3.
+- Theme 2: Fireworks pasted on.
+- Engine 2.
+- Narrative 2.
+
+Predicted closest: The Crew, Codenames, Just One (in catalog — restricted-info co-op cluster).
+
+---
+
+## Codenames: Duet (BGG 224037)
+
+**Scores:** [1, 4, 4, 8, 0, 2, 4, 1, 4, 2, 0, 3] · **Solo:** 0 · **Fiddly:** 1 · **Best:** [2P]
+
+- Weight 1: BGG 1.20.
+- Depth 4: Slightly deeper than base Codenames due to asymmetric clue info.
+- Density 4.
+- Inter 8: Communication is the whole game.
+- Conflict 0.
+- Negotiation 2.
+- Input 4.
+- Output 1.
+- Catchup 4: Mission scaling adjusts pressure.
+- Theme 2.
+- Engine 0.
+- Narrative 3: Mission-map progression.
+
+Predicted closest: Codenames, Just One, Wavelength (in catalog — word-association cluster). 2P co-op variant.
+
+---
+
+## Hallertau (BGG 300531)
+
+**Scores:** [6, 8, 6, 3, 1, 0, 4, 1, 4, 7, 8, 4] · **Solo:** 8 · **Fiddly:** 7 · **Best:** [2P, 3P]
+
+- Weight 6: BGG 4.13. Heavy on paper but Rosenberg's clarity makes it lighter at the table than Agricola (7).
+- Depth 8.
+- Density 6.
+- Inter 3: Classic Rosenberg parallel play.
+- Conflict 1.
+- Negotiation 0.
+- Input 4.
+- Output 1.
+- Catchup 4.
+- Theme 7: Hop-farming integrated through harvest cycles.
+- Engine 8: Hop-bonus tracks compound late.
+- Narrative 4.
+
+Predicted closest: Agricola, Caverna, A Feast for Odin, Le Havre (in catalog — Rosenberg parallel-play cluster).
+
+---
