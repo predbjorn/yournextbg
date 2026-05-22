@@ -3557,3 +3557,215 @@ Predicted closest: Gloomhaven, Mansions of Madness, Tainted Grail, LOTR JIME (th
 Predicted closest: Onitama, Santorini, Hive, Splendor Duel (this batch) (in catalog — 2P abstract/tactical cluster).
 
 ---
+
+## Batch 18 — 2023/2024 hit gap-fill: light card combo + heavy euro + 2P co-op (2026-05-22)
+
+## Wyrmspan (BGG 410201)
+
+**Scores:** [3, 7, 6, 4, 1, 0, 7, 1, 4, 6, 8, 4] · **Solo:** 7 · **Fiddly:** 5 · **Best:** [2P, 3P]
+
+- Weight 3: BGG ~2.5. Slightly more rules than Wingspan (cave excavation layer).
+- Depth 7: More options than Wingspan via caves + dragon abilities.
+- Density 6.
+- Inter 4: Parallel play; shared dragon market.
+- Conflict 1.
+- Negotiation 0.
+- Input 7: Heavy card draw, like Wingspan.
+- Output 1.
+- Catchup 4.
+- Theme 6: Dragon-cards are flavorful; thematic guild flips.
+- Engine 8: Card combos drive scoring.
+- Narrative 4.
+
+Predicted closest: Wingspan, Earth, Ark Nova (in catalog — tableau engine cluster).
+
+---
+
+## Apiary (BGG 400314)
+
+**Scores:** [3, 7, 6, 5, 2, 0, 5, 0, 5, 6, 7, 4] · **Solo:** 8 · **Fiddly:** 5 · **Best:** [2P, 3P]
+
+- Weight 3: BGG 2.94.
+- Depth 7: Multiple paths (research, hives, planet exploration).
+- Density 6.
+- Inter 5: Shared spaces; bumping has a hibernation cost not strict denial.
+- Conflict 2.
+- Negotiation 0.
+- Input 5: Card draw.
+- Output 0.
+- Catchup 5: Hibernation strengthens bumped workers.
+- Theme 6: Space bees integrated through worker strength + hibernation.
+- Engine 7.
+- Narrative 4.
+
+Predicted closest: Viticulture, Beyond the Sun, Maracaibo (in catalog — Stonemaier-adjacent / mid-euro worker placement cluster).
+
+---
+
+## Akropolis (BGG 357563)
+
+**Scores:** [2, 5, 7, 4, 1, 0, 5, 0, 4, 4, 4, 2] · **Solo:** 5 · **Fiddly:** 2 · **Best:** [2P, 3P]
+
+- Weight 2: BGG 1.74.
+- Depth 5: Spatial puzzle deeper than rules suggest.
+- Density 7: Every tile is a decision.
+- Inter 4: Shared market drafting affects timing.
+- Conflict 1.
+- Negotiation 0.
+- Input 5: Tile reveal order.
+- Output 0.
+- Catchup 4.
+- Theme 4: Greek city aesthetic, mostly mechanical.
+- Engine 4.
+- Narrative 2.
+
+Predicted closest: Kingdomino, Cascadia, Azul, Calico (this batch) (in catalog — light tile-laying spatial-puzzle cluster).
+
+---
+
+## Sky Team (BGG 373106)
+
+**Scores:** [2, 6, 7, 10, 0, 1, 5, 0, 4, 9, 2, 7] · **Solo:** 0 · **Fiddly:** 3 · **Best:** [2P]
+
+- Weight 2: BGG 1.95.
+- Depth 6: Dice-placement priorities are tight under no-talk rule.
+- Density 7: Fast rounds; constant pressure.
+- Inter 10: Forced 2P co-op coordination without verbal communication.
+- Conflict 0.
+- Negotiation 1: Limited approved signals only.
+- Input 5: Dice roll variance.
+- Output 0: Post-placement is deterministic.
+- Catchup 4.
+- Theme 9: Cockpit-pilot-and-copilot feel is the entire experience.
+- Engine 2.
+- Narrative 7: Approach + landing arc per airport scenario.
+
+Predicted closest: The Crew, Hanabi, Codenames Duet, Pandemic (in catalog — silent / low-comm co-op cluster).
+
+---
+
+## Forest Shuffle (BGG 391163)
+
+**Scores:** [2, 6, 6, 4, 1, 0, 7, 1, 4, 5, 8, 3] · **Solo:** 5 · **Fiddly:** 4 · **Best:** [3P, 4P]
+
+- Weight 2: BGG 1.81.
+- Depth 6: Tableau combo combinatorics.
+- Density 6.
+- Inter 4: Take from shared face-up market.
+- Conflict 1.
+- Negotiation 0.
+- Input 7: Heavy card draw.
+- Output 1.
+- Catchup 4.
+- Theme 5: Forest cards illustrated; integration mid-pack.
+- Engine 8: Combo engine drives scoring.
+- Narrative 3.
+
+Predicted closest: Wingspan, Race for the Galaxy, Wyrmspan (this batch), Earth (in catalog — light card-combo engine cluster).
+
+---
+
+## Faraway (BGG 385610)
+
+**Scores:** [2, 6, 7, 4, 1, 0, 5, 0, 4, 3, 5, 4] · **Solo:** 4 · **Fiddly:** 2 · **Best:** [2P, 3P, 4P]
+
+- Weight 2: BGG 1.63.
+- Depth 6: Reverse-order scoring forces real planning.
+- Density 7: Short turns.
+- Inter 4: Shared display drafting.
+- Conflict 1.
+- Negotiation 0.
+- Input 5: Card reveal order.
+- Output 0.
+- Catchup 4.
+- Theme 3: Surreal art over mechanics.
+- Engine 5: Late cards rely on earlier sanctuaries.
+- Narrative 4: Reverse-scoring feels like retracing your journey.
+
+Predicted closest: Welcome To, Splendor, Kingdomino, Akropolis (this batch) (in catalog — light drafting / tableau cluster).
+
+---
+
+## Calico (BGG 283155)
+
+**Scores:** [2, 6, 6, 3, 1, 0, 5, 0, 4, 4, 3, 2] · **Solo:** 7 · **Fiddly:** 3 · **Best:** [1P, 2P]
+
+- Weight 2: BGG 2.27.
+- Depth 6: Pattern optimization is deep for the weight.
+- Density 6.
+- Inter 3: Parallel play with shared tile pool.
+- Conflict 1.
+- Negotiation 0.
+- Input 5: Tile draw.
+- Output 0.
+- Catchup 4.
+- Theme 4: Cat-quilt charm; pasted on.
+- Engine 3.
+- Narrative 2.
+
+Predicted closest: Cascadia, Azul, Patchwork, Kingdomino (in catalog — solo-friendly spatial-puzzle cluster).
+
+---
+
+## Brian Boru: High King of Ireland (BGG 327538)
+
+**Scores:** [3, 7, 7, 8, 5, 2, 6, 1, 5, 6, 3, 4] · **Solo:** 0 · **Fiddly:** 4 · **Best:** [4P, 5P]
+
+- Weight 3: BGG 2.66.
+- Depth 7: Trick-taking with secondary card effects per suit.
+- Density 7.
+- Inter 8: Trick-taking is constant direct interaction.
+- Conflict 5: Battles for cities + Viking raids.
+- Negotiation 2: Some table-talk for marriages.
+- Input 6: Card draw.
+- Output 1.
+- Catchup 5.
+- Theme 6: Medieval-Ireland flavor integrated through faction goals.
+- Engine 3.
+- Narrative 4: Three-era arc.
+
+Predicted closest: El Grande, Inis, Tigris & Euphrates, Pax Pamir (in catalog — interactive area-control / trick-taking cluster).
+
+---
+
+## Tekhenu: Obelisk of the Sun (BGG 297030)
+
+**Scores:** [5, 8, 6, 6, 3, 0, 5, 0, 4, 5, 7, 3] · **Solo:** 6 · **Fiddly:** 7 · **Best:** [2P, 3P]
+
+- Weight 5: BGG 3.66.
+- Depth 8: Tascini dice-rondel + multi-track scoring.
+- Density 6.
+- Inter 6: Shared dice pool + tile market.
+- Conflict 3.
+- Negotiation 0.
+- Input 5: Dice roll variance.
+- Output 0.
+- Catchup 4.
+- Theme 5: Egyptian temple-building integrated via Maat/Ra balancing.
+- Engine 7.
+- Narrative 3.
+
+Predicted closest: Teotihuacan, Tzolk'in, Trajan, Marco Polo (in catalog — Tascini / heavy point-salad cluster).
+
+---
+
+## Tribes of the Wind (BGG 361545)
+
+**Scores:** [3, 7, 6, 5, 1, 1, 6, 0, 4, 6, 7, 3] · **Solo:** 5 · **Fiddly:** 4 · **Best:** [3P, 4P]
+
+- Weight 3: BGG 2.47.
+- Depth 7: Card-chain combos depending on neighbours' boards.
+- Density 6.
+- Inter 5: Cards reference neighbours' biomes — forces watching.
+- Conflict 1.
+- Negotiation 1: Some table-talk about adjacency.
+- Input 6: Card draw.
+- Output 0.
+- Catchup 4.
+- Theme 6: Ghibli-aesthetic eco-restoration ties to mechanics.
+- Engine 7.
+- Narrative 3.
+
+Predicted closest: Wingspan, Earth, Res Arcana, Forest Shuffle (this batch) (in catalog — mid-weight card-engine cluster).
+
+---
