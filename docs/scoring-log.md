@@ -2491,3 +2491,221 @@ Predicted closest: Pandemic, Pandemic Legacy S1, Spirit Island (in catalog — L
 Predicted closest: Concordia, Lost Ruins of Arnak, Viticulture (batch 09 — mid-euro exploration cluster).
 
 ---
+
+## Batch 13 — Chudyk hub, asymmetric 4X, micro-fillers, Lacerda 2024 (2026-05-22)
+
+10 games added: Mottainai, Cthulhu Wars, Architects of the West Kingdom, Forbidden Island, Sushi Go!, Love Letter, Skull, Ra, Imperial Struggle, Inventions: Evolution of Ideas.
+
+**Strategy:** Fill Chudyk cluster (Mottainai), asymmetric 4X (Cthulhu Wars), Garphill (Architects pairs with the existing Paladins of the West Kingdom), top micro-fillers (Skull, Love Letter, Sushi Go!), Knizia auction class (Ra), 2P heavy historical (Imperial Struggle, TS successor), and the brand-new Lacerda 2024 (Inventions). Forbidden Island as light Pandemic-DNA co-op.
+
+---
+
+## Mottainai (BGG 174041)
+
+**Scores:** [5, 9, 7, 8, 4, 0, 7, 1, 3, 4, 8, 4] · **Solo:** 0 · **Fiddly:** 5 · **Best:** [3P, 4P]
+
+- Weight 5: BGG 3.21. Chudyk-dense.
+- Depth 9: Cards-as-everything in Chudyk's house style.
+- Density 7.
+- Inter 8: Same Glory-to-Rome follow-lead structure.
+- Conflict 4.
+- Negotiation 0.
+- Input 7: Card hand variance.
+- Output 1.
+- Catchup 3.
+- Theme 4: Japanese temple monks; less integrated than Glory.
+- Engine 8.
+- Narrative 4.
+
+Predicted closest: Glory to Rome, Innovation, Race for the Galaxy (in catalog — Chudyk/engine cluster).
+
+---
+
+## Cthulhu Wars (BGG 139976)
+
+**Scores:** [7, 7, 7, 10, 9, 3, 4, 5, 4, 10, 4, 6] · **Solo:** 3 · **Fiddly:** 8 · **Best:** [4P, 5P]
+
+- Weight 7: BGG 3.87.
+- Depth 7: Asymmetric faction depth.
+- Density 7.
+- Inter 10: Direct combat 4X with strong asymmetry — Root-class friction.
+- Conflict 9.
+- Negotiation 3: Alliances form organically.
+- Input 4.
+- Output 5: Combat dice swing fights.
+- Catchup 4.
+- Theme 10: Lovecraft made manifest — each faction plays like its god.
+- Engine 4: Power-buying ramp.
+- Narrative 6: Awaken-the-old-ones session arc.
+
+Predicted closest: Root, Inis, Blood Rage (in catalog — asymmetric area-control combat cluster).
+
+---
+
+## Architects of the West Kingdom (BGG 236457)
+
+**Scores:** [3, 6, 6, 7, 4, 0, 5, 1, 5, 6, 5, 3] · **Solo:** 6 · **Fiddly:** 4 · **Best:** [3P, 4P]
+
+- Weight 3: BGG 2.65.
+- Depth 6.
+- Density 6.
+- Inter 7: **Worker-capture** mechanic — you can arrest opponents' workers off shared spots. Distinctive direct interaction.
+- Conflict 4: Capture + black-market actions.
+- Negotiation 0.
+- Input 5.
+- Output 1.
+- Catchup 5.
+- Theme 6: Medieval cathedral building + conscience track lands.
+- Engine 5.
+- Narrative 3.
+
+Predicted closest: Paladins of the West Kingdom, Lords of Waterdeep (batch 08), Stone Age (batch 08 — Garphill / mid-WP cluster).
+
+---
+
+## Forbidden Island (BGG 65244)
+
+**Scores:** [2, 4, 5, 8, 0, 2, 7, 3, 5, 6, 2, 4] · **Solo:** 5 · **Fiddly:** 3 · **Best:** [2P, 3P, 4P]
+
+- Weight 2: BGG 1.74. Pandemic-light.
+- Depth 4: Tighter and shallower than Pandemic.
+- Density 5.
+- Inter 8.
+- Conflict 0.
+- Negotiation 2.
+- Input 7.
+- Output 3: Sinking tile reveals + treasure card luck.
+- Catchup 5.
+- Theme 6: Sinking island works as a tension-source.
+- Engine 2.
+- Narrative 4.
+
+Predicted closest: Pandemic, The Crew, Spirit Island (in catalog — co-op cluster, especially Leacock-DNA).
+
+---
+
+## Sushi Go! (BGG 133473)
+
+**Scores:** [1, 3, 5, 5, 2, 0, 6, 1, 4, 3, 4, 1] · **Solo:** 0 · **Fiddly:** 1 · **Best:** [4P, 5P]
+
+- Weight 1: BGG 1.18.
+- Depth 3: Shallower than the Party version due to smaller card pool.
+- Density 5.
+- Inter 5.
+- Conflict 2.
+- Negotiation 0.
+- Input 6.
+- Output 1.
+- Catchup 4.
+- Theme 3.
+- Engine 4.
+- Narrative 1.
+
+Predicted closest: Sushi Go Party!, 7 Wonders, It's a Wonderful World (batch 10 — drafter cluster).
+
+---
+
+## Love Letter (BGG 129622)
+
+**Scores:** [1, 4, 5, 7, 4, 0, 7, 3, 4, 3, 0, 1] · **Solo:** 0 · **Fiddly:** 1 · **Best:** [3P, 4P]
+
+- Weight 1: BGG 1.20.
+- Depth 4: Surprisingly tight 16-card deduction.
+- Density 5.
+- Inter 7.
+- Conflict 4: Direct elimination via Guard/Baron.
+- Negotiation 0.
+- Input 7: Card draws drive everything.
+- Output 3.
+- Catchup 4.
+- Theme 3.
+- Engine 0.
+- Narrative 1.
+
+Predicted closest: Skull (this batch), Jaipur (batch 09), Welcome To (in catalog — light filler cluster).
+
+---
+
+## Skull (BGG 92415)
+
+**Scores:** [1, 4, 4, 9, 4, 6, 1, 4, 4, 2, 0, 1] · **Solo:** 0 · **Fiddly:** 1 · **Best:** [4P, 5P, 6P]
+
+- Weight 1: BGG 1.16.
+- Depth 4: Pure-bluff depth is real but bounded.
+- Density 4.
+- Inter 9: Constant table-reading.
+- Conflict 4: Eliminating opponent disks.
+- Negotiation 6: Table-talk is the game.
+- Input 1: **Zero card draws** — pure mind game.
+- Output 4.
+- Catchup 4.
+- Theme 2.
+- Engine 0.
+- Narrative 1.
+
+Predicted closest: BotC, Cosmic Encounter, Avalon (batch 12 — bluff/social cluster). Distinct because no randomness.
+
+---
+
+## Ra (BGG 12)
+
+**Scores:** [3, 6, 5, 8, 3, 2, 5, 1, 5, 4, 2, 3] · **Solo:** 0 · **Fiddly:** 3 · **Best:** [3P, 4P]
+
+- Weight 3: BGG 2.55.
+- Depth 6: Knizia's tight push-your-luck auction.
+- Density 5.
+- Inter 8: Auction interaction is constant.
+- Conflict 3: Bid sniping.
+- Negotiation 2.
+- Input 5: Tile draw.
+- Output 1.
+- Catchup 5: Sun tile rotation evens out positions.
+- Theme 4.
+- Engine 2.
+- Narrative 3: Three-epoch arc.
+
+Predicted closest: El Grande, Tigris & Euphrates, Modern Art (in catalog — Knizia / classic-euro cluster).
+
+---
+
+## Imperial Struggle (BGG 257499)
+
+**Scores:** [7, 10, 7, 10, 7, 0, 4, 1, 5, 9, 5, 8] · **Solo:** 0 · **Fiddly:** 6 · **Best:** [2P]
+
+- Weight 7: BGG 4.05. Heavier than Twilight Struggle.
+- Depth 10: 18th-century Britain vs France competition is deeply strategic.
+- Density 7.
+- Inter 10: 2P direct opposition.
+- Conflict 7: Wars + investments + flashpoints.
+- Negotiation 0.
+- Input 4: Some event-tile variance.
+- Output 1: Mostly deterministic.
+- Catchup 5.
+- Theme 9: Mercantile colonial competition deeply integrated.
+- Engine 5: Investment buildup compounds.
+- Narrative 8: Era arc with peace/war alternation.
+
+Predicted closest: Twilight Struggle, Watergate (batch 12), War of the Ring (in catalog — 2P historical cluster). Direct sister to TS.
+
+---
+
+## Inventions: Evolution of Ideas (BGG 376728)
+
+**Scores:** [9, 10, 8, 7, 3, 1, 4, 1, 4, 8, 9, 6] · **Solo:** 7 · **Fiddly:** 9 · **Best:** [2P, 3P]
+
+- Weight 9: BGG 4.5. Top of Lacerda's weight range.
+- Depth 10.
+- Density 8.
+- Inter 7: Idea-influence + tech-tree contention.
+- Conflict 3.
+- Negotiation 1.
+- Input 4.
+- Output 1.
+- Catchup 4.
+- Theme 8: History of inventions integrated through tech-tree progression — concept emerges through play.
+- Engine 9.
+- Narrative 6: Era progression arc.
+
+Predicted closest: Lisboa, On Mars, Kanban EV, Vinhos Deluxe (in catalog — Lacerda heavy cluster).
+
+---
