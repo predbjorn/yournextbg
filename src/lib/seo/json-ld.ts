@@ -8,6 +8,7 @@
 
 import { AXES } from "@/lib/scoring";
 import type { Game } from "@/data/types";
+import type { FaqItem } from "./faq";
 
 const SITE_URL = "https://yournextbg.com";
 
@@ -122,6 +123,34 @@ export function gameBreadcrumb(game: Game): BreadcrumbJsonLd {
         name: game.name,
       },
     ],
+  };
+}
+
+interface FaqJsonLd {
+  "@context": "https://schema.org";
+  "@type": "FAQPage";
+  mainEntity: Array<{
+    "@type": "Question";
+    name: string;
+    acceptedAnswer: {
+      "@type": "Answer";
+      text: string;
+    };
+  }>;
+}
+
+export function faqJsonLd(items: readonly FaqItem[]): FaqJsonLd {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: items.map((it) => ({
+      "@type": "Question",
+      name: it.q,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: it.a,
+      },
+    })),
   };
 }
 
