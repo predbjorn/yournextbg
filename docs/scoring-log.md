@@ -1619,3 +1619,221 @@ Predicted closest: Spirit Island, The Crew, Pandemic Legacy S1 (in catalog — c
 Predicted closest: Concordia, Castles of Burgundy, Lorenzo il Magnifico (in catalog — midweight engine/euro cluster). rec.games typically returns Marco Polo, Trickerion, Lorenzo, Anachrony for Tzolkin.
 
 ---
+
+## Batch 09 — More hub fan-out (2026-05-22)
+
+10 games added: Viticulture EE, Tapestry, Anachrony, Trickerion, Voyages of Marco Polo, Nemesis, Mansions of Madness 2E, Robinson Crusoe, Aeon's End, Jaipur.
+
+**Strategy:** Extend the hub coverage from batch 08 into adjacent clusters that the engine couldn't otherwise reach well — Stonemaier civ (Tapestry, Viticulture), Mindclash heavy (Anachrony, Trickerion), dice-WP mid-euros (Marco Polo), co-op horror (Nemesis, Mansions), hard solo/co-op (Robinson Crusoe), co-op deckbuilder (Aeon's End), 2P card-game filler (Jaipur). Tapestry specifically locks in the README's **Theme 3 anchor**.
+
+---
+
+## Viticulture: Essential Edition (BGG 183394)
+
+**Scores:** [3, 6, 6, 5, 2, 1, 6, 1, 4, 7, 6, 3] · **Solo:** 6 · **Fiddly:** 5 · **Best:** [3P, 4P]
+
+- Weight 3: BGG 2.93. Mid-gateway WP.
+- Depth 6: Wine-making engine + seasonal WP gives real layered decisions; not deep-euro tier.
+- Density 6.
+- Interaction 5: Bonus-action slots and shared visitor row create real spot-denial tension.
+- Conflict 2.
+- Negotiation 1.
+- Input 6: Visitor card deck is the dominant variance — card draw matters a lot.
+- Output 1.
+- Catchup 4.
+- Theme 7: Vineyard cycle (plant → harvest → age → fulfill) tracks the real process beautifully.
+- Engine 6.
+- Narrative 3.
+
+Predicted closest: Wingspan, Lost Ruins of Arnak, Concordia (in catalog — Stonemaier / gateway-mid cluster). rec.games typically: Wingspan ✓, Everdell ✓, Scythe ✓.
+
+---
+
+## Tapestry (BGG 286096)
+
+**Scores:** [3, 6, 6, 4, 2, 0, 7, 3, 5, 3, 8, 3] · **Solo:** 7 · **Fiddly:** 5 · **Best:** [3P, 4P]
+
+- Weight 3: BGG 2.85.
+- Depth 6: Pick-a-track optimization is real but not deeply contested.
+- Density 6.
+- Interaction 4: Mostly parallel civ-building; only the explore track creates light bumping.
+- Conflict 2.
+- Negotiation 0.
+- Input 7: Tapestry cards + civilization power asymmetry are huge per-game variance.
+- Output 3: Income tile draws can swing.
+- Catchup 5.
+- Theme 3: **Rubric anchor.** Beautiful art and civ-flavor on a mechanically-driven skeleton — the canonical "theme is not what I like, theme is what's baked in" example.
+- Engine 8: Track jumps fire mid-late game.
+- Narrative 3.
+
+Predicted closest: Wingspan, Scythe, Viticulture (this batch) — Stonemaier cluster.
+
+---
+
+## Anachrony (BGG 230050)
+
+**Scores:** [8, 8, 7, 5, 3, 0, 5, 1, 4, 8, 8, 5] · **Solo:** 7 · **Fiddly:** 8 · **Best:** [3P, 4P]
+
+- Weight 8: BGG 4.21. Between Brass (8) and Voidfall (9).
+- Depth 8.
+- Density 7.
+- Inter 5: Capital city WP + impact zones have spot denial; not in Brass-class.
+- Conflict 3.
+- Negotiation 0.
+- Input 5.
+- Output 1.
+- Catchup 4.
+- Theme 8: Time-loop loans, exosuits, factions all feel mechanically baked.
+- Engine 8: Tech tree + suit progression ramp hard.
+- Narrative 5: Cataclysm event gives a session arc.
+
+Predicted closest: Voidfall, Beyond the Sun, Gaia Project (in catalog — heavy-euro space/sci-fi cluster). Mindclash design DNA.
+
+---
+
+## Trickerion: Legends of Illusion (BGG 165722)
+
+**Scores:** [7, 8, 7, 7, 4, 1, 4, 1, 4, 9, 7, 5] · **Solo:** 6 · **Fiddly:** 8 · **Best:** [3P, 4P]
+
+- Weight 7: BGG 3.96.
+- Depth 8.
+- Density 7.
+- Inter 7: Action order priority on the WP track + shared performance city spots are heavily contested.
+- Conflict 4: Dark Alley aggressive actions; performance order denial.
+- Negotiation 1.
+- Input 4.
+- Output 1.
+- Catchup 4.
+- Theme 9: Magicians, assistants, trick performance — fully mechanically baked.
+- Engine 7.
+- Narrative 5.
+
+Predicted closest: Lisboa, Vinhos Deluxe, Anachrony (this batch) — heavy WP cluster. rec.games typically: Anachrony, Yokohama, Voyages of Marco Polo.
+
+---
+
+## The Voyages of Marco Polo (BGG 171623)
+
+**Scores:** [5, 7, 6, 6, 2, 0, 7, 1, 5, 6, 6, 4] · **Solo:** 5 · **Fiddly:** 5 · **Best:** [3P, 4P]
+
+- Weight 5: BGG 3.10. Real mid-weight.
+- Depth 7.
+- Density 6.
+- Inter 6: Spot denial scales with dice; asymmetric characters create reactive play.
+- Conflict 2.
+- Negotiation 0.
+- Input 7: Dice rolling for action strength is core variance.
+- Output 1: Once dice are rolled, downstream is deterministic.
+- Catchup 5: Black dice buy-in for losing players.
+- Theme 6: Silk Road merchant routes are well-integrated.
+- Engine 6.
+- Narrative 4: Eastward route gives an arc.
+
+Predicted closest: Concordia, Tzolk'in (batch 08), Castles of Burgundy (in catalog).
+
+---
+
+## Nemesis (BGG 167355)
+
+**Scores:** [5, 6, 6, 9, 7, 4, 8, 8, 4, 10, 2, 9] · **Solo:** 7 · **Fiddly:** 7 · **Best:** [4P, 5P]
+
+- Weight 5: BGG 3.65.
+- Depth 6.
+- Density 6.
+- Interaction 9: Semi-co-op with hidden agendas means every action ripples; shared map is everything.
+- Conflict 7: PvP within the co-op shell is endemic; aliens add direct combat.
+- Negotiation 4: Real alliance deal-making.
+- Input 8: Encounter deck + intruder bag.
+- Output 8: Combat dice + intruder reveals can wipe a turn.
+- Catchup 4.
+- Theme 10: Alien (1979) incarnate; the mechanics produce the film's pacing.
+- Engine 2.
+- Narrative 9: Session-as-movie is the entire pitch.
+
+Predicted closest: Mansions of Madness (this batch), Tainted Grail, ISS Vanguard (in catalog — co-op narrative horror cluster).
+
+---
+
+## Mansions of Madness: Second Edition (BGG 205059)
+
+**Scores:** [3, 5, 5, 7, 0, 2, 8, 6, 4, 9, 2, 9] · **Solo:** 7 · **Fiddly:** 5 · **Best:** [2P, 3P]
+
+- Weight 3: BGG 2.84. App handles most chrome — felt-weight is gateway.
+- Depth 5.
+- Density 5.
+- Inter 7: Pure co-op coordination.
+- Conflict 0.
+- Negotiation 2.
+- Input 8: App reveals scenarios, monsters spawn unpredictably.
+- Output 6: Combat dice + horror checks have real after-decision swing.
+- Catchup 4.
+- Theme 9: Lovecraft horror saturates everything.
+- Engine 2.
+- Narrative 9: Scenario story arc per session.
+
+Predicted closest: Nemesis (this batch), Tainted Grail, ISS Vanguard, Sleeping Gods (in catalog — narrative co-op cluster).
+
+---
+
+## Robinson Crusoe: Adventures on the Cursed Island (BGG 121921)
+
+**Scores:** [6, 7, 6, 8, 0, 3, 8, 8, 4, 9, 2, 7] · **Solo:** 8 · **Fiddly:** 7 · **Best:** [1P, 2P]
+
+- Weight 6: BGG 3.78. Heavier than most co-ops because the action-strength + event interplay is genuinely fiddly.
+- Depth 7.
+- Density 6.
+- Inter 8: Tight co-op coordination; role abilities matter.
+- Conflict 0.
+- Negotiation 3.
+- Input 8: Event deck + adventure deck flood the table with surprises.
+- Output 8: Action dice + adventure deck failures are punishing — distinct after-decision luck.
+- Catchup 4.
+- Theme 9: Castaway survival is mechanically inseparable.
+- Engine 2.
+- Narrative 7: Per-scenario story arc.
+
+Predicted closest: Spirit Island, Sleeping Gods, Pandemic Legacy S1 (in catalog — hard co-op cluster).
+
+---
+
+## Aeon's End (BGG 191189)
+
+**Scores:** [3, 7, 6, 7, 0, 2, 6, 4, 4, 6, 8, 4] · **Solo:** 8 · **Fiddly:** 4 · **Best:** [1P, 2P]
+
+- Weight 3: BGG 2.79.
+- Depth 7.
+- Density 6.
+- Inter 7: Co-op timing on the (random) turn order is the entire puzzle.
+- Conflict 0.
+- Negotiation 2.
+- Input 6: Nemesis deck + market reveals.
+- Output 4: **Random turn order** is the signature variance after deck-building decisions.
+- Catchup 4.
+- Theme 6: Breach-mage theming is fine but mechanics-first.
+- Engine 8: Deckbuilder, no shuffling (used cards stay in order) is a real engine twist.
+- Narrative 4.
+
+Predicted closest: Spirit Island, Marvel Champions, Dominion (batch 08 — co-op deckbuilder/co-op cluster).
+
+---
+
+## Jaipur (BGG 54043)
+
+**Scores:** [1, 5, 5, 7, 2, 0, 6, 2, 4, 3, 2, 2] · **Solo:** 0 · **Fiddly:** 1 · **Best:** [2P]
+
+- Weight 1: BGG 1.49. Very light.
+- Depth 5: Bonus-token timing is surprisingly tight.
+- Density 5.
+- Inter 7: 2P card-game where opponent reads matter; reactive market.
+- Conflict 2: Camel-grabbing denial is the only hostility.
+- Negotiation 0.
+- Input 6: Market refresh and draw variance.
+- Output 2: Bonus token reveal has minor variance.
+- Catchup 4.
+- Theme 3.
+- Engine 2.
+- Narrative 2.
+
+Predicted closest: Patchwork, Hive, Welcome To (in catalog — light filler + 2P-strict cluster).
+
+---
