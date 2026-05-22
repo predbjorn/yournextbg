@@ -1401,3 +1401,221 @@ Predicted closest: Hive (in catalog), Santorini (this batch). rec.games: Santori
 Predicted closest: Onitama (this batch), Hive (in catalog). rec.games: Onitama ✓ (this batch), Hive ✓ (in catalog), Specter Ops, Raptor, Tak, Photosynthesis, YINSH, Mr. Jack, Quoridor, Mr. Jack in New York — abstract 2P cluster, two catalog hits.
 
 ---
+
+## Batch 08 — Hub fan-out (2026-05-22)
+
+10 games added: Carcassonne, Patchwork, 7 Wonders, 7 Wonders: Duel, Dominion, Lords of Waterdeep, Codenames, Stone Age, Pandemic, Tzolk'in.
+
+**Strategy:** Priorities 1 + 2 are exhausted. This batch targets foundational hub games that anchor major clusters (tile-laying, drafting, deckbuilder, gateway-WP, co-op, party, 2P abstract-ish) and have very high search volume ("games like Carcassonne", "games like Pandemic" etc). These are SEO landing pages first, recommendation-graph hubs second.
+
+---
+
+## Carcassonne (BGG 822)
+
+**Scores:** [2, 5, 4, 6, 4, 1, 8, 0, 5, 3, 2, 2] · **Solo:** 2 · **Fiddly:** 2 · **Best:** [2P, 3P]
+
+- Weight 2: BGG 1.87. Anchor: Hive (2), one above Patchwork (1).
+- Depth 5: Tile placement is accessible; meeple commitment + cooperation-via-shared-cities is real but shallow.
+- Density 4: Mostly draw-and-place; the real choices are placement and whether to commit a meeple.
+- Interaction 6: City-joining, road-sharing, blocking on farms — direct shared structures.
+- Conflict 4: Joining opponent cities to steal scores is mildly hostile.
+- Negotiation 1.
+- Input 8: Tile draws drive the game; you plan around what you pull.
+- Output 0: Deterministic after placement.
+- Catchup 5.
+- Theme 3: Medieval landscape is pasted-on.
+- Engine 2: **Canonical Engine 2 anchor from the README.** No engine arc — just incremental scoring.
+- Narrative 2.
+
+Predicted closest: Ticket to Ride, Azul (in catalog — gateway tile-placement / pattern cluster). rec.games typically returns Catan, TtR, Settlers-likes for hub gateway games.
+
+---
+
+## Patchwork (BGG 163412)
+
+**Scores:** [1, 6, 5, 1, 0, 0, 1, 0, 3, 5, 3, 1] · **Solo:** 2 · **Fiddly:** 1 · **Best:** [2P]
+
+- Weight 1: **Canonical anchor — Patchwork is the rubric's "1".**
+- Depth 6: Polyomino + time-track tempo is meaningfully deeper than the surface suggests; Rosenberg-elegant.
+- Density 5: Three visible pieces means limited but pointed choices.
+- Interaction 1: **Multiplayer solitaire** archetype. Only interaction is taking pieces from the shared circle.
+- Conflict 0.
+- Negotiation 0.
+- Input 1: Piece order is fixed; the only variance is starting cursor position.
+- Output 0.
+- Catchup 3.
+- Theme 5: Quilt theme is literally the mechanic.
+- Engine 3: Button income is a small engine.
+- Narrative 1.
+
+Predicted closest: Hive, Azul, Welcome To (in catalog — light + low-interaction filler cluster). 2P-strict, so closest 2P-only neighbor is Hive.
+
+---
+
+## 7 Wonders (BGG 68448)
+
+**Scores:** [3, 6, 7, 5, 4, 1, 5, 0, 4, 4, 5, 3] · **Solo:** 0 · **Fiddly:** 3 · **Best:** [4P, 5P]
+
+- Weight 3: BGG 2.32. Drafting + symbol-soup is gateway-level.
+- Depth 6: Real depth in drafting choices, but limited compared to long euros.
+- Density 7: Simultaneous play packs every age tight.
+- Interaction 5: Drafting + military with neighbors only — indirect catch-and-react, not full denial.
+- Conflict 4: Military ages create per-age skirmishes; mild aggression.
+- Negotiation 1.
+- Input 5: Hand variance per age.
+- Output 0.
+- Catchup 4.
+- Theme 4: Ancient civilizations are flavor on the cards.
+- Engine 5: Science + symbol chains accelerate.
+- Narrative 3: Three ages give a session arc.
+
+Predicted closest: Splendor, Lost Ruins of Arnak, Cascadia (in catalog — gateway-midweight drafting/set-collection cluster). rec.games typical returns: 7W Duel ✓ (this batch), TtR, Splendor ✓, Carcassonne ✓ (this batch).
+
+---
+
+## 7 Wonders: Duel (BGG 173346)
+
+**Scores:** [3, 8, 7, 9, 5, 0, 4, 0, 4, 4, 6, 3] · **Solo:** 0 · **Fiddly:** 3 · **Best:** [2P]
+
+- Weight 3: BGG 2.22 — tighter than base 7W.
+- Depth 8: 2P pyramid drafting with insta-win paths is genuinely deep — every visible card is leverage.
+- Density 7.
+- Interaction 9: Every card you take denies your opponent; 2P abstract-class.
+- Conflict 5: Military track + science track are direct kill conditions.
+- Negotiation 0.
+- Input 4: Pyramid layout per age has some variance but most cards are visible.
+- Output 0.
+- Catchup 4: Military rebound is possible.
+- Theme 4.
+- Engine 6: Set-collection ramp.
+- Narrative 3: Three ages.
+
+Predicted closest: 7 Wonders (this batch), Hive, Onitama (in catalog — 2P heavy-interaction cluster).
+
+---
+
+## Dominion (BGG 36218)
+
+**Scores:** [3, 8, 6, 4, 3, 0, 5, 1, 3, 1, 9, 2] · **Solo:** 2 · **Fiddly:** 3 · **Best:** [2P]
+
+- Weight 3: BGG 2.36. Rules are simple; the depth lives in the kingdom you pick.
+- Depth 8: Deckbuilder optimization is deep; the "right" buy ladder varies per setup.
+- Density 6: Turns are quick once you internalize your deck.
+- Interaction 4: Mostly parallel; attack cards bump it some.
+- Conflict 3: Witch / Militia / Bureaucrat are confrontational; base game has them.
+- Negotiation 0.
+- Input 5: Shuffle order affects each turn meaningfully.
+- Output 1.
+- Catchup 3: Runaway is real once an engine fires.
+- Theme 1: Pure abstraction with medieval flavor.
+- Engine 9: **The original engine-builder** — entire game IS engine construction.
+- Narrative 2.
+
+Predicted closest: Race for the Galaxy, Res Arcana, Splendor (in catalog — engine-builder / quick-deckbuilder cluster). RftG and Dominion frequently co-occur in "card-engine" recs.
+
+---
+
+## Lords of Waterdeep (BGG 110327)
+
+**Scores:** [3, 6, 6, 6, 3, 1, 6, 1, 4, 4, 4, 3] · **Solo:** 0 · **Fiddly:** 4 · **Best:** [4P, 5P]
+
+- Weight 3: BGG 2.49. Approachable WP.
+- Depth 6: Quest-selection + intrigue interplay is real, not deep.
+- Density 6.
+- Interaction 6: WP spot-denial + intrigue cards thrown at opponents. Mid-range.
+- Conflict 3: Mandatory quests + take-that intrigue.
+- Negotiation 1.
+- Input 6: Quest deck + intrigue deck are major variance sources.
+- Output 1.
+- Catchup 4.
+- Theme 4: D&D flavor pasted on a euro skeleton.
+- Engine 4: Building income scales modestly.
+- Narrative 3.
+
+Predicted closest: Stone Age (this batch), Castles of Burgundy, Concordia (in catalog — gateway-midweight WP/euro cluster).
+
+---
+
+## Codenames (BGG 178900)
+
+**Scores:** [1, 4, 5, 9, 3, 5, 7, 4, 4, 1, 0, 1] · **Solo:** 0 · **Fiddly:** 1 · **Best:** [6P, 7P, 8P]
+
+- Weight 1: Trivial rules.
+- Depth 4: Clue depth is real but bounded — no strategic tree, just mind-reading.
+- Density 5: Cluegiver makes one dense choice; team makes guess decisions.
+- Interaction 9: Fully cooperative inside a team + competitive across teams; every clue ripples.
+- Conflict 3: Assassin reveals + opposing-team races feel adversarial.
+- Negotiation 5: Team discussion before guesses is real talk-driven win condition. Below BotC (10).
+- Input 7: Random word grid is the entire game-state variance.
+- Output 4: Once a clue is given, team guess outcomes can blow up — they're decisions but uncertain.
+- Catchup 4.
+- Theme 1: Spy flavor is pure decoration.
+- Engine 0.
+- Narrative 1.
+
+Predicted closest: Blood on the Clocktower, Cosmic Encounter (in catalog — social/party cluster). Far from everything else.
+
+---
+
+## Stone Age (BGG 34635)
+
+**Scores:** [3, 5, 5, 5, 2, 0, 4, 5, 4, 5, 5, 3] · **Solo:** 0 · **Fiddly:** 4 · **Best:** [3P, 4P]
+
+- Weight 3: BGG 2.42. Gateway WP.
+- Depth 5: Engine assembly is real but shallow vs heavies.
+- Density 5.
+- Interaction 5: Spot competition; mild.
+- Conflict 2.
+- Negotiation 0.
+- Input 4.
+- Output 5: **Dice-rolling for resources** after worker placement is real output-luck — distinct from most modern WP.
+- Catchup 4.
+- Theme 5: Stone-age tribe theme is integrated through food upkeep + tools.
+- Engine 5: Tools, agriculture, civilization cards build steadily.
+- Narrative 3.
+
+Predicted closest: Lords of Waterdeep (this batch), Castles of Burgundy, Concordia (in catalog — gateway-WP/euro cluster).
+
+---
+
+## Pandemic (BGG 30549)
+
+**Scores:** [2, 6, 6, 8, 0, 2, 7, 4, 5, 7, 3, 5] · **Solo:** 6 · **Fiddly:** 3 · **Best:** [3P, 4P]
+
+- Weight 2: BGG 2.42 but the actual play-feel is gateway-light because most rules are intuitive.
+- Depth 6: Coordination optimization can be deep, especially as difficulty scales.
+- Density 6.
+- Interaction 8: Fully co-op; every move is a group decision.
+- Conflict 0: Co-op.
+- Negotiation 2: Action sequencing discussions, but not deal-cutting.
+- Input 7: Card draws (infection + player) are the entire threat structure.
+- Output 4: Epidemic shuffle timing creates real after-decision swings.
+- Catchup 5.
+- Theme 7: Disease theme is strongly evoked through outbreaks, cure mechanics, cubes.
+- Engine 3: Role abilities are static, not engine-built.
+- Narrative 5: "We're losing then we cure" arc is the entire point.
+
+Predicted closest: Spirit Island, The Crew, Pandemic Legacy S1 (in catalog — co-op cluster). Sister to Legacy by definition.
+
+---
+
+## Tzolk'in: The Mayan Calendar (BGG 126163)
+
+**Scores:** [6, 8, 7, 6, 2, 0, 3, 0, 4, 6, 7, 4] · **Solo:** 5 · **Fiddly:** 6 · **Best:** [3P, 4P]
+
+- Weight 6: BGG 3.71. Gear mechanic adds real complexity.
+- Depth 8: Worker-timing on rotating gears creates a deep planning puzzle.
+- Density 7.
+- Interaction 6: Spot denial on gears + temple racing.
+- Conflict 2.
+- Negotiation 0.
+- Input 3: Building tile refresh is modest variance.
+- Output 0: Fully deterministic.
+- Catchup 4.
+- Theme 6: Mayan calendar integrated into the literal gear visual.
+- Engine 7: Tech tracks build steadily.
+- Narrative 4: Food days create rhythm; temple-ascend final scoring gives an arc.
+
+Predicted closest: Concordia, Castles of Burgundy, Lorenzo il Magnifico (in catalog — midweight engine/euro cluster). rec.games typically returns Marco Polo, Trickerion, Lorenzo, Anachrony for Tzolkin.
+
+---
