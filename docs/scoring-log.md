@@ -1837,3 +1837,221 @@ Predicted closest: Spirit Island, Marvel Champions, Dominion (batch 08 — co-op
 Predicted closest: Patchwork, Hive, Welcome To (in catalog — light filler + 2P-strict cluster).
 
 ---
+
+## Batch 10 — README anchors + more hub fan-out (2026-05-22)
+
+10 games added: Suburbia, Roll for the Galaxy, It's a Wonderful World, Five Tribes, Castles of Mad King Ludwig, Eldritch Horror, Just One, Wavelength, Pulsar 2849, King of Tokyo.
+
+**Strategy:** Suburbia is the README's **Catchup 8 anchor** and was missing — locking it in. The rest fill obvious clusters the engine couldn't reach: dice-engine builder (Roll for the Galaxy), quick drafter (Wonderful World), mancala (Five Tribes), light tile-laying (Castles), Lovecraft hub (Eldritch Horror), top party games (Just One, Wavelength), heavy dice-draft (Pulsar 2849), and dice-fighting filler (King of Tokyo).
+
+---
+
+## Suburbia (BGG 123260)
+
+**Scores:** [3, 6, 6, 5, 2, 0, 6, 1, 8, 5, 7, 3] · **Solo:** 5 · **Fiddly:** 6 · **Best:** [2P, 3P]
+
+- Weight 3: BGG 2.69. Mid-light.
+- Depth 6: Tile-adjacency optimization is real but bounded.
+- Density 6.
+- Inter 5: Shared tile market + goal contention.
+- Conflict 2.
+- Negotiation 0.
+- Input 6: Tile market draw is variance.
+- Output 1.
+- Catchup 8: **README anchor.** Income/reputation penalties scale with population, taxing leaders into rubber-band.
+- Theme 5.
+- Engine 7: City income compounds.
+- Narrative 3.
+
+Predicted closest: Castles of Mad King Ludwig (this batch), Castles of Burgundy, Concordia (in catalog — tile/euro cluster).
+
+---
+
+## Roll for the Galaxy (BGG 132531)
+
+**Scores:** [3, 7, 7, 4, 1, 0, 7, 4, 3, 4, 9, 3] · **Solo:** 5 · **Fiddly:** 4 · **Best:** [2P, 3P, 4P]
+
+- Weight 3: BGG 2.91. Lighter than RftG once internalized.
+- Depth 7.
+- Density 7.
+- Inter 4: Shared phase selection from RftG carries over but the dice randomization makes it more parallel.
+- Conflict 1.
+- Negotiation 0.
+- Input 7: Dice rolling is the variance layer.
+- Output 4: **Phase selection after dice roll** can blow up your plan if no opponent picks the phase you need.
+- Catchup 3.
+- Theme 4.
+- Engine 9: Same explosive engine arc as RftG.
+- Narrative 3.
+
+Predicted closest: Race for the Galaxy (in catalog — sister game), Splendor, Dominion (batch 08 — engine-builder cluster).
+
+---
+
+## It's a Wonderful World (BGG 271324)
+
+**Scores:** [2, 5, 6, 4, 2, 0, 5, 0, 3, 4, 7, 3] · **Solo:** 6 · **Fiddly:** 4 · **Best:** [3P, 4P]
+
+- Weight 2: BGG 2.20.
+- Depth 5.
+- Density 6: Simultaneous play keeps tempo high.
+- Inter 4: 7W-style drafting, light watch-and-react.
+- Conflict 2.
+- Negotiation 0.
+- Input 5.
+- Output 0: Production resolves deterministically.
+- Catchup 3.
+- Theme 4: Atompunk post-apoc flavor.
+- Engine 7: Scheduled production tableau builds steadily.
+- Narrative 3.
+
+Predicted closest: 7 Wonders (batch 08), Splendor, Race for the Galaxy (in catalog — quick drafter / engine-builder cluster).
+
+---
+
+## Five Tribes (BGG 157354)
+
+**Scores:** [3, 7, 6, 6, 3, 0, 6, 1, 4, 4, 4, 3] · **Solo:** 0 · **Fiddly:** 5 · **Best:** [2P, 3P]
+
+- Weight 3: BGG 2.81.
+- Depth 7: Mancala pickup-and-place is a deep tactical puzzle.
+- Density 6.
+- Inter 6: Turn-order bidding + tile-grabbing creates spot-denial; every move closes off opponent moves.
+- Conflict 3: Assassin tile is direct removal.
+- Negotiation 0.
+- Input 6: Tile setup + Djinn deck variance.
+- Output 1.
+- Catchup 4.
+- Theme 4.
+- Engine 4.
+- Narrative 3.
+
+Predicted closest: Tigris & Euphrates, El Grande, Concordia (in catalog — tactical mid-euro cluster).
+
+---
+
+## Castles of Mad King Ludwig (BGG 155426)
+
+**Scores:** [3, 6, 6, 5, 2, 0, 7, 1, 5, 4, 5, 3] · **Solo:** 6 · **Fiddly:** 5 · **Best:** [3P, 4P]
+
+- Weight 3: BGG 2.65.
+- Depth 6.
+- Density 6.
+- Inter 5: Master Builder room-pricing creates real indirect contention — you set prices for opponents' purchases.
+- Conflict 2.
+- Negotiation 0.
+- Input 7: Room draw + bonus card variance.
+- Output 1.
+- Catchup 5.
+- Theme 4.
+- Engine 5.
+- Narrative 3.
+
+Predicted closest: Suburbia (this batch), Castles of Burgundy, Concordia (in catalog).
+
+---
+
+## Eldritch Horror (BGG 146021)
+
+**Scores:** [4, 5, 5, 7, 0, 2, 8, 7, 4, 9, 2, 8] · **Solo:** 7 · **Fiddly:** 8 · **Best:** [2P, 3P]
+
+- Weight 4: BGG 3.40.
+- Depth 5.
+- Density 5: Big map, but each player turn is moderate.
+- Inter 7: Pure co-op coordination across continents.
+- Conflict 0.
+- Negotiation 2.
+- Input 8: Mystery deck + encounter decks + ancient one variance.
+- Output 7: Combat dice are the iconic moment of pain.
+- Catchup 4.
+- Theme 9: World-tour Lovecraft.
+- Engine 2.
+- Narrative 8: Mystery completion arc per session.
+
+Predicted closest: Arkham LCG, Mansions of Madness (batch 09), Sleeping Gods (in catalog — Lovecraft / narrative co-op cluster).
+
+---
+
+## Just One (BGG 254640)
+
+**Scores:** [1, 2, 4, 9, 0, 2, 8, 3, 4, 1, 0, 1] · **Solo:** 0 · **Fiddly:** 1 · **Best:** [5P, 6P, 7P]
+
+- Weight 1: Trivial.
+- Depth 2.
+- Density 4: One dense decision per round, otherwise idle.
+- Inter 9: Word elimination is communal — every other player's clue matters.
+- Conflict 0: Pure co-op.
+- Negotiation 2.
+- Input 8: Random word draw.
+- Output 3: Reveals can collide (matching clues cancel).
+- Catchup 4.
+- Theme 1.
+- Engine 0.
+- Narrative 1.
+
+Predicted closest: Codenames (batch 08), Welcome To (in catalog — light party cluster).
+
+---
+
+## Wavelength (BGG 262543)
+
+**Scores:** [1, 3, 4, 9, 2, 6, 7, 4, 5, 1, 0, 1] · **Solo:** 0 · **Fiddly:** 1 · **Best:** [6P, 7P, 8P]
+
+- Weight 1: Trivial.
+- Depth 3.
+- Density 4.
+- Inter 9: Team mind-reading.
+- Conflict 2: Team competition.
+- Negotiation 6: Group discussion of dial position is the entire game; below BotC (10) but above Catan (4).
+- Input 7: Spectrum cards + dial position variance.
+- Output 4.
+- Catchup 5.
+- Theme 1.
+- Engine 0.
+- Narrative 1.
+
+Predicted closest: Just One (this batch), Codenames (batch 08), Cosmic Encounter (in catalog — party / social cluster).
+
+---
+
+## Pulsar 2849 (BGG 199561)
+
+**Scores:** [5, 8, 7, 6, 2, 0, 6, 1, 6, 5, 7, 3] · **Solo:** 0 · **Fiddly:** 6 · **Best:** [3P, 4P]
+
+- Weight 5: BGG 3.55.
+- Depth 8: Dice-drafting + tech tree is a deep optimization puzzle.
+- Density 7.
+- Inter 6: Dice draft + map placement create real contention.
+- Conflict 2.
+- Negotiation 0.
+- Input 6: Dice rolling is the central variance.
+- Output 1.
+- Catchup 6: Slow-dice priority and dice-floor protect trailing players.
+- Theme 5.
+- Engine 7: Tech-card power-up arc.
+- Narrative 3.
+
+Predicted closest: Tzolk'in (batch 08), Voyages of Marco Polo (batch 09), Lorenzo il Magnifico (in catalog — dice-WP / mid-euro cluster).
+
+---
+
+## King of Tokyo (BGG 70323)
+
+**Scores:** [1, 3, 4, 8, 8, 1, 4, 8, 4, 6, 3, 3] · **Solo:** 0 · **Fiddly:** 2 · **Best:** [4P, 5P]
+
+- Weight 1: BGG 1.49. Trivial.
+- Depth 3.
+- Density 4.
+- Inter 8: You're either in Tokyo (attacking everyone) or out (taking attacks from one).
+- Conflict 8: Yahtzee-with-attacks; constant direct violence.
+- Negotiation 1.
+- Input 4: Card market.
+- Output 8: Dice rolls drive every attack/heal.
+- Catchup 4.
+- Theme 6: Kaiju attacks Tokyo is mechanically baked.
+- Engine 3: Card buys add powers.
+- Narrative 3.
+
+Predicted closest: Quacks (in catalog — push-your-luck dice), Heat, Cosmic Encounter (in catalog — high-conflict filler cluster).
+
+---
