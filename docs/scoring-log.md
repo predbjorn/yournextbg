@@ -3769,3 +3769,255 @@ Predicted closest: Teotihuacan, Tzolk'in, Trajan, Marco Polo (in catalog — Tas
 Predicted closest: Wingspan, Earth, Res Arcana, Forest Shuffle (this batch) (in catalog — mid-weight card-engine cluster).
 
 ---
+
+## Dorfromantik: The Board Game (BGG 370591)
+
+**Scores:** [1, 5, 6, 5, 0, 2, 7, 0, 4, 5, 2, 5] · **Solo:** 9 · **Fiddly:** 3 · **Best:** [1P, 2P]
+
+- Weight 1: BGG 1.58 — SDJ 2023 winner; lighter than Cascadia (2).
+- Depth 5: Spatial tile-laying with concurrent task tiles is surprisingly tight; lighter than Cascadia (6).
+- Density 6: Quick turns, but pauses to find a fit.
+- Inter 5: Pure co-op shared map; players advise.
+- Conflict 0.
+- Negotiation 2: Co-op coordination is gentle, no real bargaining.
+- Input 7: Pulled tile drives the turn.
+- Output 0: No post-decision randomness.
+- Catchup 4: Group score, so n/a; rated mid.
+- Theme 5: Pastoral charm; loose mechanical tie.
+- Engine 2.
+- Narrative 5: Unlock-box campaign builds across sessions.
+
+Predicted closest: Cascadia, Kingdomino, Patchwork, Calico (in catalog — light spatial-puzzle cluster).
+
+---
+
+## Frostpunk: The Board Game (BGG 311988)
+
+**Scores:** [8, 9, 8, 9, 1, 6, 6, 3, 3, 10, 4, 9] · **Solo:** 8 · **Fiddly:** 9 · **Best:** [2P, 3P]
+
+- Weight 8: BGG 3.96 — heavier than Spirit Island (8), lighter than Through the Ages (9).
+- Depth 9: Multi-system resource/morale/temperature scenario puzzle.
+- Density 8: Every action is meaningful under existential pressure.
+- Inter 9: Heavy co-op coordination.
+- Conflict 1: Crisis events feel adversarial but not PvP.
+- Negotiation 6: Co-op consensus calls per round.
+- Input 6: Event card draws drive scenario beats.
+- Output 3: Some dice on exploration/crises.
+- Catchup 3: Group share, scenario-pacing keeps it taut.
+- Theme 10: Best-in-class adaptation; rules are the survival.
+- Engine 4: Steam-tech tree builds late.
+- Narrative 9: Scenario book delivers strong arcs.
+
+Predicted closest: ISS Vanguard, Tainted Grail, Spirit Island, Robinson Crusoe (in catalog — heavy thematic co-op cluster).
+
+---
+
+## The White Castle (BGG 371942)
+
+**Scores:** [5, 8, 9, 5, 2, 0, 5, 0, 5, 4, 6, 2] · **Solo:** 7 · **Fiddly:** 5 · **Best:** [2P, 3P]
+
+- Weight 5: BGG 3.05 — Llama Dice tight mid-weight.
+- Depth 8: Three-bridge dice placement plus action-cost economy is puzzley.
+- Density 9: Nine rounds, tight; closer to Concordia (8) but denser.
+- Inter 5: Shared bridges/dice pool.
+- Conflict 2.
+- Negotiation 0.
+- Input 5: Dice rolls set the menu each round.
+- Output 0.
+- Catchup 5: Designer-tight; engines need triggering by mid-game.
+- Theme 4: Japanese castle aesthetic; loose mechanical tie.
+- Engine 6: Combos across tracks ramp end-game.
+- Narrative 2.
+
+Predicted closest: Praga Caput Regni, Lost Ruins of Arnak, Trajan, Yokohama (in catalog — tight mid-weight euro cluster).
+
+---
+
+## Wonderland's War (BGG 263953)
+
+**Scores:** [4, 6, 6, 8, 8, 3, 8, 5, 5, 7, 4, 4] · **Solo:** 0 · **Fiddly:** 6 · **Best:** [4P, 5P]
+
+- Weight 4: BGG 2.95.
+- Depth 6: Three-phase round, but battles dominate.
+- Density 6.
+- Inter 8: Area majority + direct battle.
+- Conflict 8: PvP battles each round.
+- Negotiation 3: Some alliance talk.
+- Input 8: Chip pull = bag building (input randomness as you draw to act).
+- Output 5: Bust risk during battle is post-decision.
+- Catchup 5: Madness chips can shift bag economy.
+- Theme 7: Mad-tea-party faction characters drive abilities.
+- Engine 4: Bag composition.
+- Narrative 4: Tea-party-then-battle arc.
+
+Predicted closest: Rising Sun, Blood Rage, Ankh, Cthulhu Wars (in catalog — chip-/dice-driven area-conflict cluster).
+
+---
+
+## Cubitos (BGG 298069)
+
+**Scores:** [2, 5, 7, 4, 2, 0, 5, 8, 6, 4, 7, 4] · **Solo:** 4 · **Fiddly:** 4 · **Best:** [3P, 4P]
+
+- Weight 2: BGG 2.13.
+- Depth 5: Cup-building choices matter, run management is intuitive.
+- Density 7: Simultaneous rolling keeps pace high.
+- Inter 4: Race + occasional cube-buy denial.
+- Conflict 2.
+- Negotiation 0.
+- Input 5: Dice pool is what you built.
+- Output 8: Push-your-luck rerolls drive everything.
+- Catchup 6: Back-of-pack ability slots, near-the-leader hampers.
+- Theme 4: Sports race; light flavor.
+- Engine 7: Dice-bag building like a deckbuilder.
+- Narrative 4.
+
+Predicted closest: Quacks of Quedlinburg, Heat, Roll for the Galaxy, Aeon's End (in catalog — bag/deck push-your-luck cluster).
+
+---
+
+## Hadrian's Wall (BGG 304783)
+
+**Scores:** [4, 7, 7, 2, 1, 0, 6, 0, 3, 6, 6, 5] · **Solo:** 8 · **Fiddly:** 7 · **Best:** [1P, 2P]
+
+- Weight 4: BGG 3.36 — heavy flip-and-write.
+- Depth 7: Many tracks, prerequisite combos, six-week pacing.
+- Density 7.
+- Inter 2: Effectively parallel.
+- Conflict 1: Pict raids are scripted.
+- Negotiation 0.
+- Input 6: Card draw drives resources.
+- Output 0.
+- Catchup 3.
+- Theme 6: Roman frontier garrison narrative around tracks.
+- Engine 6: Cascading multipliers.
+- Narrative 5: Six-week structure with build/defend arc.
+
+Predicted closest: Welcome To, Cartographers, Voidfall, Castles of Burgundy (in catalog — solo-friendly track/score cluster).
+
+---
+
+## Final Girl (BGG 277659)
+
+**Scores:** [3, 6, 7, 0, 8, 0, 7, 8, 2, 10, 3, 8] · **Solo:** 10 · **Fiddly:** 5 · **Best:** [1P]
+
+- Weight 3: BGG 2.31.
+- Depth 6: Action-token tactics under deck pressure.
+- Density 7: Killer turn every round keeps pressure.
+- Inter 0: Solo only by design.
+- Conflict 8: Constant vs-killer combat.
+- Negotiation 0.
+- Input 7: Card draw drives killer behaviour.
+- Output 8: Dice-driven combat with terror modifiers.
+- Catchup 2: Almost none — death spirals.
+- Theme 10: Slasher-movie tropes integrated through and through.
+- Engine 3.
+- Narrative 8: Each scenario plays like a slasher reel.
+
+Predicted closest: Arkham Horror LCG, Marvel Champions, Aeon's End, Robinson Crusoe (in catalog — solo card-driven horror cluster).
+
+---
+
+## Boonlake (BGG 343905)
+
+**Scores:** [6, 8, 6, 5, 2, 0, 5, 0, 4, 4, 8, 4] · **Solo:** 6 · **Fiddly:** 7 · **Best:** [2P, 3P]
+
+- Weight 6: BGG 3.99 — heavy Pfister.
+- Depth 8: Action-row sliding + map development + ship tableau.
+- Density 6.
+- Inter 5: Shared action row, follow-mechanic.
+- Conflict 2.
+- Negotiation 0.
+- Input 5: Card draws.
+- Output 0.
+- Catchup 4.
+- Theme 4: Frontier-settling flavor; mid integration.
+- Engine 8: Tableau combos drive late-game.
+- Narrative 4.
+
+Predicted closest: Maracaibo, Great Western Trail, Praga Caput Regni, Carnegie (in catalog — heavy Pfister/Pfister-adjacent cluster).
+
+---
+
+## Dune: War for Arrakis (BGG 367966)
+
+**Scores:** [7, 9, 7, 10, 9, 3, 5, 6, 4, 9, 4, 8] · **Solo:** 6 · **Fiddly:** 7 · **Best:** [2P]
+
+- Weight 7: BGG 3.85.
+- Depth 9: Asymmetric Fremen-vs-Harkonnen engine, like War of the Ring.
+- Density 7.
+- Inter 10: Two-player war with constant denial.
+- Conflict 9: Direct combat each round.
+- Negotiation 3: Limited alliance/treachery card play.
+- Input 5: Event/character card draws.
+- Output 6: Combat dice.
+- Catchup 4.
+- Theme 9: Frank Herbert Dune deeply integrated (sandworms, spice, prescience).
+- Engine 4.
+- Narrative 8: Asymmetric story arc — Fremen uprising vs Harkonnen grip.
+
+Predicted closest: War of the Ring 2e, Star Wars Rebellion, Twilight Imperium, Inis (in catalog — 2P asymmetric war / area-control cluster).
+
+---
+
+## A War of Whispers (BGG 248490)
+
+**Scores:** [3, 7, 5, 9, 4, 8, 5, 0, 4, 6, 2, 5] · **Solo:** 0 · **Fiddly:** 4 · **Best:** [4P]
+
+- Weight 3: BGG 2.31.
+- Depth 7: Secret loyalty management + bidding for empire actions.
+- Density 5.
+- Inter 9: You manipulate everyone else's wars indirectly.
+- Conflict 4: Battles resolve algorithmically.
+- Negotiation 8: Table-talk and bluffing are the game.
+- Input 5: Event-card variance.
+- Output 0: Combat deterministic.
+- Catchup 4: Loyalty swaps reshuffle who's "winning".
+- Theme 6: Five-empire intrigue feel.
+- Engine 2.
+- Narrative 5.
+
+Predicted closest: Cosmic Encounter, Sidereal Confluence, Pax Pamir, Twilight Imperium (in catalog — high-interaction social-deduction-adjacent cluster).
+
+---
+
+## Iki (BGG 153938)
+
+**Scores:** [4, 7, 6, 6, 2, 0, 4, 0, 5, 7, 6, 4] · **Solo:** 0 · **Fiddly:** 6 · **Best:** [3P, 4P]
+
+- Weight 4: BGG 3.31.
+- Depth 7: Rondel + artisan-hire + apprentice promotion is layered.
+- Density 6.
+- Inter 6: Rondel collision and artisan denial.
+- Conflict 2: Occasional fire events.
+- Negotiation 0.
+- Input 4: Low — most info open.
+- Output 0.
+- Catchup 5: Apprenticeship promotion creates late surges.
+- Theme 7: Edo-period street life mapped well to professions/seasons.
+- Engine 6: Artisan-promotion engine.
+- Narrative 4: Four-season arc.
+
+Predicted closest: Trajan, Teotihuacan, Tzolk'in, Yokohama (in catalog — rondel / mid-heavy euro cluster).
+
+---
+
+## Mind MGMT: The Psychic Espionage "Game." (BGG 284587)
+
+**Scores:** [3, 7, 6, 10, 8, 4, 4, 1, 4, 8, 2, 7] · **Solo:** 5 · **Fiddly:** 4 · **Best:** [3P, 4P]
+
+- Weight 3: BGG 2.84.
+- Depth 7: Asymmetric deduction; recruiter manages hidden movement vs agent team.
+- Density 6.
+- Inter 10: Asymmetric hidden-movement chase = pure interaction.
+- Conflict 8: Direct hunt + capture.
+- Negotiation 4: Agent table-talk inferences.
+- Input 4.
+- Output 1.
+- Catchup 4.
+- Theme 8: Kindt comic universe baked into mechanics (immortals, psychic ops).
+- Engine 2.
+- Narrative 7: Scenario-driven, escalates over a match.
+
+Predicted closest: Star Wars Rebellion, War of the Ring 2e, Watergate, Game of Thrones 2e (in catalog — hidden-info asymmetric two-side cluster).
+
+---
