@@ -6,7 +6,7 @@
  * later will outrank it, but it ensures every page has substantive content.
  */
 
-import { AXES, axisIndex, type AxisKey } from "@/lib/scoring";
+import { AXES, axisIndex, DEFAULT_LENS, rankBySimilarity, axisDeltas, type AxisKey } from "@/lib/scoring";
 import type { Game } from "@/data/types";
 
 function get(g: Game, key: AxisKey): number {
@@ -168,4 +168,55 @@ export function metaDescription(g: Game): string {
 export function longDescription(g: Game): string {
   const prose = generateBranchProse(g);
   return `${prose.thinking} ${prose.interaction}`.replace(/\s+/g, " ").slice(0, 500);
+}
+
+/**
+ * Find the most-similar in-catalog game and the single axis where the two
+ * profiles differ the most. Used by the closest-neighbor prose sentence and,
+ * later, the "vs. X" mini-section.
+ */
+export interface ClosestNeighbor {
+  neighbor: Game;
+  sim: number;            // 0..1
+  topAxis: AxisKey;       // axis with largest |delta|
+  topAxisLabel: string;   // display label for topAxis (avoids axisIndex round-trip)
+  refValue: number;
+  neighborValue: number;
+}
+
+export function closestNeighbor(g: Game, catalog: readonly Game[]): ClosestNeighbor | null {
+  const ranked = rankBySimilarity(g, catalog, DEFAULT_LENS);
+  if (ranked.length === 0) return null;
+  const top = ranked[0];
+  const deltas = axisDeltas(g.scores, top.game.scores);
+  const biggest = deltas[0];
+  return {
+    neighbor: top.game,
+    sim: top.sim,
+    topAxis: AXES[biggest.axisIndex].key,
+    topAxisLabel: AXES[biggest.axisIndex].label,
+    refValue: biggest.a,
+    neighborValue: biggest.b,
+  };
+}
+
+/**
+ * One-sentence editorial hook naming the closest in-catalog neighbor and the
+ * axis where the two diverge the most. Returns "" if the catalog has fewer
+ * than 2 games or the neighbor's similarity is below 0.55 (too dissimilar to
+ * be useful — would generate misleading text).
+ */
+export function closestNeighborSentence(g: Game, catalog: readonly Game[]): string {
+  const cn = closestNeighbor(g, catalog);
+  if (!cn) return "";
+  if (cn.sim < 0.55) return "";
+  const labelLower = cn.topAxisLabel.toLowerCase();
+  const direction =
+    cn.refValue === cn.neighborValue
+      ? `with an identical ${labelLower} score (${cn.refValue})`
+      : cn.refValue > cn.neighborValue
+      ? `but scores higher on ${labelLower} (${cn.refValue} vs. ${cn.neighborValue})`
+      : `but scores lower on ${labelLower} (${cn.refValue} vs. ${cn.neighborValue})`;
+  const pct = Math.round(cn.sim * 100);
+  return `Of every game in our catalog, ${g.name} is closest to ${cn.neighbor.name} (${pct}% profile match) ${direction}.`;
 }
