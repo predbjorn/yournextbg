@@ -15,6 +15,7 @@ import {
   closestNeighbor,
   closestNeighborSentence,
 } from "../src/lib/seo/prose";
+import { generateFaq } from "../src/lib/seo/faq";
 
 function pick(slug: string) {
   const g = GAMES.find((x) => x.slug === slug);
@@ -57,6 +58,17 @@ for (const g of samples) {
       cn.sim < 0.55 ? sentence === "" : sentence.includes(cn.neighbor.name),
     );
   }
+}
+
+for (const g of samples) {
+  console.log(`\n=== FAQ: ${g.name} ===`);
+  const faq = generateFaq(g);
+  for (const item of faq) {
+    console.log(`Q: ${item.q}`);
+    console.log(`A: ${item.a}\n`);
+  }
+  check("FAQ has 5 items", faq.length === 5);
+  check("All FAQ answers mention the game name", faq.every((x) => x.a.includes(g.name)));
 }
 
 console.log(`\n${failures === 0 ? "OK" : "FAILED"} — ${failures} failure(s)`);
