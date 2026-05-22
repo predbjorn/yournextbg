@@ -3133,3 +3133,215 @@ Predicted closest: TI4, Eclipse, Inis, Twilight Struggle (in catalog — 4X / he
 Predicted closest: Blood Rage, Inis, Cosmic Encounter, Cthulhu Wars (in catalog — Lang / area-control with alliances cluster).
 
 ---
+
+## Batch 16 — Rosenberg gaps, 2P war, modern engine builders (2026-05-22)
+
+## Glass Road (BGG 153938)
+
+**Scores:** [4, 7, 7, 5, 2, 0, 4, 1, 4, 5, 7, 3] · **Solo:** 7 · **Fiddly:** 5 · **Best:** [2P]
+
+- Weight 4: BGG 3.13. Lighter than the BGG weight suggests — Rosenberg clarity.
+- Depth 7: Asymmetric buildings + role-card economy.
+- Density 7.
+- Inter 5: Role-selection lets opponents tag along, creating tension.
+- Conflict 2.
+- Negotiation 0.
+- Input 4.
+- Output 1.
+- Catchup 4.
+- Theme 5.
+- Engine 7.
+- Narrative 3.
+
+Predicted closest: Le Havre, Caverna, Patchwork (in catalog — Rosenberg cluster). Lighter sister to Caverna.
+
+---
+
+## Fields of Arle (BGG 159675)
+
+**Scores:** [7, 9, 7, 3, 1, 0, 3, 0, 4, 7, 9, 5] · **Solo:** 8 · **Fiddly:** 8 · **Best:** [2P]
+
+- Weight 7: BGG 4.34.
+- Depth 9.
+- Density 7.
+- Inter 3: Multiplayer-solitaire even at 2P; very few touch points.
+- Conflict 1.
+- Negotiation 0.
+- Input 3.
+- Output 0.
+- Catchup 4.
+- Theme 7: Arle farming feels integrated through half-year cycles.
+- Engine 9.
+- Narrative 5: Seasonal arc.
+
+Predicted closest: Agricola, Caverna, A Feast for Odin (in catalog — Rosenberg heavy cluster). 2P specialist.
+
+---
+
+## Endeavor: Age of Sail (BGG 217610)
+
+**Scores:** [4, 7, 6, 7, 4, 1, 3, 0, 5, 8, 7, 4] · **Solo:** 4 · **Fiddly:** 5 · **Best:** [4P, 5P]
+
+- Weight 4: BGG 2.89.
+- Depth 7.
+- Density 6.
+- Inter 7: Colonization on a shared map, tech race for shared spots.
+- Conflict 4: Slaver/abolish action plus light military.
+- Negotiation 0.
+- Input 3.
+- Output 0.
+- Catchup 5: Tech allows leapfrogging.
+- Theme 8: Colonial-era integration (with abolitionism mechanics in the new edition).
+- Engine 7.
+- Narrative 4.
+
+Predicted closest: Endeavor: Deep Sea, Concordia, Brass: Lancashire (in catalog — interactive mid-euro cluster).
+
+---
+
+## Bonfire (BGG 304420)
+
+**Scores:** [5, 7, 6, 4, 2, 0, 4, 0, 4, 4, 8, 3] · **Solo:** 7 · **Fiddly:** 7 · **Best:** [2P, 3P]
+
+- Weight 5: BGG 3.65.
+- Depth 7.
+- Density 6.
+- Inter 4: Some shared market and tile drafting; mostly head-down.
+- Conflict 2.
+- Negotiation 0.
+- Input 4.
+- Output 0.
+- Catchup 4.
+- Theme 4: Gnomes + bonfires don't penetrate.
+- Engine 8.
+- Narrative 3.
+
+Predicted closest: Castles of Burgundy, Trajan, Yokohama (in catalog — Feld point-salad cluster).
+
+---
+
+## Hannibal: Rome vs. Carthage (BGG 234277)
+
+**Scores:** [5, 9, 5, 10, 9, 0, 6, 6, 4, 9, 3, 8] · **Solo:** 0 · **Fiddly:** 7 · **Best:** [2P]
+
+- Weight 5: BGG 3.43.
+- Depth 9: Card-driven war with long-term strategy.
+- Density 5: Some downtime, but engaged decisions.
+- Inter 10: 2P opposition.
+- Conflict 9: War game.
+- Negotiation 0.
+- Input 6: CDG card draw.
+- Output 6: Battle cards / dice swing fights.
+- Catchup 4.
+- Theme 9: Punic Wars baked in via leaders, elephants, naval supremacy.
+- Engine 3.
+- Narrative 8: Long campaign arc.
+
+Predicted closest: Twilight Struggle, Imperial Struggle, Watergate, War of the Ring (in catalog — 2P historical CDG cluster).
+
+---
+
+## That's Pretty Clever! / Ganz schön clever (BGG 244522)
+
+**Scores:** [2, 6, 7, 3, 1, 0, 8, 4, 4, 1, 7, 2] · **Solo:** 7 · **Fiddly:** 2 · **Best:** [2P, 3P]
+
+- Weight 2: BGG 1.93.
+- Depth 6: Cascading combo decisions are deeper than rules suggest.
+- Density 7.
+- Inter 3: Parallel play; opponents pick up your discards.
+- Conflict 1.
+- Negotiation 0.
+- Input 8: Six-dice variance is huge.
+- Output 4.
+- Catchup 4.
+- Theme 1: Pure abstract.
+- Engine 7: Combo chains are the point.
+- Narrative 2.
+
+Predicted closest: Welcome To, Cartographers, Quacks (in catalog — solitaire roll/flip-and-write cluster).
+
+---
+
+## For Sale (BGG 172)
+
+**Scores:** [1, 5, 5, 8, 3, 2, 6, 1, 4, 3, 0, 2] · **Solo:** 0 · **Fiddly:** 1 · **Best:** [4P, 5P, 6P]
+
+- Weight 1: BGG 1.27.
+- Depth 5: Two-phase auction is sharper than its weight.
+- Density 5.
+- Inter 8: Bidding interaction is constant.
+- Conflict 3.
+- Negotiation 2.
+- Input 6.
+- Output 1.
+- Catchup 4.
+- Theme 3.
+- Engine 0.
+- Narrative 2.
+
+Predicted closest: Modern Art, Ra, Skull (in catalog — light auction/social cluster).
+
+---
+
+## Burgle Bros (BGG 172081)
+
+**Scores:** [2, 5, 5, 8, 0, 3, 6, 5, 3, 8, 2, 6] · **Solo:** 7 · **Fiddly:** 4 · **Best:** [3P, 4P]
+
+- Weight 2: BGG 2.27.
+- Depth 5.
+- Density 5.
+- Inter 8: Co-op coordination drives every move.
+- Conflict 0.
+- Negotiation 3: Players debate routing.
+- Input 6.
+- Output 5: Guard pathing roll-driven.
+- Catchup 3.
+- Theme 8: Heist-movie vibe is strong.
+- Engine 2.
+- Narrative 6: Floor-by-floor escape arc.
+
+Predicted closest: Forbidden Island, Pandemic, The Crew (in catalog — light co-op cluster).
+
+---
+
+## Earth (BGG 350184)
+
+**Scores:** [3, 7, 7, 4, 1, 0, 6, 0, 4, 5, 9, 3] · **Solo:** 7 · **Fiddly:** 5 · **Best:** [3P, 4P]
+
+- Weight 3: BGG 2.81.
+- Depth 7: Asymmetric starter + many cards.
+- Density 7: Everyone takes part of every turn (everyone-acts mechanic).
+- Inter 4: Parallel-ish with shared market.
+- Conflict 1.
+- Negotiation 0.
+- Input 6: Big card-row variance.
+- Output 0.
+- Catchup 4.
+- Theme 5.
+- Engine 9: Compounding tableau is the entire game.
+- Narrative 3.
+
+Predicted closest: Wingspan, Ark Nova, Terraforming Mars (in catalog — card-engine tableau cluster).
+
+---
+
+## Ankh: Gods of Egypt (BGG 286096)
+
+**Scores:** [5, 7, 6, 10, 8, 4, 4, 4, 5, 8, 4, 6] · **Solo:** 0 · **Fiddly:** 6 · **Best:** [3P, 4P]
+
+- Weight 5: BGG 3.21.
+- Depth 7.
+- Density 6.
+- Inter 10: Direct area control with shared spaces and the merging mechanic.
+- Conflict 8.
+- Negotiation 4: Some alliance forming, especially via merges.
+- Input 4.
+- Output 4: Battle-card reveals.
+- Catchup 5: Merging forces leader balancing.
+- Theme 8: Egyptian gods integrated through asymmetric powers.
+- Engine 4.
+- Narrative 6: Devotion-track arc.
+
+Predicted closest: Blood Rage, Rising Sun, Inis, Cthulhu Wars (in catalog — Lang / mythic area-control cluster).
+
+---
