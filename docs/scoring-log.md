@@ -2273,3 +2273,221 @@ Predicted closest: Jaipur (batch 09), Patchwork, Hive (in catalog — 2P light f
 Predicted closest: 7 Wonders (batch 08), It's a Wonderful World (batch 10), Welcome To (in catalog — drafting filler cluster).
 
 ---
+
+## Batch 12 — Social deduction, 2P war, co-op deckbuilders, 2024 hits (2026-05-22)
+
+10 games added: Avalon, Secret Hitler, Decrypto, The Crew: Mission Deep Sea, Undaunted: Normandy, Watergate, Clank! Catacombs, Slay the Spire: The Board Game, Daybreak, Endeavor: Deep Sea.
+
+**Strategy:** Three social-deduction hubs (Avalon, Secret Hitler, Decrypto) — Codenames already pulled the word-association traffic but the hidden-role cluster was bare. Two crunchy 2P historicals (Undaunted, Watergate). Two deckbuilder hubs the catalog was missing (Clank! Catacombs as the dungeon-PYL anchor, Slay the Spire as the hot 2024 co-op). Daybreak and Endeavor: Deep Sea cover 2023-2024 hot releases that already generate search volume. The Crew: Mission Deep Sea slots in next to The Crew.
+
+---
+
+## The Resistance: Avalon (BGG 128882)
+
+**Scores:** [2, 5, 4, 10, 5, 9, 3, 2, 5, 5, 0, 4] · **Solo:** 0 · **Fiddly:** 2 · **Best:** [5P, 6P, 7P, 8P]
+
+- Weight 2: BGG 1.81.
+- Depth 5: Deduction depth across multiple rounds is real but bounded.
+- Density 4.
+- Inter 10: Hidden roles + voting → every action is loaded.
+- Conflict 5: Mission failure / accusation drama is hostile but bloodless.
+- Negotiation 9: Talking is the entire game.
+- Input 3: Hidden role draws are setup.
+- Output 2: Mission card reveals.
+- Catchup 5.
+- Theme 5: Arthurian flavor light.
+- Engine 0.
+- Narrative 4.
+
+Predicted closest: Secret Hitler (this batch), Blood on the Clocktower, Feed the Kraken (in catalog — hidden-role cluster).
+
+---
+
+## Secret Hitler (BGG 188834)
+
+**Scores:** [2, 5, 4, 10, 6, 9, 4, 2, 5, 7, 0, 5] · **Solo:** 0 · **Fiddly:** 2 · **Best:** [7P, 8P, 9P]
+
+- Weight 2: BGG 1.74.
+- Depth 5.
+- Density 4.
+- Inter 10.
+- Conflict 6: Public executions, presidential powers escalate.
+- Negotiation 9.
+- Input 4: Role + policy deck variance.
+- Output 2.
+- Catchup 5.
+- Theme 7: Weimar/Nazi flavor is mechanically baked into the chaos-rising trajectory — distinct from Avalon's bolt-on theme.
+- Engine 0.
+- Narrative 5.
+
+Predicted closest: Avalon (this batch), BotC, Feed the Kraken (in catalog — hidden-role cluster).
+
+---
+
+## Decrypto (BGG 225901)
+
+**Scores:** [2, 5, 5, 9, 4, 4, 7, 3, 4, 4, 0, 2] · **Solo:** 0 · **Fiddly:** 2 · **Best:** [4P, 6P, 8P]
+
+- Weight 2: BGG 1.81.
+- Depth 5: Code-cracking deepens over rounds as your team's clues accumulate.
+- Density 5.
+- Inter 9: Team-vs-team mind-reading.
+- Conflict 4: Opposing team tries to intercept your codes.
+- Negotiation 4: Team discussion before clues.
+- Input 7: Random keyword card.
+- Output 3.
+- Catchup 4.
+- Theme 4: Spy flavor.
+- Engine 0.
+- Narrative 2.
+
+Predicted closest: Codenames (batch 08), Just One, Wavelength (batch 10 — party cluster).
+
+---
+
+## The Crew: Mission Deep Sea (BGG 324856)
+
+**Scores:** [2, 7, 6, 8, 0, 3, 7, 1, 5, 4, 1, 3] · **Solo:** 0 · **Fiddly:** 2 · **Best:** [3P, 4P]
+
+- Weight 2: BGG 2.10.
+- Depth 7: Task-card variability deepens the puzzle vs the original Crew's fixed missions.
+- Density 6.
+- Inter 8.
+- Conflict 0.
+- Negotiation 3: Limited-communication signaling.
+- Input 7: Hand deal is the only randomness.
+- Output 1.
+- Catchup 5.
+- Theme 4.
+- Engine 1.
+- Narrative 3.
+
+Predicted closest: The Crew, Spirit Island, Pandemic (batch 08) — co-op cluster, especially trick-taking sister.
+
+---
+
+## Undaunted: Normandy (BGG 268864)
+
+**Scores:** [3, 8, 7, 9, 8, 0, 6, 4, 4, 7, 5, 5] · **Solo:** 0 · **Fiddly:** 3 · **Best:** [2P]
+
+- Weight 3: BGG 2.65.
+- Depth 8: Deckbuilder + tactical map combination is layered.
+- Density 7.
+- Inter 9: 2P direct combat.
+- Conflict 8.
+- Negotiation 0.
+- Input 6: Card draw + initiative.
+- Output 4: Initiative roll + combat dice.
+- Catchup 4.
+- Theme 7: WW2 squad attrition is real — losing cards = losing personnel.
+- Engine 5: Deck-building during play.
+- Narrative 5: Campaign scenarios.
+
+Predicted closest: Memoir '44 (batch 11), Watergate (this batch), Twilight Struggle (in catalog — 2P war / card-driven cluster).
+
+---
+
+## Watergate (BGG 274364)
+
+**Scores:** [3, 7, 6, 10, 6, 0, 5, 1, 5, 8, 2, 7] · **Solo:** 0 · **Fiddly:** 3 · **Best:** [2P]
+
+- Weight 3: BGG 2.34.
+- Depth 7: Asymmetric tug-of-war is tight.
+- Density 6.
+- Inter 10: 2P direct opposition on every card.
+- Conflict 6: Tug-of-war on tracks, evidence captures.
+- Negotiation 0.
+- Input 5: Card hand variance.
+- Output 1: Mostly deterministic.
+- Catchup 5: Lagging side gets stronger cards.
+- Theme 8: Nixon-vs-Post is mechanically embedded — evidence chains feel like investigation.
+- Engine 2.
+- Narrative 7: Investigation arc per session.
+
+Predicted closest: Twilight Struggle, Undaunted (this batch), War of the Ring (in catalog — 2P historical cluster).
+
+---
+
+## Clank! Catacombs (BGG 365717)
+
+**Scores:** [3, 6, 5, 6, 4, 0, 7, 6, 4, 6, 7, 5] · **Solo:** 0 · **Fiddly:** 4 · **Best:** [3P, 4P]
+
+- Weight 3: Approachable deckbuilder + map race.
+- Depth 6: Push-your-luck timing on dungeon depth.
+- Density 5.
+- Inter 6: Cube-bag draws are shared; opponents' clank affects everyone.
+- Conflict 4: Dragon attacks pulled from a shared cube bag with your clank tokens.
+- Negotiation 0.
+- Input 7: Bag draws + card row.
+- Output 6: **Dragon attack draws** can wipe a turn — clear output-luck distinction.
+- Catchup 4.
+- Theme 6: Dungeon heist works.
+- Engine 7: Deckbuilder ramp.
+- Narrative 5.
+
+Predicted closest: Dominion (batch 08), Aeon's End (batch 09), Quacks (in catalog — push-your-luck / deckbuilder cluster).
+
+---
+
+## Slay the Spire: The Board Game (BGG 338960)
+
+**Scores:** [4, 8, 6, 6, 0, 2, 6, 5, 4, 8, 9, 5] · **Solo:** 8 · **Fiddly:** 5 · **Best:** [1P, 2P]
+
+- Weight 4.
+- Depth 8: Deckbuilder + relic combo space is deep.
+- Density 6.
+- Inter 6: Co-op coordination is real but each player resolves their own combat.
+- Conflict 0.
+- Negotiation 2.
+- Input 6: Card draws + encounter deck.
+- Output 5: Enemy intents revealed but card draw variance hits hard.
+- Catchup 4.
+- Theme 8: Direct adaptation of the video game's combat feel.
+- Engine 9: Pure deckbuilder.
+- Narrative 5: Campaign progression.
+
+Predicted closest: Aeon's End (batch 09), Marvel Champions, Dune Imperium (in catalog — co-op / deckbuilder cluster). Solo-first design like Mage Knight.
+
+---
+
+## Daybreak (BGG 369546)
+
+**Scores:** [3, 7, 6, 8, 0, 3, 6, 3, 4, 10, 6, 5] · **Solo:** 7 · **Fiddly:** 6 · **Best:** [2P, 3P, 4P]
+
+- Weight 3: BGG 2.62.
+- Depth 7: Project-chain optimization is real, multi-region dependencies.
+- Density 6.
+- Inter 8.
+- Conflict 0.
+- Negotiation 3: Co-op deal-making over crisis cards.
+- Input 6.
+- Output 3: Crisis dice + climate roll.
+- Catchup 4.
+- Theme 10: Climate-policy mechanics ARE the game — Spirit-Island-class theme integration.
+- Engine 6: Project trees compound across rounds.
+- Narrative 5.
+
+Predicted closest: Pandemic, Pandemic Legacy S1, Spirit Island (in catalog — Leacock-DNA co-op cluster).
+
+---
+
+## Endeavor: Deep Sea (BGG 367966)
+
+**Scores:** [4, 7, 6, 6, 3, 0, 5, 1, 4, 6, 6, 3] · **Solo:** 7 · **Fiddly:** 5 · **Best:** [3P, 4P]
+
+- Weight 4: BGG 2.83.
+- Depth 7: Building-driven action economy.
+- Density 6.
+- Inter 6: Shared dive sites + action-card competition.
+- Conflict 3.
+- Negotiation 0.
+- Input 5.
+- Output 1.
+- Catchup 4.
+- Theme 6: Marine biology / exploration is well-themed.
+- Engine 6.
+- Narrative 3.
+
+Predicted closest: Concordia, Lost Ruins of Arnak, Viticulture (batch 09 — mid-euro exploration cluster).
+
+---
