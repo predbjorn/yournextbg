@@ -2055,3 +2055,221 @@ Predicted closest: Tzolk'in (batch 08), Voyages of Marco Polo (batch 09), Lorenz
 Predicted closest: Quacks (in catalog — push-your-luck dice), Heat, Cosmic Encounter (in catalog — high-conflict filler cluster).
 
 ---
+
+## Batch 11 — Feld, legacy sequels, war hubs, fillers (2026-05-22)
+
+10 games added: Yokohama, Trajan, Pandemic Legacy S2, Frosthaven, Hegemony, Memoir '44, Pax Pamir 2E, Cartographers, Lost Cities, Sushi Go Party!.
+
+**Strategy:** Sister games to top hubs (Frosthaven for Gloomhaven, PL:S2 for PL:S1), Feld-classic gap (Trajan, Yokohama), modern hot heavy (Hegemony 2023), foundational hex wargame (Memoir '44), Wehrle 2-3-4P politico (Pax Pamir 2E), flip-and-write gateway (Cartographers), and 2P/party fillers (Lost Cities, Sushi Go Party!).
+
+---
+
+## Yokohama (BGG 196340)
+
+**Scores:** [5, 7, 6, 6, 2, 0, 5, 1, 4, 5, 7, 3] · **Solo:** 0 · **Fiddly:** 6 · **Best:** [3P, 4P]
+
+- Weight 5: BGG 3.28.
+- Depth 7: Multi-area WP with assistant chains is layered.
+- Density 6.
+- Inter 6: Shared spots + chain-build creates real contention; pieces stay placed and matter for opponents.
+- Conflict 2.
+- Negotiation 0.
+- Input 5.
+- Output 1.
+- Catchup 4.
+- Theme 5: Meiji-era Yokohama trade.
+- Engine 7.
+- Narrative 3.
+
+Predicted closest: Concordia, Castles of Burgundy, Tzolk'in (batch 08), Lorenzo (in catalog — midweight euro cluster).
+
+---
+
+## Trajan (BGG 102680)
+
+**Scores:** [6, 8, 7, 5, 3, 0, 5, 1, 4, 4, 7, 4] · **Solo:** 0 · **Fiddly:** 7 · **Best:** [3P, 4P]
+
+- Weight 6: BGG 3.74. Genuinely heavy Feld.
+- Depth 8: Mancala-wheel timing forces deep multi-turn planning.
+- Density 7.
+- Inter 5: Shared forum tiles + senate cards; not heavy denial.
+- Conflict 3: Military invasion sub-track has direct combat.
+- Negotiation 0.
+- Input 5.
+- Output 1.
+- Catchup 4.
+- Theme 4: Roman flavor, mechanics-first Feld.
+- Engine 7.
+- Narrative 4.
+
+Predicted closest: Tzolk'in (batch 08), Lorenzo il Magnifico, Castles of Burgundy (in catalog — point-salad euro cluster).
+
+---
+
+## Pandemic Legacy: Season 2 (BGG 221107)
+
+**Scores:** [3, 7, 6, 8, 0, 3, 7, 4, 5, 8, 3, 10] · **Solo:** 4 · **Fiddly:** 6 · **Best:** [2P, 3P, 4P]
+
+- Weight 3: BGG 2.86. Slightly more rules than S1.
+- Depth 7.
+- Density 6.
+- Inter 8.
+- Conflict 0.
+- Negotiation 3.
+- Input 7.
+- Output 4.
+- Catchup 5.
+- Theme 8: Post-apocalypse haven flavor lands well.
+- Engine 3.
+- Narrative 10: Same legacy/storytelling tier as S1.
+
+Predicted closest: Pandemic Legacy S1, Pandemic (batch 08), Spirit Island (in catalog — co-op legacy cluster).
+
+---
+
+## Frosthaven (BGG 295770)
+
+**Scores:** [7, 9, 7, 8, 0, 2, 6, 4, 4, 8, 7, 9] · **Solo:** 7 · **Fiddly:** 9 · **Best:** [1P, 2P]
+
+- Weight 7: BGG 4.10. Heavier than Gloomhaven (7) — more upkeep, more systems.
+- Depth 9.
+- Density 7.
+- Inter 8.
+- Conflict 0: Co-op vs scenario.
+- Negotiation 2.
+- Input 6.
+- Output 4: Modifier deck swings.
+- Catchup 4.
+- Theme 8.
+- Engine 7: Build-progression across a long campaign.
+- Narrative 9.
+
+Predicted closest: Gloomhaven, Earthborne Rangers, ISS Vanguard (in catalog — heavy campaign co-op cluster).
+
+---
+
+## Hegemony: Lead Your Class to Victory (BGG 321608)
+
+**Scores:** [7, 9, 7, 10, 7, 4, 4, 1, 5, 10, 4, 6] · **Solo:** 4 · **Fiddly:** 8 · **Best:** [4P]
+
+- Weight 7: BGG 4.10.
+- Depth 9: Asymmetric class strategies with policy-flipping is genuinely deep.
+- Density 7.
+- Interaction 10: **Constant friction** — every class action ripples to every other. Strikes, taxation, immigration, layoffs all interact.
+- Conflict 7: Strikes, layoffs, lawsuits are direct hostile actions.
+- Negotiation 4: Real bargaining over wage negotiation and policy votes.
+- Input 4.
+- Output 1.
+- Catchup 5: Class roles have built-in catch-up via policy levers.
+- Theme 10: Class warfare mechanics literally ARE the politics.
+- Engine 4.
+- Narrative 6: Election cycle + policy-track arc.
+
+Predicted closest: John Company, Brass: Birmingham, Root (in catalog — asymmetric heavy-interaction cluster).
+
+---
+
+## Memoir '44 (BGG 10630)
+
+**Scores:** [2, 6, 6, 9, 9, 0, 5, 8, 4, 8, 1, 5] · **Solo:** 3 · **Fiddly:** 4 · **Best:** [2P]
+
+- Weight 2: BGG 2.10. Borg Command-and-Colors is accessible.
+- Depth 6: Tactical depth from card-driven sectoring.
+- Density 6.
+- Interaction 9: 2P direct combat.
+- Conflict 9: WW2 tactical wargame.
+- Negotiation 0.
+- Input 5: Command card draws drive your sectors.
+- Output 8: **Dice-driven combat** — Borg's signature output-luck.
+- Catchup 4.
+- Theme 8: WW2 unit/terrain composition matters.
+- Engine 1.
+- Narrative 5: Battle arc per scenario.
+
+Predicted closest: War of the Ring, Star Wars: Rebellion, Twilight Struggle (in catalog — 2P war cluster). Far from euros.
+
+---
+
+## Pax Pamir: Second Edition (BGG 256960)
+
+**Scores:** [6, 9, 7, 10, 7, 4, 5, 1, 5, 10, 4, 7] · **Solo:** 7 · **Fiddly:** 6 · **Best:** [4P]
+
+- Weight 6: BGG 3.71.
+- Depth 9: Loyalty-flipping coalition play is deeply strategic.
+- Density 7.
+- Interaction 10: Every play affects the coalition state; kingmaker concerns are real and intentional.
+- Conflict 7: Betrayal and elimination are core.
+- Negotiation 4: Real coalition pressure even without explicit deals.
+- Input 5.
+- Output 1.
+- Catchup 5: Era flips reset positions.
+- Theme 10: 19th-c Great Game / Afghan tribal politics is the mechanics.
+- Engine 4.
+- Narrative 7: Era flips create a session arc.
+
+Predicted closest: Root, John Company, Inis (in catalog — Wehrle / heavy-interaction asymmetric cluster).
+
+---
+
+## Cartographers (BGG 263918)
+
+**Scores:** [2, 5, 5, 3, 2, 0, 8, 0, 4, 4, 3, 2] · **Solo:** 7 · **Fiddly:** 2 · **Best:** [1P, 2P, 3P, 4P]
+
+- Weight 2: BGG 1.84.
+- Depth 5: Polyomino + scoring-card optimization is real.
+- Density 5.
+- Inter 3: Mostly parallel; only ambush cards inject interaction.
+- Conflict 2: Ambushes from opponents reshape your map.
+- Negotiation 0.
+- Input 8: Card draws are the entire game-state.
+- Output 0.
+- Catchup 4.
+- Theme 4: Cartographer flavor pasted on grid.
+- Engine 3.
+- Narrative 2.
+
+Predicted closest: Welcome To, Cascadia, Splendor (in catalog — flip-and-write / parallel-play cluster).
+
+---
+
+## Lost Cities (BGG 50)
+
+**Scores:** [2, 6, 5, 5, 2, 0, 7, 1, 3, 3, 2, 2] · **Solo:** 0 · **Fiddly:** 1 · **Best:** [2P]
+
+- Weight 2: BGG 1.65.
+- Depth 6: Knizia's tight commit-or-fold tension.
+- Density 5.
+- Inter 5: 2P card game with shared discard piles.
+- Conflict 2: Discard denial is real but limited.
+- Negotiation 0.
+- Input 7: Card draw drives every turn.
+- Output 1.
+- Catchup 3.
+- Theme 3.
+- Engine 2.
+- Narrative 2.
+
+Predicted closest: Jaipur (batch 09), Patchwork, Hive (in catalog — 2P light filler cluster).
+
+---
+
+## Sushi Go Party! (BGG 192291)
+
+**Scores:** [1, 4, 5, 5, 2, 0, 6, 1, 4, 3, 4, 1] · **Solo:** 0 · **Fiddly:** 1 · **Best:** [4P, 5P, 6P]
+
+- Weight 1: BGG 1.41.
+- Depth 4: Drafting depth limited by small card pool.
+- Density 5: Pass-and-pick.
+- Inter 5: 7W-style drafting interaction.
+- Conflict 2.
+- Negotiation 0.
+- Input 6: Deck shuffle each round.
+- Output 1.
+- Catchup 4.
+- Theme 3.
+- Engine 4: Within-round set collection.
+- Narrative 1.
+
+Predicted closest: 7 Wonders (batch 08), It's a Wonderful World (batch 10), Welcome To (in catalog — drafting filler cluster).
+
+---
