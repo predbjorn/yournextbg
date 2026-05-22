@@ -3345,3 +3345,215 @@ Predicted closest: Wingspan, Ark Nova, Terraforming Mars (in catalog — card-en
 Predicted closest: Blood Rage, Rising Sun, Inis, Cthulhu Wars (in catalog — Lang / mythic area-control cluster).
 
 ---
+
+## Batch 17 — 2P micro-strategy, Legacy fan-out, app-driven campaigns (2026-05-22)
+
+## Splendor Duel (BGG 364073)
+
+**Scores:** [2, 6, 7, 6, 4, 0, 5, 1, 4, 3, 6, 2] · **Solo:** 0 · **Fiddly:** 2 · **Best:** [2P]
+
+- Weight 2: BGG 1.92.
+- Depth 6: Tighter than Splendor; multiple win conditions.
+- Density 7.
+- Inter 6: Card-taking is tighter and meaner at 2P.
+- Conflict 4: Privilege scrolls steal gems.
+- Negotiation 0.
+- Input 5: Gem-grid refresh.
+- Output 1.
+- Catchup 4.
+- Theme 3.
+- Engine 6.
+- Narrative 2.
+
+Predicted closest: Splendor, 7 Wonders Duel, Onitama (in catalog — 2P abstract/engine cluster).
+
+---
+
+## Pandemic Legacy: Season 0 (BGG 314040)
+
+**Scores:** [4, 7, 6, 8, 1, 4, 6, 4, 4, 9, 3, 10] · **Solo:** 6 · **Fiddly:** 7 · **Best:** [3P, 4P]
+
+- Weight 4: BGG 2.83.
+- Depth 7.
+- Density 6.
+- Inter 8.
+- Conflict 1.
+- Negotiation 4.
+- Input 6.
+- Output 4.
+- Catchup 4.
+- Theme 9: Cold War spy story integrated.
+- Engine 3.
+- Narrative 10: Full season legacy arc.
+
+Predicted closest: Pandemic Legacy S1, Pandemic Legacy S2, Sleeping Gods (in catalog — legacy / story-arc cluster).
+
+---
+
+## Tiletum (BGG 351913)
+
+**Scores:** [5, 8, 7, 6, 3, 1, 5, 0, 4, 5, 7, 3] · **Solo:** 5 · **Fiddly:** 6 · **Best:** [3P, 4P]
+
+- Weight 5: BGG 3.71.
+- Depth 8: Dice-as-action mechanic + multi-track scoring.
+- Density 7.
+- Inter 6: Shared dice pool + market.
+- Conflict 3.
+- Negotiation 1.
+- Input 5: Dice draw.
+- Output 0.
+- Catchup 4.
+- Theme 5: Renaissance-trader theming integrated.
+- Engine 7.
+- Narrative 3.
+
+Predicted closest: Marco Polo, Maracaibo, Trickerion, Praga (in catalog — Luciani / heavy point-salad cluster).
+
+---
+
+## The Lord of the Rings: Journeys in Middle-earth (BGG 269385)
+
+**Scores:** [4, 6, 6, 7, 4, 2, 6, 5, 4, 10, 5, 10] · **Solo:** 7 · **Fiddly:** 7 · **Best:** [2P, 3P]
+
+- Weight 4: BGG 2.85. App handles overhead.
+- Depth 6.
+- Density 6.
+- Inter 7: Tight co-op coordination.
+- Conflict 4.
+- Negotiation 2.
+- Input 6: Card draws.
+- Output 5: Custom dice combat.
+- Catchup 4.
+- Theme 10: Tolkien feel through app + tile reveal.
+- Engine 5: Hero progression.
+- Narrative 10: Branching campaign.
+
+Predicted closest: Mansions of Madness, Sleeping Gods, Tainted Grail (in catalog — narrative co-op cluster).
+
+---
+
+## Crusaders: Thy Will Be Done (BGG 219965)
+
+**Scores:** [3, 7, 7, 6, 4, 0, 3, 1, 4, 5, 8, 3] · **Solo:** 4 · **Fiddly:** 4 · **Best:** [3P, 4P]
+
+- Weight 3: BGG 2.85.
+- Depth 7: Mancala-style action selection has subtle depth.
+- Density 7.
+- Inter 6: Shared territory map.
+- Conflict 4: Some battles for spots.
+- Negotiation 0.
+- Input 3.
+- Output 1.
+- Catchup 4.
+- Theme 5.
+- Engine 8: Action upgrades compound.
+- Narrative 3.
+
+Predicted closest: Concordia, Yokohama, Trajan, Russian Railroads (in catalog — mid-euro engine cluster).
+
+---
+
+## Imperial Settlers (BGG 154203)
+
+**Scores:** [3, 6, 7, 6, 5, 0, 7, 1, 3, 4, 9, 2] · **Solo:** 6 · **Fiddly:** 6 · **Best:** [2P, 3P]
+
+- Weight 3: BGG 2.79.
+- Depth 6: Card combo combinatorics.
+- Density 7.
+- Inter 6: Direct raid actions.
+- Conflict 5: Raze opponents' buildings.
+- Negotiation 0.
+- Input 7: Big card-draw variance.
+- Output 1.
+- Catchup 3.
+- Theme 4: Faction asymmetry felt.
+- Engine 9: Tableau combo engine is the game.
+- Narrative 2.
+
+Predicted closest: Race for the Galaxy, Roll for the Galaxy, San Juan / Puerto Rico (in catalog — tableau engine cluster).
+
+---
+
+## Combat Commander: Europe (BGG 21050)
+
+**Scores:** [6, 8, 5, 10, 10, 0, 8, 8, 5, 10, 2, 9] · **Solo:** 4 · **Fiddly:** 8 · **Best:** [2P]
+
+- Weight 6: BGG 3.96.
+- Depth 8: Hand management + tactical positioning.
+- Density 5: Lots of resolution; some downtime.
+- Inter 10: 2P direct opposition.
+- Conflict 10: WWII tactical combat.
+- Negotiation 0.
+- Input 8: Fate Card system swings hard.
+- Output 8: Combat resolution dice + cards.
+- Catchup 5.
+- Theme 10: Battlefield feel via fog-of-war cards.
+- Engine 2.
+- Narrative 9: Scenario arcs tell a story.
+
+Predicted closest: Memoir '44, Undaunted: Normandy, Hannibal, Watergate (in catalog — historical 2P CDG/tactical cluster).
+
+---
+
+## Heaven & Ale (BGG 227789)
+
+**Scores:** [3, 7, 7, 6, 2, 0, 4, 0, 4, 4, 8, 3] · **Solo:** 0 · **Fiddly:** 4 · **Best:** [3P, 4P]
+
+- Weight 3: BGG 2.91.
+- Depth 7.
+- Density 7.
+- Inter 6: Shared rondel + tile drafting.
+- Conflict 2.
+- Negotiation 0.
+- Input 4.
+- Output 0.
+- Catchup 4.
+- Theme 4.
+- Engine 8.
+- Narrative 3.
+
+Predicted closest: Concordia, Castles of Burgundy, Yokohama (in catalog — interactive mid-euro engine cluster).
+
+---
+
+## Star Wars: Imperial Assault (BGG 164153)
+
+**Scores:** [5, 7, 6, 9, 9, 1, 6, 6, 4, 10, 5, 9] · **Solo:** 4 · **Fiddly:** 8 · **Best:** [4P, 5P]
+
+- Weight 5: BGG 3.39.
+- Depth 7.
+- Density 6.
+- Inter 9: Asymmetric (Imperial player vs Rebel heroes).
+- Conflict 9: Tactical combat.
+- Negotiation 1.
+- Input 6.
+- Output 6: Custom dice combat.
+- Catchup 4.
+- Theme 10: Star Wars setting integrated through hero kits.
+- Engine 5: Character XP progression.
+- Narrative 9: Campaign arc.
+
+Predicted closest: Gloomhaven, Mansions of Madness, Tainted Grail, LOTR JIME (this batch) (in catalog — campaign dungeon-crawl cluster).
+
+---
+
+## War Chest (BGG 249259)
+
+**Scores:** [3, 7, 7, 9, 8, 1, 5, 1, 4, 4, 4, 3] · **Solo:** 0 · **Fiddly:** 3 · **Best:** [2P, 4P]
+
+- Weight 3: BGG 2.41.
+- Depth 7: Bag-builder + chess-like positioning.
+- Density 7.
+- Inter 9: 2P/4P direct opposition.
+- Conflict 8.
+- Negotiation 1.
+- Input 5: Bag-draw variance is the engine.
+- Output 1.
+- Catchup 4.
+- Theme 4: Medieval skirmish thin.
+- Engine 4.
+- Narrative 3.
+
+Predicted closest: Onitama, Santorini, Hive, Splendor Duel (this batch) (in catalog — 2P abstract/tactical cluster).
+
+---
