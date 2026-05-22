@@ -1,6 +1,7 @@
 /**
- * Session-refresh helper called from Next.js middleware. Keeps Supabase
- * auth cookies valid on every navigation.
+ * Session-refresh helper called from the Next.js proxy file (formerly
+ * "middleware" — renamed in Next.js 16). Keeps Supabase auth cookies
+ * valid on every navigation.
  */
 
 import { NextResponse, type NextRequest } from "next/server";

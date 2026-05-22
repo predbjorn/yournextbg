@@ -40,7 +40,7 @@ Every game gets twelve 0–10 scores across four "branches" (Thinking/Interactio
 | `src/app/games/[slug]/opengraph-image.tsx` | Per-game OG image | Yes |
 | `src/app/sitemap.ts`, `robots.ts` | SEO crawl surface | Yes |
 | `src/app/icon.tsx`, `apple-icon.tsx` | Favicons | Yes |
-| `src/lib/supabase/` | Client (browser/server/admin), middleware, types | Yes, carefully |
+| `src/lib/supabase/` | Client (browser/server/admin), proxy session refresh, types | Yes, carefully |
 | `supabase/migrations/` | Database schema | NO — coordinate first |
 | `scripts/seed-games.ts` | Catalog → Supabase upsert | NO |
 | `scripts/supabase-health.ts` | Env + connectivity check | Yes |

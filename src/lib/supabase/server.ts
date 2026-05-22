@@ -3,7 +3,7 @@
  * and Server Actions.
  *
  * Reads/writes Next.js cookies for session persistence. The cookie writes
- * may no-op outside a mutation context — that's fine; the middleware will
+ * may no-op outside a mutation context — that's fine; the proxy will
  * still refresh sessions on the next navigation.
  */
 
