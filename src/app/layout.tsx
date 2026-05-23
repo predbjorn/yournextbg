@@ -3,6 +3,7 @@ import { Fraunces, JetBrains_Mono, Newsreader } from "next/font/google";
 import { cookies } from "next/headers";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme/theme-provider";
+import { PostHogInit } from "@/components/analytics/posthog-init";
 import type { ThemeChoice } from "@/lib/supabase/types";
 
 /**
@@ -129,6 +130,7 @@ export default async function RootLayout({
       </head>
       <body className="min-h-full flex flex-col">
         <ThemeProvider theme={theme} />
+        <PostHogInit />
         {children}
       </body>
     </html>

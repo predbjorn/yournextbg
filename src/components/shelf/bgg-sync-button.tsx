@@ -12,6 +12,7 @@
 import { useState } from "react";
 import { Btn, Stamp } from "@/components/ui";
 import { getSupabaseBrowserClient } from "@/lib/supabase/client";
+import { capture } from "@/lib/analytics/posthog";
 
 interface SyncResult {
   owned: number;
@@ -52,6 +53,11 @@ export function BggSyncButton({ bggUsernameSet }: Props) {
         setMsg(
           `Imported ${data.owned} owned · ${data.wishlist} wishlist · ${data.new_unscored} pending scoring`,
         );
+        capture("bgg_sync_completed", {
+          owned: data.owned,
+          wishlist: data.wishlist,
+          new_unscored: data.new_unscored,
+        });
       } else {
         setMsg("Sync complete.");
       }

@@ -17,6 +17,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Btn, Stamp } from "@/components/ui";
 import { getSupabaseBrowserClient } from "@/lib/supabase/client";
+import { capture } from "@/lib/analytics/posthog";
 
 interface CatalogHit {
   id: string;
@@ -130,6 +131,7 @@ export function AddGameButton() {
         setError(upsertErr.message);
         return;
       }
+      capture("shelf_add_manual", { game_id: game.id });
       setOpen(false);
       // Hard refresh so the new row hydrates from the server query.
       window.location.reload();

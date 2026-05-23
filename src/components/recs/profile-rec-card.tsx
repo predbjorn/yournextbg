@@ -5,6 +5,7 @@ import { useState } from "react";
 import { Btn, BoxCover, Stamp } from "@/components/ui";
 import { buildCoverUrl } from "@/lib/shelf/covers";
 import { getSupabaseBrowserClient } from "@/lib/supabase/client";
+import { capture } from "@/lib/analytics/posthog";
 import type { ProfileCandidate } from "@/lib/recs/queries";
 
 interface Props {
@@ -23,6 +24,7 @@ export function ProfileRecCard({ rec, rank, onDismiss }: Props) {
 
   async function dismiss() {
     onDismiss(rec.id);
+    capture("recommendation_dismissed", { game_id: rec.id, rank });
     try {
       const supabase = getSupabaseBrowserClient();
       const {

@@ -241,3 +241,36 @@ disabled with a "Coming soon" tooltip; do **not** enable the Apple provider
 in the dashboard yet (turning it on without a Services ID just produces
 broken redirects).
 
+
+## Observability
+
+### PostHog
+
+- `NEXT_PUBLIC_POSTHOG_KEY` — project public key. Init in `src/lib/analytics/posthog.ts`.
+- `NEXT_PUBLIC_POSTHOG_HOST` — optional override, defaults to `https://us.i.posthog.com`.
+- When unset locally, the `capture()` calls are no-op — no warnings.
+- Event taxonomy lives in `src/lib/analytics/posthog.ts` (`EventName`). Keep it in sync with the PostHog dashboard.
+
+### Sentry
+
+Not yet wired. Set up via the official wizard the first time you run it locally:
+
+```bash
+pnpm dlx @sentry/wizard@latest -i nextjs
+```
+
+The wizard interactively creates `sentry.client.config.ts` / `sentry.server.config.ts` / `next.config.ts` glue and a `.sentryclirc` for source-map uploads. Skip the Vercel integration prompt if the repo↔Vercel link is still broken (see deploy section below).
+
+Required env vars after the wizard runs:
+
+- `NEXT_PUBLIC_SENTRY_DSN` (browser)
+- `SENTRY_AUTH_TOKEN` (build-time source-map upload — set in Vercel/GHA, not committed)
+
+Start at `tracesSampleRate: 0.1` for v1; revisit when traffic justifies more.
+
+## Deploy
+
+The GitHub ↔ Vercel link is broken because the repo is private. v1 options:
+
+1. **Make the repo public** (preferred — open-source posture matches the methodology essay). Then re-link in Vercel project settings and pushes to `main` deploy automatically.
+2. **Vercel deploy hook**. Generate one from the Vercel project (Settings → Git → Deploy Hooks), store as `VERCEL_DEPLOY_HOOK` repo secret in GitHub, then add `.github/workflows/vercel-deploy.yml` that posts to it on `push: main`. Until either option lands, deploy manually: `pnpm exec vercel --prod`.

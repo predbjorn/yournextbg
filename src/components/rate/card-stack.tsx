@@ -21,6 +21,7 @@ import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { Btn, Stamp, BoxCover } from "@/components/ui";
 import { getSupabaseBrowserClient } from "@/lib/supabase/client";
+import { capture } from "@/lib/analytics/posthog";
 import {
   computeBranchImpact,
   type RatedSample,
@@ -73,7 +74,9 @@ export function CardStack({ initialQueue, initialHistory }: Props) {
         setQueue((q) => [item, ...q]);
         setHistory((h) => h.slice(0, -1));
         setErr(error.message);
+        return;
       }
+      capture("rating_submitted", { game_id: item.game.id, rating });
     } finally {
       setPending(false);
       setPreview(null);

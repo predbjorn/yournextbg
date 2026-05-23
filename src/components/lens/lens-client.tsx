@@ -30,6 +30,7 @@ import {
   type ScoreVector,
 } from "@/lib/scoring";
 import { getSupabaseBrowserClient } from "@/lib/supabase/client";
+import { capture } from "@/lib/analytics/posthog";
 import { parseLensState, serializeLensState } from "@/lib/lens/state";
 import type { LensSeedGame } from "@/lib/lens/queries";
 import { PickerCard } from "./picker-card";
@@ -148,12 +149,37 @@ export function LensClient({ seed }: Props) {
   }, [candidates, anchorGame, state.lens]);
 
   function setLens(lens: LensKey) {
+    capture("lens_changed", { from_lens: state.lens, to_lens: lens });
     router.replace(
       `${pathname}${serializeLensState({ ...state, lens })}`,
       { scroll: false },
     );
   }
   function pinB(id: string | null) {
+    if (id) {
+      const c = candidates.find((x) => x.id === id);
+      const sim = c
+        ? Math.round(
+            (1 -
+              Math.min(
+                1,
+                Math.sqrt(
+                  c.scores.reduce(
+                    (acc, v, i) =>
+                      acc + (v - anchorGame.scores[i]) ** 2,
+                    0,
+                  ) / 1200,
+                ),
+              )) *
+              100,
+          )
+        : null;
+      capture("b_pinned", {
+        a_game_id: state.a,
+        b_game_id: id,
+        similarity: sim,
+      });
+    }
     router.replace(
       `${pathname}${serializeLensState({ ...state, b: id })}`,
       { scroll: false },

@@ -1,0 +1,35 @@
+name: web-ci
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: TypeScript
+        run: pnpm exec tsc --noEmit
+
+      - name: Next build
+        run: pnpm exec next build
+        env:
+          # Public-safe surrogates so the build can finish without secrets.
+          # Server-rendered routes that touch Supabase are dynamic — they
+          # don't execute during `next build`.
+          NEXT_PUBLIC_SUPABASE_URL: https://example.supabase.co
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ci-placeholder-anon-key
