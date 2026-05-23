@@ -1,16 +1,32 @@
 import { redirect } from "next/navigation";
 import { getUser } from "@/lib/auth/get-session";
 import { getShelf } from "@/lib/shelf/queries";
+import {
+  applyShelfState,
+  countShelf,
+  parseShelfState,
+} from "@/lib/shelf/filters";
 import { ShelfGrid } from "@/components/shelf/shelf-grid";
+import { StatsStrip } from "@/components/shelf/stats-strip";
+import { ShelfFilters } from "@/components/shelf/shelf-filters";
 import { AddGameButton } from "@/components/shelf/add-game-button";
 import { Stamp } from "@/components/ui";
 
 export const dynamic = "force-dynamic";
 
-export default async function ShelfPage() {
+interface PageProps {
+  searchParams: Promise<{ [k: string]: string | string[] | undefined }>;
+}
+
+export default async function ShelfPage({ searchParams }: PageProps) {
   const user = await getUser();
   if (!user) redirect("/login");
+
+  const sp = await searchParams;
+  const state = parseShelfState(sp);
   const items = await getShelf();
+  const counts = countShelf(items);
+  const visible = applyShelfState(items, state);
 
   return (
     <main className="min-h-screen bg-cs-paper-deep cs-grain">
@@ -34,7 +50,10 @@ export default async function ShelfPage() {
             <AddGameButton />
           </div>
         </header>
-        <ShelfGrid items={items} />
+
+        <StatsStrip items={items} />
+        <ShelfFilters counts={counts} />
+        <ShelfGrid items={visible} view={state.view} />
       </div>
     </main>
   );
