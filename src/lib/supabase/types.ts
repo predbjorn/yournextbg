@@ -70,6 +70,22 @@ export interface DbDismissal {
   dismissed_at: string;
 }
 
+export type BggSyncTrigger = "manual" | "cron";
+export type BggSyncStatus = "running" | "ok" | "partial" | "failed";
+
+export interface DbBggSyncLog {
+  id: string;
+  user_id: string;
+  triggered_by: BggSyncTrigger;
+  started_at: string;
+  finished_at: string | null;
+  owned_count: number | null;
+  wishlist_count: number | null;
+  new_unscored: number | null;
+  status: BggSyncStatus;
+  error: string | null;
+}
+
 export interface DbUserPrefs {
   user_id: string;
   theme: ThemeChoice;
@@ -139,6 +155,7 @@ export interface Database {
         Pick<DbDismissal, "user_id" | "game_id"> &
           Partial<Pick<DbDismissal, "dismissed_at">>
       >;
+      bgg_sync_log: DbTable<DbBggSyncLog>;
     };
     Views: Record<string, never>;
     Functions: {

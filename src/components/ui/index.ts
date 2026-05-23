@@ -11,3 +11,5 @@ export { Btn, type BtnProps, type BtnTone, type BtnSize } from "./btn";
 export { Chip, type ChipProps } from "./chip";
 export { BoxCover, type BoxCoverProps } from "./box-cover";
 export { Radar, type RadarProps, type RadarValues } from "./radar";
+export { Toggle } from "./toggle";
+export { SettingsRow } from "./settings-row";
