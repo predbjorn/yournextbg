@@ -337,6 +337,7 @@ returns table (
     (g.axes_vec <-> (select axes_vec from anchor))::float8 as l2_distance
   from public.games g
   where g.id <> anchor_id
+    and g.axes_vec is not null    -- exclude unscored BGG-imported placeholders
     and g.id not in (select game_id from excluded_ids)
   order by g.axes_vec <-> (select axes_vec from anchor)
   limit greatest(1, least(k, 200));  -- hard cap 200
@@ -448,7 +449,8 @@ begin
   candidates as (
     select g.*, (g.axes_vec <-> centroid)::float8 as d
     from public.games g
-    where g.id not in (select game_id from owned_or_dismissed where game_id is not null)
+    where g.axes_vec is not null    -- exclude unscored BGG-imported placeholders
+      and g.id not in (select game_id from owned_or_dismissed where game_id is not null)
     order by g.axes_vec <-> centroid
     limit greatest(1, least(k, 200))
   ),
@@ -741,6 +743,40 @@ alter table public.games
 
 -- Existing rows seeded from src/data/games.ts are all editorial. Defensive:
 update public.games set score_status = 'editorial' where score_status is null;
+
+-- Make scores nullable so BGG placeholders can be inserted without inventing
+-- a fake 12-axis vector. Rebuild axes_vec with a null-safe expression so
+-- unscored rows have a NULL vector (IVFFlat skips NULL — they're excluded
+-- from `order by axes_vec <-> anchor` queries automatically).
+alter table public.games alter column scores drop not null;
+
+drop index if exists games_axes_vec_l2_idx;
+alter table public.games drop column if exists axes_vec;
+alter table public.games
+  add column axes_vec vector(12)
+    generated always as (
+      case
+        when scores is null then null
+        else array[
+          (scores ->> 0)::float8,
+          (scores ->> 1)::float8,
+          (scores ->> 2)::float8,
+          (scores ->> 3)::float8,
+          (scores ->> 4)::float8,
+          (scores ->> 5)::float8,
+          (scores ->> 6)::float8,
+          (scores ->> 7)::float8,
+          (scores ->> 8)::float8,
+          (scores ->> 9)::float8,
+          (scores ->> 10)::float8,
+          (scores ->> 11)::float8
+        ]::vector(12)
+      end
+    ) stored;
+
+create index games_axes_vec_l2_idx
+  on public.games using ivfflat (axes_vec vector_l2_ops)
+  with (lists = 16);
 
 -- Per-sync audit row so we can debug 202s, partial failures, and pg_cron runs.
 create table if not exists public.bgg_sync_log (
