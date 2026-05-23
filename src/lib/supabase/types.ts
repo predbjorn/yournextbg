@@ -10,22 +10,29 @@
 import type { ScoreVector } from "@/lib/scoring";
 import type { PlayerCount } from "@/data/types";
 
+export type CoverStatus = "pending" | "ready" | "failed" | "manual";
+export type ScoreStatus = "editorial" | "unscored";
+
 export interface DbGame {
   id: string;
   slug: string;
   name: string;
   bgg_id: number | null;
-  scores: ScoreVector;
+  scores: ScoreVector | null;
   solo: number;
   fiddly: number;
   player_count: PlayerCount | null;
   signature: string | null;
   description: string | null;
+  cover_origin_url: string | null;
+  cover_status: CoverStatus;
+  score_status: ScoreStatus;
   created_at: string;
   updated_at: string;
 }
 
 export type CollectionKind = "owned" | "wishlist" | "played" | "custom";
+export type CollectionItemSource = "manual" | "bgg";
 
 export interface DbCollection {
   id: string;
@@ -43,6 +50,7 @@ export interface DbCollectionItem {
   manual_name: string | null;   // free-form name if neither id nor BGG available
   notes: string | null;
   user_rating: number | null;
+  source: CollectionItemSource;
   added_at: string;
 }
 
@@ -52,13 +60,51 @@ export interface DbBggCache {
   fetched_at: string;
 }
 
+/**
+ * @supabase/postgrest-js v2 enforces `GenericTable`: each table must declare
+ * `Row`, `Insert`, `Update` (all `Record<string, unknown>`) and `Relationships:
+ * GenericRelationship[]`. Mapped types like `Partial<T>` don't structurally
+ * extend `Record<string, unknown>` in strict mode, which silently resolves
+ * builder generics to `never`. We intersect with `Record<string, unknown>` to
+ * satisfy the constraint without giving up the strong row type for reads.
+ */
+type Idx = Record<string, unknown>;
+type DbTable<Row, Insert = Row> = {
+  Row: Row & Idx;
+  Insert: Insert & Idx;
+  Update: Partial<Row> & Idx;
+  Relationships: [];
+};
+
 export interface Database {
   public: {
     Tables: {
-      games:            { Row: DbGame;           Insert: Omit<DbGame, "created_at" | "updated_at">;           Update: Partial<DbGame> };
-      collections:      { Row: DbCollection;     Insert: Omit<DbCollection, "id" | "created_at">;             Update: Partial<DbCollection> };
-      collection_items: { Row: DbCollectionItem; Insert: Omit<DbCollectionItem, "id" | "added_at">;           Update: Partial<DbCollectionItem> };
-      bgg_cache:        { Row: DbBggCache;       Insert: DbBggCache;                                          Update: Partial<DbBggCache> };
+      games: DbTable<
+        DbGame,
+        Omit<DbGame, "created_at" | "updated_at"> &
+          Partial<Pick<DbGame, "cover_status" | "score_status" | "cover_origin_url">>
+      >;
+      collections: DbTable<DbCollection, Omit<DbCollection, "id" | "created_at">>;
+      collection_items: DbTable<
+        DbCollectionItem,
+        Pick<DbCollectionItem, "collection_id"> &
+          Partial<
+            Pick<
+              DbCollectionItem,
+              | "game_id"
+              | "bgg_id"
+              | "manual_name"
+              | "notes"
+              | "user_rating"
+              | "source"
+            >
+          >
+      >;
+      bgg_cache: DbTable<DbBggCache, DbBggCache>;
     };
+    Views: Record<string, never>;
+    Functions: Record<string, never>;
+    Enums: Record<string, never>;
+    CompositeTypes: Record<string, never>;
   };
 }
