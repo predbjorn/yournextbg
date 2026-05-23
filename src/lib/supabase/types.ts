@@ -64,6 +64,12 @@ export type ThemeChoice = "light" | "dark" | "auto";
 export type DefaultLens = "standard" | "weight" | "feel" | "luck" | "equal";
 export type UserTier = "free" | "pro";
 
+export interface DbDismissal {
+  user_id: string;
+  game_id: string;
+  dismissed_at: string;
+}
+
 export interface DbUserPrefs {
   user_id: string;
   theme: ThemeChoice;
@@ -128,9 +134,50 @@ export interface Database {
             Omit<DbUserPrefs, "user_id" | "created_at" | "updated_at">
           >
       >;
+      dismissals: DbTable<
+        DbDismissal,
+        Pick<DbDismissal, "user_id" | "game_id"> &
+          Partial<Pick<DbDismissal, "dismissed_at">>
+      >;
     };
     Views: Record<string, never>;
-    Functions: Record<string, never>;
+    Functions: {
+      similar_games: {
+        Args: { anchor_id: string; k?: number };
+        Returns: {
+          id: string;
+          slug: string;
+          name: string;
+          bgg_id: number | null;
+          scores: ScoreVector | null;
+          solo: number;
+          fiddly: number;
+          player_count: PlayerCount | null;
+          signature: string | null;
+          cover_status: CoverStatus;
+          l2_distance: number;
+        }[];
+      };
+      profile_candidates: {
+        Args: { k?: number };
+        Returns: {
+          id: string;
+          slug: string;
+          name: string;
+          bgg_id: number | null;
+          scores: ScoreVector | null;
+          solo: number;
+          fiddly: number;
+          player_count: PlayerCount | null;
+          signature: string | null;
+          cover_status: CoverStatus;
+          centroid_distance: number;
+          nearest_anchor_id: string | null;
+          nearest_anchor_name: string | null;
+          nearest_anchor_rating: number | null;
+        }[];
+      };
+    };
     Enums: Record<string, never>;
     CompositeTypes: Record<string, never>;
   };
