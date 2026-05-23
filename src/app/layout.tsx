@@ -1,17 +1,19 @@
 import type { Metadata, Viewport } from "next";
 import { Fraunces, JetBrains_Mono, Newsreader } from "next/font/google";
-import { cookies } from "next/headers";
 import "./globals.css";
-import { ThemeProvider } from "@/components/theme/theme-provider";
 import { PostHogInit } from "@/components/analytics/posthog-init";
-import type { ThemeChoice } from "@/lib/supabase/types";
 
 /**
- * Cookie name shared with /profile's PrefsSection. The client writes both
- * user_prefs.theme and this cookie on every theme change, so signed-in
- * and signed-out users both get FOUC-free initial paint.
+ * Theme is resolved entirely in the browser via the inline script below
+ * (cookie + prefers-color-scheme). We deliberately don't read the cookie
+ * server-side here because that would force every route — including the
+ * SEO-critical static /games/[slug] — to be dynamic. The cookie name is
+ * `yntb-theme`, written by /profile's PrefsSection.
+ *
+ * The /profile ThemeProvider still mounts further down the tree for
+ * signed-in users to react to OS scheme changes when theme=auto. The
+ * inline script handles the first paint for *everyone*.
  */
-const THEME_COOKIE = "yntb-theme";
 
 const newsreader = Newsreader({
   variable: "--font-newsreader",
@@ -92,27 +94,21 @@ export const metadata: Metadata = {
   },
 };
 
-function isThemeChoice(v: string | undefined): v is ThemeChoice {
-  return v === "light" || v === "dark" || v === "auto";
-}
-
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  const cookieStore = await cookies();
-  const raw = cookieStore.get(THEME_COOKIE)?.value;
-  const theme: ThemeChoice = isThemeChoice(raw) ? raw : "auto";
-
-  // Inline pre-paint script. Reads the cookie that's already baked into
-  // the response and the OS-level media query when theme="auto". Doing
-  // this in `<head>` means the html element gets the right `data-theme`
-  // attribute before any CSS evaluates, so there's no flash.
+  // Inline pre-paint script. Reads the `yntb-theme` cookie at parse time
+  // and falls back to prefers-color-scheme. Running in <head> means the
+  // html element gets `data-theme` set before any CSS evaluates — no
+  // flash. Stays as a string constant so the layout is statically
+  // renderable.
   const initScript = `(() => {
     try {
-      var t = ${JSON.stringify(theme)};
-      var mode = t === "auto"
-        ? (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light")
-        : t;
+      var m = document.cookie.match(/(?:^|; )yntb-theme=([^;]+)/);
+      var t = m ? decodeURIComponent(m[1]) : "auto";
+      var mode = (t === "light" || t === "dark")
+        ? t
+        : (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
       document.documentElement.dataset.theme = mode;
     } catch (e) {}
   })();`;
@@ -129,7 +125,6 @@ export default async function RootLayout({
         />
       </head>
       <body className="min-h-full flex flex-col">
-        <ThemeProvider theme={theme} />
         <PostHogInit />
         {children}
       </body>
