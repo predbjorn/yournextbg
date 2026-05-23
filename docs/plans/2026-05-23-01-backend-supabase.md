@@ -386,9 +386,17 @@ Profile-mode recommender: takes all of a user's ratings, builds a weighted centr
 **Step 1: Write the function**
 
 ```sql
+-- profile_candidates: weighted-centroid recommender for the authenticated user.
+-- Owned-exclusion, dismissal-exclusion, rating join all use auth.uid() directly
+-- (security invoker default). Anon callers get an empty result — they have no
+-- taste profile to build a centroid from.
+--
+-- A previous version of this function took `for_user uuid` as the first param.
+-- Under security invoker + RLS, that arg was inert for any caller that wasn't
+-- exactly the user being queried (same issue as similar_games). Dropped to
+-- match reality.
 create or replace function public.profile_candidates(
-  for_user uuid,
-  k        int default 50
+  k int default 50
 )
 returns table (
   id          text,
@@ -409,7 +417,11 @@ returns table (
 ) language plpgsql stable as $$
 declare
   centroid vector(12);
+  uid uuid := auth.uid();
 begin
+  -- Anon callers (no auth.uid()) get nothing — no taste profile to build on.
+  if uid is null then return; end if;
+
   -- Build weighted centroid: weight = rating - 3 (so 5→+2, 4→+1, 3→0, 2→-1, 1→-2).
   -- 3-rated games contribute nothing. Negative ratings subtract.
   with weighted as (
@@ -417,9 +429,10 @@ begin
     from public.collection_items ci
     join public.collections c on c.id = ci.collection_id
     join public.games g on g.id = ci.game_id
-    where c.user_id = for_user
+    where c.user_id = uid
       and ci.user_rating is not null
       and ci.user_rating <> 3
+      and g.axes_vec is not null    -- can't centroid a null vector
   ),
   sum_w as (
     select
@@ -454,9 +467,9 @@ begin
   with owned_or_dismissed as (
     select ci.game_id from public.collection_items ci
     join public.collections c on c.id = ci.collection_id
-    where c.user_id = for_user and c.kind = 'owned' and ci.game_id is not null
+    where c.user_id = uid and c.kind = 'owned' and ci.game_id is not null
     union
-    select d.game_id from public.dismissals d where d.user_id = for_user
+    select d.game_id from public.dismissals d where d.user_id = uid
   ),
   candidates as (
     select g.*, (g.axes_vec <-> centroid)::float8 as d
@@ -468,24 +481,31 @@ begin
   ),
   anchors as (
     -- For each candidate, find the user's nearest top-rated (≥4) game.
+    -- The lateral subquery projects id/name/axes_vec/user_rating directly so
+    -- we don't have to re-join collection_items + collections afterwards.
     select
       cand.id as cand_id,
-      anchor.id as anchor_id,
-      anchor.name as anchor_name,
-      ci.user_rating as anchor_rating,
+      anc.aid as anchor_id,
+      anc.aname as anchor_name,
+      anc.arating as anchor_rating,
       row_number() over (
         partition by cand.id
-        order by anchor.axes_vec <-> cand.axes_vec
+        order by anc.av <-> cand.axes_vec
       ) as rn
     from candidates cand
     cross join lateral (
-      select g.* from public.games g
+      select
+        g.id as aid,
+        g.name as aname,
+        g.axes_vec as av,
+        ci.user_rating as arating
+      from public.games g
       join public.collection_items ci on ci.game_id = g.id
       join public.collections c on c.id = ci.collection_id
-      where c.user_id = for_user and ci.user_rating >= 4
-    ) anchor
-    join public.collection_items ci on ci.game_id = anchor.id
-    join public.collections c on c.id = ci.collection_id and c.user_id = for_user
+      where c.user_id = uid
+        and ci.user_rating >= 4
+        and g.axes_vec is not null
+    ) anc
   )
   select
     cand.id, cand.slug, cand.name, cand.bgg_id, cand.scores,
@@ -498,7 +518,10 @@ begin
 end;
 $$;
 
-grant execute on function public.profile_candidates(uuid, int) to authenticated;
+-- Drop any previously-installed 2-arg signature.
+drop function if exists public.profile_candidates(uuid, int);
+
+grant execute on function public.profile_candidates(int) to authenticated;
 ```
 
 **Step 2: Test from psql**
