@@ -47,6 +47,9 @@ export function PrefsSection({ initial }: { initial: PrefsSectionInitial }) {
     if (error) setErr(error.message);
     if (field === "theme") {
       const next = value as ThemeChoice;
+      // Persist for next page load (root layout reads this cookie to set
+      // the initial data-theme attribute before paint).
+      document.cookie = `yntb-theme=${next}; path=/; max-age=${60 * 60 * 24 * 365}; samesite=lax`;
       if (next === "auto") {
         const mq = window.matchMedia("(prefers-color-scheme: dark)");
         document.documentElement.dataset.theme = mq.matches ? "dark" : "light";
