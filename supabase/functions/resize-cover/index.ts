@@ -10,7 +10,12 @@ const SIZES = { thumb: 80, card: 200, hero: 600 } as const;
 Deno.serve(async (req) => {
   if (req.method !== "POST") return new Response("POST only", { status: 405 });
 
-  const { game_id } = (await req.json()) as Body;
+  let game_id: string | undefined;
+  try {
+    ({ game_id } = (await req.json()) as Body);
+  } catch {
+    return new Response("body must be JSON", { status: 400 });
+  }
   if (!game_id) return new Response("game_id required", { status: 400 });
 
   const admin = createClient(
@@ -30,6 +35,11 @@ Deno.serve(async (req) => {
   if (!res.ok) {
     await admin.from("games").update({ cover_status: "failed" }).eq("id", game_id);
     return new Response(`source fetch ${res.status}`, { status: 502 });
+  }
+  const ctype = res.headers.get("content-type") ?? "";
+  if (!ctype.startsWith("image/")) {
+    await admin.from("games").update({ cover_status: "failed" }).eq("id", game_id);
+    return new Response(`source not an image (content-type: ${ctype || "missing"})`, { status: 415 });
   }
   const bytes = new Uint8Array(await res.arrayBuffer());
   const img = await decode(bytes);
