@@ -46,25 +46,47 @@ async function fetchCollection(username: string, kind: 'own' | 'wishlist'): Prom
 
 Deno.serve(async (req) => {
   if (req.method !== "POST") return new Response("POST only", { status: 405 });
-  const authz = req.headers.get("Authorization");
-  if (!authz?.startsWith("Bearer ")) return new Response("auth required", { status: 401 });
+  const authz = req.headers.get("Authorization") ?? "";
+  if (!authz.startsWith("Bearer ")) return new Response("auth required", { status: 401 });
 
-  const userClient = createClient(
-    Deno.env.get("SUPABASE_URL")!,
-    Deno.env.get("SUPABASE_ANON_KEY")!,
-    { global: { headers: { Authorization: authz } } },
-  );
-  const { data: { user } } = await userClient.auth.getUser();
-  if (!user) return new Response("invalid token", { status: 401 });
+  // Detect service-role caller (pg_cron). The service-role JWT is not an end-
+  // user token, so auth.getUser() would return null and we'd 401 before any
+  // body.user_id processing — that path is reserved for cron.
+  const bearer = authz.slice(7);
+  const serviceRoleKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
+  const isServiceRole = bearer === serviceRoleKey;
+
+  let callerUserId: string | null = null;
+  if (!isServiceRole) {
+    const userClient = createClient(
+      Deno.env.get("SUPABASE_URL")!,
+      Deno.env.get("SUPABASE_ANON_KEY")!,
+      { global: { headers: { Authorization: authz } } },
+    );
+    const { data: { user } } = await userClient.auth.getUser();
+    if (!user) return new Response("invalid token", { status: 401 });
+    callerUserId = user.id;
+  }
 
   const admin = createClient(
     Deno.env.get("SUPABASE_URL")!,
-    Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!,
+    serviceRoleKey,
   );
 
-  // Allow service-role caller (cron) to specify a target user_id.
   const body = (await req.json().catch(() => ({}))) as Body;
-  const targetUserId = body.user_id ?? user.id;
+
+  // Only service-role (cron) may target an arbitrary user_id. End-users are
+  // pinned to their own id, otherwise an authenticated attacker could sync
+  // into another user's collections by passing body.user_id.
+  let targetUserId: string;
+  if (isServiceRole) {
+    if (!body.user_id) {
+      return new Response("user_id required for service-role calls", { status: 400 });
+    }
+    targetUserId = body.user_id;
+  } else {
+    targetUserId = callerUserId!;
+  }
   const triggeredBy: 'manual' | 'cron' = body.triggered_by ?? 'manual';
 
   const { data: prefs } = await admin
@@ -254,48 +276,76 @@ async function upsertItems(
   admin: SupabaseClient,
   collectionId: string,
   items: SyncItem[],
-  source: string,
+  source: 'bgg',
   importRatings: boolean,
 ): Promise<void> {
   if (!items.length) return;
 
+  // Read-modify-write per row so we never clobber user-set fields:
+  //   - source='manual' must survive a BGG sync (don't flip to 'bgg')
+  //   - user-set user_rating in our UI must survive (don't overwrite with BGG's)
+  // O(n) DB calls is fine for v1 collection sizes (<1k games); batch later.
+  const { data: existing } = await admin
+    .from("collection_items")
+    .select("id, game_id, bgg_id, source, user_rating")
+    .eq("collection_id", collectionId);
+  const byGameId = new Map<string, { id: string; bgg_id: number | null; source: string; user_rating: number | null }>(
+    (existing ?? [])
+      .filter((r): r is typeof r & { game_id: string } => r.game_id != null)
+      .map(r => [r.game_id, { id: r.id, bgg_id: r.bgg_id, source: r.source, user_rating: r.user_rating }])
+  );
+
   // Resolve all bgg_id → game.id in a single round-trip.
-  const bggIds = items.map(i => i.bggId);
+  const bggIds = [...new Set(items.map(i => i.bggId))];
   const { data: games } = await admin
     .from("games")
     .select("id, bgg_id")
     .in("bgg_id", bggIds);
-  const bggToGame = new Map<number, string>();
-  for (const g of games ?? []) {
-    if (g.bgg_id != null) bggToGame.set(g.bgg_id, g.id);
-  }
-
-  const rows = items.map(i => {
-    const userRating = importRatings && typeof i.userRating === "number"
-      ? normalizeBggRating(i.userRating)
-      : null;
-    return {
-      collection_id: collectionId,
-      game_id: bggToGame.get(i.bggId) ?? null,
-      bgg_id: i.bggId,
-      user_rating: userRating,
-      source,
-    };
-  // Dedupe by (collection_id, game_id) so a single batch never violates the
-  // partial unique index — BGG should never return dupes but defend anyway.
-  }).filter((row, idx, arr) =>
-    arr.findIndex(r => r.game_id === row.game_id && r.bgg_id === row.bgg_id) === idx
+  const gameIdByBgg = new Map<number, string>(
+    (games ?? [])
+      .filter((g): g is typeof g & { bgg_id: number } => g.bgg_id != null)
+      .map(g => [g.bgg_id, g.id])
   );
 
-  // Upsert by (collection_id, game_id) — the partial unique index added in 0008.
-  // Rows where game_id is null don't match the partial index; for v1 we shouldn't
-  // hit that path since every item gets a placeholder game inserted above, but
-  // we filter just in case to keep the upsert idempotent.
-  const upsertable = rows.filter(r => r.game_id !== null);
-  if (upsertable.length) {
-    const { error } = await admin
-      .from("collection_items")
-      .upsert(upsertable, { onConflict: "collection_id,game_id" });
-    if (error) throw error;
+  for (const item of items) {
+    const gameId = gameIdByBgg.get(item.bggId);
+    if (!gameId) continue; // shouldn't happen after placeholder upsert, but guard
+
+    const incomingRating =
+      importRatings && typeof item.userRating === "number"
+        ? normalizeBggRating(item.userRating)
+        : null;
+
+    const existingRow = byGameId.get(gameId);
+    if (existingRow) {
+      // UPDATE — preserve source='manual' and any user-set rating.
+      const patch: Record<string, unknown> = {};
+      if (existingRow.bgg_id !== item.bggId) patch.bgg_id = item.bggId;
+      // Only adopt BGG's rating if user hasn't set one locally.
+      if (existingRow.user_rating === null && incomingRating !== null) {
+        patch.user_rating = incomingRating;
+      }
+      // Don't overwrite source='manual' with 'bgg'. Only flip when source was something else.
+      if (existingRow.source !== 'manual' && existingRow.source !== source) {
+        patch.source = source;
+      }
+      if (Object.keys(patch).length > 0) {
+        const { error } = await admin
+          .from("collection_items")
+          .update(patch)
+          .eq("id", existingRow.id);
+        if (error) throw error;
+      }
+    } else {
+      // INSERT new row.
+      const { error } = await admin.from("collection_items").insert({
+        collection_id: collectionId,
+        game_id: gameId,
+        bgg_id: item.bggId,
+        source,
+        user_rating: incomingRating,
+      });
+      if (error) throw error;
+    }
   }
 }
