@@ -211,16 +211,16 @@ export default async function GamePage({ params }: PageProps) {
         </dl>
       </section>
 
-      {/* CTA back to the comparator */}
+      {/* CTA into the lens */}
       <section className="pt-8 border-t border-dashed border-[var(--border)]">
         <p className="text-[15px] text-[var(--ink-dim)] italic">
           Want to overlay {game.name} against a candidate game and see exactly
           where they diverge?{" "}
           <Link
-            href="/"
+            href={`/lens?a=${game.id}`}
             className="text-[var(--accent)] hover:underline font-medium not-italic"
           >
-            Open it in the comparator →
+            Open it in the lens →
           </Link>
         </p>
       </section>
