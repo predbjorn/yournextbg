@@ -18,31 +18,60 @@ export function SimilarGamesList({ game, limit = 6 }: SimilarGamesListProps) {
   const ranked = rankBySimilarity(game, GAMES, DEFAULT_LENS).slice(0, limit);
 
   return (
-    <div className="grid gap-2.5" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))" }}>
+    <div
+      className="grid gap-3"
+      style={{ gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))" }}
+    >
       {ranked.map((r, i) => {
         const pct = Math.round(r.sim * 100);
-        const cls =
-          pct >= 80 ? "text-[var(--success)]" : pct >= 65 ? "text-[var(--gold)]" : "text-[var(--ink-mute)]";
+        const pctColor =
+          pct >= 80
+            ? "var(--cs-positive)"
+            : pct >= 65
+              ? "var(--cs-branch-thinking)"
+              : "var(--cs-muted)";
         return (
           <Link
             key={r.game.id}
             href={`/games/${r.game.slug}`}
-            className="group bg-[var(--bg)] border border-[var(--border)] py-3.5 px-4 grid grid-cols-[28px_1fr_auto] gap-3 items-center font-serif transition-all hover:border-[var(--steel)] hover:bg-[var(--bg-elev)] hover:translate-x-0.5 no-underline"
+            className="group bg-cs-paper-warm rounded-lg py-3.5 px-4 grid grid-cols-[28px_1fr_auto] gap-3 items-center transition-all hover:bg-cs-paper-edge no-underline"
+            style={{
+              boxShadow: "inset 0 0 0 1px rgba(28,26,20,0.08)",
+            }}
           >
-            <span className="text-2xl font-light italic text-[var(--steel)] text-center leading-none">
+            <span
+              className="font-cs-display italic text-cs-muted text-center leading-none"
+              style={{ fontSize: 22, fontWeight: 400 }}
+            >
               {i + 1}
             </span>
             <span className="min-w-0">
-              <span className="block text-[15px] font-semibold tracking-tight leading-tight text-[var(--ink)] group-hover:text-[var(--steel)]">
+              <span
+                className="block font-cs-display text-cs-ink leading-tight"
+                style={{ fontSize: 15, fontWeight: 600, letterSpacing: "-0.01em" }}
+              >
                 {r.game.name}
               </span>
-              <span className="block font-mono text-[9px] uppercase tracking-[0.1em] text-[var(--ink-mute)] mt-0.5">
+              <span
+                className="block font-cs-mono uppercase text-cs-muted mt-0.5"
+                style={{ fontSize: 9, letterSpacing: "0.14em" }}
+              >
                 {gameSubtitle(r.game)}
               </span>
             </span>
-            <span className={`font-mono text-[14px] font-bold text-right leading-none ${cls}`}>
+            <span
+              className="font-cs-mono text-right leading-none"
+              style={{ fontSize: 14, fontWeight: 600, color: pctColor }}
+            >
               {pct}%
-              <span className="block text-[8px] uppercase tracking-[0.1em] font-normal text-[var(--ink-mute)] mt-1">
+              <span
+                className="block font-cs-mono uppercase text-cs-muted mt-1"
+                style={{
+                  fontSize: 8,
+                  letterSpacing: "0.14em",
+                  fontWeight: 400,
+                }}
+              >
                 similar
               </span>
             </span>
