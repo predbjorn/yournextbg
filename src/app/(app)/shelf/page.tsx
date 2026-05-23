@@ -1,15 +1,17 @@
 import { redirect } from "next/navigation";
 import { getUser } from "@/lib/auth/get-session";
-import { getShelf } from "@/lib/shelf/queries";
+import { getBggUsername, getShelf } from "@/lib/shelf/queries";
 import {
   applyShelfState,
   countShelf,
   parseShelfState,
 } from "@/lib/shelf/filters";
+import { BGG_SYNC_ENABLED } from "@/lib/flags";
 import { ShelfGrid } from "@/components/shelf/shelf-grid";
 import { StatsStrip } from "@/components/shelf/stats-strip";
 import { ShelfFilters } from "@/components/shelf/shelf-filters";
 import { AddGameButton } from "@/components/shelf/add-game-button";
+import { BggSyncButton } from "@/components/shelf/bgg-sync-button";
 import { Stamp } from "@/components/ui";
 
 export const dynamic = "force-dynamic";
@@ -27,6 +29,7 @@ export default async function ShelfPage({ searchParams }: PageProps) {
   const items = await getShelf();
   const counts = countShelf(items);
   const visible = applyShelfState(items, state);
+  const bggUsername = BGG_SYNC_ENABLED ? await getBggUsername() : null;
 
   return (
     <main className="min-h-screen bg-cs-paper-deep cs-grain">
@@ -47,6 +50,9 @@ export default async function ShelfPage({ searchParams }: PageProps) {
             </h1>
           </div>
           <div className="flex items-center gap-3">
+            {BGG_SYNC_ENABLED && (
+              <BggSyncButton bggUsernameSet={Boolean(bggUsername)} />
+            )}
             <AddGameButton />
           </div>
         </header>

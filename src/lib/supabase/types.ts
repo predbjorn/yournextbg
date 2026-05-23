@@ -60,6 +60,26 @@ export interface DbBggCache {
   fetched_at: string;
 }
 
+export type ThemeChoice = "light" | "dark" | "auto";
+export type DefaultLens = "standard" | "weight" | "feel" | "luck" | "equal";
+export type UserTier = "free" | "pro";
+
+export interface DbUserPrefs {
+  user_id: string;
+  theme: ThemeChoice;
+  default_lens: DefaultLens;
+  hide_owned: boolean;
+  hide_dismissed: boolean;
+  min_similarity: number;
+  tier: UserTier;
+  bgg_username: string | null;
+  auto_sync_bgg: boolean;
+  import_bgg_ratings: boolean;
+  last_bgg_sync_at: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
 /**
  * @supabase/postgrest-js v2 enforces `GenericTable`: each table must declare
  * `Row`, `Insert`, `Update` (all `Record<string, unknown>`) and `Relationships:
@@ -101,6 +121,13 @@ export interface Database {
           >
       >;
       bgg_cache: DbTable<DbBggCache, DbBggCache>;
+      user_prefs: DbTable<
+        DbUserPrefs,
+        Pick<DbUserPrefs, "user_id"> &
+          Partial<
+            Omit<DbUserPrefs, "user_id" | "created_at" | "updated_at">
+          >
+      >;
     };
     Views: Record<string, never>;
     Functions: Record<string, never>;

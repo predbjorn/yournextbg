@@ -15,6 +15,21 @@ import type {
   ScoreStatus,
 } from "@/lib/supabase/types";
 
+/**
+ * Just the bgg_username field — what the Shelf header needs to decide
+ * whether to send the user to /profile#bgg first or hit the edge function
+ * directly. Returns null when the user_prefs row doesn't exist yet (which
+ * shouldn't happen post-signup, but defensive).
+ */
+export async function getBggUsername(): Promise<string | null> {
+  const supabase = await getSupabaseServerClient();
+  const { data } = await supabase
+    .from("user_prefs")
+    .select("bgg_username")
+    .maybeSingle();
+  return data?.bgg_username ?? null;
+}
+
 export interface ShelfGameSummary {
   id: string;
   slug: string;
