@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { JetBrains_Mono, Newsreader } from "next/font/google";
+import { Fraunces, JetBrains_Mono, Newsreader } from "next/font/google";
 import "./globals.css";
 
 const newsreader = Newsreader({
@@ -13,6 +13,15 @@ const jetbrainsMono = JetBrains_Mono({
   variable: "--font-jetbrains-mono",
   subsets: ["latin"],
   weight: ["400", "500", "700"],
+});
+
+// Cardstock display face. Powers `--font-cs-display` in globals.css and
+// the `font-cs-display` Tailwind utility. Coexists with Newsreader until
+// later Plan 02 tasks port components over and a cleanup task removes it.
+const fraunces = Fraunces({
+  variable: "--font-fraunces",
+  subsets: ["latin"],
+  axes: ["opsz"],
 });
 
 export const viewport: Viewport = {
@@ -78,7 +87,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${newsreader.variable} ${jetbrainsMono.variable} h-full antialiased`}
+      className={`${newsreader.variable} ${jetbrainsMono.variable} ${fraunces.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
