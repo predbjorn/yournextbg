@@ -23,7 +23,7 @@ Every game gets twelve 0–10 scores across four "branches" (Thinking/Interactio
 | Supabase project | `gkickjaihbgapowsqwhx` |
 | GitHub repo | `github.com/predbjorn/yournextbg` (currently **private**) |
 | GitHub ↔ Vercel auto-deploy | **Not connected** (repo private). Manual deploy: `pnpm exec vercel --prod` |
-| Catalog size | See `GAMES` in `src/data/games.ts` (started at 34, growing) |
+| Catalog size | ~215 games (see `GAMES` in `src/data/games.ts`; grows per batch) |
 
 ## Key locations
 

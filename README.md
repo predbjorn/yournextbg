@@ -81,7 +81,7 @@ where `maxDistance = √(Σ wᵢ × 100)` — the distance produced if every axi
 
 Manually scoring 99,000+ games doesn't scale. The plan, in order:
 
-1. **Editorial seed** — 34 anchor games scored manually with rubric calibration (where we are now).
+1. **Editorial seed** — ~215 anchor games scored manually with rubric calibration (ongoing).
 2. **LLM-assisted scoring** — Claude reads each rulebook + BGG description against the rubric and proposes scores. A human reviewer (you) approves or adjusts in a Next.js admin route. ~30–50 games/day reviewed once the prompt is stable.
 3. **ML extrapolation** (later) — train a regressor on the editorial set + BGG features (mechanics, weight, designer) to bootstrap scores for the long tail, with confidence intervals.
 
@@ -139,7 +139,7 @@ engine, comparator, and game pages all work without it.
    `supabase/migrations/0000_initial_schema.sql`. Sets up `games`,
    `collections`, `collection_items`, `bgg_cache` with RLS.
 4. **Verify connection:** `pnpm supabase:health`
-5. **Seed the catalog:** `pnpm seed:games` (upserts all 34 games)
+5. **Seed the catalog:** `pnpm seed:games` (upserts the full catalog)
 
 ### Schema overview
 
