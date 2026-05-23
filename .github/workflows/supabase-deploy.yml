@@ -1,0 +1,31 @@
+name: supabase-deploy
+on:
+  push:
+    branches: [main]
+    paths: ["supabase/migrations/**", "supabase/functions/**"]
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: supabase/setup-cli@v1
+        with: { version: latest }
+      - name: Link
+        env:
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+        run: supabase link --project-ref gkickjaihbgapowsqwhx
+      - name: Push migrations
+        env:
+          SUPABASE_DB_PASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
+        run: supabase db push
+      - name: Set BGG_API_KEY secret (skipped if unset)
+        env:
+          BGG_API_KEY: ${{ secrets.BGG_API_KEY }}
+        run: |
+          if [ -n "$BGG_API_KEY" ]; then
+            supabase secrets set BGG_API_KEY="$BGG_API_KEY" --project-ref gkickjaihbgapowsqwhx
+          else
+            echo "BGG_API_KEY not set; skipping. bgg-sync will fall back to unauth fetch (will 401 until keys land)."
+          fi
+      - name: Deploy functions
+        run: supabase functions deploy --project-ref gkickjaihbgapowsqwhx
