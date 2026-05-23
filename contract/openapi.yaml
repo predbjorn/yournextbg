@@ -1,0 +1,85 @@
+openapi: 3.1.0
+info:
+  title: yournextbg edge functions
+  version: 0.1.0
+servers:
+  - url: https://gkickjaihbgapowsqwhx.functions.supabase.co
+paths:
+  /resize-cover:
+    post:
+      summary: Fetch + resize a game's cover_origin_url into 3 WebP variants
+      operationId: resizeCover
+      security: [{ ServiceRole: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [game_id]
+              properties:
+                game_id: { type: string }
+      responses:
+        "200": { description: ok }
+        "400": { description: bad request }
+        "404": { description: game not found }
+  /bgg-sync:
+    post:
+      summary: Import owned + wishlist from BGG into the user's collections
+      operationId: bggSync
+      security: [{ BearerAuth: [] }]
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BggSyncRequest"
+      responses:
+        "200":
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BggSyncResponse"
+        "400": { description: no bgg_username on profile }
+        "401": { description: not authenticated }
+        "502": { description: BGG upstream failed }
+        "504": { description: BGG still building cache after retries }
+components:
+  securitySchemes:
+    BearerAuth: { type: http, scheme: bearer }
+    ServiceRole: { type: http, scheme: bearer, bearerFormat: service-role }
+  schemas:
+    BggSyncRequest:
+      type: object
+      description: |
+        Body is optional from user calls (the user's own auth token determines who to sync).
+        Service-role callers (pg_cron) pass `user_id` + `triggered_by: cron`.
+      properties:
+        user_id: { type: string, format: uuid }
+        triggered_by:
+          type: string
+          enum: [manual, cron]
+          default: manual
+    BggSyncResponse:
+      type: object
+      required: [ok, owned, wishlist, new_unscored]
+      properties:
+        ok: { type: boolean }
+        owned: { type: integer, description: count of owned games imported }
+        wishlist: { type: integer, description: count of wishlist games imported }
+        new_unscored:
+          type: integer
+          description: |
+            Games inserted into the catalog with score_status='unscored' because
+            we don't have editorial scores yet. They appear on the user's shelf
+            with a "pending scoring" badge and don't participate in the recommender.
+    ScoreVector:
+      type: array
+      minItems: 12
+      maxItems: 12
+      items: { type: number, minimum: 0, maximum: 10 }
+      description: |
+        Order is load-bearing:
+        [weight, depth, density, interaction, conflict, negotiation,
+         input, output, catchup, theme, engine, narrative]

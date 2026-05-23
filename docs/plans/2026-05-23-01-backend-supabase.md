@@ -301,10 +301,17 @@ This is the server-side half of the hybrid recommender. The client passes an anc
 -- Returns the K nearest neighbors to a single anchor game under L2 distance
 -- on the unweighted vector. The client re-applies lens weights in JS/Swift/Kotlin.
 -- We return raw axes so the client has everything it needs for the radar overlay.
+--
+-- Owned-game exclusion uses auth.uid() directly (security invoker default).
+-- - Authenticated callers: their owned games are excluded automatically.
+-- - Anon callers (public Lens page): no exclusion, which is correct since
+--   anon has no shelf.
+-- - A previous version of this function took an `exclude_owned_for uuid` arg.
+--   That was inert under RLS for both anon (no auth.uid) and cross-user
+--   authenticated callers (RLS blocks the join). Dropped to match reality.
 create or replace function public.similar_games(
   anchor_id text,
-  k         int default 50,
-  exclude_owned_for uuid default null
+  k         int default 50
 )
 returns table (
   id          text,
@@ -323,11 +330,12 @@ returns table (
     select axes_vec from public.games where id = anchor_id
   ),
   excluded_ids as (
-    select coalesce(ci.game_id, '') as game_id
+    -- Empty when caller is anon (auth.uid() is null) — no rows to exclude.
+    select ci.game_id
     from public.collection_items ci
     join public.collections c on c.id = ci.collection_id
-    where exclude_owned_for is not null
-      and c.user_id = exclude_owned_for
+    where auth.uid() is not null
+      and c.user_id = auth.uid()
       and c.kind = 'owned'
       and ci.game_id is not null
   )
@@ -337,13 +345,18 @@ returns table (
     (g.axes_vec <-> (select axes_vec from anchor))::float8 as l2_distance
   from public.games g
   where g.id <> anchor_id
+    and g.axes_vec is not null    -- exclude unscored BGG-imported placeholders
     and g.id not in (select game_id from excluded_ids)
   order by g.axes_vec <-> (select axes_vec from anchor)
   limit greatest(1, least(k, 200));  -- hard cap 200
 $$;
 
+-- Drop any previously-installed 3-arg signature (defensive — only matters
+-- if an earlier dev applied the now-superseded version locally).
+drop function if exists public.similar_games(text, int, uuid);
+
 -- Grant execute to the authenticated role; anon can use it too for the public Lens page.
-grant execute on function public.similar_games(text, int, uuid) to anon, authenticated;
+grant execute on function public.similar_games(text, int) to anon, authenticated;
 ```
 
 **Step 2: Test from psql**
@@ -373,9 +386,17 @@ Profile-mode recommender: takes all of a user's ratings, builds a weighted centr
 **Step 1: Write the function**
 
 ```sql
+-- profile_candidates: weighted-centroid recommender for the authenticated user.
+-- Owned-exclusion, dismissal-exclusion, rating join all use auth.uid() directly
+-- (security invoker default). Anon callers get an empty result — they have no
+-- taste profile to build a centroid from.
+--
+-- A previous version of this function took `for_user uuid` as the first param.
+-- Under security invoker + RLS, that arg was inert for any caller that wasn't
+-- exactly the user being queried (same issue as similar_games). Dropped to
+-- match reality.
 create or replace function public.profile_candidates(
-  for_user uuid,
-  k        int default 50
+  k int default 50
 )
 returns table (
   id          text,
@@ -396,7 +417,11 @@ returns table (
 ) language plpgsql stable as $$
 declare
   centroid vector(12);
+  uid uuid := auth.uid();
 begin
+  -- Anon callers (no auth.uid()) get nothing — no taste profile to build on.
+  if uid is null then return; end if;
+
   -- Build weighted centroid: weight = rating - 3 (so 5→+2, 4→+1, 3→0, 2→-1, 1→-2).
   -- 3-rated games contribute nothing. Negative ratings subtract.
   with weighted as (
@@ -404,9 +429,10 @@ begin
     from public.collection_items ci
     join public.collections c on c.id = ci.collection_id
     join public.games g on g.id = ci.game_id
-    where c.user_id = for_user
+    where c.user_id = uid
       and ci.user_rating is not null
       and ci.user_rating <> 3
+      and g.axes_vec is not null    -- can't centroid a null vector
   ),
   sum_w as (
     select
@@ -441,37 +467,45 @@ begin
   with owned_or_dismissed as (
     select ci.game_id from public.collection_items ci
     join public.collections c on c.id = ci.collection_id
-    where c.user_id = for_user and c.kind = 'owned' and ci.game_id is not null
+    where c.user_id = uid and c.kind = 'owned' and ci.game_id is not null
     union
-    select d.game_id from public.dismissals d where d.user_id = for_user
+    select d.game_id from public.dismissals d where d.user_id = uid
   ),
   candidates as (
     select g.*, (g.axes_vec <-> centroid)::float8 as d
     from public.games g
-    where g.id not in (select game_id from owned_or_dismissed where game_id is not null)
+    where g.axes_vec is not null    -- exclude unscored BGG-imported placeholders
+      and g.id not in (select game_id from owned_or_dismissed where game_id is not null)
     order by g.axes_vec <-> centroid
     limit greatest(1, least(k, 200))
   ),
   anchors as (
     -- For each candidate, find the user's nearest top-rated (≥4) game.
+    -- The lateral subquery projects id/name/axes_vec/user_rating directly so
+    -- we don't have to re-join collection_items + collections afterwards.
     select
       cand.id as cand_id,
-      anchor.id as anchor_id,
-      anchor.name as anchor_name,
-      ci.user_rating as anchor_rating,
+      anc.aid as anchor_id,
+      anc.aname as anchor_name,
+      anc.arating as anchor_rating,
       row_number() over (
         partition by cand.id
-        order by anchor.axes_vec <-> cand.axes_vec
+        order by anc.av <-> cand.axes_vec
       ) as rn
     from candidates cand
     cross join lateral (
-      select g.* from public.games g
+      select
+        g.id as aid,
+        g.name as aname,
+        g.axes_vec as av,
+        ci.user_rating as arating
+      from public.games g
       join public.collection_items ci on ci.game_id = g.id
       join public.collections c on c.id = ci.collection_id
-      where c.user_id = for_user and ci.user_rating >= 4
-    ) anchor
-    join public.collection_items ci on ci.game_id = anchor.id
-    join public.collections c on c.id = ci.collection_id and c.user_id = for_user
+      where c.user_id = uid
+        and ci.user_rating >= 4
+        and g.axes_vec is not null
+    ) anc
   )
   select
     cand.id, cand.slug, cand.name, cand.bgg_id, cand.scores,
@@ -484,7 +518,10 @@ begin
 end;
 $$;
 
-grant execute on function public.profile_candidates(uuid, int) to authenticated;
+-- Drop any previously-installed 2-arg signature.
+drop function if exists public.profile_candidates(uuid, int);
+
+grant execute on function public.profile_candidates(int) to authenticated;
 ```
 
 **Step 2: Test from psql**
@@ -741,6 +778,40 @@ alter table public.games
 
 -- Existing rows seeded from src/data/games.ts are all editorial. Defensive:
 update public.games set score_status = 'editorial' where score_status is null;
+
+-- Make scores nullable so BGG placeholders can be inserted without inventing
+-- a fake 12-axis vector. Rebuild axes_vec with a null-safe expression so
+-- unscored rows have a NULL vector (IVFFlat skips NULL — they're excluded
+-- from `order by axes_vec <-> anchor` queries automatically).
+alter table public.games alter column scores drop not null;
+
+drop index if exists games_axes_vec_l2_idx;
+alter table public.games drop column if exists axes_vec;
+alter table public.games
+  add column axes_vec vector(12)
+    generated always as (
+      case
+        when scores is null then null
+        else array[
+          (scores ->> 0)::float8,
+          (scores ->> 1)::float8,
+          (scores ->> 2)::float8,
+          (scores ->> 3)::float8,
+          (scores ->> 4)::float8,
+          (scores ->> 5)::float8,
+          (scores ->> 6)::float8,
+          (scores ->> 7)::float8,
+          (scores ->> 8)::float8,
+          (scores ->> 9)::float8,
+          (scores ->> 10)::float8,
+          (scores ->> 11)::float8
+        ]::vector(12)
+      end
+    ) stored;
+
+create index games_axes_vec_l2_idx
+  on public.games using ivfflat (axes_vec vector_l2_ops)
+  with (lists = 16);
 
 -- Per-sync audit row so we can debug 202s, partial failures, and pg_cron runs.
 create table if not exists public.bgg_sync_log (
