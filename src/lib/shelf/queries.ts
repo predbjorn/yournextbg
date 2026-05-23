@@ -14,6 +14,7 @@ import type {
   CoverStatus,
   ScoreStatus,
 } from "@/lib/supabase/types";
+export type { CoverStatus, ScoreStatus };
 
 /**
  * Just the bgg_username field — what the Shelf header needs to decide
@@ -114,24 +115,6 @@ export async function getShelf(): Promise<ShelfItem[]> {
   });
 }
 
-/**
- * Deterministic public cover URL builder. No DB roundtrip required.
- *
- * The `resize-cover` edge function writes three sizes under
- * `${bgg_id | _local/${id}}/{thumb,card,hero}.webp`. The bucket is public.
- *
- * Returns null when the cover hasn't been generated yet — callers should
- * fall back to <BoxCover /> in that case.
- */
-export function buildCoverUrl(
-  game: { id: string; bgg_id: number | null; cover_status: CoverStatus },
-  size: "thumb" | "card" | "hero",
-): string | null {
-  if (game.cover_status !== "ready" && game.cover_status !== "manual") {
-    return null;
-  }
-  const base = game.bgg_id != null ? `${game.bgg_id}` : `_local/${game.id}`;
-  const root = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  if (!root) return null;
-  return `${root}/storage/v1/object/public/covers/${base}/${size}.webp`;
-}
+// `buildCoverUrl` lives in `./covers` so it can be imported from client
+// components without dragging `next/headers` along for the ride.
+export { buildCoverUrl } from "./covers";
