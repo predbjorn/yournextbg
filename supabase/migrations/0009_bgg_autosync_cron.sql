@@ -35,5 +35,5 @@ select cron.schedule(
 );
 
 -- One-off (run from Supabase SQL editor): set the two settings used above.
--- alter database postgres set app.supabase_functions_url = '<your project>.functions.supabase.co/functions/v1';
+-- alter database postgres set app.supabase_functions_url = 'https://<your project>.functions.supabase.co/functions/v1';
 -- alter database postgres set app.service_role_key = '<service-role-key>';
