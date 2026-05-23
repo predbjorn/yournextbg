@@ -113,11 +113,27 @@ where `N`, `M`, `K` are integers reflecting the signed-in user's BGG collection.
 **If it fails:** ensure `BGG_API_KEY` is set as a function secret, the user has a BGG
 username configured in `user_prefs` (migration
 `supabase/migrations/0003_user_prefs.sql`), and the function deployment at
-`supabase/functions/bgg-sync/index.ts` is current. The sync writes to
-`public.bgg_sync_status` (migration `0008_bgg_sync_status.sql`); a row there is also a
-useful health signal.
+`supabase/functions/bgg-sync/index.ts` is current. The sync writes one row to
+`public.bgg_sync_log` per run (migration `0008_bgg_sync_status.sql`); inspecting that
+table is the easiest way to see what happened on the last attempt.
 
 ## Check 6 — `pg_cron` job is registered
+
+**One-off precondition (must run BEFORE the cron's first tick):** the cron payload
+reads two settings via `current_setting(...)`. Set them from the Supabase SQL editor
+once per environment:
+
+```sql
+alter database postgres set app.supabase_functions_url
+  = 'https://gkickjaihbgapowsqwhx.functions.supabase.co/functions/v1';
+alter database postgres set app.service_role_key
+  = '<paste service-role JWT>';
+```
+
+Without these, `cron.job_run_details` will show errors like
+`unrecognized configuration parameter "app.supabase_functions_url"` and the bgg-sync
+edge function will never be invoked by cron (manual sync from the web app still works,
+since it doesn't depend on these settings).
 
 ```bash
 psql "$DATABASE_URL" -c \
@@ -127,8 +143,20 @@ psql "$DATABASE_URL" -c \
 **Expected:** 1 row, `active = true`, schedule matching the hourly cadence defined in
 migration `supabase/migrations/0009_bgg_autosync_cron.sql`.
 
-**If it fails:** re-apply migration `0009_bgg_autosync_cron.sql`. The migration is
-idempotent and safe to re-run.
+Additionally verify the most recent run succeeded:
+
+```bash
+psql "$DATABASE_URL" -c \
+  "select start_time, status, return_message from cron.job_run_details \
+   where jobid = (select jobid from cron.job where jobname='bgg_autosync_hourly') \
+   order by start_time desc limit 3;"
+```
+
+**Expected:** rows with `status = 'succeeded'`. A status of `failed` with
+`unrecognized configuration parameter` means the precondition above wasn't run.
+
+**If it fails:** re-apply migration `0009_bgg_autosync_cron.sql` (idempotent) and
+re-run the two `alter database` statements above.
 
 ## Check 7 — RLS blocks anonymous writes
 
