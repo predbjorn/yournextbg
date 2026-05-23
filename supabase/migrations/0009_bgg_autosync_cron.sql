@@ -2,6 +2,14 @@
 create extension if not exists pg_cron;
 create extension if not exists pg_net;     -- used to call edge functions from cron
 
+-- Idempotent: drop any prior copy of this cron job before (re)creating it.
+-- cron.schedule() throws on duplicate jobname, which would break re-runs.
+do $$ begin
+  perform cron.unschedule('bgg_autosync_hourly');
+exception
+  when others then null;  -- job didn't exist; fine.
+end $$;
+
 -- Runs hourly. Picks up users with auto_sync_bgg=true whose last sync is stale.
 select cron.schedule(
   'bgg_autosync_hourly',
