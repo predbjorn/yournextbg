@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { GAMES, getGameBySlug } from "@/data/games";
 import { gameSubtitle } from "@/lib/facets";
+import { Radar, Stamp } from "@/components/ui";
 import { ScorePanel } from "@/components/game/ScorePanel";
 import { MetaStrip } from "@/components/game/MetaStrip";
 import { SimilarGamesList } from "@/components/game/SimilarGamesList";
@@ -68,166 +69,258 @@ export default async function GamePage({ params }: PageProps) {
   const breadcrumb = gameBreadcrumb(game);
 
   return (
-    <main className="max-w-[1200px] mx-auto px-8 pt-16 pb-24">
-      {/* JSON-LD for rich results */}
-      <script
-        type="application/ld+json"
-        // eslint-disable-next-line react/no-danger
-        dangerouslySetInnerHTML={{ __html: jsonLdString(jsonLd) }}
-      />
-      <script
-        type="application/ld+json"
-        // eslint-disable-next-line react/no-danger
-        dangerouslySetInnerHTML={{ __html: jsonLdString(breadcrumb) }}
-      />
-      <script
-        type="application/ld+json"
-        // eslint-disable-next-line react/no-danger
-        dangerouslySetInnerHTML={{ __html: jsonLdString(faqLd) }}
-      />
+    <main className="min-h-screen bg-cs-paper-deep cs-grain">
+      <div className="max-w-[1200px] mx-auto px-8 pt-12 pb-24">
+        {/* JSON-LD for rich results */}
+        <script
+          type="application/ld+json"
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{ __html: jsonLdString(jsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{ __html: jsonLdString(breadcrumb) }}
+        />
+        <script
+          type="application/ld+json"
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{ __html: jsonLdString(faqLd) }}
+        />
 
-      {/* Header */}
-      <header className="mb-10">
+        {/* Breadcrumb */}
         <nav
           aria-label="Breadcrumb"
-          className="flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--ink-mute)] mb-7"
+          className="flex items-center gap-3 font-cs-mono uppercase text-cs-muted mb-8"
+          style={{ fontSize: 10, letterSpacing: "0.18em" }}
         >
-          <Link href="/" className="hover:text-[var(--accent)]">
+          <Link href="/" className="hover:text-cs-ink">
             yournextbg
           </Link>
           <span aria-hidden>›</span>
-          <Link href="/games" className="hover:text-[var(--accent)]">
+          <Link href="/games" className="hover:text-cs-ink">
             Games
           </Link>
           <span aria-hidden>›</span>
-          <span className="text-[var(--ink-dim)]">{gameSubtitle(game)}</span>
+          <span className="text-cs-ink/70">{gameSubtitle(game)}</span>
         </nav>
 
-        <h1 className="font-serif font-bold text-[clamp(40px,6vw,72px)] leading-[0.95] tracking-[-0.03em] mb-4">
-          {game.name}
-        </h1>
+        {/* Hero row */}
+        <section className="grid gap-10 lg:grid-cols-[1fr_360px] items-start mb-12">
+          <header>
+            <Stamp color="muted">game profile</Stamp>
+            <h1
+              className="font-cs-display text-cs-ink mt-1"
+              style={{
+                fontSize: "clamp(40px, 6vw, 64px)",
+                fontWeight: 600,
+                letterSpacing: "-0.03em",
+                lineHeight: 0.98,
+              }}
+            >
+              {game.name}
+            </h1>
+            {game.signature && (
+              <p
+                className="font-cs-display italic text-cs-ink/70 mt-4 max-w-3xl"
+                style={{ fontSize: 19, lineHeight: 1.4 }}
+              >
+                {game.signature}
+              </p>
+            )}
+            {game.bggId && (
+              <p
+                className="font-cs-mono text-cs-muted mt-5"
+                style={{ fontSize: 11, letterSpacing: "0.06em" }}
+              >
+                BGG ·{" "}
+                <a
+                  href={`https://boardgamegeek.com/boardgame/${game.bggId}`}
+                  target="_blank"
+                  rel="noopener"
+                  className="hover:text-cs-ink"
+                  style={{ borderBottom: "1px dotted rgba(28,26,20,0.4)" }}
+                >
+                  boardgamegeek.com/boardgame/{game.bggId}
+                </a>
+              </p>
+            )}
+            <p
+              className="font-cs-display text-cs-ink mt-7 max-w-3xl"
+              style={{ fontSize: 18, lineHeight: 1.55 }}
+            >
+              {prose.thinking} {prose.interaction}
+            </p>
+            {closestSentence && (
+              <p
+                className="font-cs-display italic text-cs-ink/70 mt-3 max-w-3xl"
+                style={{ fontSize: 16, lineHeight: 1.55 }}
+              >
+                {closestSentence}
+              </p>
+            )}
+          </header>
+          <div className="flex justify-center">
+            <Radar size={320} values={game.scores} />
+          </div>
+        </section>
 
-        {game.signature && (
-          <p className="text-[20px] italic text-[var(--ink-dim)] max-w-3xl leading-snug font-light mb-4">
-            {game.signature}
-          </p>
-        )}
+        {/* Meta strip: solo / fiddly / player counts */}
+        <section className="mb-10">
+          <MetaStrip game={game} />
+        </section>
 
-        {game.bggId && (
-          <p className="font-mono text-[11px] text-[var(--ink-mute)]">
-            BGG:{" "}
+        {/* 12-axis breakdown */}
+        <section className="mb-12">
+          <h2
+            className="font-cs-display text-cs-ink"
+            style={{
+              fontSize: 30,
+              fontWeight: 600,
+              letterSpacing: "-0.02em",
+              marginBottom: 6,
+            }}
+          >
+            The 12-axis profile
+          </h2>
+          <p
+            className="font-cs-display italic text-cs-ink/70 max-w-2xl mb-6"
+            style={{ fontSize: 15 }}
+          >
+            Every score is on a 0–10 scale. The rubric and methodology
+            behind these numbers is documented in the{" "}
             <a
-              href={`https://boardgamegeek.com/boardgame/${game.bggId}`}
+              href="https://github.com/predbjorn/yournextbg#readme"
               target="_blank"
               rel="noopener"
-              className="text-[var(--steel)] hover:underline"
+              className="text-cs-ink not-italic"
+              style={{ borderBottom: "1px dotted rgba(28,26,20,0.4)" }}
             >
-              boardgamegeek.com/boardgame/{game.bggId}
+              README
             </a>
+            .
           </p>
-        )}
-      </header>
+          <ScorePanel game={game} prose={prose} />
+        </section>
 
-      {/* Lead paragraph — first prose block above the fold for SEO */}
-      <section className="mb-10 max-w-3xl">
-        <p className="text-[18px] leading-relaxed font-serif text-[var(--ink)]">
-          {prose.thinking} {prose.interaction}
-        </p>
-        {closestSentence && (
-          <p className="mt-4 text-[16px] leading-relaxed font-serif text-[var(--ink-dim)] italic">
-            {closestSentence}
+        {/* Second prose block */}
+        <section className="mb-12 max-w-3xl">
+          <p
+            className="font-cs-display text-cs-ink mb-4"
+            style={{ fontSize: 17, lineHeight: 1.6 }}
+          >
+            {prose.luck}
           </p>
-        )}
-      </section>
-
-      {/* Meta strip: solo / fiddly / player counts */}
-      <section className="mb-10">
-        <MetaStrip game={game} />
-      </section>
-
-      {/* 12-axis breakdown */}
-      <section className="mb-12">
-        <h2 className="font-serif text-3xl font-bold tracking-tight mb-2">
-          The 12-axis profile
-        </h2>
-        <p className="text-[var(--ink-dim)] italic mb-6 max-w-2xl">
-          Every score is on a 0–10 scale. The rubric and methodology behind
-          these numbers is documented in the{" "}
-          <a
-            href="https://github.com/predbjorn/yournextbg#readme"
-            target="_blank"
-            rel="noopener"
-            className="text-[var(--steel)] hover:underline"
+          <p
+            className="font-cs-display text-cs-ink"
+            style={{ fontSize: 17, lineHeight: 1.6 }}
           >
-            README
-          </a>
-          .
-        </p>
-        <ScorePanel game={game} prose={prose} />
-      </section>
+            {prose.experience}
+          </p>
+        </section>
 
-      {/* Second prose block — luck + experience */}
-      <section className="mb-12 max-w-3xl">
-        <p className="text-[17px] leading-relaxed font-serif text-[var(--ink)] mb-4">
-          {prose.luck}
-        </p>
-        <p className="text-[17px] leading-relaxed font-serif text-[var(--ink)]">
-          {prose.experience}
-        </p>
-      </section>
-
-      {/* Similar games */}
-      <section className="mb-12">
-        <h2 className="font-serif text-3xl font-bold tracking-tight mb-2">
-          Games like {game.name}
-        </h2>
-        <p className="text-[var(--ink-dim)] italic mb-6 max-w-2xl">
-          Ranked by weighted Euclidean distance across the 12-axis profile,
-          using the default research-weighted lens. Click any game to see its
-          full profile.
-        </p>
-        <SimilarGamesList game={game} limit={6} />
-      </section>
-
-      {/* FAQ — score-aware Q&A, also emitted as FAQPage JSON-LD above */}
-      <section className="mb-12">
-        <h2 className="font-serif text-3xl font-bold tracking-tight mb-2">
-          Frequently asked
-        </h2>
-        <p className="text-[var(--ink-dim)] italic mb-6 max-w-2xl">
-          Answers derived directly from {game.name}&apos;s 12-axis profile.
-        </p>
-        <dl className="max-w-3xl divide-y divide-[var(--border)]">
-          {faq.map((item) => (
-            <div key={item.q} className="py-4">
-              <dt className="font-serif font-semibold text-[17px] text-[var(--ink)] mb-1">
-                {item.q}
-              </dt>
-              <dd className="text-[16px] leading-relaxed text-[var(--ink-dim)]">
-                {item.a}
-              </dd>
-            </div>
-          ))}
-        </dl>
-      </section>
-
-      {/* CTA back to the comparator */}
-      <section className="pt-8 border-t border-dashed border-[var(--border)]">
-        <p className="text-[15px] text-[var(--ink-dim)] italic">
-          Want to overlay {game.name} against a candidate game and see exactly
-          where they diverge?{" "}
-          <Link
-            href="/"
-            className="text-[var(--accent)] hover:underline font-medium not-italic"
+        {/* Similar games */}
+        <section className="mb-12">
+          <h2
+            className="font-cs-display text-cs-ink"
+            style={{
+              fontSize: 30,
+              fontWeight: 600,
+              letterSpacing: "-0.02em",
+              marginBottom: 6,
+            }}
           >
-            Open it in the comparator →
-          </Link>
-        </p>
-      </section>
+            Games like {game.name}
+          </h2>
+          <p
+            className="font-cs-display italic text-cs-ink/70 max-w-2xl mb-6"
+            style={{ fontSize: 15 }}
+          >
+            Ranked by weighted Euclidean distance across the 12-axis
+            profile, using the default research-weighted lens. Click any
+            game to see its full profile.
+          </p>
+          <SimilarGamesList game={game} limit={6} />
+        </section>
 
-      <footer className="mt-24 pt-8 border-t border-[var(--border)] text-center font-mono text-[11px] uppercase tracking-[0.2em] text-[var(--ink-mute)]">
-        Methodology v1 · MDA · Quantic Foundry · BGG forum consensus
-      </footer>
+        {/* FAQ */}
+        <section className="mb-12">
+          <h2
+            className="font-cs-display text-cs-ink"
+            style={{
+              fontSize: 30,
+              fontWeight: 600,
+              letterSpacing: "-0.02em",
+              marginBottom: 6,
+            }}
+          >
+            Frequently asked
+          </h2>
+          <p
+            className="font-cs-display italic text-cs-ink/70 max-w-2xl mb-6"
+            style={{ fontSize: 15 }}
+          >
+            Answers derived directly from {game.name}&apos;s 12-axis profile.
+          </p>
+          <dl className="max-w-3xl">
+            {faq.map((item) => (
+              <div
+                key={item.q}
+                className="py-5"
+                style={{ borderBottom: "1px solid rgba(28,26,20,0.08)" }}
+              >
+                <dt
+                  className="font-cs-display text-cs-ink mb-1"
+                  style={{ fontSize: 17, fontWeight: 600 }}
+                >
+                  {item.q}
+                </dt>
+                <dd
+                  className="font-cs-display text-cs-ink/75"
+                  style={{ fontSize: 15, lineHeight: 1.6 }}
+                >
+                  {item.a}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </section>
+
+        {/* CTA into the lens */}
+        <section
+          className="pt-8"
+          style={{ borderTop: "1px dashed rgba(28,26,20,0.2)" }}
+        >
+          <p
+            className="font-cs-display italic text-cs-ink/75"
+            style={{ fontSize: 15 }}
+          >
+            Want to overlay {game.name} against a candidate game and see
+            exactly where they diverge?{" "}
+            <Link
+              href={`/lens?a=${game.id}`}
+              className="text-cs-ink not-italic"
+              style={{
+                borderBottom: "1px dotted rgba(28,26,20,0.4)",
+                fontWeight: 600,
+              }}
+            >
+              Open it in the lens →
+            </Link>
+          </p>
+        </section>
+
+        <footer
+          className="mt-24 pt-8 text-center font-cs-mono uppercase text-cs-muted"
+          style={{
+            fontSize: 10,
+            letterSpacing: "0.22em",
+            borderTop: "1px solid rgba(28,26,20,0.12)",
+          }}
+        >
+          Methodology v1 · MDA · Quantic Foundry · BGG forum consensus
+        </footer>
+      </div>
     </main>
   );
 }

@@ -192,3 +192,85 @@ All seven checks must pass before the frontend (Plan 02+) consumes this backend:
 - [ ] **#7** Anonymous `insert into games` errors with RLS violation
 
 If every box is checked, the backend in Plan 01 is ready to ship.
+
+## Auth provider setup
+
+The web app uses Supabase Auth via `@supabase/ssr` (server client at
+`src/lib/supabase/server.ts`, browser client at `src/lib/supabase/client.ts`,
+session refresh in `src/proxy.ts` → `src/lib/supabase/proxy.ts`). The
+following providers must be enabled in the Supabase dashboard before the
+Plan 02 login screen ships.
+
+Dashboard path: **Supabase project → Authentication → Providers**.
+
+### Email + password
+
+Usually on by default for new projects. Confirm under **Authentication →
+Providers → Email** that **Enable Email provider** is on. Leave **Confirm
+email** on for production; turn it off only in local/dev projects where you
+need to sign up without an inbox.
+
+### Magic link
+
+Under **Authentication → Providers → Email**, toggle **Enable Email link
+(magic link)** on. No extra config required beyond the redirect allow-list
+below.
+
+### Google OAuth
+
+Under **Authentication → Providers → Google**:
+
+1. Toggle **Enable Sign in with Google** on.
+2. Paste the **Client ID** and **Client Secret** from a Google Cloud OAuth
+   2.0 Web client (Google Cloud Console → APIs & Services → Credentials).
+3. The Google OAuth client's **Authorized redirect URIs** must include the
+   Supabase-issued callback shown on the provider page
+   (`https://<project-ref>.supabase.co/auth/v1/callback`).
+4. In Supabase **Authentication → URL Configuration**, add to
+   **Redirect URLs**:
+   - `https://yournextbg.com/auth/callback` (production)
+   - `http://localhost:3000/auth/callback` (dev)
+   - any preview-deploy origins you use (e.g. `https://*.vercel.app/auth/callback`)
+
+### Apple OAuth
+
+Deferred until iOS exists. Apple Sign-In requires a **Services ID** tied to
+an App ID — easier to configure once the iOS bundle identifier is locked in
+(Plan 03). Until then, the Apple button on the login screen is rendered
+disabled with a "Coming soon" tooltip; do **not** enable the Apple provider
+in the dashboard yet (turning it on without a Services ID just produces
+broken redirects).
+
+
+## Observability
+
+### PostHog
+
+- `NEXT_PUBLIC_POSTHOG_KEY` — project public key. Init in `src/lib/analytics/posthog.ts`.
+- `NEXT_PUBLIC_POSTHOG_HOST` — optional override, defaults to `https://us.i.posthog.com`.
+- When unset locally, the `capture()` calls are no-op — no warnings.
+- Event taxonomy lives in `src/lib/analytics/posthog.ts` (`EventName`). Keep it in sync with the PostHog dashboard.
+
+### Sentry
+
+Not yet wired. Set up via the official wizard the first time you run it locally:
+
+```bash
+pnpm dlx @sentry/wizard@latest -i nextjs
+```
+
+The wizard interactively creates `sentry.client.config.ts` / `sentry.server.config.ts` / `next.config.ts` glue and a `.sentryclirc` for source-map uploads. Skip the Vercel integration prompt if the repo↔Vercel link is still broken (see deploy section below).
+
+Required env vars after the wizard runs:
+
+- `NEXT_PUBLIC_SENTRY_DSN` (browser)
+- `SENTRY_AUTH_TOKEN` (build-time source-map upload — set in Vercel/GHA, not committed)
+
+Start at `tracesSampleRate: 0.1` for v1; revisit when traffic justifies more.
+
+## Deploy
+
+The GitHub ↔ Vercel link is broken because the repo is private. v1 options:
+
+1. **Make the repo public** (preferred — open-source posture matches the methodology essay). Then re-link in Vercel project settings and pushes to `main` deploy automatically.
+2. **Vercel deploy hook**. Generate one from the Vercel project (Settings → Git → Deploy Hooks), store as `VERCEL_DEPLOY_HOOK` repo secret in GitHub, then add `.github/workflows/vercel-deploy.yml` that posts to it on `push: main`. Until either option lands, deploy manually: `pnpm exec vercel --prod`.

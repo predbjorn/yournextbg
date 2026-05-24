@@ -1,6 +1,19 @@
 import type { Metadata, Viewport } from "next";
-import { JetBrains_Mono, Newsreader } from "next/font/google";
+import { Fraunces, JetBrains_Mono, Newsreader } from "next/font/google";
 import "./globals.css";
+import { PostHogInit } from "@/components/analytics/posthog-init";
+
+/**
+ * Theme is resolved entirely in the browser via the inline script below
+ * (cookie + prefers-color-scheme). We deliberately don't read the cookie
+ * server-side here because that would force every route — including the
+ * SEO-critical static /games/[slug] — to be dynamic. The cookie name is
+ * `yntb-theme`, written by /profile's PrefsSection.
+ *
+ * The /profile ThemeProvider still mounts further down the tree for
+ * signed-in users to react to OS scheme changes when theme=auto. The
+ * inline script handles the first paint for *everyone*.
+ */
 
 const newsreader = Newsreader({
   variable: "--font-newsreader",
@@ -13,6 +26,15 @@ const jetbrainsMono = JetBrains_Mono({
   variable: "--font-jetbrains-mono",
   subsets: ["latin"],
   weight: ["400", "500", "700"],
+});
+
+// Cardstock display face. Powers `--font-cs-display` in globals.css and
+// the `font-cs-display` Tailwind utility. Coexists with Newsreader until
+// later Plan 02 tasks port components over and a cleanup task removes it.
+const fraunces = Fraunces({
+  variable: "--font-fraunces",
+  subsets: ["latin"],
+  axes: ["opsz"],
 });
 
 export const viewport: Viewport = {
@@ -75,12 +97,37 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  // Inline pre-paint script. Reads the `yntb-theme` cookie at parse time
+  // and falls back to prefers-color-scheme. Running in <head> means the
+  // html element gets `data-theme` set before any CSS evaluates — no
+  // flash. Stays as a string constant so the layout is statically
+  // renderable.
+  const initScript = `(() => {
+    try {
+      var m = document.cookie.match(/(?:^|; )yntb-theme=([^;]+)/);
+      var t = m ? decodeURIComponent(m[1]) : "auto";
+      var mode = (t === "light" || t === "dark")
+        ? t
+        : (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+      document.documentElement.dataset.theme = mode;
+    } catch (e) {}
+  })();`;
+
   return (
     <html
       lang="en"
-      className={`${newsreader.variable} ${jetbrainsMono.variable} h-full antialiased`}
+      className={`${newsreader.variable} ${jetbrainsMono.variable} ${fraunces.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <head>
+        <script
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{ __html: initScript }}
+        />
+      </head>
+      <body className="min-h-full flex flex-col">
+        <PostHogInit />
+        {children}
+      </body>
     </html>
   );
 }
