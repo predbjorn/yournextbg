@@ -1,4 +1,3 @@
-import { redirect } from "next/navigation";
 import { getUser } from "@/lib/auth/get-session";
 import { getLensSeed } from "@/lib/lens/queries";
 import { LensClient } from "@/components/lens/lens-client";
@@ -7,9 +6,11 @@ import { Stamp } from "@/components/ui";
 export const dynamic = "force-dynamic";
 
 export default async function LensPage() {
+  // Public route: anyone can explore the lens without an account. When
+  // signed in we seed with the user's top-rated game; otherwise we fall
+  // back to a known central catalog anchor.
   const user = await getUser();
-  if (!user) redirect("/login");
-  const seed = await getLensSeed(user.id);
+  const seed = await getLensSeed(user?.id ?? null);
 
   return (
     <main className="min-h-screen bg-cs-paper-deep cs-grain">

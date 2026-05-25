@@ -75,20 +75,26 @@ export default function Home() {
               className="font-cs-display text-cs-ink/80 mt-6 max-w-xl"
               style={{ fontSize: 16, lineHeight: 1.55 }}
             >
-              Sign in to drop any game on the lens, overlay a comparison,
-              and re-rank under five different philosophies — same weight
-              class, same feel, same luck profile, or the research-weighted
-              default.
+              Drop any game on the lens, overlay a comparison, and re-rank
+              under five different philosophies — same weight class, same
+              feel, same luck profile, or the research-weighted default.
+              Sign in to save a shelf, rate games, and get profile-tuned
+              recommendations.
             </p>
             <div className="flex flex-wrap gap-3 mt-8">
-              <Link href="/login" className="contents">
+              <Link href="/lens" className="contents">
                 <Btn tone="primary" size="lg">
-                  Sign in →
+                  Open the lens →
                 </Btn>
               </Link>
               <Link href={`/games/${hero.slug}`} className="contents">
                 <Btn tone="ghost" size="lg">
                   See {hero.name}
+                </Btn>
+              </Link>
+              <Link href="/login" className="contents">
+                <Btn tone="ghost" size="lg">
+                  Sign in
                 </Btn>
               </Link>
             </div>

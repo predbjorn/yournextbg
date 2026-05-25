@@ -117,6 +117,9 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${newsreader.variable} ${jetbrainsMono.variable} ${fraunces.variable} h-full antialiased`}
+      // The inline script below sets `data-theme` before hydration; React
+      // doesn't know about that mutation, so silence its warning here.
+      suppressHydrationWarning
     >
       <head>
         <script
