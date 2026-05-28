@@ -9,9 +9,11 @@
 /* Begin PBXBuildFile section */
 		0C215F0B6A31261F173A7FEC /* ModelsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402F69364C9BB9779F84E79B /* ModelsTests.swift */; };
 		36D841980D1DBB7EF4DCA4F3 /* yournextbgApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED7BB2E74D1756B8321DC266 /* yournextbgApp.swift */; };
+		4EBB998C6D580F5664F641E2 /* ScoringParityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379B0142ED11866DAAAA394C /* ScoringParityTests.swift */; };
 		56EDE132BD911DCF9268E66F /* CollectionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AB5212900357CED3B5F2D69 /* CollectionItem.swift */; };
 		69D2DD2B960B022679D0B683 /* UserPrefs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64B85DD69B3E5D171654C06A /* UserPrefs.swift */; };
 		83ABC260DEAA5782CEFBB165 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2728444760759867B071899 /* ContentView.swift */; };
+		8450B2C2DBF912A68F099321 /* Similarity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818DAEC8FD793B0B5C33F74F /* Similarity.swift */; };
 		88D5A7F2A58F9A3A1C68903D /* SupabaseServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EA44366158554BABC034E10 /* SupabaseServiceTests.swift */; };
 		91E7E106409EE6CE3BF9674A /* Lens.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75AB5D941DB27AC086F40EF /* Lens.swift */; };
 		9BC5D9DBB17F127E05DA7D21 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF9D492BC4C8B07189A4630A /* Game.swift */; };
@@ -21,6 +23,7 @@
 		DD3EA50856BE1A189EE67194 /* Supabase in Frameworks */ = {isa = PBXBuildFile; productRef = 1BC257C2E54694728DAFB178 /* Supabase */; };
 		E67B966A5DA523068449BD93 /* PlaceholderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FA35CB77C7AA6E09E37D5CE /* PlaceholderTests.swift */; };
 		EA75CF51275E65EB12C33855 /* Branch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F0A386DDB1C6BBA434AF56 /* Branch.swift */; };
+		EBC39E5C08E483381FEF294D /* Fixtures in Resources */ = {isa = PBXBuildFile; fileRef = 163E0B861BA506124DBE866E /* Fixtures */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,14 +37,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		163E0B861BA506124DBE866E /* Fixtures */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Fixtures; path = yournextbgTests/Fixtures; sourceTree = SOURCE_ROOT; };
 		1AB5212900357CED3B5F2D69 /* CollectionItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionItem.swift; sourceTree = "<group>"; };
 		23C6666370C337D41F97CB47 /* yournextbg.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = yournextbg.entitlements; sourceTree = "<group>"; };
+		379B0142ED11866DAAAA394C /* ScoringParityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoringParityTests.swift; sourceTree = "<group>"; };
 		37F0A386DDB1C6BBA434AF56 /* Branch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Branch.swift; sourceTree = "<group>"; };
 		402F69364C9BB9779F84E79B /* ModelsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelsTests.swift; sourceTree = "<group>"; };
 		57E765A0CCC971229778F72F /* yournextbg.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = yournextbg.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		64B85DD69B3E5D171654C06A /* UserPrefs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPrefs.swift; sourceTree = "<group>"; };
 		6FA35CB77C7AA6E09E37D5CE /* PlaceholderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceholderTests.swift; sourceTree = "<group>"; };
 		7EA44366158554BABC034E10 /* SupabaseServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupabaseServiceTests.swift; sourceTree = "<group>"; };
+		818DAEC8FD793B0B5C33F74F /* Similarity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Similarity.swift; sourceTree = "<group>"; };
 		8DC669704D5C6A0C7F4A94F9 /* SupabaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupabaseService.swift; sourceTree = "<group>"; };
 		AD264407A49A6A257AB4EDC3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		D08D180953C72FCB723E7764 /* yournextbgTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = yournextbgTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -49,7 +55,7 @@
 		E75AB5D941DB27AC086F40EF /* Lens.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lens.swift; sourceTree = "<group>"; };
 		ED7BB2E74D1756B8321DC266 /* yournextbgApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = yournextbgApp.swift; sourceTree = "<group>"; };
 		EF9D492BC4C8B07189A4630A /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
-		"TEMP_FDE6C34C-4F84-4171-B0D0-9EE3077281D2" /* yournextbg.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = yournextbg.xcconfig; sourceTree = "<group>"; };
+		"TEMP_818BA214-59AB-4D03-8E60-BC5A7DC290B3" /* yournextbg.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = yournextbg.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +92,7 @@
 		34CAE0D6CA9989C2D71F6704 /* Scoring */ = {
 			isa = PBXGroup;
 			children = (
+				818DAEC8FD793B0B5C33F74F /* Similarity.swift */,
 			);
 			path = Scoring;
 			sourceTree = "<group>";
@@ -158,13 +165,6 @@
 			path = Theme;
 			sourceTree = "<group>";
 		};
-		BE10673BAAA19237E7F53497 /* Fixtures */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Fixtures;
-			sourceTree = "<group>";
-		};
 		DB340F7F5FF884D030006A5F /* Screens */ = {
 			isa = PBXGroup;
 			children = (
@@ -175,18 +175,19 @@
 		EF5C1620DFC144B167097C1B /* yournextbgTests */ = {
 			isa = PBXGroup;
 			children = (
-				BE10673BAAA19237E7F53497 /* Fixtures */,
+				163E0B861BA506124DBE866E /* Fixtures */,
 				402F69364C9BB9779F84E79B /* ModelsTests.swift */,
 				6FA35CB77C7AA6E09E37D5CE /* PlaceholderTests.swift */,
+				379B0142ED11866DAAAA394C /* ScoringParityTests.swift */,
 				7EA44366158554BABC034E10 /* SupabaseServiceTests.swift */,
 			);
 			path = yournextbgTests;
 			sourceTree = "<group>";
 		};
-		"TEMP_54DB3324-5950-4415-8560-233363BD683C" /* ios */ = {
+		"TEMP_97836AFF-B5C7-4B41-8047-E201FAF14247" /* ios */ = {
 			isa = PBXGroup;
 			children = (
-				"TEMP_FDE6C34C-4F84-4171-B0D0-9EE3077281D2" /* yournextbg.xcconfig */,
+				"TEMP_818BA214-59AB-4D03-8E60-BC5A7DC290B3" /* yournextbg.xcconfig */,
 			);
 			path = ios;
 			sourceTree = "<group>";
@@ -221,6 +222,7 @@
 			buildConfigurationList = DF4D2E8EBB468F4C446D79A2 /* Build configuration list for PBXNativeTarget "yournextbgTests" */;
 			buildPhases = (
 				99A73AEC0AB173B30FCFE28C /* Sources */,
+				29B69DC673DFBA7804DF887E /* Resources */,
 			);
 			buildRules = (
 			);
@@ -273,6 +275,17 @@
 		};
 /* End PBXProject section */
 
+/* Begin PBXResourcesBuildPhase section */
+		29B69DC673DFBA7804DF887E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EBC39E5C08E483381FEF294D /* Fixtures in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
 /* Begin PBXShellScriptBuildPhase section */
 		D8A8B3DC52B19221BC7F3AAE /* SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -305,6 +318,7 @@
 				83ABC260DEAA5782CEFBB165 /* ContentView.swift in Sources */,
 				9BC5D9DBB17F127E05DA7D21 /* Game.swift in Sources */,
 				91E7E106409EE6CE3BF9674A /* Lens.swift in Sources */,
+				8450B2C2DBF912A68F099321 /* Similarity.swift in Sources */,
 				BB2A4AE5379EEFC886ED7A0A /* SupabaseService.swift in Sources */,
 				69D2DD2B960B022679D0B683 /* UserPrefs.swift in Sources */,
 				36D841980D1DBB7EF4DCA4F3 /* yournextbgApp.swift in Sources */,
@@ -317,6 +331,7 @@
 			files = (
 				0C215F0B6A31261F173A7FEC /* ModelsTests.swift in Sources */,
 				E67B966A5DA523068449BD93 /* PlaceholderTests.swift in Sources */,
+				4EBB998C6D580F5664F641E2 /* ScoringParityTests.swift in Sources */,
 				88D5A7F2A58F9A3A1C68903D /* SupabaseServiceTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -334,7 +349,7 @@
 /* Begin XCBuildConfiguration section */
 		3161BF3749BD6E1023A9F8B3 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = "TEMP_FDE6C34C-4F84-4171-B0D0-9EE3077281D2" /* yournextbg.xcconfig */;
+			baseConfigurationReference = "TEMP_818BA214-59AB-4D03-8E60-BC5A7DC290B3" /* yournextbg.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -525,7 +540,7 @@
 		};
 		EA81E198D0D2575E87F5A507 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = "TEMP_FDE6C34C-4F84-4171-B0D0-9EE3077281D2" /* yournextbg.xcconfig */;
+			baseConfigurationReference = "TEMP_818BA214-59AB-4D03-8E60-BC5A7DC290B3" /* yournextbg.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

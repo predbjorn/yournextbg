@@ -101,6 +101,11 @@ targets:
     deploymentTarget: "17.0"
     sources:
       - path: yournextbgTests
+        excludes:
+          - "Fixtures/**"
+      - path: yournextbgTests/Fixtures
+        buildPhase: resources
+        type: folder
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.yournextbg.app.tests
