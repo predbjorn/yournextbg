@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Placeholder Cardstock-ink monogram. A real icon ships in Phase 5 listing. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <path
+        android:fillColor="#1c1a14"
+        android:pathData="M30,38h12l12,20 12,-20h12l-18,30v12h-12v-12z" />
+</vector>
