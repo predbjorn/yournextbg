@@ -1,0 +1,28 @@
+# Android / Gradle / IntelliJ artifacts
+*.iml
+.idea/
+.gradle/
+.kotlin/
+build/
+captures/
+.cxx/
+
+# Local environment & secrets — never commit
+local.properties
+keystore.jks
+keystore.properties
+*.keystore
+*.jks
+google-services.json
+
+# OS noise
+.DS_Store
+
+# Generated OpenAPI client (output dir under build/, also covered by build/)
+generated/
+
+# fastlane runtime artifacts
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots
+fastlane/test_output

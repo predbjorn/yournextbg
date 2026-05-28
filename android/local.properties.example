@@ -1,0 +1,33 @@
+# Copy this file to `android/local.properties` and fill in real values.
+# `local.properties` is gitignored — never commit secrets.
+#
+# Empty values are tolerated by the build (Gradle prints a warning) so CI and
+# fresh clones still compile. Real values are required only at runtime, when
+# the app starts hitting Supabase, Sentry, PostHog, or Google Sign-In.
+
+# ─── Android SDK location ───────────────────────────────────────────────────
+# Android Studio fills this in automatically the first time you open the project.
+# Set manually if you build from CLI without ever opening Studio.
+# sdk.dir=/Users/you/Library/Android/sdk
+
+# ─── Supabase (shared with the web app, project ref gkickjaihbgapowsqwhx) ──
+# Lifted from the web app's .env.local — same project, same anon key, same RLS.
+SUPABASE_URL=https://gkickjaihbgapowsqwhx.supabase.co
+SUPABASE_ANON_KEY=
+
+# ─── Sentry ─────────────────────────────────────────────────────────────────
+# Get the DSN from https://sentry.io → yournextbg project → Settings → Client Keys (DSN).
+SENTRY_DSN=
+
+# ─── PostHog ────────────────────────────────────────────────────────────────
+# Project API key (not personal API key) from https://us.posthog.com → Project Settings.
+POSTHOG_API_KEY=
+POSTHOG_HOST=https://us.i.posthog.com
+
+# ─── Google Sign-In ─────────────────────────────────────────────────────────
+# OAuth 2.0 "Web application" client ID, NOT the Android client ID. Credential
+# Manager wants the web client ID so the resulting ID token is verifiable by
+# Supabase Auth's Google provider. Configure both client IDs in GCP:
+#   1. Web client → paste below + paste into Supabase Auth → Providers → Google
+#   2. Android client → SHA-1 of your signing keystore + package com.yournextbg.app
+GOOGLE_WEB_CLIENT_ID=

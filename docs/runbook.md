@@ -414,3 +414,121 @@ When the user is ready:
    secrets.
 5. Land the `ios-release.yml` workflow + the Fastfile lanes
    (`test`, `beta`, `release`).
+# Android
+
+Native Compose app living under `android/`. Companion to web (`src/`) and iOS
+(`ios/`). Plan: `docs/plans/2026-05-23-04-android-compose.md`.
+
+### Build it locally
+
+```sh
+# one-time
+cd android
+cp local.properties.example local.properties
+# fill in real values for SUPABASE_*, SENTRY_DSN, POSTHOG_*, GOOGLE_WEB_CLIENT_ID
+# as they become available — empty values are tolerated by the build,
+# but the app's auth/data calls won't function until they're real.
+
+# every time
+./gradlew :app:assembleDebug      # build a debug APK
+./gradlew :app:installDebug       # install on a connected device/emulator
+./gradlew :app:testDebugUnitTest  # 34 unit tests incl. Cardstock + scoring parity
+./gradlew :app:lintDebug          # Android Lint
+```
+
+JDK 17 required. Gradle 8.9 wrapper is checked in; never use a system `gradle`.
+
+### Secrets layout
+
+All app-time secrets live in `android/local.properties` (gitignored). Read by
+`app/build.gradle.kts` at configuration time and surfaced as `BuildConfig.*`:
+
+| BuildConfig field      | Source                                | First needed by      |
+| ---------------------- | ------------------------------------- | -------------------- |
+| `SUPABASE_URL`         | shared with web (same project ref)    | Phase 0.8 (smoke)    |
+| `SUPABASE_ANON_KEY`    | shared with web (same project ref)    | Phase 0.8 (smoke)    |
+| `SENTRY_DSN`           | sentry.io project settings            | Phase 4.2 (crashes)  |
+| `POSTHOG_API_KEY`      | posthog.com project settings          | Phase 4.3 (analytics)|
+| `POSTHOG_HOST`         | usually `https://us.i.posthog.com`    | Phase 4.3 (analytics)|
+| `GOOGLE_WEB_CLIENT_ID` | GCP OAuth (web type) + Supabase Auth  | Phase 1.3 (Google SI)|
+
+Missing values cause a Gradle build warning, not a build failure — fresh clones
+and CI stay green. The Login screen disables "Continue with Google" until
+`GOOGLE_WEB_CLIENT_ID` is non-empty. The Supabase singleton throws at first
+network call if URL/anon-key are blank, surfaced as a friendly
+`SetupRequiredScreen` in MainActivity.
+
+### Cardstock token drift guard
+
+`android/app/src/test/java/.../ui/theme/CardstockColorsTest.kt` reads
+`src/app/globals.css` from the monorepo and asserts every Cardstock hex
+verbatim matches the Kotlin value in `CardstockColors.kt`. If anyone changes a
+token on one side without the other, the test fails. Light + dark variants
+both covered.
+
+### Scoring engine parity
+
+`src/lib/scoring/` is mirrored 1:1 in `android/app/.../data/scoring/`:
+- `Axes.kt` matches `axes.ts` (12-position order is load-bearing)
+- `Lenses.kt` matches `lenses.ts` (5 lenses, exact numeric weights)
+- `Similarity.kt` matches `similarity.ts`
+
+`SimilarityTest` carries an inlined reference implementation (a verbatim Kotlin
+translation of `similarity.ts`) and asserts the production code agrees within
+`1e-9` across every lens × every fixture pair. Touching either side without
+mirroring the other will redden the suite immediately.
+
+### Preconditions still pending (as of 2026-05-28)
+
+Plan 04 is paused at end-of-Phase-2 awaiting these human-blocked items:
+
+1. **Google Play Developer account.** The original $25 account was closed for
+   non-use; re-enrollment scheduled. Without it: no Play Console app entry, no
+   internal-testing track, no fastlane supply uploads.
+2. **Upload + production keystore.** Generated only after the Play account is
+   re-enrolled. Stored in 1Password per project convention; base64-encoded into
+   the `KEYSTORE_BASE64` GitHub secret for CI release builds.
+3. **Google Sign-In OAuth web client.** Configure in GCP (web type), paste the
+   client ID into `local.properties` as `GOOGLE_WEB_CLIENT_ID`, and link the
+   client into Supabase Auth → Providers → Google.
+
+Until those three land, the Android build:
+- Compiles green via debug signing (Android ships a debug keystore at
+  `~/.android/debug.keystore` automatically).
+- Boots the app to login (the disabled Google button + functional email/magic
+  link paths).
+- Cannot ship to Play Store internal-testing.
+
+### Phase 0 gate
+
+The plan's Task 0.10 (human-blocked gate) is acknowledged here:
+**Phase 0 deferred pending the three preconditions above. Phase 1+ work
+proceeded on the basis that the preconditions are tracked and will land before
+release prep (Phase 5).**
+
+### Cutting a release (future)
+
+When the preconditions land:
+
+```sh
+# bump versionCode + versionName in android/app/build.gradle.kts
+./gradlew :app:bundleRelease         # produces app-release.aab
+bundle exec fastlane play_internal   # uploads to Play Console internal track
+```
+
+Release signing config and the fastlane lanes will be added in plan tasks 4.5
+and 4.6 once the keystore exists.
+
+### Common debugging commands
+
+```sh
+adb logcat -v color *:V YourNextBg:V         # filter to app logs
+adb shell pm clear com.yournextbg.app        # nuke app data + signed-out
+adb shell am start -W -a android.intent.action.VIEW \
+  -d 'yournextbg://auth/callback?token=foo' com.yournextbg.app
+                                              # exercise the deep link
+
+# extract the merged AndroidManifest from a debug APK
+./gradlew :app:assembleDebug
+aapt dump xmltree app/build/outputs/apk/debug/app-debug.apk AndroidManifest.xml
+```
