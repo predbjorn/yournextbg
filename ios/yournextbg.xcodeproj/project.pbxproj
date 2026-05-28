@@ -36,6 +36,7 @@
 		907B373468A2E1A54F82A6BD /* RecsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B975EEECFCB189D16BDFAC /* RecsScreen.swift */; };
 		91E7E106409EE6CE3BF9674A /* Lens.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75AB5D941DB27AC086F40EF /* Lens.swift */; };
 		9BC5D9DBB17F127E05DA7D21 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF9D492BC4C8B07189A4630A /* Game.swift */; };
+		9BD1A5B934C0D0B001DA19A3 /* RecRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3EE8D6183816FD2DE62B45B /* RecRow.swift */; };
 		B5A3A1341E20B99894D8129B /* NukeUI in Frameworks */ = {isa = PBXBuildFile; productRef = 3027367AAA2A6FBAEF01E4E4 /* NukeUI */; };
 		B7D297D6AA11CCAD64B2551E /* LensScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = F555629884877BB2B1A80DD4 /* LensScreen.swift */; };
 		B83A1A90279D8C86E2B06140 /* RateViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9145FAE8CAAE21754D0816ED /* RateViewModelTests.swift */; };
@@ -48,8 +49,10 @@
 		D50460817374508C99071F70 /* WebAuthSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB652543DBEFE70C4DA0887 /* WebAuthSession.swift */; };
 		D6B72241D9E771D438C24C98 /* LoginScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB7832F1EF3C8819CE74EF1 /* LoginScreen.swift */; };
 		D6C5179CE65367BAA6FBAC62 /* RootTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D097CD4C91A5B177C17DB7 /* RootTabView.swift */; };
+		D942DB6E0A78FC4B86BBDE8D /* RecsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53C370BC6995DB8F8C26019E /* RecsViewModelTests.swift */; };
 		DB32D2BC1CBEA9C5F9E66490 /* ShelfViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 702B6BCCE2DD8DFEE587C014 /* ShelfViewModel.swift */; };
 		DC4E67E8FEAC84E579B48299 /* Paper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47772B46B95B0342B62AA37D /* Paper.swift */; };
+		DCD65C974FDC6077B007A0F5 /* RecsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546A505FE29786D71AA6E36B /* RecsViewModel.swift */; };
 		DD3EA50856BE1A189EE67194 /* Supabase in Frameworks */ = {isa = PBXBuildFile; productRef = 1BC257C2E54694728DAFB178 /* Supabase */; };
 		DDDC8D9A6834B74C87AD930A /* Radar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F3228E8EC13A38601AAB29A /* Radar.swift */; };
 		E1AF337FD1D7B7CAA70D7853 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F58DC41FF35278A0891566F3 /* LoginViewModel.swift */; };
@@ -89,6 +92,8 @@
 		4470580CFEEC8A8D40DFAB69 /* RateCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RateCard.swift; sourceTree = "<group>"; };
 		47772B46B95B0342B62AA37D /* Paper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Paper.swift; sourceTree = "<group>"; };
 		478DD130C3D4B34C35C964A8 /* Chip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chip.swift; sourceTree = "<group>"; };
+		53C370BC6995DB8F8C26019E /* RecsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecsViewModelTests.swift; sourceTree = "<group>"; };
+		546A505FE29786D71AA6E36B /* RecsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecsViewModel.swift; sourceTree = "<group>"; };
 		57E765A0CCC971229778F72F /* yournextbg.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = yournextbg.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		64B85DD69B3E5D171654C06A /* UserPrefs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPrefs.swift; sourceTree = "<group>"; };
 		686C9C631B950D769D0CC522 /* AuthStore+Actions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AuthStore+Actions.swift"; sourceTree = "<group>"; };
@@ -105,6 +110,7 @@
 		96B975EEECFCB189D16BDFAC /* RecsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecsScreen.swift; sourceTree = "<group>"; };
 		9F3228E8EC13A38601AAB29A /* Radar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Radar.swift; sourceTree = "<group>"; };
 		AD264407A49A6A257AB4EDC3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		C3EE8D6183816FD2DE62B45B /* RecRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecRow.swift; sourceTree = "<group>"; };
 		C745FD9479C4441BE62DF4AA /* Typography.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Typography.swift; sourceTree = "<group>"; };
 		C7BE317DBE7BBDD370B24D74 /* RateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RateViewModel.swift; sourceTree = "<group>"; };
 		C95DBDED448D5D834AFDE3F7 /* Route.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
@@ -127,7 +133,7 @@
 		F58DC41FF35278A0891566F3 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		F94932848E20610C0E1175BB /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		FDE0CA80B2BB1A6B01EABC33 /* StubGameRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubGameRepository.swift; sourceTree = "<group>"; };
-		"TEMP_E53ADF8C-3257-426D-B445-79FCD1A0C3DC" /* yournextbg.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = yournextbg.xcconfig; sourceTree = "<group>"; };
+		"TEMP_183B5B93-0ED3-4173-90AE-AA50378A8A90" /* yournextbg.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = yournextbg.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -255,7 +261,9 @@
 		755DC7ACB2DCE3129BC11CF5 /* Recs */ = {
 			isa = PBXGroup;
 			children = (
+				C3EE8D6183816FD2DE62B45B /* RecRow.swift */,
 				96B975EEECFCB189D16BDFAC /* RecsScreen.swift */,
+				546A505FE29786D71AA6E36B /* RecsViewModel.swift */,
 			);
 			path = Recs;
 			sourceTree = "<group>";
@@ -339,6 +347,7 @@
 				402F69364C9BB9779F84E79B /* ModelsTests.swift */,
 				6FA35CB77C7AA6E09E37D5CE /* PlaceholderTests.swift */,
 				9145FAE8CAAE21754D0816ED /* RateViewModelTests.swift */,
+				53C370BC6995DB8F8C26019E /* RecsViewModelTests.swift */,
 				379B0142ED11866DAAAA394C /* ScoringParityTests.swift */,
 				188F1B46D3F683BCEF4B283B /* ShelfViewModelTests.swift */,
 				FDE0CA80B2BB1A6B01EABC33 /* StubGameRepository.swift */,
@@ -356,10 +365,10 @@
 			path = GameDetail;
 			sourceTree = "<group>";
 		};
-		"TEMP_526A9C96-8DAC-4DD6-A821-DD5882869867" /* ios */ = {
+		"TEMP_BCF1FAEF-5033-4197-B478-F0E0B6B12E10" /* ios */ = {
 			isa = PBXGroup;
 			children = (
-				"TEMP_E53ADF8C-3257-426D-B445-79FCD1A0C3DC" /* yournextbg.xcconfig */,
+				"TEMP_183B5B93-0ED3-4173-90AE-AA50378A8A90" /* yournextbg.xcconfig */,
 			);
 			path = ios;
 			sourceTree = "<group>";
@@ -508,7 +517,9 @@
 				027B1CDEA4CBBF822DC03ED0 /* RateCard.swift in Sources */,
 				317E1AADDA8A92B5B89D36E6 /* RateScreen.swift in Sources */,
 				EDEF07A98C5B6EA38DB80C9A /* RateViewModel.swift in Sources */,
+				9BD1A5B934C0D0B001DA19A3 /* RecRow.swift in Sources */,
 				907B373468A2E1A54F82A6BD /* RecsScreen.swift in Sources */,
+				DCD65C974FDC6077B007A0F5 /* RecsViewModel.swift in Sources */,
 				D6C5179CE65367BAA6FBAC62 /* RootTabView.swift in Sources */,
 				58311BC6900EF0F009A8CC5E /* Route.swift in Sources */,
 				F1E2553C6B8CDE0F2CBE9098 /* ScreenPlaceholder.swift in Sources */,
@@ -536,6 +547,7 @@
 				0C215F0B6A31261F173A7FEC /* ModelsTests.swift in Sources */,
 				E67B966A5DA523068449BD93 /* PlaceholderTests.swift in Sources */,
 				B83A1A90279D8C86E2B06140 /* RateViewModelTests.swift in Sources */,
+				D942DB6E0A78FC4B86BBDE8D /* RecsViewModelTests.swift in Sources */,
 				4EBB998C6D580F5664F641E2 /* ScoringParityTests.swift in Sources */,
 				2C06CF9CF3F5643553C4151C /* ShelfViewModelTests.swift in Sources */,
 				7B53419CDF1D3F4F060F18B3 /* StubGameRepository.swift in Sources */,
@@ -557,7 +569,7 @@
 /* Begin XCBuildConfiguration section */
 		3161BF3749BD6E1023A9F8B3 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = "TEMP_E53ADF8C-3257-426D-B445-79FCD1A0C3DC" /* yournextbg.xcconfig */;
+			baseConfigurationReference = "TEMP_183B5B93-0ED3-4173-90AE-AA50378A8A90" /* yournextbg.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -748,7 +760,7 @@
 		};
 		EA81E198D0D2575E87F5A507 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = "TEMP_E53ADF8C-3257-426D-B445-79FCD1A0C3DC" /* yournextbg.xcconfig */;
+			baseConfigurationReference = "TEMP_183B5B93-0ED3-4173-90AE-AA50378A8A90" /* yournextbg.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
