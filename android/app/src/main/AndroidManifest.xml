@@ -23,6 +23,19 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+            <!-- Magic-link / OAuth callback deep link.
+                 Supabase redirects to yournextbg://auth/callback?... after the
+                 user clicks the email link or finishes the OAuth roundtrip. -->
+            <intent-filter android:autoVerify="false">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data
+                    android:scheme="yournextbg"
+                    android:host="auth"
+                    android:pathPrefix="/callback" />
+            </intent-filter>
         </activity>
 
     </application>
