@@ -15,6 +15,9 @@ disabled_rules:
   - opening_brace                # SwiftUI builder syntax conflicts
   - todo                         # we use //TODO during dev
   - identifier_name              # iOS conventions sometimes need short ids
+  - colon                        # we intentionally align colons in token tables for readability
+  - operator_usage_whitespace    # noisy for graphics math
+  - shorthand_operator           # noisy for graphics math
 
 opt_in_rules:
   - empty_count
