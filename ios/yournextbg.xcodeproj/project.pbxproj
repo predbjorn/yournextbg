@@ -7,12 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C215F0B6A31261F173A7FEC /* ModelsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402F69364C9BB9779F84E79B /* ModelsTests.swift */; };
 		36D841980D1DBB7EF4DCA4F3 /* yournextbgApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED7BB2E74D1756B8321DC266 /* yournextbgApp.swift */; };
+		56EDE132BD911DCF9268E66F /* CollectionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AB5212900357CED3B5F2D69 /* CollectionItem.swift */; };
+		69D2DD2B960B022679D0B683 /* UserPrefs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64B85DD69B3E5D171654C06A /* UserPrefs.swift */; };
 		83ABC260DEAA5782CEFBB165 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2728444760759867B071899 /* ContentView.swift */; };
+		88D5A7F2A58F9A3A1C68903D /* SupabaseServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EA44366158554BABC034E10 /* SupabaseServiceTests.swift */; };
+		91E7E106409EE6CE3BF9674A /* Lens.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75AB5D941DB27AC086F40EF /* Lens.swift */; };
+		9BC5D9DBB17F127E05DA7D21 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF9D492BC4C8B07189A4630A /* Game.swift */; };
 		B5A3A1341E20B99894D8129B /* NukeUI in Frameworks */ = {isa = PBXBuildFile; productRef = 3027367AAA2A6FBAEF01E4E4 /* NukeUI */; };
+		BB2A4AE5379EEFC886ED7A0A /* SupabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC669704D5C6A0C7F4A94F9 /* SupabaseService.swift */; };
 		C8D1C04FFE5B2318AD79F5F4 /* Nuke in Frameworks */ = {isa = PBXBuildFile; productRef = 3C1E640A3C05806D8933F664 /* Nuke */; };
 		DD3EA50856BE1A189EE67194 /* Supabase in Frameworks */ = {isa = PBXBuildFile; productRef = 1BC257C2E54694728DAFB178 /* Supabase */; };
 		E67B966A5DA523068449BD93 /* PlaceholderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FA35CB77C7AA6E09E37D5CE /* PlaceholderTests.swift */; };
+		EA75CF51275E65EB12C33855 /* Branch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F0A386DDB1C6BBA434AF56 /* Branch.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -26,14 +34,22 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1AB5212900357CED3B5F2D69 /* CollectionItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionItem.swift; sourceTree = "<group>"; };
 		23C6666370C337D41F97CB47 /* yournextbg.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = yournextbg.entitlements; sourceTree = "<group>"; };
+		37F0A386DDB1C6BBA434AF56 /* Branch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Branch.swift; sourceTree = "<group>"; };
+		402F69364C9BB9779F84E79B /* ModelsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelsTests.swift; sourceTree = "<group>"; };
 		57E765A0CCC971229778F72F /* yournextbg.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = yournextbg.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		64B85DD69B3E5D171654C06A /* UserPrefs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPrefs.swift; sourceTree = "<group>"; };
 		6FA35CB77C7AA6E09E37D5CE /* PlaceholderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceholderTests.swift; sourceTree = "<group>"; };
+		7EA44366158554BABC034E10 /* SupabaseServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupabaseServiceTests.swift; sourceTree = "<group>"; };
+		8DC669704D5C6A0C7F4A94F9 /* SupabaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupabaseService.swift; sourceTree = "<group>"; };
 		AD264407A49A6A257AB4EDC3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		D08D180953C72FCB723E7764 /* yournextbgTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = yournextbgTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2728444760759867B071899 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		E75AB5D941DB27AC086F40EF /* Lens.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lens.swift; sourceTree = "<group>"; };
 		ED7BB2E74D1756B8321DC266 /* yournextbgApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = yournextbgApp.swift; sourceTree = "<group>"; };
-		"TEMP_D4B069FF-1297-4080-8FC0-62556AA36EAE" /* yournextbg.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = yournextbg.xcconfig; sourceTree = "<group>"; };
+		EF9D492BC4C8B07189A4630A /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
+		"TEMP_FDE6C34C-4F84-4171-B0D0-9EE3077281D2" /* yournextbg.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = yournextbg.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,6 +66,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		198248A6B90668D79B056655 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				8DC669704D5C6A0C7F4A94F9 /* SupabaseService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 		1F8E52474B9C429F69CA805C /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -57,6 +81,32 @@
 				D08D180953C72FCB723E7764 /* yournextbgTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		34CAE0D6CA9989C2D71F6704 /* Scoring */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Scoring;
+			sourceTree = "<group>";
+		};
+		4A046BC0F1C457B47C40EF70 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				37F0A386DDB1C6BBA434AF56 /* Branch.swift */,
+				1AB5212900357CED3B5F2D69 /* CollectionItem.swift */,
+				EF9D492BC4C8B07189A4630A /* Game.swift */,
+				E75AB5D941DB27AC086F40EF /* Lens.swift */,
+				64B85DD69B3E5D171654C06A /* UserPrefs.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		5F2FE6EDC48D91043512EDE8 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Auth;
 			sourceTree = "<group>";
 		};
 		695551D5FAF77C3361CE4BDC = {
@@ -68,9 +118,31 @@
 			);
 			sourceTree = "<group>";
 		};
+		6BC0CCB8CCF2528BC31FBEE9 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		6FF27AD5CE82EABEEC211D57 /* Navigation */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Navigation;
+			sourceTree = "<group>";
+		};
 		74AAC57D2EB4A48DCB94D28D /* yournextbg */ = {
 			isa = PBXGroup;
 			children = (
+				5F2FE6EDC48D91043512EDE8 /* Auth */,
+				4A046BC0F1C457B47C40EF70 /* Models */,
+				6FF27AD5CE82EABEEC211D57 /* Navigation */,
+				34CAE0D6CA9989C2D71F6704 /* Scoring */,
+				DB340F7F5FF884D030006A5F /* Screens */,
+				198248A6B90668D79B056655 /* Services */,
+				93817117B04FA148322AA54C /* Theme */,
+				6BC0CCB8CCF2528BC31FBEE9 /* UI */,
 				E2728444760759867B071899 /* ContentView.swift */,
 				AD264407A49A6A257AB4EDC3 /* Info.plist */,
 				23C6666370C337D41F97CB47 /* yournextbg.entitlements */,
@@ -79,18 +151,42 @@
 			path = yournextbg;
 			sourceTree = "<group>";
 		};
+		93817117B04FA148322AA54C /* Theme */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Theme;
+			sourceTree = "<group>";
+		};
+		BE10673BAAA19237E7F53497 /* Fixtures */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Fixtures;
+			sourceTree = "<group>";
+		};
+		DB340F7F5FF884D030006A5F /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
 		EF5C1620DFC144B167097C1B /* yournextbgTests */ = {
 			isa = PBXGroup;
 			children = (
+				BE10673BAAA19237E7F53497 /* Fixtures */,
+				402F69364C9BB9779F84E79B /* ModelsTests.swift */,
 				6FA35CB77C7AA6E09E37D5CE /* PlaceholderTests.swift */,
+				7EA44366158554BABC034E10 /* SupabaseServiceTests.swift */,
 			);
 			path = yournextbgTests;
 			sourceTree = "<group>";
 		};
-		"TEMP_D1F12D52-71D3-47A4-9112-00172EE56CB8" /* ios */ = {
+		"TEMP_54DB3324-5950-4415-8560-233363BD683C" /* ios */ = {
 			isa = PBXGroup;
 			children = (
-				"TEMP_D4B069FF-1297-4080-8FC0-62556AA36EAE" /* yournextbg.xcconfig */,
+				"TEMP_FDE6C34C-4F84-4171-B0D0-9EE3077281D2" /* yournextbg.xcconfig */,
 			);
 			path = ios;
 			sourceTree = "<group>";
@@ -204,7 +300,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EA75CF51275E65EB12C33855 /* Branch.swift in Sources */,
+				56EDE132BD911DCF9268E66F /* CollectionItem.swift in Sources */,
 				83ABC260DEAA5782CEFBB165 /* ContentView.swift in Sources */,
+				9BC5D9DBB17F127E05DA7D21 /* Game.swift in Sources */,
+				91E7E106409EE6CE3BF9674A /* Lens.swift in Sources */,
+				BB2A4AE5379EEFC886ED7A0A /* SupabaseService.swift in Sources */,
+				69D2DD2B960B022679D0B683 /* UserPrefs.swift in Sources */,
 				36D841980D1DBB7EF4DCA4F3 /* yournextbgApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -213,7 +315,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0C215F0B6A31261F173A7FEC /* ModelsTests.swift in Sources */,
 				E67B966A5DA523068449BD93 /* PlaceholderTests.swift in Sources */,
+				88D5A7F2A58F9A3A1C68903D /* SupabaseServiceTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -230,7 +334,7 @@
 /* Begin XCBuildConfiguration section */
 		3161BF3749BD6E1023A9F8B3 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = "TEMP_D4B069FF-1297-4080-8FC0-62556AA36EAE" /* yournextbg.xcconfig */;
+			baseConfigurationReference = "TEMP_FDE6C34C-4F84-4171-B0D0-9EE3077281D2" /* yournextbg.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -421,7 +525,7 @@
 		};
 		EA81E198D0D2575E87F5A507 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = "TEMP_D4B069FF-1297-4080-8FC0-62556AA36EAE" /* yournextbg.xcconfig */;
+			baseConfigurationReference = "TEMP_FDE6C34C-4F84-4171-B0D0-9EE3077281D2" /* yournextbg.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
