@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.openapi.generator)
 }
 
 // Read local.properties (gitignored). Missing values fall through to "" so the
@@ -89,7 +90,52 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+
+    sourceSets {
+        getByName("main") {
+            kotlin.srcDir(layout.buildDirectory.dir("generated/openapi/src/main/kotlin"))
+        }
+    }
 }
+
+// ─── OpenAPI client generation ─────────────────────────────────────────────
+// Reads ../../contract/openapi.yaml (the single source of truth shared with
+// the web + iOS apps) and emits a Kotlin + Ktor + kotlinx.serialization
+// client under build/generated/openapi/. The wrapper in
+// data/api/EdgeFunctions.kt narrows the generated surface to the two
+// operations the app actually uses (bggSync; resizeCover is service-role
+// only and never called from the device).
+openApiGenerate {
+    generatorName.set("kotlin")
+    library.set("jvm-ktor")
+    inputSpec.set("$rootDir/../contract/openapi.yaml")
+    outputDir.set(layout.buildDirectory.dir("generated/openapi").get().asFile.path)
+    apiPackage.set("com.yournextbg.app.generated.api")
+    modelPackage.set("com.yournextbg.app.generated.models")
+    invokerPackage.set("com.yournextbg.app.generated.invoker")
+    packageName.set("com.yournextbg.app.generated")
+    configOptions.set(
+        mapOf(
+            "serializationLibrary" to "kotlinx_serialization",
+            "dateLibrary" to "kotlinx-datetime",
+            "useCoroutines" to "true",
+            "omitGradleWrapper" to "true",
+            "omitGradlePluginVersions" to "true",
+        ),
+    )
+    // Only generate sources; never re-generate gradle files into the build dir.
+    generateApiTests.set(false)
+    generateApiDocumentation.set(false)
+    generateModelTests.set(false)
+    generateModelDocumentation.set(false)
+    skipOverwrite.set(false)
+}
+
+// Ensure generated sources exist before Kotlin compiles.
+tasks.named("preBuild") {
+    dependsOn("openApiGenerate")
+}
+
 
 dependencies {
     implementation(platform(libs.compose.bom))
@@ -110,6 +156,7 @@ dependencies {
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.kotlinx.serialization.json)
+    implementation(libs.kotlinx.datetime)
 
     // Supabase (BOM aligns auth/postgrest/storage/realtime on one tested version)
     implementation(platform(libs.supabase.bom))
