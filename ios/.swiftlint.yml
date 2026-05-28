@@ -1,0 +1,48 @@
+# SwiftLint configuration for yournextbg iOS app.
+# Conservative defaults — we lint for clarity, not pedantry.
+
+included:
+  - yournextbg
+  - yournextbgTests
+
+excluded:
+  - yournextbg/Generated
+  - .build
+  - DerivedData
+
+disabled_rules:
+  - trailing_whitespace          # editors handle this
+  - opening_brace                # SwiftUI builder syntax conflicts
+  - todo                         # we use //TODO during dev
+  - identifier_name              # iOS conventions sometimes need short ids
+
+opt_in_rules:
+  - empty_count
+  - explicit_init
+  - first_where
+  - sorted_first_last
+  - toggle_bool
+  - unneeded_parentheses_in_closure_argument
+  - vertical_whitespace_closing_braces
+
+line_length:
+  warning: 140
+  error: 200
+  ignores_comments: true
+  ignores_urls: true
+
+function_body_length:
+  warning: 80
+  error: 200
+
+type_body_length:
+  warning: 400
+  error: 600
+
+file_length:
+  warning: 500
+  error: 1000
+
+cyclomatic_complexity:
+  warning: 15
+  error: 25
