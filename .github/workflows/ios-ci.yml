@@ -1,0 +1,97 @@
+name: ios-ci
+
+on:
+  pull_request:
+    paths:
+      - "ios/**"
+      - "contract/**"
+      - ".github/workflows/ios-ci.yml"
+  push:
+    branches: [main]
+    paths:
+      - "ios/**"
+      - "contract/**"
+      - ".github/workflows/ios-ci.yml"
+
+jobs:
+  build-and-test:
+    runs-on: macos-15
+    timeout-minutes: 30
+    env:
+      DEVELOPER_DIR: /Applications/Xcode_16.app/Contents/Developer
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Show Xcode + Swift version
+        run: |
+          xcodebuild -version
+          swift --version
+
+      - name: Install xcodegen
+        run: brew install xcodegen swiftlint
+
+      - name: Write CI xcconfig override
+        # Anon key + URL are public-safe for the live project. Sentry +
+        # PostHog DSN/key come from repo secrets; missing values cause
+        # the relevant SDK to no-op at runtime — never a build failure.
+        run: |
+          cat > ios/yournextbg.xcconfig.local <<EOF
+          SUPABASE_URL = ${{ vars.SUPABASE_URL || 'https:/$()/gkickjaihbgapowsqwhx.supabase.co' }}
+          SUPABASE_ANON_KEY = ${{ secrets.SUPABASE_ANON_KEY }}
+          SENTRY_DSN = ${{ secrets.SENTRY_DSN }}
+          POSTHOG_API_KEY = ${{ secrets.POSTHOG_API_KEY }}
+          POSTHOG_HOST = https:/$()/us.i.posthog.com
+          EOF
+
+      - name: Generate Xcode project
+        working-directory: ios
+        run: xcodegen generate
+
+      - name: Cache SPM
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/Library/Developer/Xcode/DerivedData/**/SourcePackages
+            ~/Library/Caches/org.swift.swiftpm
+          key: ${{ runner.os }}-spm-${{ hashFiles('ios/project.yml') }}
+          restore-keys: |
+            ${{ runner.os }}-spm-
+
+      - name: Build + test (simulator)
+        working-directory: ios
+        run: |
+          set -o pipefail
+          xcodebuild \
+            -scheme yournextbg \
+            -destination 'platform=iOS Simulator,name=iPhone 16,OS=latest' \
+            -configuration Debug \
+            -resultBundlePath build/TestResults \
+            CODE_SIGN_STYLE=Automatic \
+            DEVELOPMENT_TEAM= \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=NO \
+            test | xcbeautify --quiet || xcodebuild \
+              -scheme yournextbg \
+              -destination 'platform=iOS Simulator,name=iPhone 16,OS=latest' \
+              -configuration Debug \
+              CODE_SIGN_STYLE=Automatic \
+              DEVELOPMENT_TEAM= \
+              CODE_SIGNING_REQUIRED=NO \
+              CODE_SIGNING_ALLOWED=NO \
+              test
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ios-test-results
+          path: ios/build/TestResults
+          if-no-files-found: ignore
+
+# Signed archive + TestFlight upload is intentionally NOT in this
+# workflow. That requires fastlane Match (or a manually-loaded
+# Distribution certificate + provisioning profile) and lives in a
+# separate `ios-release.yml` workflow added once code signing is
+# set up. See docs/plans/2026-05-23-03-ios-swiftui.md (deferred
+# tasks at the end).

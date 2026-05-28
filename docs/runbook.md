@@ -274,3 +274,143 @@ The GitHub ↔ Vercel link is broken because the repo is private. v1 options:
 
 1. **Make the repo public** (preferred — open-source posture matches the methodology essay). Then re-link in Vercel project settings and pushes to `main` deploy automatically.
 2. **Vercel deploy hook**. Generate one from the Vercel project (Settings → Git → Deploy Hooks), store as `VERCEL_DEPLOY_HOOK` repo secret in GitHub, then add `.github/workflows/vercel-deploy.yml` that posts to it on `push: main`. Until either option lands, deploy manually: `pnpm exec vercel --prod`.
+
+---
+
+# iOS
+
+Native SwiftUI app under `ios/`. Implementation plan:
+`docs/plans/2026-05-23-03-ios-swiftui.md`.
+
+## Toolchain
+
+- **Xcode 16+** (we use 16.0; Xcode 26.x is the active developer dir).
+- **Swift 6** with strict concurrency.
+- **XcodeGen** (`brew install xcodegen`) — the canonical project lives
+  in `ios/project.yml`; the `.xcodeproj` is regenerated from it.
+- **SwiftLint** (`brew install swiftlint`) — runs as a pre-build phase.
+
+## Local setup
+
+```bash
+brew install xcodegen swiftlint            # one-time
+cd ios
+cp yournextbg.xcconfig yournextbg.xcconfig.local   # fill in real values
+xcodegen generate
+open yournextbg.xcodeproj
+```
+
+`yournextbg.xcconfig.local` is gitignored. Required keys:
+
+| Key | Required | Notes |
+|---|---|---|
+| `SUPABASE_URL` | yes | `https://gkickjaihbgapowsqwhx.supabase.co` |
+| `SUPABASE_ANON_KEY` | yes | Public anon key. **Never the service-role key.** |
+| `SENTRY_DSN` | no | When empty, SentrySDK init is skipped. |
+| `POSTHOG_API_KEY` | no | When empty, PostHog init is skipped. |
+| `POSTHOG_HOST` | no | Defaults to `https://us.i.posthog.com`. |
+
+## Build + test
+
+```bash
+cd ios
+xcodebuild \
+  -scheme yournextbg \
+  -destination 'platform=iOS Simulator,name=iPhone 17 Pro' \
+  build test
+```
+
+## Sign in with Apple
+
+Already configured upstream (see plan 03 resume notes):
+
+- Team `WEPFSXK95X`
+- Bundle id `com.yournextbg.app`
+- SIWA Service ID `com.yournextbg.app.web`
+- SIWA Key ID `4ZA5LN74DG` (private key held by user, not needed in
+  the iOS bundle — Supabase already holds the signed JWT)
+- Supabase project `gkickjaihbgapowsqwhx` has Apple OAuth enabled
+  with client ids `com.yournextbg.app.web,com.yournextbg.app`.
+
+The Apple sign-in flow exchanges the identity token directly with
+Supabase via `auth.signInWithIdToken(provider: .apple)` — no extra
+server hop.
+
+## Universal links (magic-link return)
+
+The iOS app declares `applinks:yournextbg.com` in its entitlements.
+For magic-link sign-in to return into the app instead of Safari, the
+**web team must publish** `/.well-known/apple-app-site-association`
+with:
+
+```json
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appID": "WEPFSXK95X.com.yournextbg.app",
+        "paths": ["/auth/callback*"]
+      }
+    ]
+  }
+}
+```
+
+This file is owned by the web app (it lives at the public root). Web
+agent — please add it; iOS agent flagged it during Phase 4.
+
+Until the file is published, magic-link sign-in falls back to opening
+in Safari, which sets the session via cookies on the web app only —
+the iOS app stays signed-out.
+
+## Scoring engine parity
+
+The 12-axis scoring math is duplicated across web (`src/lib/scoring/`),
+iOS (`ios/yournextbg/Scoring/`), and Android (in plan 04). The
+contract is enforced by a JSON fixture at
+`ios/yournextbgTests/Fixtures/scoring-parity.json` — 8 game vectors ×
+5 lenses = 40 cases.
+
+If the TS engine in `src/lib/scoring/` changes:
+
+1. Edit `ios/scripts/generate-scoring-fixtures.mjs` to mirror the new
+   axes / weights.
+2. Run `node ios/scripts/generate-scoring-fixtures.mjs`. The script
+   overwrites the JSON in-place.
+3. iOS + Android parity tests will pick up the new fixture
+   automatically. Both must still pass.
+
+## CI
+
+`.github/workflows/ios-ci.yml` runs `xcodegen generate` + simulator
+build + test on every PR that touches `ios/` or `contract/`. No
+code-signing required — uses `CODE_SIGNING_ALLOWED=NO`.
+
+The signed-archive + TestFlight upload workflow is **deferred**: it
+requires fastlane Match (or a manually-loaded Distribution
+certificate + provisioning profile), which the user has explicitly
+chosen to set up in a later task. See "Blocked on signing" in the
+plan.
+
+## Blocked on signing (deferred work)
+
+The following are scaffolded but not runnable until code signing is
+set up:
+
+- Real-device builds. Simulator builds work without signing certs.
+- TestFlight uploads (requires Distribution cert).
+- App Store submission (same).
+- fastlane Match repo + Matchfile + Fastfile.
+- `.github/workflows/ios-release.yml` — tag-driven build + upload.
+
+When the user is ready:
+
+1. Generate a private "match" git repo for cert + profile storage.
+2. Run `fastlane match init` locally inside `ios/`.
+3. Run `fastlane match appstore` to produce + register a Distribution
+   cert + App Store profile.
+4. Add `MATCH_PASSWORD` + the match-repo deploy key to the GH repo
+   secrets.
+5. Land the `ios-release.yml` workflow + the Fastfile lanes
+   (`test`, `beta`, `release`).

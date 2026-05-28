@@ -1,0 +1,445 @@
+{
+  "generatedAt": "2026-05-28T03:17:41.298Z",
+  "generator": "ios/scripts/generate-scoring-fixtures.mjs",
+  "axisOrder": [
+    "weight",
+    "depth",
+    "density",
+    "interaction",
+    "conflict",
+    "negotiation",
+    "input",
+    "output",
+    "catchup",
+    "theme",
+    "engine",
+    "narrative"
+  ],
+  "lenses": [
+    "standard",
+    "weight",
+    "feel",
+    "luck",
+    "equal"
+  ],
+  "games": [
+    {
+      "id": "identical-a",
+      "scores": [
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5
+      ]
+    },
+    {
+      "id": "identical-b",
+      "scores": [
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5
+      ]
+    },
+    {
+      "id": "all-low",
+      "scores": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "all-high",
+      "scores": [
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10
+      ]
+    },
+    {
+      "id": "heavy-euro-a",
+      "scores": [
+        8.5,
+        9,
+        7.5,
+        7,
+        4,
+        2.5,
+        1.5,
+        1,
+        3,
+        7.5,
+        9,
+        6
+      ]
+    },
+    {
+      "id": "heavy-euro-b",
+      "scores": [
+        9,
+        9,
+        8,
+        5.5,
+        3,
+        1.5,
+        2,
+        1,
+        2.5,
+        5,
+        9.5,
+        4
+      ]
+    },
+    {
+      "id": "filler",
+      "scores": [
+        1,
+        2,
+        2,
+        7,
+        8,
+        7,
+        4,
+        4,
+        2,
+        5,
+        1,
+        2
+      ]
+    },
+    {
+      "id": "dice-mid",
+      "scores": [
+        2,
+        3,
+        3,
+        6.5,
+        4,
+        7,
+        3,
+        7,
+        4,
+        5,
+        3,
+        3
+      ]
+    }
+  ],
+  "cases": [
+    {
+      "a": "identical-a",
+      "b": "identical-b",
+      "lens": "standard",
+      "distance": 0,
+      "similarity": 1
+    },
+    {
+      "a": "identical-a",
+      "b": "identical-b",
+      "lens": "weight",
+      "distance": 0,
+      "similarity": 1
+    },
+    {
+      "a": "identical-a",
+      "b": "identical-b",
+      "lens": "feel",
+      "distance": 0,
+      "similarity": 1
+    },
+    {
+      "a": "identical-a",
+      "b": "identical-b",
+      "lens": "luck",
+      "distance": 0,
+      "similarity": 1
+    },
+    {
+      "a": "identical-a",
+      "b": "identical-b",
+      "lens": "equal",
+      "distance": 0,
+      "similarity": 1
+    },
+    {
+      "a": "all-low",
+      "b": "all-high",
+      "lens": "standard",
+      "distance": 38.2099463490856,
+      "similarity": 0
+    },
+    {
+      "a": "all-low",
+      "b": "all-high",
+      "lens": "weight",
+      "distance": 36.05551275463989,
+      "similarity": 0
+    },
+    {
+      "a": "all-low",
+      "b": "all-high",
+      "lens": "feel",
+      "distance": 40.124805295477756,
+      "similarity": 2.220446049250313e-16
+    },
+    {
+      "a": "all-low",
+      "b": "all-high",
+      "lens": "luck",
+      "distance": 38.47076812334269,
+      "similarity": 0
+    },
+    {
+      "a": "all-low",
+      "b": "all-high",
+      "lens": "equal",
+      "distance": 34.64101615137755,
+      "similarity": 0
+    },
+    {
+      "a": "heavy-euro-a",
+      "b": "heavy-euro-b",
+      "lens": "standard",
+      "distance": 4.242640687119285,
+      "similarity": 0.8889650184703592
+    },
+    {
+      "a": "heavy-euro-a",
+      "b": "heavy-euro-b",
+      "lens": "weight",
+      "distance": 3.1741140496207754,
+      "similarity": 0.9119659156917049
+    },
+    {
+      "a": "heavy-euro-a",
+      "b": "heavy-euro-b",
+      "lens": "feel",
+      "distance": 5.639148871948674,
+      "similarity": 0.85945978228624
+    },
+    {
+      "a": "heavy-euro-a",
+      "b": "heavy-euro-b",
+      "lens": "luck",
+      "distance": 3.738315128503749,
+      "similarity": 0.9028271253509109
+    },
+    {
+      "a": "heavy-euro-a",
+      "b": "heavy-euro-b",
+      "lens": "equal",
+      "distance": 3.968626966596886,
+      "similarity": 0.885435607626104
+    },
+    {
+      "a": "heavy-euro-a",
+      "b": "filler",
+      "lens": "standard",
+      "distance": 18.658778095041487,
+      "similarity": 0.5116774589376514
+    },
+    {
+      "a": "heavy-euro-a",
+      "b": "filler",
+      "lens": "weight",
+      "distance": 20.72860342618383,
+      "similarity": 0.4250919806010436
+    },
+    {
+      "a": "heavy-euro-a",
+      "b": "filler",
+      "lens": "feel",
+      "distance": 17.637318390276906,
+      "similarity": 0.5604385302209876
+    },
+    {
+      "a": "heavy-euro-a",
+      "b": "filler",
+      "lens": "luck",
+      "distance": 16.496211686323623,
+      "similarity": 0.5712013954742351
+    },
+    {
+      "a": "heavy-euro-a",
+      "b": "filler",
+      "lens": "equal",
+      "distance": 16.560495161679196,
+      "similarity": 0.5219396830245511
+    },
+    {
+      "a": "heavy-euro-a",
+      "b": "dice-mid",
+      "lens": "standard",
+      "distance": 16.54690303349844,
+      "similarity": 0.566947755374317
+    },
+    {
+      "a": "heavy-euro-a",
+      "b": "dice-mid",
+      "lens": "weight",
+      "distance": 18.1280169902833,
+      "similarity": 0.49721927091577833
+    },
+    {
+      "a": "heavy-euro-a",
+      "b": "dice-mid",
+      "lens": "feel",
+      "distance": 14.781745499094484,
+      "similarity": 0.6316058011934964
+    },
+    {
+      "a": "heavy-euro-a",
+      "b": "dice-mid",
+      "lens": "luck",
+      "distance": 15.750396820397892,
+      "similarity": 0.5905879297782693
+    },
+    {
+      "a": "heavy-euro-a",
+      "b": "dice-mid",
+      "lens": "equal",
+      "distance": 14.474114826130128,
+      "similarity": 0.5821682954426108
+    },
+    {
+      "a": "filler",
+      "b": "dice-mid",
+      "lens": "standard",
+      "distance": 6.7712628068920795,
+      "similarity": 0.8227879530363663
+    },
+    {
+      "a": "filler",
+      "b": "dice-mid",
+      "lens": "weight",
+      "distance": 5.5901699437494745,
+      "similarity": 0.8449565817634894
+    },
+    {
+      "a": "filler",
+      "b": "dice-mid",
+      "lens": "feel",
+      "distance": 7.12916544905503,
+      "similarity": 0.8223252325698259
+    },
+    {
+      "a": "filler",
+      "b": "dice-mid",
+      "lens": "luck",
+      "distance": 7.473285756613352,
+      "similarity": 0.8057411868498974
+    },
+    {
+      "a": "filler",
+      "b": "dice-mid",
+      "lens": "equal",
+      "distance": 6.18465843842649,
+      "similarity": 0.8214642892864288
+    },
+    {
+      "a": "heavy-euro-b",
+      "b": "filler",
+      "lens": "standard",
+      "distance": 19.5179404651208,
+      "similarity": 0.4891921520432104
+    },
+    {
+      "a": "heavy-euro-b",
+      "b": "filler",
+      "lens": "weight",
+      "distance": 21.68524844220144,
+      "similarity": 0.39855942169590075
+    },
+    {
+      "a": "heavy-euro-b",
+      "b": "filler",
+      "lens": "feel",
+      "distance": 18.148691412881536,
+      "similarity": 0.5476939693729312
+    },
+    {
+      "a": "heavy-euro-b",
+      "b": "filler",
+      "lens": "luck",
+      "distance": 16.995587662684688,
+      "similarity": 0.5582207350735903
+    },
+    {
+      "a": "heavy-euro-b",
+      "b": "filler",
+      "lens": "equal",
+      "distance": 17.204650534085253,
+      "similarity": 0.503344519141622
+    },
+    {
+      "a": "heavy-euro-b",
+      "b": "dice-mid",
+      "lens": "standard",
+      "distance": 17.207556479639983,
+      "similarity": 0.5496576644617095
+    },
+    {
+      "a": "heavy-euro-b",
+      "b": "dice-mid",
+      "lens": "weight",
+      "distance": 19,
+      "similarity": 0.4730348135860323
+    },
+    {
+      "a": "heavy-euro-b",
+      "b": "dice-mid",
+      "lens": "feel",
+      "distance": 14.988328792764056,
+      "similarity": 0.6264572829103969
+    },
+    {
+      "a": "heavy-euro-b",
+      "b": "dice-mid",
+      "lens": "luck",
+      "distance": 16.155494421403514,
+      "similarity": 0.580057919051506
+    },
+    {
+      "a": "heavy-euro-b",
+      "b": "dice-mid",
+      "lens": "equal",
+      "distance": 14.99166435056495,
+      "similarity": 0.5672279275800405
+    }
+  ]
+}

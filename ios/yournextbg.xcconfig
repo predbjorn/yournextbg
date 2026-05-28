@@ -1,0 +1,16 @@
+// xcconfig: build-time Supabase configuration injected into Info.plist.
+//
+// Local development: copy this file to `yournextbg.xcconfig.local` and
+// override values there (or set them in your shell + use xcodegen).
+// CI: workflow steps write a sibling `.xcconfig.local` from secrets.
+//
+// IMPORTANT: NEVER commit the service-role key. Only the anon key belongs here.
+
+// Public Supabase project
+SUPABASE_URL = https:/$()/gkickjaihbgapowsqwhx.supabase.co
+SUPABASE_ANON_KEY = REPLACE_ME
+
+// Observability (filled in CI; safe defaults for local dev)
+SENTRY_DSN =
+POSTHOG_API_KEY =
+POSTHOG_HOST = https:/$()/us.i.posthog.com
