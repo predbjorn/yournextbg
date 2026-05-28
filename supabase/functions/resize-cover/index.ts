@@ -50,10 +50,15 @@ Deno.serve(async (req) => {
 
   const base = game.bgg_id ? `${game.bgg_id}` : `_local/${game.id}`;
 
-  for (const [variant, w] of Object.entries(SIZES) as [keyof typeof SIZES, number][]) {
+  // Process largest → smallest, mutating in place. Source covers from BGG can
+  // be 15-20MP, so cloning the full-res image 3× blows the 256MB worker limit.
+  // Resizing sequentially keeps memory at ~hero + next variant.
+  const orderedVariants = (Object.entries(SIZES) as [keyof typeof SIZES, number][])
+    .sort((a, b) => b[1] - a[1]);
+  for (const [variant, w] of orderedVariants) {
     const ratio = w / img.width;
-    const resized = img.clone().resize(w, Math.round(img.height * ratio));
-    const buf = await resized.encode(80); // WebP quality 80
+    img.resize(w, Math.round(img.height * ratio));
+    const buf = await img.encode(80); // WebP quality 80
     const { error: upErr } = await admin.storage
       .from("covers")
       .upload(`${base}/${variant}.webp`, buf, {
