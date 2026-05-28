@@ -88,24 +88,28 @@ export function Radar({
 
   const angle = (i: number): number => -Math.PI / 2 + (i * 2 * Math.PI) / n;
 
+  // Quantize to a stable precision so server (Node V8) and client (browser V8)
+  // produce byte-identical SVG attributes. Math.sin/cos are not guaranteed
+  // bit-exact across V8 versions, and any 1-ULP difference triggers a React
+  // hydration mismatch on numeric props. 3 decimals = sub-pixel precision.
+  const q = (x: number): number => Math.round(x * 1000) / 1000;
+
   const point = (i: number, v: number): [number, number] => {
     const a = angle(i);
     const radius = (v / 10) * r;
-    return [cx + Math.cos(a) * radius, cy + Math.sin(a) * radius];
+    return [q(cx + Math.cos(a) * radius), q(cy + Math.sin(a) * radius)];
   };
 
   const polyPoints = (vals: RadarValues): string =>
     vals.map((v, i) => point(i, v).join(",")).join(" ");
 
-  // Pre-compute ring polygons (concentric polygons, not circles, to match
-  // the spoke count visually).
   const ringPolys: string[] = [];
   for (let k = 1; k <= rings; k++) {
     const rr = (k / rings) * r;
     const pts: string[] = [];
     for (let i = 0; i < n; i++) {
       const a = angle(i);
-      pts.push([cx + Math.cos(a) * rr, cy + Math.sin(a) * rr].join(","));
+      pts.push([q(cx + Math.cos(a) * rr), q(cy + Math.sin(a) * rr)].join(","));
     }
     ringPolys.push(pts.join(" "));
   }
@@ -193,8 +197,8 @@ export function Radar({
       {showLabels &&
         AXES.map((ax, i) => {
           const a = angle(i);
-          const lx = cx + Math.cos(a) * (r + 16);
-          const ly = cy + Math.sin(a) * (r + 16);
+          const lx = q(cx + Math.cos(a) * (r + 16));
+          const ly = q(cy + Math.sin(a) * (r + 16));
           const anchor: "middle" | "start" | "end" =
             Math.abs(Math.cos(a)) < 0.2
               ? "middle"
