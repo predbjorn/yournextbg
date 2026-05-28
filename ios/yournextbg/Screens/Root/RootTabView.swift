@@ -1,45 +1,45 @@
 import SwiftUI
 
-/// Five-tab shell. Each tab owns its own `NavigationStack` so deep
-/// links don't bleed between tabs. Tabs: Shelf · Rate · Recs · Lens ·
-/// Profile. Phase 7 swaps the system tab bar for a Cardstock-styled
-/// custom one.
+/// Five-tab shell with the Cardstock-styled custom tab bar overlay.
+/// Each tab owns its own `NavigationStack` so deep links don't bleed
+/// between tabs.
 struct RootTabView: View {
     @Environment(AuthStore.self) private var authStore
+    @Environment(\.cardstock) private var tokens
     @State private var selection: Tab = .shelf
 
     enum Tab: Hashable {
         case shelf, rate, recs, lens, profile
     }
 
+    private let tabItems: [CardstockTabBar.TabItem] = [
+        .init(tab: .shelf,   label: "Shelf",   systemImage: "rectangle.stack"),
+        .init(tab: .rate,    label: "Rate",    systemImage: "star"),
+        .init(tab: .recs,    label: "Recs",    systemImage: "sparkles"),
+        .init(tab: .lens,    label: "Lens",    systemImage: "circle.grid.cross"),
+        .init(tab: .profile, label: "Profile", systemImage: "person"),
+    ]
+
     var body: some View {
-        TabView(selection: $selection) {
-            tabStack(.shelf) { ShelfScreen() }
-                .tabItem { Label("Shelf", systemImage: "rectangle.stack") }
-                .tag(Tab.shelf)
+        VStack(spacing: 0) {
+            ZStack {
+                screen(for: .shelf, view: ShelfScreen()).opacity(selection == .shelf ? 1 : 0)
+                screen(for: .rate, view: RateScreen()).opacity(selection == .rate ? 1 : 0)
+                screen(for: .recs, view: RecsScreen()).opacity(selection == .recs ? 1 : 0)
+                screen(for: .lens, view: LensScreen()).opacity(selection == .lens ? 1 : 0)
+                screen(for: .profile, view: ProfileScreen()).opacity(selection == .profile ? 1 : 0)
+            }
 
-            tabStack(.rate) { RateScreen() }
-                .tabItem { Label("Rate", systemImage: "star") }
-                .tag(Tab.rate)
-
-            tabStack(.recs) { RecsScreen() }
-                .tabItem { Label("Recs", systemImage: "sparkles") }
-                .tag(Tab.recs)
-
-            tabStack(.lens) { LensScreen() }
-                .tabItem { Label("Lens", systemImage: "circle.grid.cross") }
-                .tag(Tab.lens)
-
-            tabStack(.profile) { ProfileScreen() }
-                .tabItem { Label("Profile", systemImage: "person") }
-                .tag(Tab.profile)
+            CardstockTabBar(items: tabItems, selection: $selection)
         }
+        .background(tokens.paper)
+        .ignoresSafeArea(.keyboard)
     }
 
     @ViewBuilder
-    private func tabStack<Content: View>(_ tab: Tab, @ViewBuilder content: () -> Content) -> some View {
+    private func screen<Content: View>(for tab: Tab, view: Content) -> some View {
         NavigationStack {
-            content()
+            view
                 .navigationDestination(for: Route.self) { route in
                     switch route {
                     case .gameDetail(let id):

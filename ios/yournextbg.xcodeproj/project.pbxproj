@@ -23,8 +23,12 @@
 		3FF9CA5A32FBDB2C25D5B4C0 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = F94932848E20610C0E1175BB /* Theme.swift */; };
 		426B4077BA973F64C263CAAA /* ShelfScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E0D8A7C2F227FB50F28BD4 /* ShelfScreen.swift */; };
 		43A6C569B1655B6D9810958A /* ProfileViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5700205995265E71D60E3A2C /* ProfileViewModelTests.swift */; };
+		45F31F81E3998D0985E7FE16 /* CardstockTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADEAEE6D39992D969E1F112F /* CardstockTabBar.swift */; };
+		469E7176EE528B5C68952742 /* ErrorPaper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 591CE4A6FB0E1712EA59D986 /* ErrorPaper.swift */; };
 		48E9C69C08ACF6C2455F164F /* GamePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C54C35B50A05190C7625CA9 /* GamePicker.swift */; };
+		495808CB6AEFAF4D227F7689 /* Sentry in Frameworks */ = {isa = PBXBuildFile; productRef = B1D9D0DA8C0893667C4997BB /* Sentry */; };
 		4EBB998C6D580F5664F641E2 /* ScoringParityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379B0142ED11866DAAAA394C /* ScoringParityTests.swift */; };
+		5262AE834DE444E56F3D9518 /* Observability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E564766AAB9A2DB5101AD12 /* Observability.swift */; };
 		56EDE132BD911DCF9268E66F /* CollectionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AB5212900357CED3B5F2D69 /* CollectionItem.swift */; };
 		58311BC6900EF0F009A8CC5E /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95DBDED448D5D834AFDE3F7 /* Route.swift */; };
 		586746C21957FF810BF894CA /* Typography.swift in Sources */ = {isa = PBXBuildFile; fileRef = C745FD9479C4441BE62DF4AA /* Typography.swift */; };
@@ -40,12 +44,14 @@
 		8F750CFBEA51540A5C7BBA4B /* LensViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF5B35F6D07056AE7BD68EC /* LensViewModelTests.swift */; };
 		907B373468A2E1A54F82A6BD /* RecsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B975EEECFCB189D16BDFAC /* RecsScreen.swift */; };
 		91E7E106409EE6CE3BF9674A /* Lens.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75AB5D941DB27AC086F40EF /* Lens.swift */; };
+		92A7F1A9540ADBF33638F4D9 /* LoadingPaper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D8F96D2CAECC8D729776B0 /* LoadingPaper.swift */; };
 		9BC5D9DBB17F127E05DA7D21 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF9D492BC4C8B07189A4630A /* Game.swift */; };
 		9BD1A5B934C0D0B001DA19A3 /* RecRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3EE8D6183816FD2DE62B45B /* RecRow.swift */; };
 		B5A3A1341E20B99894D8129B /* NukeUI in Frameworks */ = {isa = PBXBuildFile; productRef = 3027367AAA2A6FBAEF01E4E4 /* NukeUI */; };
 		B7D297D6AA11CCAD64B2551E /* LensScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = F555629884877BB2B1A80DD4 /* LensScreen.swift */; };
 		B83A1A90279D8C86E2B06140 /* RateViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9145FAE8CAAE21754D0816ED /* RateViewModelTests.swift */; };
 		BB2A4AE5379EEFC886ED7A0A /* SupabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC669704D5C6A0C7F4A94F9 /* SupabaseService.swift */; };
+		BB93BFA7D3EACF9E2F93E0DA /* PostHog in Frameworks */ = {isa = PBXBuildFile; productRef = 67CDA286A05C6D7DBB39570A /* PostHog */; };
 		BC3F41989F7D19C19D473ABE /* GameDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7668246D1242CD91C227C43E /* GameDetailViewModel.swift */; };
 		C1F3627F0CCFDDF3F46146D1 /* BranchBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76940A8A3C41864A32C2E4A /* BranchBlock.swift */; };
 		C7347EE004E4F9CDFC9271C9 /* Chip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 478DD130C3D4B34C35C964A8 /* Chip.swift */; };
@@ -69,6 +75,7 @@
 		EA75CF51275E65EB12C33855 /* Branch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F0A386DDB1C6BBA434AF56 /* Branch.swift */; };
 		EBC39E5C08E483381FEF294D /* Fixtures in Resources */ = {isa = PBXBuildFile; fileRef = 163E0B861BA506124DBE866E /* Fixtures */; };
 		EDEF07A98C5B6EA38DB80C9A /* RateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BE317DBE7BBDD370B24D74 /* RateViewModel.swift */; };
+		EE7323B4BAFC52A514761E1E /* ImagePipeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B53BC9BB347CCC29550FB8D /* ImagePipeline.swift */; };
 		F1E2553C6B8CDE0F2CBE9098 /* ScreenPlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5CC861561A0F31A14C66D0 /* ScreenPlaceholder.swift */; };
 /* End PBXBuildFile section */
 
@@ -94,6 +101,7 @@
 		20E13FDFACFF08BF6A651C73 /* BoxCover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxCover.swift; sourceTree = "<group>"; };
 		23C6666370C337D41F97CB47 /* yournextbg.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = yournextbg.entitlements; sourceTree = "<group>"; };
 		367A58EA728CF4551F853DBD /* GameRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameRepository.swift; sourceTree = "<group>"; };
+		36D8F96D2CAECC8D729776B0 /* LoadingPaper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingPaper.swift; sourceTree = "<group>"; };
 		379B0142ED11866DAAAA394C /* ScoringParityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoringParityTests.swift; sourceTree = "<group>"; };
 		37F0A386DDB1C6BBA434AF56 /* Branch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Branch.swift; sourceTree = "<group>"; };
 		402F69364C9BB9779F84E79B /* ModelsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelsTests.swift; sourceTree = "<group>"; };
@@ -101,11 +109,13 @@
 		4470580CFEEC8A8D40DFAB69 /* RateCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RateCard.swift; sourceTree = "<group>"; };
 		47772B46B95B0342B62AA37D /* Paper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Paper.swift; sourceTree = "<group>"; };
 		478DD130C3D4B34C35C964A8 /* Chip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chip.swift; sourceTree = "<group>"; };
+		4B53BC9BB347CCC29550FB8D /* ImagePipeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePipeline.swift; sourceTree = "<group>"; };
 		53C370BC6995DB8F8C26019E /* RecsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecsViewModelTests.swift; sourceTree = "<group>"; };
 		54322F24485CD9A0725BAE7A /* LensViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LensViewModel.swift; sourceTree = "<group>"; };
 		546A505FE29786D71AA6E36B /* RecsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecsViewModel.swift; sourceTree = "<group>"; };
 		5700205995265E71D60E3A2C /* ProfileViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModelTests.swift; sourceTree = "<group>"; };
 		57E765A0CCC971229778F72F /* yournextbg.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = yournextbg.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		591CE4A6FB0E1712EA59D986 /* ErrorPaper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorPaper.swift; sourceTree = "<group>"; };
 		64B85DD69B3E5D171654C06A /* UserPrefs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPrefs.swift; sourceTree = "<group>"; };
 		686C9C631B950D769D0CC522 /* AuthStore+Actions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AuthStore+Actions.swift"; sourceTree = "<group>"; };
 		6FA35CB77C7AA6E09E37D5CE /* PlaceholderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceholderTests.swift; sourceTree = "<group>"; };
@@ -116,6 +126,7 @@
 		7EA44366158554BABC034E10 /* SupabaseServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupabaseServiceTests.swift; sourceTree = "<group>"; };
 		818DAEC8FD793B0B5C33F74F /* Similarity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Similarity.swift; sourceTree = "<group>"; };
 		8DC669704D5C6A0C7F4A94F9 /* SupabaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupabaseService.swift; sourceTree = "<group>"; };
+		8E564766AAB9A2DB5101AD12 /* Observability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observability.swift; sourceTree = "<group>"; };
 		8EB652543DBEFE70C4DA0887 /* WebAuthSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebAuthSession.swift; sourceTree = "<group>"; };
 		9145FAE8CAAE21754D0816ED /* RateViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RateViewModelTests.swift; sourceTree = "<group>"; };
 		962C3FB68FE7AF96C151CF4F /* AddGameSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddGameSheet.swift; sourceTree = "<group>"; };
@@ -123,6 +134,7 @@
 		9EA3445B87323BF94213EAB9 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		9F3228E8EC13A38601AAB29A /* Radar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Radar.swift; sourceTree = "<group>"; };
 		AD264407A49A6A257AB4EDC3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		ADEAEE6D39992D969E1F112F /* CardstockTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardstockTabBar.swift; sourceTree = "<group>"; };
 		C3EE8D6183816FD2DE62B45B /* RecRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecRow.swift; sourceTree = "<group>"; };
 		C745FD9479C4441BE62DF4AA /* Typography.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Typography.swift; sourceTree = "<group>"; };
 		C76940A8A3C41864A32C2E4A /* BranchBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BranchBlock.swift; sourceTree = "<group>"; };
@@ -147,7 +159,7 @@
 		F58DC41FF35278A0891566F3 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		F94932848E20610C0E1175BB /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		FDE0CA80B2BB1A6B01EABC33 /* StubGameRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubGameRepository.swift; sourceTree = "<group>"; };
-		"TEMP_BCAF3AE3-CD83-48F8-B555-25C988BA287F" /* yournextbg.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = yournextbg.xcconfig; sourceTree = "<group>"; };
+		"TEMP_1C57F9A5-43FD-42C4-9303-48F53BBA061C" /* yournextbg.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = yournextbg.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -158,6 +170,8 @@
 				DD3EA50856BE1A189EE67194 /* Supabase in Frameworks */,
 				C8D1C04FFE5B2318AD79F5F4 /* Nuke in Frameworks */,
 				B5A3A1341E20B99894D8129B /* NukeUI in Frameworks */,
+				495808CB6AEFAF4D227F7689 /* Sentry in Frameworks */,
+				BB93BFA7D3EACF9E2F93E0DA /* PostHog in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -178,6 +192,8 @@
 			children = (
 				D20A60F1ABA7A2229AF79C4B /* BggSyncService.swift */,
 				367A58EA728CF4551F853DBD /* GameRepository.swift */,
+				4B53BC9BB347CCC29550FB8D /* ImagePipeline.swift */,
+				8E564766AAB9A2DB5101AD12 /* Observability.swift */,
 				8DC669704D5C6A0C7F4A94F9 /* SupabaseService.swift */,
 			);
 			path = Services;
@@ -237,7 +253,10 @@
 			children = (
 				20E13FDFACFF08BF6A651C73 /* BoxCover.swift */,
 				E1C0C4869358D29EB6D4CCC4 /* Btn.swift */,
+				ADEAEE6D39992D969E1F112F /* CardstockTabBar.swift */,
 				478DD130C3D4B34C35C964A8 /* Chip.swift */,
+				591CE4A6FB0E1712EA59D986 /* ErrorPaper.swift */,
+				36D8F96D2CAECC8D729776B0 /* LoadingPaper.swift */,
 				47772B46B95B0342B62AA37D /* Paper.swift */,
 				9F3228E8EC13A38601AAB29A /* Radar.swift */,
 				05B6DC52502A08B2A3C90204 /* Stamp.swift */,
@@ -386,10 +405,10 @@
 			path = GameDetail;
 			sourceTree = "<group>";
 		};
-		"TEMP_1CD67098-462F-4DF0-BE96-F44CF31AC668" /* ios */ = {
+		"TEMP_8455ED4B-AF75-41A7-AF81-99B231E8600C" /* ios */ = {
 			isa = PBXGroup;
 			children = (
-				"TEMP_BCAF3AE3-CD83-48F8-B555-25C988BA287F" /* yournextbg.xcconfig */,
+				"TEMP_1C57F9A5-43FD-42C4-9303-48F53BBA061C" /* yournextbg.xcconfig */,
 			);
 			path = ios;
 			sourceTree = "<group>";
@@ -414,6 +433,8 @@
 				1BC257C2E54694728DAFB178 /* Supabase */,
 				3C1E640A3C05806D8933F664 /* Nuke */,
 				3027367AAA2A6FBAEF01E4E4 /* NukeUI */,
+				B1D9D0DA8C0893667C4997BB /* Sentry */,
+				67CDA286A05C6D7DBB39570A /* PostHog */,
 			);
 			productName = yournextbg;
 			productReference = 57E765A0CCC971229778F72F /* yournextbg.app */;
@@ -464,6 +485,8 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				6FCDA460F6CA8AA679EE65F3 /* XCRemoteSwiftPackageReference "Nuke" */,
+				555325F87D1E5270EF933B15 /* XCRemoteSwiftPackageReference "posthog-ios" */,
+				EC4C392CD68768B65AAD5DF4 /* XCRemoteSwiftPackageReference "sentry-cocoa" */,
 				23D7918A15309F9718914407 /* XCRemoteSwiftPackageReference "supabase-swift" */,
 			);
 			preferredProjectObjectVersion = 77;
@@ -523,19 +546,24 @@
 				EA75CF51275E65EB12C33855 /* Branch.swift in Sources */,
 				C1F3627F0CCFDDF3F46146D1 /* BranchBlock.swift in Sources */,
 				0EAF50FC6F2D0E8DCEDD4727 /* Btn.swift in Sources */,
+				45F31F81E3998D0985E7FE16 /* CardstockTabBar.swift in Sources */,
 				C7347EE004E4F9CDFC9271C9 /* Chip.swift in Sources */,
 				56EDE132BD911DCF9268E66F /* CollectionItem.swift in Sources */,
 				E3A1527151B1B02418B5D6C0 /* Color+Hex.swift in Sources */,
+				469E7176EE528B5C68952742 /* ErrorPaper.swift in Sources */,
 				9BC5D9DBB17F127E05DA7D21 /* Game.swift in Sources */,
 				D20FB0077354375C4C9F6101 /* GameDetailScreen.swift in Sources */,
 				BC3F41989F7D19C19D473ABE /* GameDetailViewModel.swift in Sources */,
 				48E9C69C08ACF6C2455F164F /* GamePicker.swift in Sources */,
 				7F27B83C5699A45219263466 /* GameRepository.swift in Sources */,
+				EE7323B4BAFC52A514761E1E /* ImagePipeline.swift in Sources */,
 				91E7E106409EE6CE3BF9674A /* Lens.swift in Sources */,
 				B7D297D6AA11CCAD64B2551E /* LensScreen.swift in Sources */,
 				01DFE5BD2A6A3725718A7F19 /* LensViewModel.swift in Sources */,
+				92A7F1A9540ADBF33638F4D9 /* LoadingPaper.swift in Sources */,
 				D6B72241D9E771D438C24C98 /* LoginScreen.swift in Sources */,
 				E1AF337FD1D7B7CAA70D7853 /* LoginViewModel.swift in Sources */,
+				5262AE834DE444E56F3D9518 /* Observability.swift in Sources */,
 				DC4E67E8FEAC84E579B48299 /* Paper.swift in Sources */,
 				1AA367AF2A6F93B3FB865AAD /* ProfileScreen.swift in Sources */,
 				61F5FCC7FB82A73DAFD8C7F6 /* ProfileViewModel.swift in Sources */,
@@ -597,7 +625,7 @@
 /* Begin XCBuildConfiguration section */
 		3161BF3749BD6E1023A9F8B3 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = "TEMP_BCAF3AE3-CD83-48F8-B555-25C988BA287F" /* yournextbg.xcconfig */;
+			baseConfigurationReference = "TEMP_1C57F9A5-43FD-42C4-9303-48F53BBA061C" /* yournextbg.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -788,7 +816,7 @@
 		};
 		EA81E198D0D2575E87F5A507 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = "TEMP_BCAF3AE3-CD83-48F8-B555-25C988BA287F" /* yournextbg.xcconfig */;
+			baseConfigurationReference = "TEMP_1C57F9A5-43FD-42C4-9303-48F53BBA061C" /* yournextbg.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -852,12 +880,28 @@
 				minimumVersion = 2.0.0;
 			};
 		};
+		555325F87D1E5270EF933B15 /* XCRemoteSwiftPackageReference "posthog-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/PostHog/posthog-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
 		6FCDA460F6CA8AA679EE65F3 /* XCRemoteSwiftPackageReference "Nuke" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/kean/Nuke";
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 12.0.0;
+			};
+		};
+		EC4C392CD68768B65AAD5DF4 /* XCRemoteSwiftPackageReference "sentry-cocoa" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/getsentry/sentry-cocoa";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.0.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -877,6 +921,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 6FCDA460F6CA8AA679EE65F3 /* XCRemoteSwiftPackageReference "Nuke" */;
 			productName = Nuke;
+		};
+		67CDA286A05C6D7DBB39570A /* PostHog */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 555325F87D1E5270EF933B15 /* XCRemoteSwiftPackageReference "posthog-ios" */;
+			productName = PostHog;
+		};
+		B1D9D0DA8C0893667C4997BB /* Sentry */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EC4C392CD68768B65AAD5DF4 /* XCRemoteSwiftPackageReference "sentry-cocoa" */;
+			productName = Sentry;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -7,6 +7,11 @@ import Supabase
 struct YourNextBGApp: App {
     @State private var authStore: AuthStore?
 
+    init() {
+        Observability.configure()
+        ImagePipelineConfig.configure()
+    }
+
     var body: some Scene {
         WindowGroup {
             RootView(authStore: authStore)
@@ -17,6 +22,12 @@ struct YourNextBGApp: App {
                         let store = AuthStore(backend: LiveAuthBackend(client: client))
                         store.start()
                         authStore = store
+                    }
+                }
+                .onChange(of: authStore?.state) { _, new in
+                    if case .signedIn(let userId, let email) = new {
+                        Observability.identify(userId: userId, email: email)
+                        Observability.capture(.signInSucceeded)
                     }
                 }
                 .onOpenURL { url in

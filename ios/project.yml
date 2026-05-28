@@ -30,6 +30,12 @@ packages:
   Nuke:
     url: https://github.com/kean/Nuke
     from: "12.0.0"
+  Sentry:
+    url: https://github.com/getsentry/sentry-cocoa
+    from: "8.0.0"
+  PostHog:
+    url: https://github.com/PostHog/posthog-ios
+    from: "3.0.0"
 
 targets:
   yournextbg:
@@ -78,6 +84,10 @@ targets:
       - package: Nuke
       - package: Nuke
         product: NukeUI
+      - package: Sentry
+        product: Sentry
+      - package: PostHog
+        product: PostHog
     entitlements:
       path: yournextbg/yournextbg.entitlements
       properties:
