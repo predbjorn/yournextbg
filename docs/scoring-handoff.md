@@ -119,15 +119,16 @@ Read the full set in `src/data/games.ts`. These are the load-bearing reference p
 
 ### Step 1 · Identify BGG metadata
 
-BGG XML API now requires authenticated access — the public endpoint returns `401 Unauthorized` to unauth'd traffic (Cloudflare). If `BGG_API_KEY` (or whatever auth header BGG provides) is set in `.env.local`, server-side fetches work:
+BGG XML API requires an `Authorization: Bearer …` header. The project token lives in `.env.local` as `BGG_API_KEY` (and on the server as a Supabase secret). Server-side fetches:
 
 ```bash
-curl -A "yournextbg/0.1 (+https://yournextbg.com)" \
+source .env.local
+curl -A "$BGG_USER_AGENT" \
   -H "Authorization: Bearer $BGG_API_KEY" \
   "https://boardgamegeek.com/xmlapi2/thing?id=<BGG_ID>&stats=1"
 ```
 
-If you don't have BGG API access set up: the BGG website itself (HTML) still loads fine in a browser — copy the metadata manually from the game's BGG page.
+The token is shared across the project — do **not** publish it or commit it. The BGG website itself (HTML) also still loads fine in a browser if you'd rather copy metadata by eye.
 
 Pull out: official name, year, designer, min/max players, playtime, BGG mechanics, BGG community weight (1–5).
 
@@ -235,7 +236,7 @@ The steps above describe the work; in practice, Claude Code is the right tool to
 >
 > 1. Read `docs/scoring-handoff.md` for the rubric and the 10 pitfalls if you don't have them in context.
 > 2. Read 3–5 in-catalog anchors I suspect this is close to: **[list 3-5 game ids from `src/data/games.ts`]**.
-> 3. Fetch the BGG metadata (XML API if `BGG_API_KEY` is set, otherwise the BGG page HTML), the rulebook PDF from the publisher's site, and one written review.
+> 3. Fetch the BGG metadata (XML API with `Authorization: Bearer ${BGG_API_KEY}`), the rulebook PDF from the publisher's site, and one written review.
 > 4. Propose the 12 axis scores + solo + fiddly + playerCount.
 > 5. Run the sanity check from §4 step 4 mentally.
 > 6. Output a `Game` object matching `src/data/types.ts` and the per-axis reasoning in the `scoring-log.md` format.
@@ -344,7 +345,7 @@ Header abbreviations: W=Weight, D=Depth, De=Density, In=Interaction, Co=Conflict
 ## 9. Tools available
 
 **Use:**
-- BGG XML API: `https://boardgamegeek.com/xmlapi2/thing?id={id}&stats=1` — requires `BGG_API_KEY` in `.env.local` (Cloudflare-gated). If no key yet, copy from BGG's HTML page in browser.
+- BGG XML API: `https://boardgamegeek.com/xmlapi2/thing?id={id}&stats=1` — requires `Authorization: Bearer ${BGG_API_KEY}`. The token is provisioned and lives in `.env.local`.
 - recommend.games similarity: `https://recommend.games/api/games/{id}/similar/?num_games=10` — public, still works.
 - The existing engine code (READ-ONLY): `src/lib/scoring/`
 - Derived facets: `src/lib/facets.ts` (read-only — categories fall out of scores automatically)

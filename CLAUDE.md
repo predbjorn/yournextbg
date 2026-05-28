@@ -85,7 +85,7 @@ Never reorder. Anywhere.
 
 ## Known issues / gotchas
 
-- **BGG XML API is now Cloudflare-gated.** `boardgamegeek.com/xmlapi2/thing?id=…` returns **401 Unauthorized** to unauth'd requests, including from server-side curl with a polite UA. Use `bgg-refs.ts` cached snapshots where possible. **Do not assume the API is accessible.**
+- **BGG XML API requires auth.** `boardgamegeek.com/xmlapi2/…` returns **401 Unauthorized** without a token. We have an approved key — pass it as `Authorization: Bearer ${BGG_API_KEY}` along with the project User-Agent. `BGG_API_KEY` is set in `.env.local`, in Supabase function secrets, and in Vercel production env. Treat the key as secret. Cached `bgg-refs.ts` snapshots are still fine for offline / scoring work.
 - **recommend.games:** still works at `https://recommend.games/api/games/{bggId}/similar/?num_games=10` but quality varies. For several high-rank games (Terraforming Mars, Gloomhaven, Spirit Island, Pandemic Legacy) the model returns broken/random neighbors — treat as a soft sanity check, not ground truth.
 - **OG image rendering (satori):** every `<div>` with more than one child node MUST have explicit `display: flex | contents | none`. If you add layout to `*opengraph-image.tsx`, you'll hit this.
 - **Next.js 16:** `params` is `Promise<…>`. Always `await params` before destructuring. RSC by default; mark client components with `"use client"`.
