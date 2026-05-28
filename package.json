@@ -11,6 +11,8 @@
     "supabase:health": "tsx scripts/supabase-health.ts",
     "reset:db": "tsx scripts/reset-db.ts",
     "backfill:covers": "tsx scripts/backfill-covers.ts",
+    "bgg:hydrate": "tsx scripts/hydrate-bgg.ts",
+    "cover:resize-local": "tsx scripts/resize-cover-local.ts",
     "types:db": "supabase gen types typescript --linked > src/lib/supabase/database.types.ts"
   },
   "engines": {
@@ -35,6 +37,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.2.6",
     "pg": "^8.21.0",
+    "sharp": "^0.34.5",
     "tailwindcss": "^4",
     "tsx": "^4.22.3",
     "typescript": "^5"
