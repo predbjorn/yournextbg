@@ -37,7 +37,7 @@ export function PickerCard({ side, game, onClear }: Props) {
 
   const coverUrl = buildCoverUrl(
     { id: game.id, bgg_id: game.bgg_id, cover_status: game.cover_status },
-    "card",
+    "hero",
   );
 
   return (

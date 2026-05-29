@@ -19,7 +19,7 @@ export function ProfileRecCard({ rec, rank, onDismiss }: Props) {
   const [err, setErr] = useState<string | null>(null);
   const coverUrl = buildCoverUrl(
     { id: rec.id, bgg_id: rec.bgg_id, cover_status: rec.cover_status },
-    "card",
+    "hero",
   );
 
   async function dismiss() {
