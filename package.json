@@ -12,6 +12,7 @@
     "reset:db": "tsx scripts/reset-db.ts",
     "backfill:covers": "tsx scripts/backfill-covers.ts",
     "bgg:hydrate": "tsx scripts/hydrate-bgg.ts",
+    "bgg:audit-names": "tsx scripts/audit-bgg-names.ts",
     "cover:resize-local": "tsx scripts/resize-cover-local.ts",
     "types:db": "supabase gen types typescript --linked > src/lib/supabase/database.types.ts"
   },
