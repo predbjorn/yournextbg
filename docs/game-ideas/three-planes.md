@@ -285,5 +285,120 @@ teeth.
   contest, market — for non-warlike themes.)
 - Stress-test for degenerate strategies (pure-turtle ignoring Battle, infinite
   chains, knockout kingmaking).
+
+---
+
+# Theme treatments
+
+The skeleton is theme-portable: each theme below maps every mechanical element
+(bands, currencies, loop-back nodes, garrisons, tactics, clock, factions) with no
+mechanical strain. The "hot band" only requires *zero-sum destructive interaction
+with bluffing* — it need not be literal war, which is what unlocks the non-violent
+themes. The bluff/hidden-commitment system favors themes where **concealment is
+native** (a trick up the sleeve, a secret blessing, a sealed claim).
+
+Currency mapping is constant across themes:
+`Material → Power(perishable) → Pressure(ephemeral)`, plus `Tempo` (loop-back).
+
+## Theme 1 — The Crossroads of Tales (world tricksters)
+
+World tricksters (Anansi, Reynard, Coyote, Kitsune, Raven, Monkey King, Tortoise)
+gather at the Crossroads on the longest night to out-scheme one another. The hot
+band is **humiliation, not death**.
+
+| Band | In theme | Contact |
+|---|---|---|
+| Draft (cold) | **The Tellings** — shared ring of Tale cards at the story-fire | claim a tale first |
+| Work (warm) | **The Den** — your hidden lair where schemes brew | a few prime watering-holes contested |
+| Battle (hot) | **The Crossroads** — tricksters try to dupe each other | the trick up your sleeve, revealed |
+
+- **Chain:** Lore → Cunning (goes *stale* unused) → Mischief. **Tempo = the Laugh.**
+- **Nodes:** Cache→*the Market* (filch a tale) · Beacon→*the Campfire* (+Laugh) ·
+  Toll-gate→*the Troll's Bridge* · Forge→*the Brewhouse* (bump ratio).
+- **Garrison =** a snare lying in wait (face-down — a trap's strength is hidden).
+- **Tactics:** *Tar-Baby* (feint) · *Playing Dead* (ambush) · *The Tale Spreads* (overrun).
+- **Clock = Dawn.** Every prank hastens sunrise; the warlord wants dawn, the
+  Tortoise wants the night long.
+- **Factions:** Tortoise (turtle) · Reynard/Monkey King (warlord) ·
+  Coyote/Raven (comboist) · Anansi (Draft) · Kitsune (bluff/Tactics).
+
 ```
+[TELLING · I]  "An Old Story"        [DEN · II]  "Brew a Scheme"        [CROSSROADS · I]  "Spring a Prank"
+ACTIVATE: +2 Lore                    ACTIVATE: ≤4 Lore → Cunning 1:1    ACTIVATE: Cunning → trick, str=Cunning
+TRIGGER:  →Den                       TRIGGER:  →Crossroads              TRIGGER:  →Telling (filch in the chaos)
+
+[TELLING · II]  "Anansi's Library"   [DEN · III]  "The Deep Burrow"     [CROSSROADS · II]  "Set a Snare"
+PASSIVE:  +1 Lore per Telling action PASSIVE:  Cunning cap +2; 1st       ACTIVATE: Cunning → hidden snare, str+1
+                                              brew/night is 1:1          PASSIVE:  your snares reveal at +1
+```
+
+## Theme 6 — Twilight of the Gods (scheming pantheons)
+
+Rival gods forbidden to touch the world directly weave fate, court worship, and
+clash only through mortal champions. The god woven into all three planes becomes
+the **central deity of the next age**. The "can't act directly" conceit justifies
+the indirect, bluff-heavy, lead-don't-annihilate structure.
+
+| Band | In theme | Contact |
+|---|---|---|
+| Draft (cold) | **The Loom of Fate** — shared spread of Omen cards | claim a thread first |
+| Work (warm) | **The Mortal Realm** — temples, festivals, devotion | prime holy sites contested |
+| Battle (hot) | **The Field of Champions** — gods clash by proxy | which blessing you secretly bestowed |
+
+- **Chain:** Fate → Worship (*fades* unspent) → Glory. **Tempo = Favor.**
+- **Nodes:** Cache→*the Oracle* · Beacon→*the Great Temple* (+Favor) ·
+  Toll-gate→*the World-Mountain pass* · Forge→*the Divine Forge* (bump ratio).
+- **Garrison =** a champion at a site with a secret blessing (face-down).
+- **Tactics:** *Divine Intervention* (feint) · *Nemesis* (ambush) · *A Legend Is Born* (overrun).
+- **Clock = the End of the Age.** Every great deed hastens the world's close;
+  meddling burns the age down faster.
+- **Factions:** Hearth/Harvest goddess (turtle) · Storm/War god (warlord) ·
+  Fate/Trickster-god (comboist) · Sea/Underworld/Hunt (variants).
+
+```
+[OMEN · I]  "A Whispered Omen"       [REALM · II]  "Raise a Temple"      [FIELD · I]  "Send a Champion"
+ACTIVATE: +2 Fate                    ACTIVATE: ≤4 Fate → Worship 1:1    ACTIVATE: Worship → champion, str=Worship
+TRIGGER:  →Realm                     TRIGGER:  →Field                   TRIGGER:  →Omen (the deed echoes in fate)
+
+[OMEN · II]  "The Loom Unbound"      [REALM · III]  "Holy City"          [FIELD · II]  "Anoint a Guardian"
+PASSIVE:  +1 Fate per Omen action    PASSIVE:  Worship cap +2; 1st       ACTIVATE: Worship → hidden guardian, str+1
+                                              rite/age is 1:1            PASSIVE:  your guardians reveal at +1
+```
+
+## Theme (non-violent) — First in the Field (Age-of-Wonder priority race)
+
+Rival naturalist-explorers race to collect, classify, and *name* new species for a
+Royal Society. To be **scooped is to be ruined** — pure zero-sum, zero blood.
+Bluff-native: sealed specimen boxes, papers lodged under seal.
+
+| Band | In theme | Contact |
+|---|---|---|
+| Draft (cold) | **The Field** — claim specimens, outfit expeditions | grab the specimen first |
+| Work (warm) | **The Study** — dissect, illustrate, classify | prime tools contested (microscope, engraver) |
+| Battle (hot) | **The Society's Hall** — first complete, correct claim takes the species | sealed findings, revealed simultaneously |
+
+- **Chain:** Specimens → Findings (*scooped* if hoarded) → Acclaim/Priority.
+  **Tempo = Standing in the Society.**
+- **Nodes (fields of study):** Botany · Entomology · Ornithology · Geology ·
+  *the New Genus*. Cache→claim a specimen · Beacon→+Standing ·
+  Toll-gate→*the Journal* (publish free) · Forge→*the Grand Library* (bump ratio).
+- **Garrison =** a claim lodged under seal on a field (face-down evidence).
+  Attacking = **publishing a rival paper to refute/supersede**; the loser's claim
+  is *discredited*, not destroyed.
+- **Tactics:** *A Sensational Specimen* (feint) · *Prior Publication* (ambush —
+  prove you got there first) · *A Whole New Genus* (overrun).
+- **Clock = the Grand Exhibition.** A fixed season's end; a rival academy abroad
+  closes in; the sensationalist publishes fast to slam the season shut.
+- **Factions:** the Systematist (turtle) · the Sensationalist (warlord) ·
+  the Polymath (comboist) · the Collector / the Illustrator (Draft/Work).
+
+```
+[FIELD · I]  "Collecting Trip"       [STUDY · II]  "Classify"            [HALL · I]  "Present a Paper"
+ACTIVATE: +2 Specimens               ACTIVATE: ≤4 Specimens → Findings  ACTIVATE: Findings → claim, str=Findings
+TRIGGER:  →Study                              1:1                        TRIGGER:  →Field (acclaim funds next trip)
+                                     TRIGGER:  →Hall
+
+[FIELD · II]  "A Patron's Grant"     [STUDY · III]  "The Great Atlas"    [HALL · II]  "Lodge a Claim"
+PASSIVE:  +1 Specimen per Field act. PASSIVE:  Findings cap +2; 1st      ACTIVATE: Findings → sealed claim, str+1
+                                              classification/season 1:1  PASSIVE:  your lodged claims reveal at +1
 ```
