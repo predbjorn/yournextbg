@@ -279,7 +279,8 @@ teeth.
 
 ## Open / next
 
-- Full starter card list (~30–40 cards, tier curve) — not yet drafted.
+- Full starter card list (~30–40 cards, tier curve) — drafted for the naturalist
+  theme in `first-in-the-field-cards.md`; not yet for the other themes.
 - Theme — not yet chosen. (Note: the "hot band" only needs to be *zero-sum
   destructive interaction*; it can be reframed as non-combat conflict — debate,
   contest, market — for non-warlike themes.)
@@ -401,4 +402,47 @@ TRIGGER:  →Study                              1:1                        TRIGG
 [FIELD · II]  "A Patron's Grant"     [STUDY · III]  "The Great Atlas"    [HALL · II]  "Lodge a Claim"
 PASSIVE:  +1 Specimen per Field act. PASSIVE:  Findings cap +2; 1st      ACTIVATE: Findings → sealed claim, str+1
                                               classification/season 1:1  PASSIVE:  your lodged claims reveal at +1
+```
+
+Full card list: see `first-in-the-field-cards.md`.
+
+## Theme (non-violent) — Spice & Ruin (merchant-adventurer trading houses)
+
+Rival trading houses outfit far voyages, build warehouses, and wage war *on the
+Exchange* — cornering and crashing markets to **bankrupt** rivals. Nobody dies;
+fortunes do. A new flavor of cutthroat — financial annihilation — distinct from
+deception (tricksters) and priority (naturalists). Market-cornering is hidden
+commitment in its purest form: sealed orders, hidden positions, a simultaneous
+reveal when the trap springs.
+
+| Band | In theme | Contact |
+|---|---|---|
+| Draft (cold) | **The Docks / Charter Office** — claim ventures, charters, cargo | claim a charter first |
+| Work (warm) | **The Trading House** — turn goods into capital, build fleet & agents | prime berths contested (fast clipper, deep-water wharf) |
+| Battle (hot) | **The Bourse** — corner and crash commodity markets | sealed buy/sell orders, revealed simultaneously |
+
+- **Chain:** Goods → Capital (*bleeds* to inflation if idle — letters of credit
+  expire) → Market Pressure/Leverage. **Tempo = Credit-standing.**
+- **Nodes (commodity markets):** Spice · Silk · Tea · Silver · *the Emerging
+  Market*. Cache→a charter · Beacon→+Credit · Toll-gate→*the Customs House*
+  (duty-free) · Forge→*the Mint / Counting House* (bump ratio).
+- **Garrison =** a standing position in a market (face-down depth). Attacking =
+  **cornering/dumping** to break a rival's position; the loser is *forced to
+  liquidate* — ruined in that good, not killed.
+- **Tactics:** *False Rumor* (feint) · *Call in Debts* (ambush) · *Run on the
+  Market* (overrun).
+- **Clock = the Bubble.** Every corner inflates a bubble that *will* burst; when
+  it pops the season ends. The Speculator pumps it to slam the game shut before
+  the Monopolist consolidates — the act of attacking literally inflates the timer.
+- **Factions:** the Monopolist (turtle) · the Speculator (warlord) · the
+  Arbitrageur (comboist) · the Importer / the Banker (Draft/defense).
+
+```
+[DOCKS · I]  "A Modest Cargo"        [HOUSE · II]  "Sell at Market"      [BOURSE · I]  "Make a Play"
+ACTIVATE: +2 Goods                   ACTIVATE: ≤4 Goods → Capital 1:1   ACTIVATE: Capital → leverage, str=Capital
+TRIGGER:  →House                     TRIGGER:  →Bourse                  TRIGGER:  →Docks (profits fund cargo)
+
+[DOCKS · II]  "Trading Charter"      [HOUSE · III]  "Counting House"    [BOURSE · II]  "Take a Position"
+PASSIVE:  +1 Goods per Docks action  PASSIVE:  Capital cap +2; 1st       ACTIVATE: Capital → hidden holdings, str+1
+                                              sale/season is 1:1         PASSIVE:  your positions reveal at +1
 ```
