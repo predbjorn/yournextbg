@@ -3,284 +3,496 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>First in the Field — print &amp; play cards</title>
+<title>First in the Field — engraved print &amp; play deck</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=IM+Fell+English+SC&family=Cinzel:wght@500;600&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
 <style>
   :root{
-    --field:#2f5d3a; --study:#1f4f5e; --hall:#7c2f2f;
-    --tactic:#4a3b63; --faction:#7a5520;
-    --gold:#b08d3c; --gold-lt:#d9bd77;
-    --ink:#3a2d1c; --ink-soft:#6b5a42;
-    --parch:#f4ead2;
+    --ink:#2c1f0f; --ink2:#5a4326; --ink3:#7a6038;
+    --paper1:#f6eccd; --paper2:#ecdcae; --paper3:#e0cd96;
+    --gold:#b3873a; --goldhi:#efd89c; --golddk:#7e5d22;
+    --wax:#8c2f24; --waxhi:#c6573f; --waxdk:#561712;
+    --waxT:#3f3160; --waxThi:#6f5b9c;
+    --waxF:#6e5118; --waxFhi:#a98a40;
+    --f-field:#3f6b43; --f-study:#2b5563; --f-hall:#8a3030;
+    --f-tactic:#574774; --f-faction:#876327;
   }
   *{box-sizing:border-box;}
   html,body{margin:0;}
   body{
-    font-family:'EB Garamond',Georgia,serif;
-    color:#e8dcc0;
+    font-family:'IM Fell English',Georgia,serif;
+    color:#e7d9b6;
     background:
-      radial-gradient(120% 120% at 50% 0%, #1d2a28 0%, #141d22 55%, #0e1417 100%);
+      radial-gradient(130% 130% at 50% -10%, #233029 0%, #18211f 45%, #0d1413 100%) fixed;
     min-height:100vh;
   }
 
   /* ---------- screen chrome (not printed) ---------- */
-  .controls{
-    text-align:center; padding:34px 20px 8px;
-  }
+  .controls{text-align:center; padding:40px 20px 6px;}
   .controls h1{
-    font-family:'Cinzel',serif; font-weight:600;
-    letter-spacing:.06em; margin:0 0 4px;
-    font-size:30px; color:#f0e6cd;
-    text-shadow:0 1px 0 #000;
+    font-family:'IM Fell English SC',serif; font-weight:400;
+    letter-spacing:.04em; margin:0; font-size:40px; color:#f1e6c6;
+    text-shadow:0 2px 0 #000, 0 0 22px rgba(180,135,58,.25);
   }
-  .controls p{margin:6px auto 16px; max-width:640px; color:#b9ad8e; font-size:15px; line-height:1.5;}
-  .controls .sub{font-family:'Cormorant Garamond',serif; font-style:italic; font-size:18px; color:#cdbf9b;}
+  .controls .sub{font-family:'Cormorant Garamond',serif; font-style:italic; font-size:21px; color:#cdbf99; margin:2px 0 10px;}
+  .controls p{margin:6px auto 16px; max-width:640px; color:#a89d7e; font-size:15px; line-height:1.5;}
   .btn{
-    font-family:'Cinzel',serif; font-size:13px; letter-spacing:.12em;
-    background:linear-gradient(180deg,var(--gold-lt),var(--gold));
-    color:#2a1f0c; border:none; padding:11px 26px; border-radius:3px;
-    cursor:pointer; box-shadow:0 2px 6px rgba(0,0,0,.4);
+    font-family:'IM Fell English SC',serif; font-size:16px; letter-spacing:.06em;
+    background:linear-gradient(180deg,var(--goldhi),var(--gold) 60%,var(--golddk));
+    color:#3a2a0c; border:none; padding:11px 30px; border-radius:3px;
+    cursor:pointer; box-shadow:0 3px 10px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.4);
   }
-  .btn:hover{filter:brightness(1.07);}
-  .legend{margin:18px auto 0; display:flex; gap:18px; justify-content:center; flex-wrap:wrap; font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:#9c9277;}
-  .legend span{display:inline-flex; align-items:center; gap:7px;}
-  .legend i{width:13px; height:13px; border-radius:2px; display:inline-block;}
+  .btn:hover{filter:brightness(1.06);}
+  .legend{margin:18px auto 0; display:flex; gap:20px; justify-content:center; flex-wrap:wrap; font-family:'IM Fell English SC',serif; font-size:13px; letter-spacing:.08em; color:#9c9277;}
+  .legend span{display:inline-flex; align-items:center; gap:8px;}
+  .legend i{width:13px; height:13px; border-radius:50%; display:inline-block; box-shadow:inset 0 0 0 1px rgba(0,0,0,.3);}
 
-  /* ---------- gallery ---------- */
-  .sheet{
-    display:flex; flex-wrap:wrap; gap:6mm;
-    justify-content:center; align-content:flex-start;
-    padding:30px 24px 60px;
-  }
+  .sheet{display:flex; flex-wrap:wrap; gap:7mm; justify-content:center; align-content:flex-start; padding:34px 24px 70px;}
 
   /* ---------- the card ---------- */
   .card{
-    position:relative; width:60mm; height:86mm; overflow:hidden;
-    border-radius:3mm; color:var(--ink);
-    background:
-      radial-gradient(150% 120% at 50% -10%, #fbf5e2 0%, #f3e9cd 46%, #e9dcb8 100%);
-    box-shadow:0 6px 16px rgba(0,0,0,.45), inset 0 0 0 1px rgba(120,90,40,.25);
+    position:relative; width:63mm; height:88mm; overflow:hidden;
+    border-radius:2.6mm; color:var(--ink);
+    padding:3.4mm 3.6mm 3.2mm;
     display:flex; flex-direction:column;
-    padding:4.4mm 4mm 3.6mm;
-    --accent:var(--field);
+    --accent:var(--f-field);
+    background:
+      /* faint foxing */
+      radial-gradient(circle at 20% 26%, rgba(120,80,30,.10), transparent 13%),
+      radial-gradient(circle at 82% 74%, rgba(110,70,25,.09), transparent 15%),
+      radial-gradient(circle at 64% 14%, rgba(120,80,30,.06), transparent 10%),
+      /* paper grain */
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='150' height='150' filter='url(%23n)' opacity='0.07'/%3E%3C/svg%3E"),
+      /* edge vignette + base parchment */
+      radial-gradient(125% 120% at 50% 42%, transparent 58%, rgba(70,46,16,.22)),
+      radial-gradient(120% 120% at 50% 0%, var(--paper1), var(--paper2) 52%, var(--paper3) 100%);
+    box-shadow:0 8px 20px rgba(0,0,0,.5), 0 1px 0 rgba(255,255,255,.15) inset;
   }
-  .card.k-field{--accent:var(--field);}
-  .card.k-study{--accent:var(--study);}
-  .card.k-hall{--accent:var(--hall);}
-  .card.k-tactic{--accent:var(--tactic);}
-  .card.k-faction{--accent:var(--faction);}
+  .card.k-field{--accent:var(--f-field);}
+  .card.k-study{--accent:var(--f-study);}
+  .card.k-hall{--accent:var(--f-hall);}
+  .card.k-tactic{--accent:var(--f-tactic);}
+  .card.k-faction{--accent:var(--f-faction);}
 
-  /* gilt inner frame */
-  .card::after{
-    content:""; position:absolute; inset:2mm;
-    border:0.5mm solid var(--gold);
-    border-radius:2mm; pointer-events:none;
-    box-shadow:inset 0 0 0 0.3mm rgba(255,255,255,.35);
-  }
-  /* faint top accent wash */
-  .card::before{
-    content:""; position:absolute; left:0; right:0; top:0; height:20mm;
-    background:linear-gradient(180deg, color-mix(in srgb, var(--accent) 16%, transparent), transparent);
-    pointer-events:none;
+  /* concentric gilt frames (respect border-radius) */
+  .f-gold,.f-ink{position:absolute; pointer-events:none;}
+  .f-gold{inset:1mm; border-radius:2mm; border:0.75mm solid var(--gold);
+    box-shadow:inset 0 0 0 0.18mm var(--goldhi), 0 0 0 0.18mm var(--golddk);}
+  .f-ink{inset:1.95mm; border-radius:1.4mm; border:0.22mm solid var(--ink2);}
+
+  .corner{position:absolute; width:6mm; height:6mm; color:var(--gold); z-index:3; pointer-events:none; opacity:.95;}
+  .corner svg{width:100%; height:100%; fill:none; stroke:currentColor; stroke-width:2.6;}
+  .corner.tl{top:1.3mm; left:1.3mm;}
+  .corner.tr{top:1.3mm; right:1.3mm; transform:scaleX(-1);}
+  .corner.bl{bottom:1.3mm; left:1.3mm; transform:scaleY(-1);}
+  .corner.br{bottom:1.3mm; right:1.3mm; transform:scale(-1,-1);}
+
+  .card>.layer{position:relative; z-index:2;}
+
+  /* top strip */
+  .topstrip{position:relative; height:4.6mm; display:flex; align-items:center;}
+  .plate{font-family:'Cinzel',serif; font-size:6.4pt; letter-spacing:.1em; color:var(--ink3);}
+  .kindlab{
+    position:absolute; left:0; right:0; text-align:center;
+    font-family:'IM Fell English SC',serif; font-size:7.2pt; letter-spacing:.14em;
+    color:var(--accent); text-transform:uppercase;
   }
 
-  /* watermark motif */
-  .wm{
-    position:absolute; left:50%; top:54%; transform:translate(-50%,-50%);
-    width:42mm; height:42mm; color:var(--accent); opacity:.07;
-    pointer-events:none; z-index:0;
-  }
-  .wm svg{width:100%; height:100%; fill:none; stroke:currentColor; stroke-width:2.4;}
-
-  .card > *{position:relative; z-index:1;}
-
-  /* header row */
-  .head{display:flex; align-items:baseline; justify-content:space-between; gap:4px;}
-  .kind{
-    font-family:'Cinzel',serif; font-weight:600; font-size:8.6pt;
-    letter-spacing:.16em; text-transform:uppercase; color:var(--accent);
-  }
-  .tier{
-    font-family:'Cinzel',serif; font-size:8.4pt; letter-spacing:.12em;
-    color:var(--ink-soft);
-  }
-
-  /* cost seal */
+  /* wax seal */
   .seal{
-    position:absolute; top:3mm; right:3mm; z-index:2;
-    width:8.2mm; height:8.2mm; border-radius:50%;
-    background:radial-gradient(circle at 35% 30%, #f7eccb, #e7cf93 60%, #caa75f 100%);
-    border:0.5mm solid var(--gold);
-    box-shadow:0 1px 2px rgba(0,0,0,.3), inset 0 0 0 0.3mm rgba(255,255,255,.5);
-    display:flex; align-items:center; justify-content:center;
-    font-family:'Cinzel',serif; font-weight:600; font-size:9pt; color:#5a4216;
+    position:absolute; top:1.4mm; right:1.4mm; z-index:5;
+    width:8.8mm; height:8.8mm; display:flex; align-items:center; justify-content:center;
+    border-radius:49% 51% 50% 50% / 51% 49% 51% 49%;
+    background:radial-gradient(circle at 36% 30%, var(--waxhi), var(--wax) 52%, var(--waxdk) 100%);
+    box-shadow:0 1.2px 2.4px rgba(0,0,0,.45), inset 0 -1px 2px rgba(0,0,0,.45), inset 1px 1px 1.6px rgba(255,255,255,.35);
+    color:#f7ddcf; font-family:'Cinzel',serif; font-weight:600; font-size:10.5pt;
+    text-shadow:0 1px 1px rgba(60,10,5,.7);
   }
-  .seal small{font-size:4.2pt; letter-spacing:.04em; position:absolute; bottom:.7mm; font-family:'EB Garamond',serif; color:#6a4f1d;}
+  .seal::after{content:""; position:absolute; inset:1.1mm; border-radius:inherit; border:0.2mm solid rgba(255,225,210,.28);}
+  .k-tactic .seal{background:radial-gradient(circle at 36% 30%, var(--waxThi), var(--waxT) 52%, #241a3a 100%); color:#e7ddf6;}
+  .k-faction .seal{background:radial-gradient(circle at 36% 30%, var(--waxFhi), var(--waxF) 52%, #3f2d0c 100%); color:#f6ead0;}
+  .seal .glyph{font-size:8pt;}
 
-  /* name */
+  /* title */
+  .title{text-align:center; margin:0.6mm 0 0;}
   .name{
-    font-family:'Cormorant Garamond',serif; font-weight:600;
-    font-size:15.5pt; line-height:1.04; margin:1.6mm 0 0;
-    color:#2c2113; letter-spacing:.005em;
+    font-family:'IM Fell English SC',serif; font-weight:400;
+    font-size:13.2pt; line-height:1.0; color:#27190a; letter-spacing:.01em;
+    padding:0 6mm;  /* keep clear of the seal */
   }
-  .tag{
-    font-family:'EB Garamond',serif; font-style:italic; font-size:8pt;
-    color:var(--accent); margin-top:.4mm;
+  .binom{font-family:'Cormorant Garamond',serif; font-style:italic; font-size:8.6pt; color:var(--ink3); margin-top:.4mm; letter-spacing:.02em;}
+
+  /* illustration window */
+  .window{
+    position:relative; height:26.5mm; margin:1.5mm 0 1.6mm; border-radius:1.6mm;
+    color:var(--ink2); overflow:hidden;
+    background:radial-gradient(120% 100% at 50% 38%, #f8efd2, #e7d6a6 95%);
+    box-shadow:inset 0 0 0 0.32mm var(--gold), inset 0 0 0 0.5mm var(--goldhi), inset 0 0 9px rgba(90,60,20,.3);
   }
+  .window::before{
+    content:""; position:absolute; inset:0;
+    background:repeating-linear-gradient(45deg, rgba(90,67,38,.07) 0 0.4mm, transparent 0.4mm 1.6mm);
+    mix-blend-mode:multiply;
+  }
+  .window::after{
+    content:""; position:absolute; inset:1.2mm; border-radius:1mm;
+    box-shadow:inset 0 0 7px rgba(70,46,16,.22);
+    border:0.18mm solid rgba(126,93,34,.5);
+  }
+  .art{position:absolute; inset:0; display:flex; align-items:center; justify-content:center;}
+  .art svg{width:22mm; height:22mm; fill:none; stroke:currentColor; stroke-width:2.3; stroke-linecap:round; stroke-linejoin:round;}
 
-  /* flourish divider */
-  .rule{display:flex; align-items:center; gap:2mm; margin:1.8mm 0 1.4mm;}
-  .rule::before,.rule::after{content:""; flex:1; height:0.3mm; background:linear-gradient(90deg,transparent,var(--gold),transparent);}
-  .rule span{color:var(--gold); font-size:8pt; transform:translateY(-.3mm);}
-
-  /* body */
-  .body{flex:1; display:flex; flex-direction:column; gap:1.5mm;}
-  .line{font-size:9.6pt; line-height:1.25; color:#352818;}
+  /* rules */
+  .rules{flex:1; display:flex; flex-direction:column; gap:1.15mm; padding:0 .4mm;}
+  .line{font-size:8.7pt; line-height:1.18; color:#322413;}
   .lbl{
-    font-family:'Cinzel',serif; font-size:6.4pt; font-weight:600;
-    letter-spacing:.14em; text-transform:uppercase;
-    color:var(--accent); display:inline-block; margin-right:1.2mm;
-    vertical-align:.4mm;
+    font-family:'IM Fell English SC',serif; font-size:6.6pt; letter-spacing:.1em;
+    color:var(--accent); text-transform:uppercase; margin-right:1.1mm;
   }
-  .line.dash{color:var(--ink-soft); font-style:italic;}
+  .arrow{font-style:normal;}
 
-  /* flavor */
-  .flavor{
-    font-family:'Cormorant Garamond',serif; font-style:italic;
-    font-size:9.4pt; line-height:1.18; color:#6a5436;
-    margin-top:1.4mm; text-align:center;
+  /* flavour */
+  .flavour{
+    position:relative; margin-top:1.2mm; padding-top:1.4mm; text-align:center;
+    font-family:'Cormorant Garamond',serif; font-style:italic; font-size:9pt;
+    line-height:1.12; color:#6a5232;
   }
-  /* count pip */
-  .count{
-    position:absolute; bottom:2.6mm; right:3.4mm; z-index:2;
-    font-family:'Cinzel',serif; font-size:6.2pt; letter-spacing:.08em;
-    color:var(--ink-soft); opacity:.7;
+  .flavour::before{
+    content:"\2767"; position:absolute; top:-1.0mm; left:50%; transform:translateX(-50%);
+    color:var(--gold); font-style:normal; font-size:8pt; background:transparent;
   }
+  .flavour i{display:block; height:0;}
+
+  .pip{position:absolute; bottom:2.4mm; right:3.4mm; z-index:4; font-family:'Cinzel',serif; font-size:6pt; letter-spacing:.06em; color:var(--ink3); opacity:.75;}
 
   /* ---------- print ---------- */
-  @page{size:A4 portrait; margin:8mm;}
+  @page{size:A4 portrait; margin:7mm;}
   @media print{
     body{background:#fff;}
     .controls,.legend{display:none !important;}
-    .sheet{
-      gap:0; padding:0; display:grid;
-      grid-template-columns:repeat(3,60mm);
-      justify-content:center; align-content:start;
-    }
-    .card{
-      box-shadow:none; border:0.2mm solid #cdbf9b;
-      border-radius:2mm; margin:1mm;
-      -webkit-print-color-adjust:exact; print-color-adjust:exact;
-      break-inside:avoid;
-    }
-    .card::after{box-shadow:none;}
+    .sheet{gap:0; padding:0; display:grid; grid-template-columns:repeat(3,63mm); justify-content:center; align-content:start;}
+    .card{margin:0.6mm; box-shadow:none; outline:0.15mm solid #cdbf9b; outline-offset:-0.05mm;
+      -webkit-print-color-adjust:exact; print-color-adjust:exact; break-inside:avoid;}
   }
 </style>
 </head>
 <body>
-  <div class="controls">
-    <h1>First in the Field</h1>
-    <p class="sub">An Age-of-Wonder priority race · print &amp; play deck</p>
-    <p>39 cards across Field, Study and Hall, plus Tactics and Faction powers.
-       Standard size (60 × 86&nbsp;mm), nine to an A4 page. Print at 100% scale
-       (no “fit to page”), then cut on the hairlines.</p>
-    <button class="btn" onclick="window.print()">Print&nbsp;deck</button>
-    <div class="legend">
-      <span><i style="background:#2f5d3a"></i>Field</span>
-      <span><i style="background:#1f4f5e"></i>Study</span>
-      <span><i style="background:#7c2f2f"></i>Hall</span>
-      <span><i style="background:#4a3b63"></i>Tactic</span>
-      <span><i style="background:#7a5520"></i>Faction</span>
-    </div>
+
+<!-- master defs: filigree + every engraving -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <symbol id="orn-corner" viewBox="0 0 40 40">
+    <path d="M3 3 H17 M3 3 V17 M3 9 C11 9 15 7 17 3 M9 3 C9 11 7 15 3 17 M4 4 C14 6 20 12 22 22"/>
+    <circle cx="22" cy="22" r="1.5"/>
+  </symbol>
+
+  <!-- FIELD specimens -->
+  <symbol id="a-beetle" viewBox="0 0 100 100">
+    <ellipse cx="50" cy="60" rx="17" ry="25"/><line x1="50" y1="37" x2="50" y2="83"/>
+    <ellipse cx="50" cy="36" rx="11" ry="9"/><circle cx="50" cy="23" r="7"/>
+    <path d="M44 19C38 11 34 13 33 8 M56 19C62 11 66 13 67 8"/>
+    <path d="M33 42C21 40 17 32 13 28 M67 42C79 40 83 32 87 28"/>
+    <path d="M31 58C19 58 15 54 10 52 M69 58C81 58 85 54 90 52"/>
+    <path d="M33 74C23 78 19 84 15 88 M67 74C77 78 81 84 85 88"/>
+    <path d="M44 52h12 M44 62h12"/>
+  </symbol>
+  <symbol id="a-fern" viewBox="0 0 100 100">
+    <path d="M50 94 V10 M50 80C32 76 24 62 22 50 M50 80C68 76 76 62 78 50 M50 62C35 58 28 46 27 36 M50 62C65 58 72 46 73 36 M50 44C38 41 33 32 32 24 M50 44C62 41 67 32 68 24 M50 28C42 26 38 20 38 14 M50 28C58 26 62 20 62 14"/>
+  </symbol>
+  <symbol id="a-bird" viewBox="0 0 100 100">
+    <path d="M28 58C30 42 44 34 58 37 C72 40 74 50 68 56 C62 62 50 60 44 64"/>
+    <circle cx="60" cy="42" r="2" fill="currentColor"/><path d="M70 41 L84 37 L72 46"/>
+    <path d="M44 64 C30 70 22 84 30 92 C26 80 40 74 50 70"/>
+    <path d="M40 66 l2 18 M50 66 l3 20"/><path d="M28 58 C19 56 14 50 16 44"/>
+    <line x1="22" y1="80" x2="48" y2="80"/>
+  </symbol>
+  <symbol id="a-orchid" viewBox="0 0 100 100">
+    <path d="M50 94 C50 72 50 58 50 50"/>
+    <path d="M50 50 C40 42 36 30 41 22 C47 31 49 39 51 46"/>
+    <path d="M50 50 C60 42 64 30 59 22 C53 31 51 39 49 46"/>
+    <path d="M50 48 C41 49 32 43 27 34 M50 48 C59 49 68 43 73 34"/>
+    <ellipse cx="50" cy="53" rx="6" ry="9"/>
+    <path d="M44 76 C30 74 23 67 21 60 M56 76 C70 74 77 67 79 60"/>
+  </symbol>
+  <symbol id="a-frog" viewBox="0 0 100 100">
+    <path d="M30 56 C28 42 40 33 50 33 C60 33 72 42 70 56 C68 67 58 71 50 71 C42 71 32 67 30 56Z"/>
+    <circle cx="40" cy="40" r="6"/><circle cx="60" cy="40" r="6"/>
+    <circle cx="40" cy="40" r="2" fill="currentColor"/><circle cx="60" cy="40" r="2" fill="currentColor"/>
+    <path d="M30 60 C20 58 14 64 12 72 C18 70 24 70 30 66 M70 60 C80 58 86 64 88 72 C82 70 76 70 70 66"/>
+    <path d="M34 70 C28 79 31 88 39 87 C36 81 41 75 47 73 M66 70 C72 79 69 88 61 87 C64 81 59 75 53 73"/>
+    <path d="M43 56 C47 60 53 60 57 56"/>
+  </symbol>
+  <symbol id="a-butterfly" viewBox="0 0 100 100">
+    <line x1="50" y1="24" x2="50" y2="72"/>
+    <path d="M48 18C44 10 40 10 38 14 M52 18C56 10 60 10 62 14"/>
+    <path d="M50 32 C30 16 12 24 16 40 C19 54 36 50 50 46Z"/>
+    <path d="M50 32 C70 16 88 24 84 40 C81 54 64 50 50 46Z"/>
+    <path d="M50 48 C36 50 24 60 30 72 C35 82 47 72 50 62Z"/>
+    <path d="M50 48 C64 50 76 60 70 72 C65 82 53 72 50 62Z"/>
+    <circle cx="31" cy="35" r="2.6"/><circle cx="69" cy="35" r="2.6"/>
+  </symbol>
+  <symbol id="a-ship" viewBox="0 0 100 100">
+    <path d="M16 70 C30 86 70 86 84 70 Z"/><line x1="14" y1="70" x2="86" y2="70"/>
+    <line x1="50" y1="70" x2="50" y2="14"/><line x1="34" y1="66" x2="34" y2="30"/><line x1="66" y1="66" x2="66" y2="30"/>
+    <path d="M50 18 C62 22 64 33 50 35Z M50 38 C64 42 66 54 50 56Z"/>
+    <path d="M34 32 C44 35 45 44 34 47Z M66 32 C56 35 55 44 66 47Z"/>
+    <path d="M50 14 l9 4 -9 3"/>
+  </symbol>
+  <symbol id="a-nautilus" viewBox="0 0 100 100">
+    <path d="M58 80 C34 80 20 62 22 44 C24 28 38 18 54 20 C70 22 80 34 78 48 C76 60 64 66 54 62 C46 59 44 50 50 46 C55 43 60 47 58 52"/>
+    <path d="M54 20 L57 40 M40 24 L50 41 M28 36 L46 46 M24 52 L46 52 M30 66 L48 58"/>
+  </symbol>
+  <symbol id="a-medal" viewBox="0 0 100 100">
+    <path d="M38 18 L50 50 L62 18"/><circle cx="50" cy="64" r="20"/><circle cx="50" cy="64" r="13" stroke-dasharray="2 3"/>
+    <path d="M50 55 l2.8 6 6.6 .5 -5 4.6 1.6 6.4 -6 -3.6 -6 3.6 1.6 -6.4 -5 -4.6 6.6 -.5z" fill="currentColor"/>
+  </symbol>
+
+  <!-- STUDY instruments -->
+  <symbol id="a-quill" viewBox="0 0 100 100">
+    <path d="M30 84 C50 60 70 40 86 16 C72 24 50 44 34 74"/>
+    <path d="M42 60 q9 -3 15 -9 M50 50 q9 -3 15 -9 M58 40 q9 -3 15 -9"/>
+    <path d="M24 88 l8 -12"/>
+    <path d="M20 80 h26 v9 a13 6 0 0 1 -26 0 z"/>
+  </symbol>
+  <symbol id="a-drawer" viewBox="0 0 100 100">
+    <rect x="16" y="22" width="68" height="56" rx="2"/>
+    <circle cx="34" cy="40" r="6"/><circle cx="66" cy="40" r="6"/><circle cx="50" cy="60" r="6"/>
+    <line x1="34" y1="33" x2="34" y2="47"/><line x1="66" y1="33" x2="66" y2="47"/><line x1="50" y1="53" x2="50" y2="67"/>
+    <path d="M28 40 l-6 -3 M40 40 l6 -3 M60 40 l-6 -3 M72 40 l6 -3 M44 60 l-6 -3 M56 60 l6 -3"/>
+  </symbol>
+  <symbol id="a-tree" viewBox="0 0 100 100">
+    <path d="M50 86 V66 M50 66 C50 52 30 52 30 38 M50 66 C50 52 70 52 70 38 M30 38 C30 28 20 28 20 18 M30 38 C30 28 40 28 40 18 M70 38 C70 28 60 28 60 18 M70 38 C70 28 80 28 80 18"/>
+    <circle cx="50" cy="88" r="2.6"/><circle cx="20" cy="16" r="2.6"/><circle cx="40" cy="16" r="2.6"/><circle cx="60" cy="16" r="2.6"/><circle cx="80" cy="16" r="2.6"/>
+  </symbol>
+  <symbol id="a-scalpel" viewBox="0 0 100 100">
+    <path d="M18 82 L58 42 C65 35 72 38 69 45 L42 70 Z"/><line x1="18" y1="82" x2="36" y2="64"/>
+    <path d="M78 22 C70 38 70 60 78 82 M78 22 C86 38 86 60 78 82"/><line x1="78" y1="22" x2="78" y2="14"/>
+  </symbol>
+  <symbol id="a-lucida" viewBox="0 0 100 100">
+    <line x1="28" y1="16" x2="28" y2="84"/><line x1="18" y1="84" x2="46" y2="84"/>
+    <rect x="20" y="20" width="16" height="16" rx="2" transform="rotate(45 28 28)"/>
+    <path d="M30 62 L72 88"/><path d="M66 80 l9 9 -2 -12z" fill="currentColor"/>
+  </symbol>
+  <symbol id="a-microscope" viewBox="0 0 100 100">
+    <path d="M30 84 q20 -5 40 0"/><path d="M38 84 C36 70 36 60 45 56"/>
+    <path d="M47 56 C40 46 43 28 54 21"/><rect x="49" y="11" width="9" height="14" rx="3"/>
+    <line x1="53" y1="25" x2="51" y2="41"/><circle cx="51" cy="45" r="3"/>
+    <line x1="39" y1="53" x2="63" y2="53"/><circle cx="52" cy="53" r="1.8" fill="currentColor"/>
+    <path d="M58 62 a6 6 0 1 0 0.1 0"/>
+  </symbol>
+  <symbol id="a-book" viewBox="0 0 100 100">
+    <path d="M50 30 C40 24 24 24 16 28 V74 C24 70 40 70 50 76 C60 70 76 70 84 74 V28 C76 24 60 24 50 30 Z"/>
+    <line x1="50" y1="30" x2="50" y2="76"/>
+    <path d="M24 40 h18 M24 48 h18 M24 56 h15 M58 40 h18 M58 48 h18 M58 56 h15"/>
+  </symbol>
+  <symbol id="a-lens" viewBox="0 0 100 100">
+    <circle cx="44" cy="42" r="22"/><circle cx="44" cy="42" r="17"/>
+    <line x1="60" y1="58" x2="82" y2="82" stroke-width="5"/>
+    <path d="M35 33 a12 12 0 0 1 12 -3"/>
+  </symbol>
+  <symbol id="a-press" viewBox="0 0 100 100">
+    <circle cx="50" cy="16" r="10"/><path d="M50 6 v20 M40 16 h20 M43 9 l14 14 M57 9 l-14 14"/>
+    <rect x="22" y="40" width="56" height="9" rx="2"/>
+    <path d="M28 49 v30 M72 49 v30 M28 79 l-7 7 M72 79 l7 7"/>
+    <rect x="38" y="52" width="24" height="18" rx="1"/>
+  </symbol>
+
+  <!-- HALL society -->
+  <symbol id="a-lectern" viewBox="0 0 100 100">
+    <path d="M30 38 L70 38 L62 60 L38 60 Z"/><path d="M34 44 h32 M37 51 h26"/>
+    <line x1="50" y1="60" x2="50" y2="84"/><path d="M36 84 h28"/>
+    <path d="M50 38 V30"/><circle cx="50" cy="26" r="3.4"/>
+  </symbol>
+  <symbol id="a-scroll" viewBox="0 0 100 100">
+    <path d="M28 24 C21 24 21 35 28 35 H72 C79 35 79 24 72 24 Z"/>
+    <path d="M30 35 V70 C23 70 23 81 30 81 H70 C77 81 77 70 70 70 V35"/>
+    <path d="M35 46 h30 M35 54 h30 M35 62 h22"/>
+  </symbol>
+  <symbol id="a-letter" viewBox="0 0 100 100">
+    <rect x="20" y="28" width="60" height="44" rx="2"/><path d="M20 31 L50 54 L80 31"/>
+    <circle cx="50" cy="63" r="8" fill="currentColor" opacity="0.16"/><circle cx="50" cy="63" r="8"/>
+    <path d="M46 59 l8 8 M54 59 l-8 8"/>
+  </symbol>
+  <symbol id="a-quills" viewBox="0 0 100 100">
+    <path d="M22 84 C44 60 60 40 80 18 C66 22 48 38 30 70"/>
+    <path d="M78 84 C56 60 40 40 20 18 C34 22 52 38 70 70"/>
+    <path d="M30 70 l-7 7 M70 70 l7 7"/><path d="M40 58 q6 -3 10 -8 M60 58 q-6 -3 -10 -8"/>
+  </symbol>
+  <symbol id="a-revise" viewBox="0 0 100 100">
+    <rect x="28" y="18" width="44" height="60" rx="2"/>
+    <path d="M34 30 h32 M34 38 h32 M34 46 h22"/><path d="M40 60 l9 10 20 -24"/>
+  </symbol>
+  <symbol id="a-society" viewBox="0 0 100 100">
+    <path d="M14 38 L50 14 L86 38 Z"/><line x1="20" y1="44" x2="80" y2="44"/>
+    <line x1="26" y1="44" x2="26" y2="78"/><line x1="38" y1="44" x2="38" y2="78"/><line x1="50" y1="44" x2="50" y2="78"/><line x1="62" y1="44" x2="62" y2="78"/><line x1="74" y1="44" x2="74" y2="78"/>
+    <line x1="16" y1="84" x2="84" y2="84"/><path d="M50 14 v-5"/>
+  </symbol>
+  <symbol id="a-news" viewBox="0 0 100 100">
+    <rect x="22" y="20" width="56" height="62" rx="1"/><path d="M28 30 h44"/>
+    <rect x="28" y="38" width="20" height="18"/><path d="M52 40 h20 M52 46 h20 M52 52 h20 M28 62 h44 M28 68 h44 M28 74 h30"/>
+  </symbol>
+
+  <!-- TACTICS -->
+  <symbol id="a-veiled" viewBox="0 0 100 100">
+    <path d="M50 20 C32 20 24 40 24 60 C24 74 34 80 50 80 C66 80 76 74 76 60 C76 40 68 20 50 20 Z"/>
+    <path d="M24 62 q8 8 17 0 q9 8 18 0 q8 8 17 0"/><circle cx="50" cy="16" r="4"/>
+    <path d="M40 46 q10 -7 20 0"/>
+  </symbol>
+  <symbol id="a-stamp" viewBox="0 0 100 100">
+    <circle cx="50" cy="14" r="5"/><line x1="50" y1="19" x2="50" y2="30"/>
+    <rect x="40" y="30" width="20" height="15" rx="2"/><rect x="24" y="47" width="52" height="20" rx="2"/>
+    <path d="M34 57 h32"/><line x1="20" y1="74" x2="80" y2="74"/>
+  </symbol>
+  <symbol id="a-coral" viewBox="0 0 100 100">
+    <path d="M50 86 V64 M50 64 C50 52 36 50 34 38 M50 64 C50 52 64 50 66 38 M34 38 C34 28 26 28 24 20 M34 38 C34 28 42 28 44 20 M66 38 C66 28 74 28 76 20 M66 38 C66 28 58 28 56 20"/>
+    <circle cx="24" cy="18" r="3"/><circle cx="44" cy="18" r="3"/><circle cx="56" cy="18" r="3"/><circle cx="76" cy="18" r="3"/><circle cx="50" cy="62" r="3"/>
+  </symbol>
+  <symbol id="a-strike" viewBox="0 0 100 100">
+    <rect x="30" y="22" width="40" height="56" rx="2"/><path d="M36 34 h28 M36 42 h28 M36 50 h20"/>
+    <path d="M22 82 L80 22" stroke-width="5.5"/>
+  </symbol>
+  <symbol id="a-dove" viewBox="0 0 100 100">
+    <path d="M20 56 C36 42 54 40 72 46 C61 49 55 56 57 64 C48 59 34 58 20 56 Z"/>
+    <path d="M72 46 L86 41 L75 52"/><path d="M57 64 C59 72 65 76 74 76"/>
+    <rect x="38" y="58" width="17" height="12" rx="1"/><path d="M38 59 l8 6 9 -6"/>
+  </symbol>
+  <symbol id="a-trumpet" viewBox="0 0 100 100">
+    <path d="M18 50 L62 37 C74 33 82 42 82 50 C82 58 74 67 62 63 L18 50 Z"/>
+    <ellipse cx="80" cy="50" rx="5" ry="10"/><path d="M30 50 v15 M40 53 v12"/>
+    <path d="M88 42 q7 8 0 16 M93 37 q12 13 0 26"/>
+  </symbol>
+  <symbol id="a-key" viewBox="0 0 100 100">
+    <circle cx="34" cy="38" r="14"/><circle cx="34" cy="38" r="6"/>
+    <line x1="44" y1="48" x2="76" y2="80"/><path d="M68 72 l8 8 M60 64 l8 8"/>
+  </symbol>
+  <symbol id="a-erase" viewBox="0 0 100 100">
+    <rect x="28" y="24" width="44" height="50" rx="2"/><path d="M34 36 h32 M34 44 h32"/>
+    <rect x="38" y="52" width="32" height="14" rx="3" transform="rotate(-8 54 59)"/><path d="M40 70 q12 -7 28 -2"/>
+  </symbol>
+
+  <!-- FACTIONS -->
+  <symbol id="a-tortoise" viewBox="0 0 100 100">
+    <path d="M24 58 C24 42 38 33 52 33 C68 33 78 44 78 58 C78 64 72 66 52 66 C34 66 24 64 24 58 Z"/>
+    <path d="M31 50 l8 -11 8 11 8 -11 8 11 M28 57 h48"/>
+    <path d="M78 52 C86 48 90 53 88 59 C86 63 82 63 78 60"/><circle cx="85" cy="55" r="1.5" fill="currentColor"/>
+    <path d="M31 66 l-4 9 M45 66 l-2 9 M61 66 l2 9 M73 66 l4 9"/><path d="M24 58 C18 58 16 62 18 67"/>
+  </symbol>
+  <symbol id="a-fanfare" viewBox="0 0 100 100">
+    <path d="M14 44 L68 30 C80 27 86 38 80 46 C86 54 80 65 68 62 L14 54 Z"/>
+    <ellipse cx="16" cy="49" rx="4" ry="7"/>
+    <path d="M62 48 h24 v26 l-12 -8 -12 8 z"/><path d="M70 56 h8"/>
+  </symbol>
+  <symbol id="a-polymath" viewBox="0 0 100 100">
+    <path d="M50 16 L34 80 M50 16 L66 80"/><circle cx="50" cy="16" r="4"/>
+    <path d="M28 78 L80 26"/><path d="M74 22 l9 9 -3 -12z" fill="currentColor"/>
+    <path d="M38 52 a14 9 0 0 0 24 0"/>
+  </symbol>
+  <symbol id="a-cabinet" viewBox="0 0 100 100">
+    <rect x="20" y="16" width="60" height="68" rx="2"/><line x1="50" y1="16" x2="50" y2="84"/>
+    <line x1="20" y1="40" x2="80" y2="40"/><line x1="20" y1="60" x2="80" y2="60"/>
+    <circle cx="35" cy="28" r="4"/><path d="M58 22 l6 11 6 -11"/><path d="M28 50 q6 -8 12 0"/><circle cx="65" cy="50" r="4"/>
+    <path d="M30 72 h12 M65 66 v12"/>
+  </symbol>
+  <symbol id="a-palette" viewBox="0 0 100 100">
+    <path d="M30 36 C42 24 64 24 74 38 C82 50 76 64 60 66 C54 67 54 74 48 74 C34 74 22 60 24 48 C25 43 27 39 30 36 Z"/>
+    <circle cx="40" cy="40" r="2.8" fill="currentColor"/><circle cx="54" cy="35" r="2.8" fill="currentColor"/><circle cx="65" cy="46" r="2.8" fill="currentColor"/><circle cx="59" cy="58" r="2.8" fill="currentColor"/>
+    <circle cx="40" cy="58" r="5"/><path d="M66 64 L86 86"/><path d="M82 80 l8 8" stroke-width="4.5"/>
+  </symbol>
+</defs></svg>
+
+<div class="controls">
+  <h1>First in the Field</h1>
+  <div class="sub">Being a Compleat Deck of Discoveries, Instruments &amp; Intrigues</div>
+  <p>39 engraved specimen-plates — Field, Study &amp; Hall, with Tactics and Faction
+     powers. Standard 63 × 88&nbsp;mm, nine to an A4 leaf. Print at 100% (no “fit to
+     page”), then cut on the hairlines. Sleeve them and they pass for the real thing.</p>
+  <button class="btn" onclick="window.print()">Print&nbsp;the&nbsp;deck</button>
+  <div class="legend">
+    <span><i style="background:#3f6b43"></i>Field</span>
+    <span><i style="background:#2b5563"></i>Study</span>
+    <span><i style="background:#8a3030"></i>Hall</span>
+    <span><i style="background:#574774"></i>Tactic</span>
+    <span><i style="background:#876327"></i>Faction</span>
   </div>
-  <div class="sheet" id="sheet"></div>
+</div>
+
+<div class="sheet" id="sheet"></div>
 
 <script>
-/* ---- decorative motifs (faint line watermarks) ---- */
-const MOTIF = {
-  field:'<svg viewBox="0 0 100 100"><path d="M50 96 V8 M50 80C32 76 24 62 22 50 M50 80C68 76 76 62 78 50 M50 62C35 58 28 46 27 36 M50 62C65 58 72 46 73 36 M50 44C38 41 33 32 32 24 M50 44C62 41 67 32 68 24 M50 26C41 24 37 18 37 12 M50 26C59 24 63 18 63 12"/></svg>',
-  study:'<svg viewBox="0 0 100 100"><path d="M38 88h40 M30 88h6 M58 84V62 M58 62l-14-9 M44 53l6-11 M50 42a8 8 0 1 1 14 8l-9 14 M62 30l10 6 M70 24l-9 16"/><circle cx="55" cy="34" r="3.5"/></svg>',
-  hall:'<svg viewBox="0 0 100 100"><path d="M24 86l46-58c8-10 16-14 16-14s-2 9-8 19 M70 28C50 40 34 56 24 86 M30 74c14-4 28-16 36-30 M40 60c10-3 19-11 25-21"/></svg>',
-  tactic:'<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="30"/><circle cx="50" cy="50" r="22" stroke-dasharray="3 4"/><path d="M50 36l4 10 11 .5-8.5 7 3 10.5L50 68l-12.5 6 3-10.5-8.5-7 11-.5z"/></svg>',
-  faction:'<svg viewBox="0 0 100 100"><circle cx="50" cy="42" r="24"/><path d="M50 30l4.5 10.5L66 42l-8.5 8 2.5 11.5L50 56l-10 5.5L42.5 50 34 42l11.5-1.5z M38 64l-8 26 16-9 12 9-6-25"/></svg>'
-};
-const KINDLABEL = {field:'Field',study:'Study',hall:'Hall',tactic:'Tactic',faction:'Faction'};
-const PIP = {I:'×3',II:'×2',III:'×1'};
+const KIND={field:'Field',study:'Study',hall:'Hall',tactic:'Tactic',faction:'Faction'};
+const PIP={I:'×3',II:'×2',III:'×1'};
+function roman(n){const m=[['M',1000],['CM',900],['D',500],['CD',400],['C',100],['XC',90],['L',50],['XL',40],['X',10],['IX',9],['V',5],['IV',4],['I',1]];let r='';for(const[s,v]of m){while(n>=v){r+=s;n-=v;}}return r;}
 
-const C = [
- /* ---- FIELD ---- */
- {k:'field',t:'I',cost:0,n:'Collecting Trip',b:[['Activate','+2 Specimens'],['Trigger','→ Study']],f:'A satchel, a net, and good boots.'},
- {k:'field',t:'I',cost:0,n:'Roadside Botanizing',b:[['Activate','+1 Specimen'],['Passive','+1 Specimen on your first Field action each round']],f:'Wonders grow in the humblest ditch.'},
- {k:'field',t:'I',cost:0,n:'Hired Guide',b:[['Activate','+2 Specimens'],['Passive','On a Field action, look at 2 row cards, draft 1']],f:'He knows where the orchids hide.'},
- {k:'field',t:'II',cost:2,n:"A Patron's Grant",b:[['Passive','+1 Specimen per Field action']],f:'Her ladyship funds the curious.'},
- {k:'field',t:'II',cost:2,n:'Expedition Upriver',b:[['Activate','+4 Specimens'],['Trigger','→ Study']],f:'Beyond the last chart, life teems.'},
- {k:'field',t:'II',cost:2,n:"The Naturalist's Network",b:[['Activate','+2 Specimens'],['Passive','While you lead the Field, +1 Specimen per Field action']],f:'Letters cross the globe by every post.'},
- {k:'field',t:'III',cost:4,n:'The Grand Voyage',b:[['Activate','+6 Specimens'],['Trigger','→ Study']],f:'Five years before the mast of science.'},
- {k:'field',t:'III',cost:5,n:'Royal Patronage',b:[['Passive','+2 Specimens per Field action; counts double toward Field lead']],f:'By appointment to the Crown.'},
- {k:'field',t:'III',cost:4,n:'Rediscovered Cabinet',b:[['Activate','+3 Specimens, then draw a Tactic'],['Passive','Your first build each round costs 1 less']],f:'Dust — and a forgotten marvel beneath.'},
-
- /* ---- STUDY ---- */
- {k:'study',t:'I',cost:0,n:'Field Notes',b:[['Activate','2 Specimens → 1 Finding']],f:'Ink dries slower than memory fades.'},
- {k:'study',t:'I',cost:0,n:'Pressing & Pinning',b:[['Activate','3 Specimens → 1 Finding'],['Trigger','→ Hall']],f:'Beauty, fixed beneath glass.'},
- {k:'study',t:'II',cost:2,n:'Classify',b:[['Activate','Up to 4 Specimens → Findings at 1:1'],['Trigger','→ Hall']],f:'Order imposed upon the wild.'},
- {k:'study',t:'II',cost:2,n:'Dissection Bench',b:[['Activate','3 Specimens → 2 Findings']],f:'Truth lies under the scalpel.'},
- {k:'study',t:'II',cost:2,n:'Camera Lucida',b:[['Passive','Findings cap +1; once a round your first conversion is 1:1']],f:'The hand traces what the eye beholds.'},
- {k:'study',t:'II',cost:3,n:'Shared Microscope',b:[['Activate','Up to 5 Specimens → Findings at 1:1'],['Passive','Usable only while you hold a prime Study tool']],f:'One fine lens, many eager eyes.'},
- {k:'study',t:'III',cost:4,n:'The Great Atlas',b:[['Passive','Findings cap +2; first classification each season is 1:1']],f:'Every leaf upon a single shelf.'},
- {k:'study',t:'III',cost:5,n:'A Standardized System',b:[['Passive','All your conversions are 1:1; counts double toward Study lead']],f:'Two words, and the creature is named forever.'},
- {k:'study',t:'III',cost:4,n:"Engraver's Workshop",b:[['Activate','Up to 4 Specimens → Findings at 1:1'],['Trigger','→ Hall'],['Passive','Your Findings do not decay this round']],f:'The plate outlasts the man.'},
-
- /* ---- HALL ---- */
- {k:'hall',t:'I',cost:0,n:'Present a Paper',b:[['Activate','Findings → claim, str = Findings (max 3)'],['Trigger','→ Field']],f:'Silence, gentlemen — the fellow has findings.'},
- {k:'hall',t:'I',cost:0,n:'Read at the Meeting',b:[['Activate','Findings → claim, str = Findings (max 2)'],['Passive','+1 Standing on a successful claim']],f:'A modest note, warmly received.'},
- {k:'hall',t:'II',cost:2,n:'Lodge a Claim',b:[['Activate','Findings → sealed claim (garrison), str = Findings +1']],f:'Sealed, dated, and not yet read aloud.'},
- {k:'hall',t:'II',cost:2,n:'Monograph',b:[['Activate','Findings → claim, str = Findings'],['Trigger','→ Field'],['Passive','Excess Acclaim is not fully lost — bank 1 Finding']],f:'Forty pages none shall dispute.'},
- {k:'hall',t:'II',cost:3,n:'Contested Genus',b:[['Activate','Findings → claim, str = Findings'],['Passive','Your claims reveal at +1']],f:'Two names, one creature, no peace.'},
- {k:'hall',t:'III',cost:4,n:'The Definitive Revision',b:[['Activate','Findings → claim, str = Findings +2'],['Trigger','→ Field']],f:'All prior work, respectfully corrected.'},
- {k:'hall',t:'III',cost:5,n:'Founding Fellow',b:[['Passive','Your sealed claims reveal at +2; hold a position in two fields at once']],f:'His portrait hangs above the door.'},
- {k:'hall',t:'III',cost:4,n:'Sensational Discovery',b:[['Activate','Findings → claim, str = Findings'],['On success','Advance the Exhibition clock +1 extra and draw a Tactic'],['Trigger','→ Field']],f:'The morning papers will not sleep.'},
-
- /* ---- TACTICS ---- */
- {k:'tactic',t:'Feint',cost:null,n:'A Sensational Specimen',b:[['Effect','In a presentation, +2 to your side on reveal']],f:'Kept under cloth until the gasp.'},
- {k:'tactic',t:'Ambush',cost:null,n:'Prior Publication',b:[['Effect','When defending, reveal to discredit one challenging paper before the compare']],f:'“I printed it last spring, sir.”'},
- {k:'tactic',t:'Overrun',cost:null,n:'A Whole New Genus',b:[['Effect','If your claim succeeds, excess Acclaim carries to an adjacent field']],f:'One discovery begets a dozen.'},
- {k:'tactic',t:'Counter',cost:null,n:'Anonymous Referee',b:[['Effect','Cancel one Tactic an opponent just revealed']],f:'A single line sinks the paper.'},
- {k:'tactic',t:'Defence',cost:null,n:'Pre-emptive Letter',b:[['Effect','Play when challenged: +1 defence for each field you lead']],f:'Posted before the accusation lands.'},
- {k:'tactic',t:'Tempo',cost:null,n:'Press Sensation',b:[['Effect','Gain +2 Standing now; advance the Exhibition clock +1']],f:'Tomorrow, every salon speaks your name.'},
- {k:'tactic',t:'Toll',cost:null,n:'Borrowed Type Specimen',b:[['Effect','Your next presentation this turn ignores the Hall toll']],f:'Just this once, from the great collection.'},
- {k:'tactic',t:'Recover',cost:null,n:'Erratum',b:[['Effect','After a failed claim, return the spent Findings to you']],f:'A small correction; the work survives.'},
-
- /* ---- FACTIONS ---- */
- {k:'faction',t:'The Long Game',cost:null,n:'The Systematist',b:[['Power','Your Findings never decay; +2 Specimen stockpile cap']],f:'Patience is itself a method.'},
- {k:'faction',t:'The Aggressor',cost:null,n:'The Sensationalist',b:[['Power','Each claim you contest advances the Exhibition clock +1; +1 str attacking an occupied field']],f:'Wonder sells; let them gasp.'},
- {k:'faction',t:'The Combo',cost:null,n:'The Polymath',b:[['Power','Once per turn, ignore one toll when a chain crosses a band you do not lead']],f:'Field, study, and floor — all one art.'},
- {k:'faction',t:'The Drafter',cost:null,n:'The Collector',b:[['Power','+1 Specimen on every Field action; peek the top of the Field row before drafting']],f:'He owns what others merely seek.'},
- {k:'faction',t:'The Producer',cost:null,n:'The Illustrator',b:[['Power','Once a round your first conversion is 1:1; Findings cap +1']],f:'Her plates are worth a thousand words.'}
+const C=[
+ /* FIELD */
+ {k:'field',t:'I',cost:0,n:'Collecting Trip',art:'a-beetle',la:'Coleoptera prima',b:[['Activate','+2 Specimens'],['Trigger','→ Study']],f:'A satchel, a net, and good boots.'},
+ {k:'field',t:'I',cost:0,n:'Roadside Botanizing',art:'a-fern',la:'Filix vialis',b:[['Activate','+1 Specimen'],['Passive','+1 Specimen on your first Field action each round']],f:'Wonders grow in the humblest ditch.'},
+ {k:'field',t:'I',cost:0,n:'Hired Guide',art:'a-bird',la:'Avis incognita',b:[['Activate','+2 Specimens'],['Passive','On a Field action, view 2 row cards, draft 1']],f:'He knows where the orchids hide.'},
+ {k:'field',t:'II',cost:2,n:"A Patron's Grant",art:'a-orchid',la:'Orchis reginae',b:[['Passive','+1 Specimen per Field action']],f:'Her ladyship funds the curious.'},
+ {k:'field',t:'II',cost:2,n:'Expedition Upriver',art:'a-frog',la:'Rana fluvialis',b:[['Activate','+4 Specimens'],['Trigger','→ Study']],f:'Beyond the last chart, life teems.'},
+ {k:'field',t:'II',cost:2,n:"The Naturalist's Network",art:'a-butterfly',la:'Orbis alatus',b:[['Activate','+2 Specimens'],['Passive','While you lead the Field, +1 Specimen per Field action']],f:'Letters cross the globe by every post.'},
+ {k:'field',t:'III',cost:4,n:'The Grand Voyage',art:'a-ship',la:'Magna navigatio',b:[['Activate','+6 Specimens'],['Trigger','→ Study']],f:'Five years before the mast of science.'},
+ {k:'field',t:'III',cost:5,n:'Royal Patronage',art:'a-medal',la:'Honoris causa',b:[['Passive','+2 Specimens per Field action; counts double toward Field lead']],f:'By appointment to the Crown.'},
+ {k:'field',t:'III',cost:4,n:'Rediscovered Cabinet',art:'a-nautilus',la:'Concha oblita',b:[['Activate','+3 Specimens, then draw a Tactic'],['Passive','Your first build each round costs 1 less']],f:'Dust — and a forgotten marvel beneath.'},
+ /* STUDY */
+ {k:'study',t:'I',cost:0,n:'Field Notes',art:'a-quill',la:'Nota bene',b:[['Activate','2 Specimens → 1 Finding']],f:'Ink dries slower than memory fades.'},
+ {k:'study',t:'I',cost:0,n:'Pressing & Pinning',art:'a-drawer',la:'Affixum',b:[['Activate','3 Specimens → 1 Finding'],['Trigger','→ Hall']],f:'Beauty, fixed beneath glass.'},
+ {k:'study',t:'II',cost:2,n:'Classify',art:'a-tree',la:'Ordo naturae',b:[['Activate','Up to 4 Specimens → Findings at 1:1'],['Trigger','→ Hall']],f:'Order imposed upon the wild.'},
+ {k:'study',t:'II',cost:2,n:'Dissection Bench',art:'a-scalpel',la:'Sub cultro',b:[['Activate','3 Specimens → 2 Findings']],f:'Truth lies under the scalpel.'},
+ {k:'study',t:'II',cost:2,n:'Camera Lucida',art:'a-lucida',la:'Manus et lux',b:[['Passive','Findings cap +1; once a round your first conversion is 1:1']],f:'The hand traces what the eye beholds.'},
+ {k:'study',t:'II',cost:3,n:'Shared Microscope',art:'a-microscope',la:'Per vitrum',b:[['Activate','Up to 5 Specimens → Findings at 1:1'],['Passive','Usable only while you hold a prime Study tool']],f:'One fine lens, many eager eyes.'},
+ {k:'study',t:'III',cost:4,n:'The Great Atlas',art:'a-book',la:'Folio magno',b:[['Passive','Findings cap +2; first classification each season is 1:1']],f:'Every leaf upon a single shelf.'},
+ {k:'study',t:'III',cost:5,n:'A Standardized System',art:'a-lens',la:'Nomen fixum',b:[['Passive','All your conversions are 1:1; counts double toward Study lead']],f:'Two words, and the creature is named forever.'},
+ {k:'study',t:'III',cost:4,n:"Engraver's Workshop",art:'a-press',la:'Imprimatur',b:[['Activate','Up to 4 Specimens → Findings at 1:1'],['Trigger','→ Hall'],['Passive','Your Findings do not decay this round']],f:'The plate outlasts the man.'},
+ /* HALL */
+ {k:'hall',t:'I',cost:0,n:'Present a Paper',art:'a-lectern',la:'Coram societate',b:[['Activate','Findings → claim, str = Findings (max 3)'],['Trigger','→ Field']],f:'Silence — the fellow has findings.'},
+ {k:'hall',t:'I',cost:0,n:'Read at the Meeting',art:'a-scroll',la:'Lectum',b:[['Activate','Findings → claim, str = Findings (max 2)'],['Passive','+1 Standing on a successful claim']],f:'A modest note, warmly received.'},
+ {k:'hall',t:'II',cost:2,n:'Lodge a Claim',art:'a-letter',la:'Sub sigillo',b:[['Activate','Findings → sealed claim (garrison), str = Findings +1']],f:'Sealed, dated, not yet read aloud.'},
+ {k:'hall',t:'II',cost:2,n:'Monograph',art:'a-book',la:'Opus magnum',b:[['Activate','Findings → claim, str = Findings'],['Trigger','→ Field'],['Passive','Excess Acclaim is not fully lost — bank 1 Finding']],f:'Forty pages none shall dispute.'},
+ {k:'hall',t:'II',cost:3,n:'Contested Genus',art:'a-quills',la:'Lis nominis',b:[['Activate','Findings → claim, str = Findings'],['Passive','Your claims reveal at +1']],f:'Two names, one creature, no peace.'},
+ {k:'hall',t:'III',cost:4,n:'The Definitive Revision',art:'a-revise',la:'Correctio',b:[['Activate','Findings → claim, str = Findings +2'],['Trigger','→ Field']],f:'All prior work, respectfully corrected.'},
+ {k:'hall',t:'III',cost:5,n:'Founding Fellow',art:'a-society',la:'Inter immortales',b:[['Passive','Your sealed claims reveal at +2; hold a position in two fields at once']],f:'His portrait hangs above the door.'},
+ {k:'hall',t:'III',cost:4,n:'Sensational Discovery',art:'a-news',la:'Mirabile dictu',b:[['Activate','Findings → claim, str = Findings'],['On success','Advance the Exhibition clock +1 extra; draw a Tactic'],['Trigger','→ Field']],f:'The morning papers will not sleep.'},
+ /* TACTICS */
+ {k:'tactic',t:'Feint',cost:null,n:'A Sensational Specimen',art:'a-veiled',la:'Velatum',b:[['Effect','In a presentation, +2 to your side on reveal']],f:'Kept under cloth until the gasp.'},
+ {k:'tactic',t:'Ambush',cost:null,n:'Prior Publication',art:'a-stamp',la:'Prius impressum',b:[['Effect','When defending, reveal to discredit one challenging paper before the compare']],f:'“I printed it last spring, sir.”'},
+ {k:'tactic',t:'Overrun',cost:null,n:'A Whole New Genus',art:'a-coral',la:'Genus novum',b:[['Effect','If your claim succeeds, excess Acclaim carries to an adjacent field']],f:'One discovery begets a dozen.'},
+ {k:'tactic',t:'Counter',cost:null,n:'Anonymous Referee',art:'a-strike',la:'Anonymus',b:[['Effect','Cancel one Tactic an opponent just revealed']],f:'A single line sinks the paper.'},
+ {k:'tactic',t:'Defence',cost:null,n:'Pre-emptive Letter',art:'a-dove',la:'Praevenire',b:[['Effect','Play when challenged: +1 defence for each field you lead']],f:'Posted before the accusation lands.'},
+ {k:'tactic',t:'Tempo',cost:null,n:'Press Sensation',art:'a-trumpet',la:'Fama volat',b:[['Effect','Gain +2 Standing now; advance the Exhibition clock +1']],f:'Tomorrow, every salon speaks your name.'},
+ {k:'tactic',t:'Toll',cost:null,n:'Borrowed Type Specimen',art:'a-key',la:'Mutuatum',b:[['Effect','Your next presentation this turn ignores the Hall toll']],f:'Just this once, from the great collection.'},
+ {k:'tactic',t:'Recover',cost:null,n:'Erratum',art:'a-erase',la:'Erratum',b:[['Effect','After a failed claim, return the spent Findings to you']],f:'A small correction; the work survives.'},
+ /* FACTIONS */
+ {k:'faction',t:'Long Game',cost:null,n:'The Systematist',art:'a-tortoise',la:'Festina lente',b:[['Power','Your Findings never decay; +2 Specimen stockpile cap']],f:'Patience is itself a method.'},
+ {k:'faction',t:'Aggressor',cost:null,n:'The Sensationalist',art:'a-fanfare',la:'Stupete!',b:[['Power','Each claim you contest advances the Exhibition clock +1; +1 str attacking an occupied field']],f:'Wonder sells; let them gasp.'},
+ {k:'faction',t:'Combo',cost:null,n:'The Polymath',art:'a-polymath',la:'Omnia disco',b:[['Power','Once per turn, ignore one toll when a chain crosses a band you do not lead']],f:'Field, study and floor — all one art.'},
+ {k:'faction',t:'Drafter',cost:null,n:'The Collector',art:'a-cabinet',la:'Habeo omnia',b:[['Power','+1 Specimen on every Field action; peek the top of the Field row before drafting']],f:'He owns what others merely seek.'},
+ {k:'faction',t:'Producer',cost:null,n:'The Illustrator',art:'a-palette',la:'Mille verba',b:[['Power','Once a round your first conversion is 1:1; Findings cap +1']],f:'Her plates are worth a thousand words.'}
 ];
 
-const sheet = document.getElementById('sheet');
-C.forEach(c=>{
-  const el = document.createElement('div');
-  el.className = 'card k-'+c.k;
+const sheet=document.getElementById('sheet');
+C.forEach((c,i)=>{
+  const el=document.createElement('div');
+  el.className='card k-'+c.k;
   const seal = (c.cost!==null)
-    ? `<div class="seal">${c.cost}<small>prep</small></div>` : '';
-  const pip = (c.k==='field'||c.k==='study'||c.k==='hall') ? (PIP[c.t]||'×1') : '×1';
-  const lines = c.b.map(([lbl,txt])=>`<div class="line"><span class="lbl">${lbl}</span>${txt}</div>`).join('');
-  const tierLabel = (c.k==='field'||c.k==='study'||c.k==='hall') ? ('· '+c.t) : '';
-  const subTag = (c.k==='tactic') ? `<div class="tag">One-shot · ${c.t}</div>`
-               : (c.k==='faction') ? `<div class="tag">Player power · ${c.t}</div>` : '';
-  el.innerHTML = `
-    <div class="wm">${MOTIF[c.k]}</div>
+      ? `<div class="seal">${c.cost}</div>`
+      : `<div class="seal"><span class="glyph">&#10070;</span></div>`;
+  const center = `${KIND[c.k]} <span style="opacity:.6">&middot;</span> ${c.t}`;
+  const lines = c.b.map(([l,t])=>`<div class="line"><span class="lbl">${l}</span><span class="arrow">${t}</span></div>`).join('');
+  const pip = PIP[c.t]||'×1';
+  el.innerHTML=`
+    <div class="f-gold"></div><div class="f-ink"></div>
+    <span class="corner tl"><svg viewBox="0 0 40 40"><use href="#orn-corner"/></svg></span>
+    <span class="corner tr"><svg viewBox="0 0 40 40"><use href="#orn-corner"/></svg></span>
+    <span class="corner bl"><svg viewBox="0 0 40 40"><use href="#orn-corner"/></svg></span>
+    <span class="corner br"><svg viewBox="0 0 40 40"><use href="#orn-corner"/></svg></span>
     ${seal}
-    <div class="head"><span class="kind">${KINDLABEL[c.k]}</span><span class="tier">${tierLabel}</span></div>
-    <h2 class="name">${c.n}</h2>
-    ${subTag}
-    <div class="rule"><span>&#10087;</span></div>
-    <div class="body">${lines}</div>
-    <p class="flavor">${c.f}</p>
-    <span class="count">${pip}</span>`;
+    <div class="layer topstrip"><span class="plate">Pl. ${roman(i+1)}</span><span class="kindlab">${center}</span></div>
+    <div class="layer title"><div class="name">${c.n}</div><div class="binom">${c.la}</div></div>
+    <div class="layer window"><div class="art"><svg viewBox="0 0 100 100"><use href="#${c.art}"/></svg></div></div>
+    <div class="layer rules">${lines}</div>
+    <div class="layer flavour">${c.f}</div>
+    <span class="pip">${pip}</span>`;
   sheet.appendChild(el);
 });
 </script>
