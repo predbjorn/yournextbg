@@ -169,11 +169,30 @@
   .victory p{font-family:'Cormorant Garamond',serif; font-size:9.4pt; line-height:1.18; color:#322413; margin:.4mm 0; text-align:center;}
   .victory .k{font-family:'IM Fell English SC',serif; font-size:8pt; color:var(--hall);}
 
+  /* tiles (4 x A4) — hidden on screen, built by JS */
+  #tiles{display:none;}
+  .tilepage{position:relative; width:281mm; height:194mm; overflow:hidden; background:#fff;}
+  .tilabel{position:absolute; top:2mm; left:2.6mm; z-index:99; font-family:'IM Fell English SC',serif;
+    font-size:8.5pt; letter-spacing:.05em; color:#8a754a; background:rgba(255,252,244,.7); padding:0 1mm; border-radius:1mm;}
+
   /* ---- print ---- */
-  @page{size:A3 landscape; margin:6mm;}
+  @page { size:A3 landscape; margin:6mm; }       /* default */
+  @page a3page { size:A3 landscape; margin:6mm; }
+  @page a4tile { size:A4 landscape; margin:8mm; }
   @media print{
     body{background:#fff;} .bar{display:none !important;} .stage{padding:0; overflow:visible;}
-    .board{transform:none !important; box-shadow:none; -webkit-print-color-adjust:exact; print-color-adjust:exact;}
+    #board{transform:none !important; box-shadow:none;}
+    .board{-webkit-print-color-adjust:exact; print-color-adjust:exact;}
+
+    /* single A3 mode */
+    body.m-a3 #tiles{display:none;}
+    body.m-a3 #board{page:a3page;}
+
+    /* 4 x A4 tiled mode */
+    body.m-tiles .stage{display:none;}
+    body.m-tiles #tiles{display:block;}
+    body.m-tiles .tilepage{page:a4tile; break-after:page; outline:.2mm solid #c9bb95; outline-offset:-.1mm;}
+    body.m-tiles .tilepage:last-child{break-after:auto;}
   }
 </style>
 </head>
@@ -201,7 +220,8 @@
 
 <div class="bar">
   <span class="ttl">First in the Field — the common board</span>
-  <button class="btn" onclick="window.print()">Print (A3)</button>
+  <button class="btn" onclick="printMode('a3')">Print A3</button>
+  <button class="btn" onclick="printMode('tiles')">Print 4&times;A4</button>
   <button class="btn" onclick="fit()">Fit width</button>
   <button class="btn" onclick="full()">100%</button>
 </div>
@@ -290,6 +310,9 @@
 </div>
 </div>
 
+<!-- 4 x A4 tiles built by JS -->
+<div id="tiles"></div>
+
 <script>
 /* field band */
 const fm=document.getElementById('field-main');
@@ -339,6 +362,25 @@ window.addEventListener('resize',()=>{ if(board.dataset.fit==='1') fit(); });
 document.querySelector('.btn[onclick="fit()"]').addEventListener('click',()=>board.dataset.fit='1');
 document.querySelector('.btn[onclick="full()"]').addEventListener('click',()=>board.dataset.fit='0');
 board.dataset.fit='1'; fit();
+
+/* ---- print mode + 4 x A4 tiling ---- */
+function printMode(m){ document.body.className = (m==='tiles') ? 'm-tiles' : 'm-a3'; setTimeout(()=>window.print(),60); }
+document.body.className='m-a3';
+(function buildTiles(){
+  const PW=281, PH=194, K=562/398, vpad=2;   /* A4-landscape printable @8mm margin; 2x2 poster = 562x388mm */
+  const tiles=document.getElementById('tiles');
+  const place=['top-left','top-right','bottom-left','bottom-right'];
+  for(let r=0;r<2;r++) for(let c=0;c<2;c++){
+    const page=document.createElement('div'); page.className='tilepage';
+    const clone=board.cloneNode(true); clone.removeAttribute('id');
+    clone.style.position='absolute'; clone.style.transformOrigin='top left';
+    clone.style.transform='scale('+K+')'; clone.style.boxShadow='none';
+    clone.style.left=(-c*PW)+'mm'; clone.style.top=(vpad - r*PH)+'mm';
+    const lab=document.createElement('div'); lab.className='tilabel';
+    lab.textContent='Sheet '+(r*2+c+1)+' / 4 · '+place[r*2+c]+' — trim margins, butt-join';
+    page.appendChild(clone); page.appendChild(lab); tiles.appendChild(page);
+  }
+})();
 </script>
 </body>
 </html>
