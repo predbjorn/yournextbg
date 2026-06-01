@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>First in the Field — print &amp; play cards</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --field:#2f5d3a; --study:#1f4f5e; --hall:#7c2f2f;
+    --tactic:#4a3b63; --faction:#7a5520;
+    --gold:#b08d3c; --gold-lt:#d9bd77;
+    --ink:#3a2d1c; --ink-soft:#6b5a42;
+    --parch:#f4ead2;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;}
+  body{
+    font-family:'EB Garamond',Georgia,serif;
+    color:#e8dcc0;
+    background:
+      radial-gradient(120% 120% at 50% 0%, #1d2a28 0%, #141d22 55%, #0e1417 100%);
+    min-height:100vh;
+  }
+
+  /* ---------- screen chrome (not printed) ---------- */
+  .controls{
+    text-align:center; padding:34px 20px 8px;
+  }
+  .controls h1{
+    font-family:'Cinzel',serif; font-weight:600;
+    letter-spacing:.06em; margin:0 0 4px;
+    font-size:30px; color:#f0e6cd;
+    text-shadow:0 1px 0 #000;
+  }
+  .controls p{margin:6px auto 16px; max-width:640px; color:#b9ad8e; font-size:15px; line-height:1.5;}
+  .controls .sub{font-family:'Cormorant Garamond',serif; font-style:italic; font-size:18px; color:#cdbf9b;}
+  .btn{
+    font-family:'Cinzel',serif; font-size:13px; letter-spacing:.12em;
+    background:linear-gradient(180deg,var(--gold-lt),var(--gold));
+    color:#2a1f0c; border:none; padding:11px 26px; border-radius:3px;
+    cursor:pointer; box-shadow:0 2px 6px rgba(0,0,0,.4);
+  }
+  .btn:hover{filter:brightness(1.07);}
+  .legend{margin:18px auto 0; display:flex; gap:18px; justify-content:center; flex-wrap:wrap; font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:#9c9277;}
+  .legend span{display:inline-flex; align-items:center; gap:7px;}
+  .legend i{width:13px; height:13px; border-radius:2px; display:inline-block;}
+
+  /* ---------- gallery ---------- */
+  .sheet{
+    display:flex; flex-wrap:wrap; gap:6mm;
+    justify-content:center; align-content:flex-start;
+    padding:30px 24px 60px;
+  }
+
+  /* ---------- the card ---------- */
+  .card{
+    position:relative; width:60mm; height:86mm; overflow:hidden;
+    border-radius:3mm; color:var(--ink);
+    background:
+      radial-gradient(150% 120% at 50% -10%, #fbf5e2 0%, #f3e9cd 46%, #e9dcb8 100%);
+    box-shadow:0 6px 16px rgba(0,0,0,.45), inset 0 0 0 1px rgba(120,90,40,.25);
+    display:flex; flex-direction:column;
+    padding:4.4mm 4mm 3.6mm;
+    --accent:var(--field);
+  }
+  .card.k-field{--accent:var(--field);}
+  .card.k-study{--accent:var(--study);}
+  .card.k-hall{--accent:var(--hall);}
+  .card.k-tactic{--accent:var(--tactic);}
+  .card.k-faction{--accent:var(--faction);}
+
+  /* gilt inner frame */
+  .card::after{
+    content:""; position:absolute; inset:2mm;
+    border:0.5mm solid var(--gold);
+    border-radius:2mm; pointer-events:none;
+    box-shadow:inset 0 0 0 0.3mm rgba(255,255,255,.35);
+  }
+  /* faint top accent wash */
+  .card::before{
+    content:""; position:absolute; left:0; right:0; top:0; height:20mm;
+    background:linear-gradient(180deg, color-mix(in srgb, var(--accent) 16%, transparent), transparent);
+    pointer-events:none;
+  }
+
+  /* watermark motif */
+  .wm{
+    position:absolute; left:50%; top:54%; transform:translate(-50%,-50%);
+    width:42mm; height:42mm; color:var(--accent); opacity:.07;
+    pointer-events:none; z-index:0;
+  }
+  .wm svg{width:100%; height:100%; fill:none; stroke:currentColor; stroke-width:2.4;}
+
+  .card > *{position:relative; z-index:1;}
+
+  /* header row */
+  .head{display:flex; align-items:baseline; justify-content:space-between; gap:4px;}
+  .kind{
+    font-family:'Cinzel',serif; font-weight:600; font-size:8.6pt;
+    letter-spacing:.16em; text-transform:uppercase; color:var(--accent);
+  }
+  .tier{
+    font-family:'Cinzel',serif; font-size:8.4pt; letter-spacing:.12em;
+    color:var(--ink-soft);
+  }
+
+  /* cost seal */
+  .seal{
+    position:absolute; top:3mm; right:3mm; z-index:2;
+    width:8.2mm; height:8.2mm; border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, #f7eccb, #e7cf93 60%, #caa75f 100%);
+    border:0.5mm solid var(--gold);
+    box-shadow:0 1px 2px rgba(0,0,0,.3), inset 0 0 0 0.3mm rgba(255,255,255,.5);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Cinzel',serif; font-weight:600; font-size:9pt; color:#5a4216;
+  }
+  .seal small{font-size:4.2pt; letter-spacing:.04em; position:absolute; bottom:.7mm; font-family:'EB Garamond',serif; color:#6a4f1d;}
+
+  /* name */
+  .name{
+    font-family:'Cormorant Garamond',serif; font-weight:600;
+    font-size:15.5pt; line-height:1.04; margin:1.6mm 0 0;
+    color:#2c2113; letter-spacing:.005em;
+  }
+  .tag{
+    font-family:'EB Garamond',serif; font-style:italic; font-size:8pt;
+    color:var(--accent); margin-top:.4mm;
+  }
+
+  /* flourish divider */
+  .rule{display:flex; align-items:center; gap:2mm; margin:1.8mm 0 1.4mm;}
+  .rule::before,.rule::after{content:""; flex:1; height:0.3mm; background:linear-gradient(90deg,transparent,var(--gold),transparent);}
+  .rule span{color:var(--gold); font-size:8pt; transform:translateY(-.3mm);}
+
+  /* body */
+  .body{flex:1; display:flex; flex-direction:column; gap:1.5mm;}
+  .line{font-size:9.6pt; line-height:1.25; color:#352818;}
+  .lbl{
+    font-family:'Cinzel',serif; font-size:6.4pt; font-weight:600;
+    letter-spacing:.14em; text-transform:uppercase;
+    color:var(--accent); display:inline-block; margin-right:1.2mm;
+    vertical-align:.4mm;
+  }
+  .line.dash{color:var(--ink-soft); font-style:italic;}
+
+  /* flavor */
+  .flavor{
+    font-family:'Cormorant Garamond',serif; font-style:italic;
+    font-size:9.4pt; line-height:1.18; color:#6a5436;
+    margin-top:1.4mm; text-align:center;
+  }
+  /* count pip */
+  .count{
+    position:absolute; bottom:2.6mm; right:3.4mm; z-index:2;
+    font-family:'Cinzel',serif; font-size:6.2pt; letter-spacing:.08em;
+    color:var(--ink-soft); opacity:.7;
+  }
+
+  /* ---------- print ---------- */
+  @page{size:A4 portrait; margin:8mm;}
+  @media print{
+    body{background:#fff;}
+    .controls,.legend{display:none !important;}
+    .sheet{
+      gap:0; padding:0; display:grid;
+      grid-template-columns:repeat(3,60mm);
+      justify-content:center; align-content:start;
+    }
+    .card{
+      box-shadow:none; border:0.2mm solid #cdbf9b;
+      border-radius:2mm; margin:1mm;
+      -webkit-print-color-adjust:exact; print-color-adjust:exact;
+      break-inside:avoid;
+    }
+    .card::after{box-shadow:none;}
+  }
+</style>
+</head>
+<body>
+  <div class="controls">
+    <h1>First in the Field</h1>
+    <p class="sub">An Age-of-Wonder priority race · print &amp; play deck</p>
+    <p>39 cards across Field, Study and Hall, plus Tactics and Faction powers.
+       Standard size (60 × 86&nbsp;mm), nine to an A4 page. Print at 100% scale
+       (no “fit to page”), then cut on the hairlines.</p>
+    <button class="btn" onclick="window.print()">Print&nbsp;deck</button>
+    <div class="legend">
+      <span><i style="background:#2f5d3a"></i>Field</span>
+      <span><i style="background:#1f4f5e"></i>Study</span>
+      <span><i style="background:#7c2f2f"></i>Hall</span>
+      <span><i style="background:#4a3b63"></i>Tactic</span>
+      <span><i style="background:#7a5520"></i>Faction</span>
+    </div>
+  </div>
+  <div class="sheet" id="sheet"></div>
+
+<script>
+/* ---- decorative motifs (faint line watermarks) ---- */
+const MOTIF = {
+  field:'<svg viewBox="0 0 100 100"><path d="M50 96 V8 M50 80C32 76 24 62 22 50 M50 80C68 76 76 62 78 50 M50 62C35 58 28 46 27 36 M50 62C65 58 72 46 73 36 M50 44C38 41 33 32 32 24 M50 44C62 41 67 32 68 24 M50 26C41 24 37 18 37 12 M50 26C59 24 63 18 63 12"/></svg>',
+  study:'<svg viewBox="0 0 100 100"><path d="M38 88h40 M30 88h6 M58 84V62 M58 62l-14-9 M44 53l6-11 M50 42a8 8 0 1 1 14 8l-9 14 M62 30l10 6 M70 24l-9 16"/><circle cx="55" cy="34" r="3.5"/></svg>',
+  hall:'<svg viewBox="0 0 100 100"><path d="M24 86l46-58c8-10 16-14 16-14s-2 9-8 19 M70 28C50 40 34 56 24 86 M30 74c14-4 28-16 36-30 M40 60c10-3 19-11 25-21"/></svg>',
+  tactic:'<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="30"/><circle cx="50" cy="50" r="22" stroke-dasharray="3 4"/><path d="M50 36l4 10 11 .5-8.5 7 3 10.5L50 68l-12.5 6 3-10.5-8.5-7 11-.5z"/></svg>',
+  faction:'<svg viewBox="0 0 100 100"><circle cx="50" cy="42" r="24"/><path d="M50 30l4.5 10.5L66 42l-8.5 8 2.5 11.5L50 56l-10 5.5L42.5 50 34 42l11.5-1.5z M38 64l-8 26 16-9 12 9-6-25"/></svg>'
+};
+const KINDLABEL = {field:'Field',study:'Study',hall:'Hall',tactic:'Tactic',faction:'Faction'};
+const PIP = {I:'×3',II:'×2',III:'×1'};
+
+const C = [
+ /* ---- FIELD ---- */
+ {k:'field',t:'I',cost:0,n:'Collecting Trip',b:[['Activate','+2 Specimens'],['Trigger','→ Study']],f:'A satchel, a net, and good boots.'},
+ {k:'field',t:'I',cost:0,n:'Roadside Botanizing',b:[['Activate','+1 Specimen'],['Passive','+1 Specimen on your first Field action each round']],f:'Wonders grow in the humblest ditch.'},
+ {k:'field',t:'I',cost:0,n:'Hired Guide',b:[['Activate','+2 Specimens'],['Passive','On a Field action, look at 2 row cards, draft 1']],f:'He knows where the orchids hide.'},
+ {k:'field',t:'II',cost:2,n:"A Patron's Grant",b:[['Passive','+1 Specimen per Field action']],f:'Her ladyship funds the curious.'},
+ {k:'field',t:'II',cost:2,n:'Expedition Upriver',b:[['Activate','+4 Specimens'],['Trigger','→ Study']],f:'Beyond the last chart, life teems.'},
+ {k:'field',t:'II',cost:2,n:"The Naturalist's Network",b:[['Activate','+2 Specimens'],['Passive','While you lead the Field, +1 Specimen per Field action']],f:'Letters cross the globe by every post.'},
+ {k:'field',t:'III',cost:4,n:'The Grand Voyage',b:[['Activate','+6 Specimens'],['Trigger','→ Study']],f:'Five years before the mast of science.'},
+ {k:'field',t:'III',cost:5,n:'Royal Patronage',b:[['Passive','+2 Specimens per Field action; counts double toward Field lead']],f:'By appointment to the Crown.'},
+ {k:'field',t:'III',cost:4,n:'Rediscovered Cabinet',b:[['Activate','+3 Specimens, then draw a Tactic'],['Passive','Your first build each round costs 1 less']],f:'Dust — and a forgotten marvel beneath.'},
+
+ /* ---- STUDY ---- */
+ {k:'study',t:'I',cost:0,n:'Field Notes',b:[['Activate','2 Specimens → 1 Finding']],f:'Ink dries slower than memory fades.'},
+ {k:'study',t:'I',cost:0,n:'Pressing & Pinning',b:[['Activate','3 Specimens → 1 Finding'],['Trigger','→ Hall']],f:'Beauty, fixed beneath glass.'},
+ {k:'study',t:'II',cost:2,n:'Classify',b:[['Activate','Up to 4 Specimens → Findings at 1:1'],['Trigger','→ Hall']],f:'Order imposed upon the wild.'},
+ {k:'study',t:'II',cost:2,n:'Dissection Bench',b:[['Activate','3 Specimens → 2 Findings']],f:'Truth lies under the scalpel.'},
+ {k:'study',t:'II',cost:2,n:'Camera Lucida',b:[['Passive','Findings cap +1; once a round your first conversion is 1:1']],f:'The hand traces what the eye beholds.'},
+ {k:'study',t:'II',cost:3,n:'Shared Microscope',b:[['Activate','Up to 5 Specimens → Findings at 1:1'],['Passive','Usable only while you hold a prime Study tool']],f:'One fine lens, many eager eyes.'},
+ {k:'study',t:'III',cost:4,n:'The Great Atlas',b:[['Passive','Findings cap +2; first classification each season is 1:1']],f:'Every leaf upon a single shelf.'},
+ {k:'study',t:'III',cost:5,n:'A Standardized System',b:[['Passive','All your conversions are 1:1; counts double toward Study lead']],f:'Two words, and the creature is named forever.'},
+ {k:'study',t:'III',cost:4,n:"Engraver's Workshop",b:[['Activate','Up to 4 Specimens → Findings at 1:1'],['Trigger','→ Hall'],['Passive','Your Findings do not decay this round']],f:'The plate outlasts the man.'},
+
+ /* ---- HALL ---- */
+ {k:'hall',t:'I',cost:0,n:'Present a Paper',b:[['Activate','Findings → claim, str = Findings (max 3)'],['Trigger','→ Field']],f:'Silence, gentlemen — the fellow has findings.'},
+ {k:'hall',t:'I',cost:0,n:'Read at the Meeting',b:[['Activate','Findings → claim, str = Findings (max 2)'],['Passive','+1 Standing on a successful claim']],f:'A modest note, warmly received.'},
+ {k:'hall',t:'II',cost:2,n:'Lodge a Claim',b:[['Activate','Findings → sealed claim (garrison), str = Findings +1']],f:'Sealed, dated, and not yet read aloud.'},
+ {k:'hall',t:'II',cost:2,n:'Monograph',b:[['Activate','Findings → claim, str = Findings'],['Trigger','→ Field'],['Passive','Excess Acclaim is not fully lost — bank 1 Finding']],f:'Forty pages none shall dispute.'},
+ {k:'hall',t:'II',cost:3,n:'Contested Genus',b:[['Activate','Findings → claim, str = Findings'],['Passive','Your claims reveal at +1']],f:'Two names, one creature, no peace.'},
+ {k:'hall',t:'III',cost:4,n:'The Definitive Revision',b:[['Activate','Findings → claim, str = Findings +2'],['Trigger','→ Field']],f:'All prior work, respectfully corrected.'},
+ {k:'hall',t:'III',cost:5,n:'Founding Fellow',b:[['Passive','Your sealed claims reveal at +2; hold a position in two fields at once']],f:'His portrait hangs above the door.'},
+ {k:'hall',t:'III',cost:4,n:'Sensational Discovery',b:[['Activate','Findings → claim, str = Findings'],['On success','Advance the Exhibition clock +1 extra and draw a Tactic'],['Trigger','→ Field']],f:'The morning papers will not sleep.'},
+
+ /* ---- TACTICS ---- */
+ {k:'tactic',t:'Feint',cost:null,n:'A Sensational Specimen',b:[['Effect','In a presentation, +2 to your side on reveal']],f:'Kept under cloth until the gasp.'},
+ {k:'tactic',t:'Ambush',cost:null,n:'Prior Publication',b:[['Effect','When defending, reveal to discredit one challenging paper before the compare']],f:'“I printed it last spring, sir.”'},
+ {k:'tactic',t:'Overrun',cost:null,n:'A Whole New Genus',b:[['Effect','If your claim succeeds, excess Acclaim carries to an adjacent field']],f:'One discovery begets a dozen.'},
+ {k:'tactic',t:'Counter',cost:null,n:'Anonymous Referee',b:[['Effect','Cancel one Tactic an opponent just revealed']],f:'A single line sinks the paper.'},
+ {k:'tactic',t:'Defence',cost:null,n:'Pre-emptive Letter',b:[['Effect','Play when challenged: +1 defence for each field you lead']],f:'Posted before the accusation lands.'},
+ {k:'tactic',t:'Tempo',cost:null,n:'Press Sensation',b:[['Effect','Gain +2 Standing now; advance the Exhibition clock +1']],f:'Tomorrow, every salon speaks your name.'},
+ {k:'tactic',t:'Toll',cost:null,n:'Borrowed Type Specimen',b:[['Effect','Your next presentation this turn ignores the Hall toll']],f:'Just this once, from the great collection.'},
+ {k:'tactic',t:'Recover',cost:null,n:'Erratum',b:[['Effect','After a failed claim, return the spent Findings to you']],f:'A small correction; the work survives.'},
+
+ /* ---- FACTIONS ---- */
+ {k:'faction',t:'The Long Game',cost:null,n:'The Systematist',b:[['Power','Your Findings never decay; +2 Specimen stockpile cap']],f:'Patience is itself a method.'},
+ {k:'faction',t:'The Aggressor',cost:null,n:'The Sensationalist',b:[['Power','Each claim you contest advances the Exhibition clock +1; +1 str attacking an occupied field']],f:'Wonder sells; let them gasp.'},
+ {k:'faction',t:'The Combo',cost:null,n:'The Polymath',b:[['Power','Once per turn, ignore one toll when a chain crosses a band you do not lead']],f:'Field, study, and floor — all one art.'},
+ {k:'faction',t:'The Drafter',cost:null,n:'The Collector',b:[['Power','+1 Specimen on every Field action; peek the top of the Field row before drafting']],f:'He owns what others merely seek.'},
+ {k:'faction',t:'The Producer',cost:null,n:'The Illustrator',b:[['Power','Once a round your first conversion is 1:1; Findings cap +1']],f:'Her plates are worth a thousand words.'}
+];
+
+const sheet = document.getElementById('sheet');
+C.forEach(c=>{
+  const el = document.createElement('div');
+  el.className = 'card k-'+c.k;
+  const seal = (c.cost!==null)
+    ? `<div class="seal">${c.cost}<small>prep</small></div>` : '';
+  const pip = (c.k==='field'||c.k==='study'||c.k==='hall') ? (PIP[c.t]||'×1') : '×1';
+  const lines = c.b.map(([lbl,txt])=>`<div class="line"><span class="lbl">${lbl}</span>${txt}</div>`).join('');
+  const tierLabel = (c.k==='field'||c.k==='study'||c.k==='hall') ? ('· '+c.t) : '';
+  const subTag = (c.k==='tactic') ? `<div class="tag">One-shot · ${c.t}</div>`
+               : (c.k==='faction') ? `<div class="tag">Player power · ${c.t}</div>` : '';
+  el.innerHTML = `
+    <div class="wm">${MOTIF[c.k]}</div>
+    ${seal}
+    <div class="head"><span class="kind">${KINDLABEL[c.k]}</span><span class="tier">${tierLabel}</span></div>
+    <h2 class="name">${c.n}</h2>
+    ${subTag}
+    <div class="rule"><span>&#10087;</span></div>
+    <div class="body">${lines}</div>
+    <p class="flavor">${c.f}</p>
+    <span class="count">${pip}</span>`;
+  sheet.appendChild(el);
+});
+</script>
+</body>
+</html>
