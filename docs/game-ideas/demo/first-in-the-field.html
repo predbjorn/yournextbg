@@ -36,43 +36,43 @@
   }
   h1{font-family:'IM Fell English SC',serif; font-weight:400; letter-spacing:.03em; margin:0; color:#27190a;}
   .sub{font-family:'Cormorant Garamond',serif; font-style:italic; color:var(--ink2);}
-  .btn{font-family:'IM Fell English SC',serif; font-size:13px; letter-spacing:.04em; cursor:pointer; border:none; border-radius:3px;
+  .btn{font-family:'IM Fell English SC',serif; font-size:15px; letter-spacing:.04em; cursor:pointer; border:none; border-radius:3px;
     padding:7px 16px; color:#3a2a0c; background:linear-gradient(180deg,var(--goldhi),var(--gold) 60%,var(--golddk));
     box-shadow:0 2px 6px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.4);}
   .btn:hover{filter:brightness(1.07);}
   .btn.ghost{background:none; box-shadow:inset 0 0 0 1px var(--ink3); color:var(--ink2);}
-  select,input{font-family:'IM Fell English',serif; font-size:14px; padding:4px 8px; border:1px solid var(--ink3); border-radius:3px; background:rgba(255,250,235,.7); color:var(--ink);}
+  select,input{font-family:'IM Fell English',serif; font-size:16px; padding:4px 8px; border:1px solid var(--ink3); border-radius:3px; background:rgba(255,250,235,.7); color:var(--ink);}
   .g{display:inline-block; width:13px; height:13px; border-radius:50%; vertical-align:-2px; margin:0 1px; box-shadow:inset 0 0 0 1px rgba(0,0,0,.25);}
   .g.spec{background:#5b8a4e;} .g.find{background:#3c7c8c;} .g.stand{background:linear-gradient(180deg,var(--goldhi),var(--gold));}
   /* player badge = colour + distinct shape glyph (colour-blind safe) */
-  .pb{display:inline-flex; align-items:center; gap:3px; font-family:'IM Fell English SC',serif; font-size:11px;}
-  .pb .gl{display:inline-flex; width:17px; height:17px; align-items:center; justify-content:center; border-radius:50%; color:#fff; font-size:11px; line-height:1; box-shadow:inset 0 0 0 1px rgba(0,0,0,.25);}
+  .pb{display:inline-flex; align-items:center; gap:3px; font-family:'IM Fell English SC',serif; font-size:13px;}
+  .pb .gl{display:inline-flex; width:17px; height:17px; align-items:center; justify-content:center; border-radius:50%; color:#fff; font-size:13px; line-height:1; box-shadow:inset 0 0 0 1px rgba(0,0,0,.25);}
 
   /* ---- start screen ---- */
   #start .row{display:flex; gap:18px; flex-wrap:wrap; align-items:center; margin:10px 0;}
-  #start label{font-family:'IM Fell English SC',serif; font-size:12px; letter-spacing:.05em; color:var(--ink2); margin-right:6px;}
+  #start label{font-family:'IM Fell English SC',serif; font-size:14px; letter-spacing:.05em; color:var(--ink2); margin-right:6px;}
   .facgrid{display:flex; gap:8px; flex-wrap:wrap;}
   .faccard{width:176px; border:1px solid var(--ink3); border-radius:4px; padding:8px 10px; cursor:pointer; background:rgba(255,250,235,.5);}
   .faccard:hover{box-shadow:inset 0 0 0 2px var(--goldhi);}
   .faccard.sel{box-shadow:inset 0 0 0 2px var(--gold), 0 0 0 1px var(--gold);}
   .faccard .fn{font-family:'IM Fell English SC',serif; color:#27190a;}
-  .faccard .ft{font-size:11.5px; color:var(--ink2); line-height:1.25;}
-  .faccard .arch{font-family:'Cinzel',serif; font-size:9px; letter-spacing:.1em; color:var(--wax);}
+  .faccard .ft{font-size:13.5px; color:var(--ink2); line-height:1.25;}
+  .faccard .arch{font-family:'Cinzel',serif; font-size:11px; letter-spacing:.1em; color:var(--wax);}
 
   /* ---- whose-turn banner (lives OUTSIDE the re-rendered board) ---- */
   #game{display:none;}
   #turnbanner{display:flex; align-items:center; justify-content:center; gap:10px; padding:8px; margin-bottom:10px; border-radius:4px;
-    font-family:'IM Fell English SC',serif; letter-spacing:.05em; font-size:15px;
+    font-family:'IM Fell English SC',serif; letter-spacing:.05em; font-size:17px;
     background:linear-gradient(180deg, rgba(255,247,225,.85), rgba(236,220,174,.7)); box-shadow:inset 0 0 0 1px var(--gold), inset 0 0 0 3px var(--goldhi);}
   #turnbanner.you{background:linear-gradient(180deg, var(--goldhi), var(--gold)); color:#3a2a0c; box-shadow:0 0 14px rgba(179,135,58,.5), inset 0 0 0 2px var(--golddk);}
   #turnbanner .who{font-weight:600;}
-  #turnbanner .cap{font-family:'Cormorant Garamond',serif; font-style:italic; font-size:13px; color:var(--ink2);}
+  #turnbanner .cap{font-family:'Cormorant Garamond',serif; font-style:italic; font-size:15px; color:var(--ink2);}
 
   .topbar{display:flex; gap:12px; align-items:stretch; margin-bottom:12px; flex-wrap:wrap;}
   .panel{flex:1; min-width:200px;}
-  .panel h3{font-family:'IM Fell English SC',serif; font-size:11px; letter-spacing:.08em; color:var(--ink2); margin:0 0 6px; text-transform:uppercase;}
+  .panel h3{font-family:'IM Fell English SC',serif; font-size:13px; letter-spacing:.08em; color:var(--ink2); margin:0 0 6px; text-transform:uppercase;}
   .clock{display:flex; gap:3px;}
-  .ccell{flex:1; text-align:center; font-family:'Cinzel',serif; font-size:11px; padding:5px 0; border:1px solid var(--ink3); border-radius:2px; color:var(--ink2); background:rgba(255,250,235,.4);}
+  .ccell{flex:1; text-align:center; font-family:'Cinzel',serif; font-size:13px; padding:5px 0; border:1px solid var(--ink3); border-radius:2px; color:var(--ink2); background:rgba(255,250,235,.4);}
   .ccell.on{background:var(--wax); color:#fff; border-color:var(--wax); box-shadow:0 0 6px rgba(160,60,45,.55);}
   .ccell.now{box-shadow:0 0 0 2px var(--gold);}
   .ccell.close{flex:1.6; color:var(--wax); font-family:'IM Fell English SC',serif;}
@@ -84,8 +84,8 @@
   .med .disc{width:40px; height:40px; margin:0 auto 3px; border-radius:50%; display:flex; align-items:center; justify-content:center;
     background:radial-gradient(circle at 38% 32%, var(--goldhi), var(--gold) 60%, var(--golddk)); box-shadow:inset 0 0 0 1px rgba(255,255,255,.35), 0 1px 2px rgba(0,0,0,.35);}
   .med .disc svg{width:25px; height:25px; fill:none; stroke:#4a3408; stroke-width:2.6;}
-  .med .ml{font-family:'IM Fell English SC',serif; font-size:10px; letter-spacing:.04em;}
-  .med .crit{font-family:'Cormorant Garamond',serif; font-style:italic; font-size:10px; color:var(--ink3); line-height:1.05;}
+  .med .ml{font-family:'IM Fell English SC',serif; font-size:12px; letter-spacing:.04em;}
+  .med .crit{font-family:'Cormorant Garamond',serif; font-style:italic; font-size:12px; color:var(--ink3); line-height:1.05;}
   .med .hold{margin-top:2px; min-height:16px;}
 
   .cols{display:grid; grid-template-columns:1fr 326px; gap:12px;}
@@ -95,25 +95,25 @@
   .band{border-radius:5px; padding:8px 10px; margin-bottom:10px; box-shadow:inset 0 0 0 1px var(--bc), inset 0 0 0 3px rgba(255,250,235,.5);
     background:linear-gradient(180deg, color-mix(in srgb,var(--bc) 13%,transparent), color-mix(in srgb,var(--bc) 4%,transparent));}
   .band.field{--bc:var(--field);} .band.study{--bc:var(--study);} .band.hall{--bc:var(--hall);}
-  .band .bh{font-family:'IM Fell English SC',serif; font-size:13px; color:#27190a; margin-bottom:6px; display:flex; justify-content:space-between; align-items:center; gap:6px;}
+  .band .bh{font-family:'IM Fell English SC',serif; font-size:15px; color:#27190a; margin-bottom:6px; display:flex; justify-content:space-between; align-items:center; gap:6px;}
   .band .bh .lhs{display:flex; align-items:center; gap:6px;}
   .band .bh .bi{width:18px;height:18px;color:var(--bc);} .band .bh .bi svg{width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:2.4;}
-  .band .bh .temp{font-family:'Cinzel',serif; font-size:9px; letter-spacing:.12em; color:var(--bc);}
+  .band .bh .temp{font-family:'Cinzel',serif; font-size:11px; letter-spacing:.12em; color:var(--bc);}
   .chips{display:flex; gap:6px; flex-wrap:wrap;}
 
   /* ---- rich card chip ---- */
   .chip{position:relative; width:120px; border-radius:3px; overflow:hidden; cursor:pointer;
     background:radial-gradient(120% 120% at 50% 0%, #f9f1d6, #ecdcae 70%, #e0cd96);
     box-shadow:inset 0 0 0 .6px var(--golddk), inset 0 0 0 1.4px var(--goldhi), 0 1px 2px rgba(0,0,0,.25);}
-  .chip .hd{display:flex; align-items:center; gap:4px; padding:2px 5px; color:#fff; font-family:'IM Fell English SC',serif; font-size:9.5px; letter-spacing:.03em;
+  .chip .hd{display:flex; align-items:center; gap:4px; padding:2px 5px; color:#fff; font-family:'IM Fell English SC',serif; font-size:11.5px; letter-spacing:.03em;
     background:linear-gradient(180deg, color-mix(in srgb,var(--bc) 86%, #000 6%), var(--bc));}
   .chip .hd .ic{width:13px;height:13px;flex:none;} .chip .hd .ic svg{width:100%;height:100%;fill:none;stroke:rgba(255,255,255,.9);stroke-width:2.6;}
-  .chip .hd .tr{margin-left:auto; font-family:'Cinzel',serif; font-size:8.5px; opacity:.9;}
+  .chip .hd .tr{margin-left:auto; font-family:'Cinzel',serif; font-size:10.5px; opacity:.9;}
   .chip.k-field{--bc:var(--field);} .chip.k-study{--bc:var(--study);} .chip.k-hall{--bc:var(--hall);} .chip.k-tactic{--bc:var(--tactic);}
-  .chip .nm{font-family:'IM Fell English SC',serif; font-size:10.5px; color:#27190a; padding:3px 5px 0; line-height:1.05;}
-  .chip .ce{font-size:9.5px; color:#3a2c18; padding:1px 5px 5px; line-height:1.18;}
+  .chip .nm{font-family:'IM Fell English SC',serif; font-size:12.5px; color:#27190a; padding:3px 5px 0; line-height:1.05;}
+  .chip .ce{font-size:11.5px; color:#3a2c18; padding:1px 5px 5px; line-height:1.18;}
   .chip .seal{position:absolute; top:1px; right:1px; width:15px; height:15px; display:flex; align-items:center; justify-content:center;
-    border-radius:49% 51% 50% 50% / 51% 49% 51% 49%; font-family:'Cinzel',serif; font-weight:600; font-size:9px; color:#f7ddcf;
+    border-radius:49% 51% 50% 50% / 51% 49% 51% 49%; font-family:'Cinzel',serif; font-weight:600; font-size:11px; color:#f7ddcf;
     background:radial-gradient(circle at 36% 30%, var(--waxhi), var(--wax) 55%, var(--waxdk)); box-shadow:0 1px 1.5px rgba(0,0,0,.4);}
   .chip.legal{box-shadow:inset 0 0 0 .6px var(--golddk), 0 0 0 2px var(--gold), 0 0 8px rgba(179,135,58,.5);}
   .chip.legal::after{content:""; position:absolute; inset:0; background:rgba(179,135,58,.06);}
@@ -125,33 +125,33 @@
     background:radial-gradient(circle at 42% 34%, #f8efd2, #e6d3a1 96%); box-shadow:inset 0 0 0 1px var(--gold), inset 0 0 0 1.6px var(--goldhi), 0 1px 2px rgba(80,55,20,.3);}
   .node .ring svg{width:27px;height:27px;fill:none;stroke:var(--ink2);stroke-width:2.6;}
   .node.owned .ring{box-shadow:inset 0 0 0 2px var(--oc), inset 0 0 0 3px var(--goldhi);}
-  .node .nn{font-family:'IM Fell English SC',serif; font-size:10.5px; color:#27190a;}
-  .node .nsub{font-family:'Cormorant Garamond',serif; font-style:italic; font-size:9.5px; color:var(--hall);}
-  .node .own{margin-top:3px; min-height:17px; font-size:10px;}
-  .node .perk{font-size:9px; color:var(--ink3); line-height:1.12; margin-top:2px;}
+  .node .nn{font-family:'IM Fell English SC',serif; font-size:12.5px; color:#27190a;}
+  .node .nsub{font-family:'Cormorant Garamond',serif; font-style:italic; font-size:11.5px; color:var(--hall);}
+  .node .own{margin-top:3px; min-height:17px; font-size:12px;}
+  .node .perk{font-size:11px; color:var(--ink3); line-height:1.12; margin-top:2px;}
   .node.legal{box-shadow:0 0 0 2px var(--gold), 0 0 8px rgba(179,135,58,.45);}
   .node.changed .ring{box-shadow:inset 0 0 0 2px var(--gold), 0 0 10px rgba(179,135,58,.6);}
 
-  .you .stat{font-family:'Cinzel',serif; font-size:11px; color:var(--ink2);}
+  .you .stat{font-family:'Cinzel',serif; font-size:13px; color:var(--ink2);}
   .you .find.warn{color:var(--wax); font-weight:600;}
-  .power{font-family:'Cormorant Garamond',serif; font-style:italic; font-size:11px; color:var(--ink2); margin:2px 0 6px; padding:3px 6px; border-left:2px solid var(--gold); background:rgba(255,247,225,.5);}
-  .tag{font-family:'Cinzel',serif; font-size:9px; letter-spacing:.08em; padding:1px 5px; border-radius:3px; background:var(--bc,#999); color:#fff;}
-  .opp{border:1px solid var(--ink3); border-radius:4px; padding:6px 8px; margin-bottom:6px; background:rgba(255,250,235,.4); font-size:12px;}
+  .power{font-family:'Cormorant Garamond',serif; font-style:italic; font-size:13px; color:var(--ink2); margin:2px 0 6px; padding:3px 6px; border-left:2px solid var(--gold); background:rgba(255,247,225,.5);}
+  .tag{font-family:'Cinzel',serif; font-size:11px; letter-spacing:.08em; padding:1px 5px; border-radius:3px; background:var(--bc,#999); color:#fff;}
+  .opp{border:1px solid var(--ink3); border-radius:4px; padding:6px 8px; margin-bottom:6px; background:rgba(255,250,235,.4); font-size:14px;}
   .opp.turn{box-shadow:0 0 0 2px var(--gold);}
-  .opp .stat{font-family:'Cinzel',serif; font-size:11px; color:var(--ink2);}
+  .opp .stat{font-family:'Cinzel',serif; font-size:13px; color:var(--ink2);}
 
   #actions{border-radius:4px; padding:10px; background:rgba(255,247,225,.65); box-shadow:inset 0 0 0 1px var(--gold);}
-  #actions .prompt{font-family:'IM Fell English SC',serif; font-size:13px; color:var(--wax); margin-bottom:4px;}
-  #chaintrail{font-family:'Cinzel',serif; font-size:10px; letter-spacing:.06em; color:var(--ink2); margin-bottom:7px; min-height:13px;}
+  #actions .prompt{font-family:'IM Fell English SC',serif; font-size:15px; color:var(--wax); margin-bottom:4px;}
+  #chaintrail{font-family:'Cinzel',serif; font-size:12px; letter-spacing:.06em; color:var(--ink2); margin-bottom:7px; min-height:13px;}
   #chaintrail .step{opacity:.5;} #chaintrail .step.on{opacity:1; color:var(--wax); font-weight:600;}
   .actbtns{display:flex; gap:6px; flex-wrap:wrap;}
-  .act-b{font-family:'IM Fell English',serif; font-size:12px; text-align:left; cursor:pointer; border:1px solid var(--ink3); border-radius:3px;
+  .act-b{font-family:'IM Fell English',serif; font-size:14px; text-align:left; cursor:pointer; border:1px solid var(--ink3); border-radius:3px;
     padding:5px 9px; background:rgba(255,250,235,.85); color:var(--ink); max-width:360px;}
   .act-b:hover{box-shadow:0 0 0 2px var(--gold); background:#fff;}
-  .act-b .k{font-family:'Cinzel',serif; font-size:9px; letter-spacing:.08em; color:var(--ink3); display:block;}
+  .act-b .k{font-family:'Cinzel',serif; font-size:11px; letter-spacing:.08em; color:var(--ink3); display:block;}
   .act-b.stop{background:rgba(160,60,45,.12);}
 
-  #log{height:330px; overflow:auto; border:1px solid var(--ink3); border-radius:4px; padding:8px 10px; background:rgba(255,250,235,.5); font-size:12px; line-height:1.45;}
+  #log{height:330px; overflow:auto; border:1px solid var(--ink3); border-radius:4px; padding:8px 10px; background:rgba(255,250,235,.5); font-size:14px; line-height:1.45;}
   #log .turnhdr{font-family:'IM Fell English SC',serif; color:#27190a; margin:8px 0 2px; border-bottom:1px dotted var(--ink3);}
   #log .ev .who{color:var(--ink2); font-weight:600;}
 
@@ -161,10 +161,10 @@
   .findbar{display:flex; gap:5px; flex-wrap:wrap; margin:8px 0;}
   .findbar .fb{width:30px; text-align:center; padding:5px 0; border:1px solid var(--ink3); border-radius:3px; cursor:pointer; background:rgba(255,250,235,.7); font-family:'Cinzel',serif;}
   .findbar .fb.sel{background:var(--study); color:#fff; border-color:var(--study);}
-  .rulehint{font-family:'Cormorant Garamond',serif; font-style:italic; font-size:11.5px; color:var(--ink2); margin:4px 0;}
+  .rulehint{font-family:'Cormorant Garamond',serif; font-style:italic; font-size:13.5px; color:var(--ink2); margin:4px 0;}
   .winbox{text-align:center; padding:14px;}
-  .winbox h1{font-size:30px;}
-  .muted{color:var(--ink3); font-size:11px;}
+  .winbox h1{font-size:34px;}
+  .muted{color:var(--ink3); font-size:13px;}
   .detail .dla{font-family:'Cormorant Garamond',serif; font-style:italic; color:var(--ink3);}
   .detail .flav{font-family:'Cormorant Garamond',serif; font-style:italic; color:#6a5232; margin-top:6px;}
 
@@ -178,11 +178,11 @@
   .pm svg{width:13px; height:13px; fill:none; stroke:var(--pc); stroke-width:7;}
   .pm.pf{--pc:var(--field);} .pm.ps{--pc:var(--study);} .pm.ph{--pc:var(--hall);} .pm.pt{--pc:var(--tactic);}
   .pm.bonus{background:rgba(255,250,235,.5);} .pm.bonus svg{stroke-width:6; opacity:.92;}
-  .pmb{display:inline-flex; align-items:center;} .pmb .ar{color:var(--ink3); font-size:11px; line-height:1; margin:0 0 0 2px;}
+  .pmb{display:inline-flex; align-items:center;} .pmb .ar{color:var(--ink3); font-size:13px; line-height:1; margin:0 0 0 2px;}
   .planeword.pf{color:var(--field);} .planeword.ps{color:var(--study);} .planeword.ph{color:var(--hall);} .planeword.pt{color:var(--tactic);}
-  .planekey{display:flex; gap:13px; flex-wrap:wrap; align-items:center; margin:10px 0 2px; font-family:'IM Fell English SC',serif; font-size:11.5px; color:var(--ink2);}
+  .planekey{display:flex; gap:13px; flex-wrap:wrap; align-items:center; margin:10px 0 2px; font-family:'IM Fell English SC',serif; font-size:13.5px; color:var(--ink2);}
   .planekey .it{display:inline-flex; align-items:center; gap:5px;}
-  .planekey .note{font-family:'Cormorant Garamond',serif; font-style:italic; font-size:11.5px; color:var(--ink3);}
+  .planekey .note{font-family:'Cormorant Garamond',serif; font-style:italic; font-size:13.5px; color:var(--ink3);}
 
   /* ---- chip header now carries the plane markers (home + ▸bonus) ---- */
   .chip .hd .pm{width:16px; height:16px;} .chip .hd .pm svg{width:11px; height:11px;}
@@ -219,25 +219,25 @@
   .fcard .corner.bl{bottom:5px; left:5px; transform:scaleY(-1);} .fcard .corner.br{bottom:5px; right:5px; transform:scale(-1,-1);}
   .fcard>.ly{position:relative; z-index:2;}
   .fcard .tstrip{display:flex; align-items:center; justify-content:center; height:15px; position:relative;}
-  .fcard .tstrip .kind{font-family:'IM Fell English SC',serif; font-size:9px; letter-spacing:.13em; color:var(--accent); text-transform:uppercase;}
-  .fcard .tstrip .plate{position:absolute; left:0; font-family:'Cinzel',serif; font-size:7px; letter-spacing:.07em; color:var(--ink3);}
+  .fcard .tstrip .kind{font-family:'IM Fell English SC',serif; font-size:11px; letter-spacing:.13em; color:var(--accent); text-transform:uppercase;}
+  .fcard .tstrip .plate{position:absolute; left:0; font-family:'Cinzel',serif; font-size:9px; letter-spacing:.07em; color:var(--ink3);}
   .fcard .seal{position:absolute; top:7px; right:8px; z-index:5; width:32px; height:32px; display:flex; align-items:center; justify-content:center;
-    border-radius:49% 51% 50% 50% / 51% 49% 51% 49%; font-family:'Cinzel',serif; font-weight:600; font-size:15px; color:#f7ddcf;
+    border-radius:49% 51% 50% 50% / 51% 49% 51% 49%; font-family:'Cinzel',serif; font-weight:600; font-size:17px; color:#f7ddcf;
     background:radial-gradient(circle at 36% 30%, var(--waxhi), var(--wax) 52%, var(--waxdk)); box-shadow:0 1px 2px rgba(0,0,0,.45), inset 0 -1px 2px rgba(0,0,0,.45), inset 1px 1px 1.6px rgba(255,255,255,.35); text-shadow:0 1px 1px rgba(60,10,5,.7);}
   .fcard.k-tactic .seal{background:radial-gradient(circle at 36% 30%, var(--waxThi), var(--waxT) 52%, #241a3a); color:#e7ddf6;}
   .fcard .ftitle{text-align:center; margin:3px 0 0; padding:0 24px;}
-  .fcard .ftitle .nm{font-family:'IM Fell English SC',serif; font-size:18px; line-height:1.04; color:#27190a;}
-  .fcard .ftitle .bn{font-family:'Cormorant Garamond',serif; font-style:italic; font-size:12px; color:var(--ink3); margin-top:2px;}
+  .fcard .ftitle .nm{font-family:'IM Fell English SC',serif; font-size:21px; line-height:1.04; color:#27190a;}
+  .fcard .ftitle .bn{font-family:'Cormorant Garamond',serif; font-style:italic; font-size:14px; color:var(--ink3); margin-top:2px;}
   .fcard .planes{display:flex; justify-content:center; align-items:center; gap:7px; margin:7px 0 1px;}
   .fcard .fwin{position:relative; height:94px; margin:4px 7px 7px; border-radius:6px; color:var(--ink2); overflow:hidden;
     background:radial-gradient(120% 100% at 50% 38%, #f8efd2, #e7d6a6 95%); box-shadow:inset 0 0 0 1px var(--gold), inset 0 0 0 1.6px var(--goldhi), inset 0 0 9px rgba(90,60,20,.3);}
   .fcard .fwin .a{position:absolute; inset:0; display:flex; align-items:center; justify-content:center;}
   .fcard .fwin .a svg{width:86px; height:86px; fill:none; stroke:currentColor; stroke-width:2.3; stroke-linecap:round; stroke-linejoin:round;}
   .fcard .frules{flex:1; display:flex; flex-direction:column; gap:4px; padding:0 4px;}
-  .fcard .frules .ln{font-size:12px; line-height:1.2; color:#322413; display:flex; gap:6px;}
-  .fcard .frules .lbl{font-family:'IM Fell English SC',serif; font-size:8.5px; letter-spacing:.07em; color:var(--accent); text-transform:uppercase; flex:none; padding-top:1px; width:44px;}
-  .fcard .fflav{margin-top:8px; padding-top:6px; text-align:center; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:12px; line-height:1.15; color:#6a5232;}
-  .fcard .fflav::before{content:"\2767"; display:block; color:var(--gold); font-style:normal; font-size:10px; margin-bottom:1px;}
+  .fcard .frules .ln{font-size:14px; line-height:1.2; color:#322413; display:flex; gap:6px;}
+  .fcard .frules .lbl{font-family:'IM Fell English SC',serif; font-size:10.5px; letter-spacing:.07em; color:var(--accent); text-transform:uppercase; flex:none; padding-top:1px; width:44px;}
+  .fcard .fflav{margin-top:8px; padding-top:6px; text-align:center; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:14px; line-height:1.15; color:#6a5232;}
+  .fcard .fflav::before{content:"\2767"; display:block; color:var(--gold); font-style:normal; font-size:12px; margin-bottom:1px;}
 
   /* ============ GUIDED TUTORIAL + RULES ============ */
   #gamebar{display:flex; justify-content:flex-end; gap:8px; margin-bottom:8px;}
@@ -245,11 +245,11 @@
   #coach{display:none; margin:0 0 12px; border-radius:6px; padding:11px 15px 12px; position:sticky; top:6px; z-index:20;
     background:linear-gradient(180deg, rgba(255,248,228,.97), rgba(238,222,178,.94));
     box-shadow:0 4px 16px rgba(0,0,0,.32), inset 0 0 0 1px var(--gold), inset 0 0 0 3px var(--goldhi);}
-  #coach .step{font-family:'IM Fell English SC',serif; font-size:10px; letter-spacing:.12em; color:var(--wax); text-transform:uppercase; margin-bottom:4px; display:flex; align-items:center; gap:6px;}
-  #coach .ct{font-family:'IM Fell English',serif; font-size:14.5px; line-height:1.45; color:#3a2c18;}
+  #coach .step{font-family:'IM Fell English SC',serif; font-size:12px; letter-spacing:.12em; color:var(--wax); text-transform:uppercase; margin-bottom:4px; display:flex; align-items:center; gap:6px;}
+  #coach .ct{font-family:'IM Fell English',serif; font-size:16.5px; line-height:1.45; color:#3a2c18;}
   #coach .ct b{color:#27190a;}
   #coach .controls{display:flex; gap:10px; align-items:center; margin-top:10px;}
-  #coach .hint{font-family:'Cormorant Garamond',serif; font-style:italic; color:var(--ink2); font-size:13px;}
+  #coach .hint{font-family:'Cormorant Garamond',serif; font-style:italic; color:var(--ink2); font-size:15px;}
   #coach .hint b{color:var(--wax);}
   /* spotlight a whole plane (a .band wrapper is static, so the glow survives render) */
   .band.tut-spot{box-shadow:0 0 0 3px var(--gold), 0 0 22px rgba(179,135,58,.65), inset 0 0 0 3px rgba(255,250,235,.55) !important;}
@@ -257,9 +257,9 @@
   .act-b.tut-btn{box-shadow:0 0 0 3px var(--gold), 0 0 16px rgba(179,135,58,.75) !important; background:#fff !important;}
   /* rules overlay */
   .rules h3{margin:0 0 4px;}
-  .rules .rsub{font-family:'Cormorant Garamond',serif; font-style:italic; color:var(--ink2); font-size:13.5px; margin:3px 0 8px; display:flex; align-items:center; gap:6px; flex-wrap:wrap;}
-  .rules .rules-sec{display:flex; align-items:center; gap:8px; margin:5px 0; font-size:14px;}
-  .rules p{font-size:13.5px; line-height:1.5; margin:8px 0;}
+  .rules .rsub{font-family:'Cormorant Garamond',serif; font-style:italic; color:var(--ink2); font-size:15.5px; margin:3px 0 8px; display:flex; align-items:center; gap:6px; flex-wrap:wrap;}
+  .rules .rules-sec{display:flex; align-items:center; gap:8px; margin:5px 0; font-size:16px;}
+  .rules p{font-size:15.5px; line-height:1.5; margin:8px 0;}
 </style>
 </head>
 <body>
@@ -350,7 +350,7 @@
         </div>
         <div class="band study">
           <div class="bh"><span class="lhs"><span class="pm ps"><svg viewBox="0 0 100 100"><use href="#a-microscope"/></svg></span>The Study <span class="temp">warm · work</span></span><span class="muted" id="studytools"></span></div>
-          <div class="muted" style="font-size:11px">Convert Specimens → Findings (cap 3; anything over the cap spoils at turn's end). Prime tools are exclusive while held.</div>
+          <div class="muted" style="font-size:13px">Convert Specimens → Findings (cap 3; anything over the cap spoils at turn's end). Prime tools are exclusive while held.</div>
         </div>
         <div class="band hall">
           <div class="bh"><span class="lhs"><span class="pm ph"><svg viewBox="0 0 100 100"><use href="#a-lectern"/></svg></span>The Society's Hall <span class="temp">hot · contest</span></span><span class="muted" id="halllead"></span></div>
@@ -650,7 +650,7 @@ function fullTactic(t){
     <div class="seal">&#10070;</div>
     <div class="ly tstrip"><span class="plate">Tactic</span><span class="kind">Tactic · ${tc.kind}</span></div>
     <div class="ly ftitle"><div class="nm">${tc.name}</div><div class="bn">${m.la||""}</div></div>
-    <div class="ly planes"><span class="pm pt"><svg viewBox="0 0 100 100"><use href="#a-tactic"/></svg></span> <span class="planeword pt" style="font-family:'Cinzel',serif;font-size:8.5px;letter-spacing:.1em">NOT TIED TO A PLANE</span></div>
+    <div class="ly planes"><span class="pm pt"><svg viewBox="0 0 100 100"><use href="#a-tactic"/></svg></span> <span class="planeword pt" style="font-family:'Cinzel',serif;font-size:10.5px;letter-spacing:.1em">NOT TIED TO A PLANE</span></div>
     <div class="ly fwin"><div class="a"><svg viewBox="0 0 100 100"><use href="#${TACTIC_ART[t]||'a-tactic'}"/></svg></div></div>
     <div class="ly frules"><div class="ln"><span class="lbl">Effect</span><span>${tc.text}</span></div></div>
     ${m.f?`<div class="ly fflav">${m.f}</div>`:""}
