@@ -9,10 +9,10 @@
 ## TL;DR
 
 - **Engine is healthy:** games terminate, the clock binds (~11 rounds avg), and no resource/lead invariant ever breaks across the corpus.
-- **Biggest issue — faction balance:** The Collector strong / The Polymath weak (spread 0.78× fair share).
-- **Watch the combo line:** `comboist` ~41% vs 25% fair — chaining a full lap is the strongest play.
+- **Factions are balanced** (spread 0.16× fair share; all within the healthy band) — the adopted rebalance, see `REBALANCE.md`.
+- **Biggest remaining flag — the combo line:** `comboist` ~41% vs 25% fair; chaining a full lap is the strongest play (AI-sensitive — confirm with humans before nerfing).
 - **Turtling is correctly dead:** ignoring the Hall wins 4%.
-- **Mild first-player edge** (~1.27× at 4p).
+- **Mild first-player edge** (~1.24× at 4p).
 - **Findings cap is a weak lever**; **clock length / escalation** are the strong pace dials (see Q7).
 
 ---
@@ -26,43 +26,45 @@ Measured in **greedy mirror** matches (every seat plays `greedy`; factions and s
 
 | Faction | Win % | × fair share | |
 |---|---:|---:|:--|
-| The Systematist | 42.0 | 0.84× | `########................` |
-| The Sensationalist | 55.3 | 1.11× | `###############.........` |
-| The Polymath | 36.4 | 0.73× | `#####...................` |
-| The Collector | 67.9 | 1.36× | `#####################...` |
-| The Illustrator | 48.4 | 0.97× | `###########.............` |
+| The Systematist | 49.1 | 0.98× | `############............` |
+| The Sensationalist | 48.5 | 0.97× | `###########.............` |
+| The Polymath | 53.3 | 1.07× | `##############..........` |
+| The Collector | 43.8 | 0.88× | `#########...............` |
+| The Illustrator | 55.3 | 1.11× | `###############.........` |
 
 **greedy_mirror_3p** (fair share 33.3%):
 
 | Faction | Win % | × fair share | |
 |---|---:|---:|:--|
-| The Systematist | 25.5 | 0.76× | `######..................` |
-| The Sensationalist | 33.2 | 1.00× | `############............` |
-| The Polymath | 23.4 | 0.70× | `#####...................` |
-| The Collector | 51.9 | 1.56× | `########################` |
-| The Illustrator | 32.6 | 0.98× | `############............` |
+| The Systematist | 36.7 | 1.10× | `##############..........` |
+| The Sensationalist | 32.8 | 0.98× | `############............` |
+| The Polymath | 30.9 | 0.93× | `##########..............` |
+| The Collector | 31.5 | 0.95× | `###########.............` |
+| The Illustrator | 34.8 | 1.04× | `#############...........` |
 
 **greedy_mirror_4p** (fair share 25.0%):
 
 | Faction | Win % | × fair share | |
 |---|---:|---:|:--|
-| The Systematist | 16.5 | 0.66× | `####....................` |
-| The Sensationalist | 22.8 | 0.91× | `##########..............` |
-| The Polymath | 18.3 | 0.73× | `######..................` |
-| The Collector | 39.9 | 1.59× | `########################` |
-| The Illustrator | 27.5 | 1.10× | `##############..........` |
+| The Systematist | 26.9 | 1.08× | `##############..........` |
+| The Sensationalist | 24.0 | 0.96× | `###########.............` |
+| The Polymath | 20.8 | 0.83× | `########................` |
+| The Collector | 24.6 | 0.99× | `############............` |
+| The Illustrator | 28.3 | 1.13× | `###############.........` |
 
 **Overall faction strength index** (mean win-rate ÷ fair-share, across player counts; 1.00 = perfectly fair):
 
 | Faction | Strength index |
 |---|---:|
-| The Collector | 1.50 ⚠️ strong outlier |
-| The Illustrator | 1.02 |
-| The Sensationalist | 1.00 |
-| The Systematist | 0.75 |
-| The Polymath | 0.72 ⚠️ weak outlier |
+| The Illustrator | 1.09 |
+| The Systematist | 1.05 |
+| The Sensationalist | 0.97 |
+| The Polymath | 0.94 |
+| The Collector | 0.94 |
 
-Spread (strongest ÷ fair − weakest ÷ fair): **0.78** — strongest **The Collector** (1.50×), weakest **The Polymath** (0.72×).
+Spread (strongest ÷ fair − weakest ÷ fair): **0.16** — strongest **The Illustrator** (1.09×), weakest **The Collector** (0.94×).
+
+✅ **Balanced** — every faction sits inside the healthy asymmetric band; no auto-picks or traps. (This reflects the adopted rebalance — see `REBALANCE.md`.)
 
 ## Q1b — Is there a dominant strategy?
 
@@ -70,24 +72,24 @@ Each archetype probed as 1 vs 3 `greedy` (factions & seats rotated), so the numb
 
 | Strategy | Probe config | Win % | vs fair |
 |---|---|---:|:--|
-| `warlord` | warlord_vs_greedy_4p | 21.5 | fair |
-| `comboist` | comboist_vs_greedy_4p | 40.8 | over |
-| `turtle` | turtle_vs_greedy_4p | 12.2 | under |
-| `pure_turtle` | pure_turtle_vs_greedy_4p | 3.6 | under |
+| `warlord` | warlord_vs_greedy_4p | 26.5 | fair |
+| `comboist` | comboist_vs_greedy_4p | 41.1 | over |
+| `turtle` | turtle_vs_greedy_4p | 13.1 | under |
+| `pure_turtle` | pure_turtle_vs_greedy_4p | 3.5 | under |
 
 **Four archetypes at one table** (`mixed_4p`):
 
 | Strategy | Win % |
 |---|---:|
-| `comboist` | 46.4 |
-| `warlord` | 22.5 |
-| `greedy` | 21.5 |
-| `turtle` | 9.5 |
+| `comboist` | 42.7 |
+| `warlord` | 26.6 |
+| `greedy` | 22.1 |
+| `turtle` | 8.5 |
 
 ## Q2 — Can a pure turtle win by ignoring the Hall?
 
-- **Pure turtle** (never takes *any* Hall action) wins **3.6%** vs 25% fair share — it can never hold the Hall medallion, so it is essentially shut out. ✅ design intent holds.
-- **Soft turtle** (never *initiates a challenge* but does claim empty nodes) wins **12.2%** — below fair share, but not zero: peacefully occupying uncontested nodes is a real (if weak) path to the Hall lead.
+- **Pure turtle** (never takes *any* Hall action) wins **3.5%** vs 25% fair share — it can never hold the Hall medallion, so it is essentially shut out. ✅ design intent holds.
+- **Soft turtle** (never *initiates a challenge* but does claim empty nodes) wins **13.1%** — below fair share, but not zero: peacefully occupying uncontested nodes is a real (if weak) path to the Hall lead.
 
 **Verdict:** ignoring the Hall is correctly unviable; the only non-combat Hall play that works is grabbing *empty* nodes, which the table can still contest. The anti-turtle pressure is working.
 
@@ -98,21 +100,21 @@ Target: a round count standing in for ~45–75 min. Treating **8–13 rounds** a
 
 | Config | Players | Avg rounds | p10–p90 | % close | % knockout | % maxRounds |
 |---|---:|---:|---:|---:|---:|---:|
-| greedy_mirror_2p | 2 | 11.7 | 5–19 | 33.9 | 63.3 | 2.8 |
-| greedy_mirror_3p | 3 | 10.7 | 6–15 | 68.8 | 29.8 | 1.3 |
-| greedy_mirror_4p | 4 | 9.1 | 6–12 | 85.0 | 14.5 | 0.4 |
-| mixed_4p | 4 | 9.5 | 6–13 | 88.8 | 10.8 | 0.4 |
-| archetypes_4p | 4 | 8.7 | 6–11 | 90.8 | 9.1 | 0.1 |
+| greedy_mirror_2p | 2 | 12.0 | 5–20 | 32.0 | 65.2 | 2.8 |
+| greedy_mirror_3p | 3 | 10.9 | 6–15 | 68.8 | 30.0 | 1.2 |
+| greedy_mirror_4p | 4 | 9.4 | 6–12 | 85.3 | 14.3 | 0.4 |
+| mixed_4p | 4 | 9.5 | 6–13 | 88.3 | 11.3 | 0.3 |
+| archetypes_4p | 4 | 9.0 | 6–12 | 86.5 | 13.2 | 0.3 |
 
-**Clock binds:** only **3.1%** of all games hit the safety round-cap; the Exhibition clock (or a knockout) ends the rest. ✅
+**Clock binds:** only **3.0%** of all games hit the safety round-cap; the Exhibition clock (or a knockout) ends the rest. ✅
 
 
 ## Q3b — Pace driver: does Hall aggression shorten games?
 
 Across `mixed_4p` (n=10000):
-- raw **challenges vs rounds**: r = +0.28 (positive — a length confound: longer games simply contain more total challenges).
-- **challenge density (per turn) vs rounds**: r = **-0.38**.
-- toll sweep cross-check: toll 0 → 5.2 challenges & 9.02 rounds; toll 2 → 4.93 challenges & 11.18 rounds (more fighting ⇒ shorter season).
+- raw **challenges vs rounds**: r = +0.31 (positive — a length confound: longer games simply contain more total challenges).
+- **challenge density (per turn) vs rounds**: r = **-0.30**.
+- toll sweep cross-check: toll 0 → 5.14 challenges & 8.95 rounds; toll 2 → 4.89 challenges & 11.04 rounds (more fighting ⇒ shorter season).
 
 **Verdict:** controlling for length, **denser fighting closes the season sooner** — the aggressor sets the pace, as designed. ✅
 
@@ -123,14 +125,14 @@ Knockout = a player held all three medallions at a round start. A *threat* = a p
 
 | Players | Config | Knockout % | Threat games % | Threats contained % |
 |---:|---|---:|---:|---:|
-| 2 | greedy_mirror_2p | 63.3 | 95.0 | 38.5 |
-| 3 | greedy_mirror_3p | 29.8 | 94.5 | 72.4 |
-| 4 | greedy_mirror_4p | 14.5 | 90.1 | 87.0 |
-| 4 | mixed_4p | 10.8 | 91.4 | 90.2 |
+| 2 | greedy_mirror_2p | 65.2 | 94.9 | 36.5 |
+| 3 | greedy_mirror_3p | 30.0 | 94.6 | 72.5 |
+| 4 | greedy_mirror_4p | 14.3 | 90.4 | 86.9 |
+| 4 | mixed_4p | 11.3 | 92.1 | 89.6 |
 
-- **Medallion churn:** 16.5 ownership changes per game (includes the volatile Study throughput lead, which can pass every turn).
+- **Medallion churn:** 16.8 ownership changes per game (includes the volatile Study throughput lead, which can pass every turn).
 
-**Verdict (4-player):** knockouts happen in 14.5% of games, and ~87% of 2-medallion threats are denied the third — real but defendable ✅. (Note the **2-player** game is knockout-prone — 63% — because a single opponent often can't break a 2-lead in time.)
+**Verdict (4-player):** knockouts happen in 14.3% of games, and ~87% of 2-medallion threats are denied the third — real but defendable ✅. (Note the **2-player** game is knockout-prone — 65% — because a single opponent often can't break a 2-lead in time.)
 
 
 ## Q5 — Is there a strong first-player advantage?
@@ -138,24 +140,24 @@ Knockout = a player held all three medallions at a round start. A *threat* = a p
 Measured in the symmetric **greedy mirror** (only seat differs). Reported as win rate ÷ fair share by starting seat.
 
 - **greedy_mirror_2p** — seat 0: 1.24× · seat 1: 0.76×
-- **greedy_mirror_3p** — seat 0: 1.27× · seat 1: 0.89× · seat 2: 0.84×
-- **greedy_mirror_4p** — seat 0: 1.27× · seat 1: 0.94× · seat 2: 0.90× · seat 3: 0.89×
+- **greedy_mirror_3p** — seat 0: 1.28× · seat 1: 0.90× · seat 2: 0.82×
+- **greedy_mirror_4p** — seat 0: 1.24× · seat 1: 0.98× · seat 2: 0.88× · seat 3: 0.89×
 
-⚠️ **First-player advantage is real** — the opening seat wins ~1.27× its fair share at 4p. Moderate, not broken, but worth a catch-up nudge (see recommendations).
+⚠️ **First-player advantage is real** — the opening seat wins ~1.24× its fair share at 4p. Moderate, not broken, but worth a catch-up nudge (see recommendations).
 
 
 ## Q6 — Does the Findings cap / 2:1 ratio create tension, or just feel-bad spoilage?
 
-- **Findings spoiled:** 0.163 per turn (9.3% of all Findings produced).
-- **Chains:** 35.8% of turns chain; average chain length **4.27** steps when they do.
+- **Findings spoiled:** 0.165 per turn (9.6% of all Findings produced).
+- **Chains:** 37.3% of turns chain; average chain length **4.05** steps when they do.
 
 Findings-cap sweep (spoilage & game shape):
 
 | cap | spoiled/turn | avg rounds | % turns chained |
 |---:|---:|---:|---:|
-| 2 | 0.207 | 10.33 | 36.6 |
-| 3 | 0.122 | 9.88 | 34.8 |
-| 4 | 0.101 | 9.83 | 34.7 |
+| 2 | 0.195 | 10.26 | 38.5 |
+| 3 | 0.108 | 9.77 | 36.7 |
+| 4 | 0.088 | 9.72 | 36.5 |
 
 **Verdict:** spoilage is **low** (0.16/turn). The cap rarely bites because the chain encourages refining-then-spending in the same turn — exactly the intended 'flow, not hoard' behaviour. The cap reads more as a soft nudge than a painful wall, so it is *not* a feel-bad mechanic at the default of 3; but it is also a **weak balance lever** (see sensitivity).
 
@@ -172,14 +174,14 @@ Dials ranked by how much they swing the key metrics (`avg_rounds`, `pct_close`, 
 
 | Rank | Dial | Sensitivity | Biggest effects |
 |---:|---|---:|---|
-| 1 | `start_specimens` | 1.34 | Δturtle_winrate=8.1, Δfaction_spread=6.0 |
-| 2 | `toll_amount` | 0.78 | Δpct_close=6.1, Δtwo_lead_broken_rate=6.1 |
-| 3 | `field_row_size` | 0.69 | Δturtle_winrate=4.7, Δtwo_lead_broken_rate=3.6 |
-| 4 | `escalation_threshold` | 0.47 | Δpct_close=6.0, Δtwo_lead_broken_rate=5.3 |
-| 5 | `capture_garrison_mode` | 0.36 | Δtwo_lead_broken_rate=3.0, Δpct_close=2.9 |
-| 6 | `clock_length` | 0.35 | Δpct_close=4.2, Δtwo_lead_broken_rate=4.0 |
-| 7 | `extra_ratio_steps` | 0.27 | Δtwo_lead_broken_rate=3.9, Δpct_close=2.8 |
-| 8 | `findings_cap` | 0.15 | Δpct_close=1.3, Δturtle_winrate=0.7 |
+| 1 | `start_specimens` | 1.03 | Δturtle_winrate=5.3, Δpct_close=3.4 |
+| 2 | `toll_amount` | 0.82 | Δpct_close=5.8, Δtwo_lead_broken_rate=5.8 |
+| 3 | `field_row_size` | 0.77 | Δturtle_winrate=3.0, Δfaction_spread=2.8 |
+| 4 | `extra_ratio_steps` | 0.60 | Δtwo_lead_broken_rate=5.3, Δfaction_spread=4.5 |
+| 5 | `escalation_threshold` | 0.55 | Δpct_close=6.2, Δtwo_lead_broken_rate=5.0 |
+| 6 | `capture_garrison_mode` | 0.50 | Δtwo_lead_broken_rate=3.4, Δpct_close=2.3 |
+| 7 | `clock_length` | 0.37 | Δpct_close=4.3, Δtwo_lead_broken_rate=3.8 |
+| 8 | `findings_cap` | 0.20 | Δpct_close=1.6, Δfaction_spread=0.7 |
 
 ### Full sweep tables
 
@@ -187,63 +189,63 @@ Dials ranked by how much they swing the key metrics (`avg_rounds`, `pct_close`, 
 **`findings_cap`**
 | value | turtle% | warlord% | greedy% | avg_rounds | %close | %knockout | seat0× | spoil/turn | 2-lead broken% | fac.spread |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| 2 | 12.88 | 28.25 | 29.41 | 10.33 | 86.5 | 11.9 | 1.21 | 0.207 | 81.2 | 18.9 |
-| 3 | 12.2 | 29.07 | 29.35 | 9.88 | 87.7 | 11.9 | 1.22 | 0.122 | 81.5 | 19.2 |
-| 4 | 12.35 | 29.1 | 29.26 | 9.83 | 87.8 | 11.9 | 1.21 | 0.101 | 81.5 | 19.3 |
+| 2 | 11.9 | 32.38 | 27.8 | 10.26 | 85.6 | 12.9 | 1.21 | 0.195 | 81.5 | 10.7 |
+| 3 | 11.62 | 33.1 | 27.6 | 9.77 | 87.0 | 12.7 | 1.18 | 0.108 | 81.7 | 10.2 |
+| 4 | 11.6 | 33.2 | 27.57 | 9.72 | 87.2 | 12.6 | 1.18 | 0.088 | 81.7 | 10.0 |
 
 **`clock_length`**
 | value | turtle% | warlord% | greedy% | avg_rounds | %close | %knockout | seat0× | spoil/turn | 2-lead broken% | fac.spread |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| 11 | 12.5 | 27.18 | 30.15 | 10.38 | 85.6 | 14.0 | 1.24 | 0.128 | 79.7 | 20.1 |
-| 7 | 12.6 | 30.6 | 28.36 | 9.33 | 89.8 | 9.8 | 1.17 | 0.115 | 83.7 | 19.0 |
-| 9 | 12.2 | 29.07 | 29.35 | 9.88 | 87.7 | 11.9 | 1.22 | 0.122 | 81.5 | 19.2 |
+| 11 | 11.62 | 32.33 | 27.99 | 10.28 | 84.9 | 14.8 | 1.17 | 0.115 | 79.6 | 11.0 |
+| 7 | 11.12 | 35.12 | 26.84 | 9.21 | 89.2 | 10.5 | 1.17 | 0.1 | 83.4 | 9.8 |
+| 9 | 11.62 | 33.1 | 27.6 | 9.77 | 87.0 | 12.7 | 1.18 | 0.108 | 81.7 | 10.2 |
 
 **`escalation_threshold`**
 | value | turtle% | warlord% | greedy% | avg_rounds | %close | %knockout | seat0× | spoil/turn | 2-lead broken% | fac.spread |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| 3 | 12.3 | 31.8 | 27.9 | 8.79 | 90.8 | 9.1 | 1.16 | 0.077 | 84.3 | 19.1 |
-| 5 | 12.2 | 29.07 | 29.35 | 9.88 | 87.7 | 11.9 | 1.22 | 0.122 | 81.5 | 19.2 |
-| 7 | 12.18 | 27.02 | 30.38 | 10.71 | 84.8 | 14.7 | 1.26 | 0.145 | 79.0 | 20.0 |
+| 3 | 11.78 | 35.77 | 26.18 | 8.77 | 90.2 | 9.7 | 1.16 | 0.079 | 84.3 | 9.0 |
+| 5 | 11.62 | 33.1 | 27.6 | 9.77 | 87.0 | 12.7 | 1.18 | 0.108 | 81.7 | 10.2 |
+| 7 | 11.8 | 31.95 | 28.1 | 10.61 | 84.0 | 15.6 | 1.19 | 0.135 | 79.3 | 10.9 |
 
 **`toll_amount`**
 | value | turtle% | warlord% | greedy% | avg_rounds | %close | %knockout | seat0× | spoil/turn | 2-lead broken% | fac.spread |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| 0 | 12.62 | 30.25 | 28.55 | 9.02 | 91.0 | 8.8 | 1.15 | 0.15 | 85.8 | 15.3 |
-| 1 | 12.2 | 29.07 | 29.35 | 9.88 | 87.7 | 11.9 | 1.22 | 0.122 | 81.5 | 19.2 |
-| 2 | 12.15 | 30.55 | 28.61 | 11.18 | 84.9 | 14.8 | 1.28 | 0.099 | 79.7 | 20.6 |
+| 0 | 12.45 | 33.67 | 26.91 | 8.95 | 90.5 | 9.3 | 1.16 | 0.166 | 86.0 | 11.2 |
+| 1 | 11.62 | 33.1 | 27.6 | 9.77 | 87.0 | 12.7 | 1.18 | 0.108 | 81.7 | 10.2 |
+| 2 | 11.47 | 35.2 | 26.64 | 11.04 | 84.7 | 15.1 | 1.27 | 0.084 | 80.2 | 8.2 |
 
 **`extra_ratio_steps`**
 | value | turtle% | warlord% | greedy% | avg_rounds | %close | %knockout | seat0× | spoil/turn | 2-lead broken% | fac.spread |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| 0 | 12.2 | 29.07 | 29.35 | 9.88 | 87.7 | 11.9 | 1.22 | 0.122 | 81.5 | 19.2 |
-| 1 | 12.1 | 33.12 | 27.32 | 9.46 | 90.5 | 9.1 | 1.23 | 0.149 | 85.4 | 16.6 |
+| 0 | 11.62 | 33.1 | 27.6 | 9.77 | 87.0 | 12.7 | 1.18 | 0.108 | 81.7 | 10.2 |
+| 1 | 11.65 | 38.02 | 25.15 | 9.38 | 90.9 | 8.8 | 1.19 | 0.132 | 87.0 | 14.7 |
 
 **`field_row_size`**
 | value | turtle% | warlord% | greedy% | avg_rounds | %close | %knockout | seat0× | spoil/turn | 2-lead broken% | fac.spread |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| 4 | 15.05 | 26.23 | 29.34 | 8.99 | 89.4 | 10.4 | 1.17 | 0.108 | 83.7 | 19.4 |
-| 6 | 12.2 | 29.07 | 29.35 | 9.88 | 87.7 | 11.9 | 1.22 | 0.122 | 81.5 | 19.2 |
-| 8 | 10.32 | 30.3 | 29.66 | 10.5 | 86.5 | 13.4 | 1.25 | 0.105 | 80.1 | 19.2 |
+| 4 | 12.8 | 30.05 | 28.5 | 8.99 | 88.6 | 11.2 | 1.22 | 0.116 | 83.4 | 7.9 |
+| 6 | 11.62 | 33.1 | 27.6 | 9.77 | 87.0 | 12.7 | 1.18 | 0.108 | 81.7 | 10.2 |
+| 8 | 9.8 | 34.4 | 27.86 | 10.55 | 87.9 | 12.0 | 1.19 | 0.096 | 82.6 | 10.7 |
 
 **`start_specimens`**
 | value | turtle% | warlord% | greedy% | avg_rounds | %close | %knockout | seat0× | spoil/turn | 2-lead broken% | fac.spread |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| 1 | 17.07 | 25.12 | 28.9 | 8.87 | 87.4 | 12.2 | 1.09 | 0.095 | 80.8 | 24.1 |
-| 3 | 12.2 | 29.07 | 29.35 | 9.88 | 87.7 | 11.9 | 1.22 | 0.122 | 81.5 | 19.2 |
-| 5 | 9.0 | 37.1 | 26.94 | 10.64 | 83.9 | 15.6 | 1.23 | 0.111 | 79.0 | 18.1 |
+| 1 | 13.57 | 26.27 | 30.05 | 8.94 | 88.5 | 11.3 | 1.08 | 0.073 | 82.7 | 8.2 |
+| 3 | 11.62 | 33.1 | 27.6 | 9.77 | 87.0 | 12.7 | 1.18 | 0.108 | 81.7 | 10.2 |
+| 5 | 8.25 | 39.52 | 26.07 | 10.68 | 85.1 | 14.6 | 1.23 | 0.111 | 80.5 | 9.3 |
 
 **`capture_garrison_mode`**
 | value | turtle% | warlord% | greedy% | avg_rounds | %close | %knockout | seat0× | spoil/turn | 2-lead broken% | fac.spread |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| excess | 12.2 | 29.07 | 29.35 | 9.88 | 87.7 | 11.9 | 1.22 | 0.122 | 81.5 | 19.2 |
-| full | 10.55 | 25.1 | 32.16 | 10.32 | 84.8 | 14.5 | 1.26 | 0.154 | 78.5 | 20.7 |
+| excess | 11.62 | 33.1 | 27.6 | 9.77 | 87.0 | 12.7 | 1.18 | 0.108 | 81.7 | 10.2 |
+| full | 10.28 | 29.48 | 30.1 | 10.32 | 84.7 | 14.8 | 1.25 | 0.136 | 78.3 | 8.1 |
 
 ## Problems found & recommended dial changes
 
-1. **Faction imbalance is the biggest problem.** `The Collector` is the strongest and `The Polymath` the weakest (spread 0.78× fair share). *Fix — nerf the strongest:* the Collector's *+1 Specimen on **every** Field action* is a compounding engine that also fires on a Survey; make it *+1 only on activate* or cap it once/turn. *Buff the weakest:* the Polymath's *ignore one toll/turn* is nearly worthless because tolls are cheap and rare; give it something that actually rewards long chains — e.g. *the first chain step each turn is free of fuel*, or *+1 Specimen each time a chain crosses two bands*. The Systematist and Polymath both sit ~0.7× — the two 'patient' factions are underpowered because the levers they key off (spoilage, tolls) are weak.
-2. **The combo/chain line over-performs** (`comboist` wins 41% vs 25% fair, holding ~2× the Hall nodes of a one-step player). A single action that laps Field→Study→Hall can plant several claims a turn. *Fix:* make the loop-back cost something — e.g. the →Field loop-back pays its toll like any crossing, or cap claims to **one per turn** unless a Tactic (*A Whole New Genus*) says otherwise. This is also the metric most sensitive to AI quality, so confirm with human playtests before nerfing hard.
-3. **First-player advantage** (~1.27× fair share at 4p). *Fix:* give later seats a setup bump — e.g. seat *k* starts with *k* extra Specimens, or the last player in the opening order draws an extra Tactic. Cheap, and it directly offsets the opener's first grab at the row.
-4. **The Findings cap is a weak lever at 3** (spoilage is low and barely moves the game). It is fine as flavour, but don't expect to balance pace with it; reach for the clock length / escalation threshold instead (higher sensitivity — see Q7).
+1. **Factions are balanced (already fixed).** The original draft had the Collector ~1.5× and the patient factions ~0.7×; the adopted rebalance (see `REBALANCE.md`) brought the spread to 0.16× with every faction in band. No further faction action needed.
+2. **The combo/chain line over-performs — now the top open question** (`comboist` wins 41% vs 25% fair, holding ~2× the Hall nodes of a one-step player). A single action that laps Field→Study→Hall can plant several claims a turn. *Candidate fix:* make the loop-back cost something — e.g. the →Field loop-back pays its toll like any crossing, or cap claims to **one per turn** unless a Tactic (*A Whole New Genus*) says otherwise. This is the metric most sensitive to AI quality (our `greedy` yardstick under-chains), so **confirm with human playtests before nerfing**.
+3. **First-player advantage** (~1.24× fair share at 4p). *Fix:* give later seats a setup bump — e.g. seat *k* starts with *k* extra Specimens, or the last player in the opening order draws an extra Tactic. Cheap, and it directly offsets the opener's first grab at the row.
+4. **The Findings cap is a weak lever at 3** (spoilage is low and barely moves the game). It is fine as flavour, but don't expect to balance pace with it; reach for the clock length / escalation threshold instead (higher sensitivity — Q7).
 5. **Pace tuning:** the clock binds well at the default length 9. If you want longer 'engine matures' games, `clock_length = 11`; for a tighter, more cutthroat season, `clock_length = 7` (and/or `escalation_threshold = 3`). See the Q7 sweep tables for the exact trade.
 
 

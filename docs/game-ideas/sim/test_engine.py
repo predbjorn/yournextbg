@@ -225,6 +225,63 @@ def test_zero_strength_claim_fizzles():
     assert g.nodes["botany"].owner is None
 
 
+# --- adopted faction rebalance --------------------------------------------
+def test_collector_plus_one_on_activate_not_survey():
+    g = new_game(factions=["collector", "illustrator"])
+    p = g.players[0]
+    # the Collector's +1 applies on an activate, but not on a draft (Survey)
+    assert g._field_action_bonus(p, is_survey=False) == 1
+    assert g._field_action_bonus(p, is_survey=True) == 0
+    p.specimens = 0
+    g._do_field_activate(p, Action("field", "collecting_trip"))  # +2 base +1 Collector
+    assert p.specimens == 3
+
+
+class _ScriptedChain:
+    """Activate Collecting Trip, take exactly one Study chain step, then stop."""
+    def choose_action(self, g, v, opts):
+        for a in opts:
+            if a.kind == "field" and a.card_id == "collecting_trip":
+                return a
+        return opts[0]
+
+    def choose_chain(self, g, v, opts):
+        for a in opts:
+            if a.kind == "study":
+                return a
+        return next(a for a in opts if a.kind == "stop")
+
+
+def _one_chain_step_specimens(fid):
+    g = new_game(n=2, factions=[fid, "illustrator"])
+    p = g.players[0]
+    p.tableau = {"field": ["collecting_trip"], "study": ["classify"], "hall": ["present_a_paper"]}
+    p.specimens, p.findings = 6, 0
+    p.throughput_last = 99            # make P0 lead the Study so no toll confounds the test
+    g._recompute_leads()
+    g.policies[0] = _ScriptedChain()
+    g._take_turn(p)
+    return p.specimens
+
+
+def test_polymath_gains_specimen_per_chain_step():
+    # identical scripted turn (1 chain step, no toll); Polymath nets exactly +1 Specimen
+    assert _one_chain_step_specimens("polymath") == _one_chain_step_specimens("sensationalist") + 1
+
+
+def test_systematist_first_claim_strength_once_per_round():
+    g = new_game(factions=["systematist", "illustrator"], tactics_enabled=False)
+    for pl in g.players:
+        pl.hand = []
+    p = g.players[0]
+    p.findings = 2
+    g._do_hall(p, Action("hall", "present_a_paper", "botany", spend=2), is_chain=False)
+    assert g.nodes["botany"].strength == 3 and p.used_first_claim_bonus   # 2 + 1
+    p.findings = 2
+    g._do_hall(p, Action("hall", "present_a_paper", "entomology", spend=2), is_chain=False)
+    assert g.nodes["entomology"].strength == 2                            # no bonus 2nd time
+
+
 # --- integration: pure turtle never holds a Hall node ----------------------
 def test_pure_turtle_holds_no_nodes():
     for seed in range(40):

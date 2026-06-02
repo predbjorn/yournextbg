@@ -17,8 +17,15 @@ cards come from the `C=[…]` array in `../first-in-the-field-cards.html`; the b
 | `ai.py`     | Policies: `random`, `turtle`, `pure_turtle`, `warlord`, `comboist`, `greedy` (the yardstick). |
 | `run.py`    | CLI: run named match-ups + dial-sweeps, emit CSV. |
 | `report.py` | Aggregate CSV → `REPORT.md`. |
+| `test_engine.py` | Unit tests for the mechanics (`python3 test_engine.py`). |
+| `tune_factions.py` | Greedy-mirror faction balance check (gates on the spread). |
 | `REPORT.md` | **The deliverable** — generated balance findings. |
+| `REBALANCE.md` | The adopted faction rebalance: changes, before/after, why. |
 | `data/`     | Generated CSVs (`games.csv`, `players.csv`, `sweeps.csv`). |
+
+> **Faction balance note:** three faction powers were rebalanced after the first
+> full run (Collector, Polymath, Systematist) and are now the default — see
+> `REBALANCE.md`. `REPORT.md` reflects the post-rebalance game.
 
 ## How to run
 
@@ -151,10 +158,10 @@ flag. Defaults are the rulebook's stated values.
     always-on.
 
 12. **Specimen storage.** The rulebook says Specimens "stockpile freely", so the
-    default `specimen_cap=None` (uncapped). The Systematist's *"+2 Specimen
-    stockpile cap"* is therefore inert unless a finite `specimen_cap` is set (then
-    it adds 2) — a flagged contradiction between the faction card and the storage
-    rule. (The Systematist's *no-spoil* power is the one that actually does work.)
+    default `specimen_cap=None` (uncapped). The original Systematist's *"+2 Specimen
+    stockpile cap"* was therefore inert (a contradiction with the storage rule) —
+    which is exactly why the adopted rebalance replaced it with a *+1 strength on
+    your first claim each round* hook (see `REBALANCE.md`).
 
 13. **Tactics.** Modelled as a **side deck** (the rulebook-leaning option), *not*
     drafted from the Field row. Each player starts with `start_tactics=1`; more

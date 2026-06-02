@@ -192,19 +192,23 @@ class Faction:
     text: str
 
 
+# Faction powers reflect the rebalance validated in REBALANCE.md and adopted as
+# the default (the original first-draft wording is noted there). The three changed
+# factions: Collector (+1 on activate only, not survey), Polymath (+1 Specimen per
+# chain step), Systematist (+1 str on its first claim each round).
 FACTIONS: list[Faction] = [
     Faction("systematist", "The Systematist", "turtle",
-            frozenset({"findings_never_decay", "specimen_cap_plus_2"}),
-            "Your Findings never decay; +2 Specimen stockpile cap."),
+            frozenset({"findings_never_decay", "first_claim_str_plus_1"}),
+            "Your Findings never decay; +1 strength on your first claim each round."),
     Faction("sensationalist", "The Sensationalist", "warlord",
             frozenset({"contest_ticks_clock", "attack_occupied_plus_1"}),
             "Each claim you contest advances the clock +1; +1 str attacking an occupied field."),
     Faction("polymath", "The Polymath", "comboist",
-            frozenset({"ignore_one_toll_per_turn"}),
-            "Once per turn, ignore one toll when a chain crosses a band you do not lead."),
+            frozenset({"ignore_one_toll_per_turn", "specimen_per_chain_step"}),
+            "Once per turn ignore one toll; +1 Specimen for each chain step you take."),
     Faction("collector", "The Collector", "drafter",
-            frozenset({"spec_per_field_action_plus_1", "peek_row"}),
-            "+1 Specimen on every Field action; peek the row before drafting."),
+            frozenset({"spec_per_activate_plus_1", "peek_row"}),
+            "+1 Specimen each time you activate a Field card; peek the row before drafting."),
     Faction("illustrator", "The Illustrator", "producer",
             frozenset({"first_conv_1to1_round", "findings_cap_plus_1"}),
             "Once a round your first conversion is 1:1; Findings cap +1."),

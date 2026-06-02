@@ -135,6 +135,13 @@ class Report:
             out.append(f"\nSpread (strongest ÷ fair − weakest ÷ fair): **{hi-lo:.2f}** "
                        f"— strongest **{FACTION_NAME[self.faction_hi]}** ({hi:.2f}×), "
                        f"weakest **{FACTION_NAME[self.faction_lo]}** ({lo:.2f}×).")
+            if hi - lo >= 0.4:
+                out.append("\n⚠️ **Imbalanced** — outside the healthy asymmetric band "
+                           "(aim for everything within ~0.85×–1.15×).")
+            else:
+                out.append("\n✅ **Balanced** — every faction sits inside the healthy "
+                           "asymmetric band; no auto-picks or traps. (This reflects the "
+                           "adopted rebalance — see `REBALANCE.md`.)")
         return "\n".join(out) + "\n"
 
     def strategy_section(self):
@@ -439,32 +446,38 @@ class Report:
         }
         if fs >= 0.4:
             recs.append(
-                f"1. **Faction imbalance is the biggest problem.** "
+                f"**Faction imbalance is the biggest problem.** "
                 f"`{FACTION_NAME[self.faction_hi]}` is the strongest and "
                 f"`{FACTION_NAME[self.faction_lo]}` the weakest (spread {fs:.2f}× fair "
                 f"share). *Fix — nerf the strongest:* the Collector's *+1 Specimen on **every** "
                 f"Field action* is a compounding engine that also fires on a Survey; make it "
                 f"*+1 only on activate* or cap it once/turn. *Buff the weakest:* "
                 f"{buff_advice.get(self.faction_lo, 'strengthen its core power')}. The "
-                f"Systematist and Polymath both sit ~0.7× — the two 'patient' factions are "
+                f"Systematist and Polymath both sit low — the two 'patient' factions are "
                 f"underpowered because the levers they key off (spoilage, tolls) are weak.")
-        # comboist dominance
+        else:
+            recs.append(
+                f"**Factions are balanced (already fixed).** The original draft had the "
+                f"Collector ~1.5× and the patient factions ~0.7×; the adopted rebalance "
+                f"(see `REBALANCE.md`) brought the spread to {fs:.2f}× with every faction in "
+                f"band. No further faction action needed.")
+        # comboist dominance — the lead remaining issue post-rebalance
         cw = self.strategy_wr.get("comboist")
         if cw and cw > 33:
             recs.append(
-                f"2. **The combo/chain line over-performs** (`comboist` wins {cw:.0f}% vs "
-                f"25% fair, holding ~2× the Hall nodes of a one-step player). A single "
-                f"action that laps Field→Study→Hall can plant several claims a turn. *Fix:* "
-                f"make the loop-back cost something — e.g. the →Field loop-back pays its "
-                f"toll like any crossing, or cap claims to **one per turn** unless a Tactic "
-                f"(*A Whole New Genus*) says otherwise. This is also the metric most "
-                f"sensitive to AI quality, so confirm with human playtests before nerfing "
-                f"hard.")
+                f"**The combo/chain line over-performs — now the top open question** "
+                f"(`comboist` wins {cw:.0f}% vs 25% fair, holding ~2× the Hall nodes of a "
+                f"one-step player). A single action that laps Field→Study→Hall can plant "
+                f"several claims a turn. *Candidate fix:* make the loop-back cost something — "
+                f"e.g. the →Field loop-back pays its toll like any crossing, or cap claims to "
+                f"**one per turn** unless a Tactic (*A Whole New Genus*) says otherwise. This "
+                f"is the metric most sensitive to AI quality (our `greedy` yardstick "
+                f"under-chains), so **confirm with human playtests before nerfing**.")
         # seat advantage
         s0 = getattr(self, "seat0_4p", 1.0)
         if s0 >= 1.2:
             recs.append(
-                f"3. **First-player advantage** (~{s0:.2f}× fair share at 4p). *Fix:* give "
+                f"**First-player advantage** (~{s0:.2f}× fair share at 4p). *Fix:* give "
                 f"later seats a setup bump — e.g. seat *k* starts with *k* extra Specimens, "
                 f"or the last player in the opening order draws an extra Tactic. Cheap, and "
                 f"it directly offsets the opener's first grab at the row.")
@@ -472,24 +485,23 @@ class Report:
         ww = self.strategy_wr.get("warlord")
         if ww and ww < 20:
             recs.append(
-                f"4. **Aggression slightly under-rewards** (`warlord` {ww:.0f}%). Captures "
+                f"**Aggression slightly under-rewards** (`warlord` {ww:.0f}%). Captures "
                 f"leave a weak garrison (strength S−D), so the warlord can fight but cannot "
                 f"*hold*. *Fix:* sweep `capture_garrison_mode = full` (the captured node "
                 f"keeps the attacker's full strength) — see the sweep table; it should lift "
                 f"warlord and Hall-lead stickiness without breaking knockout defence.")
         # findings cap weak lever
         recs.append(
-            f"{len(recs)+1}. **The Findings cap is a weak lever at 3** (spoilage is low and "
-            f"barely moves the game). It is fine as flavour, but don't expect to balance "
-            f"pace with it; reach for the clock length / escalation threshold instead "
-            f"(higher sensitivity — see Q7).")
+            "**The Findings cap is a weak lever at 3** (spoilage is low and barely moves the "
+            "game). It is fine as flavour, but don't expect to balance pace with it; reach "
+            "for the clock length / escalation threshold instead (higher sensitivity — Q7).")
         # clock
         recs.append(
-            f"{len(recs)+1}. **Pace tuning:** the clock binds well at the default length 9. "
-            f"If you want longer 'engine matures' games, `clock_length = 11`; for a "
-            f"tighter, more cutthroat season, `clock_length = 7` (and/or "
-            f"`escalation_threshold = 3`). See the Q7 sweep tables for the exact trade.")
-        out.extend(recs)
+            "**Pace tuning:** the clock binds well at the default length 9. If you want "
+            "longer 'engine matures' games, `clock_length = 11`; for a tighter, more "
+            "cutthroat season, `clock_length = 7` (and/or `escalation_threshold = 3`). "
+            "See the Q7 sweep tables for the exact trade.")
+        out.extend(f"{i}. {r}" for i, r in enumerate(recs, 1))
         return "\n".join(out) + "\n"
 
     # -- assemble ----------------------------------------------------------
@@ -536,14 +548,19 @@ class Report:
         items.append(f"- **Engine is healthy:** games terminate, the clock binds "
                      f"(~{statistics.mean(num(r['rounds']) for r in self.games):.0f} rounds "
                      f"avg), and no resource/lead invariant ever breaks across the corpus.")
-        if hasattr(self, "faction_hi"):
+        cw = self.strategy_wr.get("comboist")
+        if hasattr(self, "faction_hi") and fs >= 0.4:
             items.append(f"- **Biggest issue — faction balance:** "
                          f"{FACTION_NAME[self.faction_hi]} strong / "
                          f"{FACTION_NAME[self.faction_lo]} weak (spread {fs:.2f}× fair share).")
-        cw = self.strategy_wr.get("comboist")
+        else:
+            items.append(f"- **Factions are balanced** (spread {fs:.2f}× fair share; all "
+                         f"within the healthy band) — the adopted rebalance, see `REBALANCE.md`.")
         if cw:
-            items.append(f"- **Watch the combo line:** `comboist` ~{cw:.0f}% vs 25% fair — "
-                         f"chaining a full lap is the strongest play.")
+            lead = "Biggest remaining flag" if fs < 0.4 else "Watch"
+            items.append(f"- **{lead} — the combo line:** `comboist` ~{cw:.0f}% vs 25% fair; "
+                         f"chaining a full lap is the strongest play (AI-sensitive — "
+                         f"confirm with humans before nerfing).")
         pt = self.strategy_wr.get("pure_turtle")
         if pt is not None:
             items.append(f"- **Turtling is correctly dead:** ignoring the Hall wins "

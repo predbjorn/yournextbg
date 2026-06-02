@@ -45,10 +45,8 @@ class Dials:
     # documented interpretation switches
     capture_garrison_mode: str = "excess"   # 'excess' (S-D) | 'full' (S)
     toll_on_paid_action: bool = False        # toll applies only to chained steps by default
-    # --- proposed faction rebalance (off by default; see REBALANCE.md) ---
-    collector_activate_only: bool = False    # Collector +1 Specimen only on activate, not survey
-    polymath_chain_specimen: bool = False    # Polymath +1 Specimen per chain step (combo reward)
-    systematist_first_claim_str: bool = False  # Systematist +1 str on first claim each round
+    # (The faction rebalance from REBALANCE.md is now baked into the faction powers
+    # in cards.py, so it needs no dial.)
     specimen_cap: Optional[int] = None       # None = stockpile freely (rulebook); int = hard cap
     study_lead_min_throughput: int = 1       # min last-turn Findings to hold the Study lead
     tactics_enabled: bool = True
@@ -425,8 +423,8 @@ class Game:
             steps += 1
             if steps == 1:
                 self.m.chained_turns += 1
-            if self.d.polymath_chain_specimen and p.faction.id == "polymath":
-                self._gain_specimens(p, 1)   # proposed buff: reward long laps
+            if p.has_faction("specimen_per_chain_step"):
+                self._gain_specimens(p, 1)   # Polymath: reward long laps
             chained = self._execute(p, choice, is_chain=True)
         self._end_turn(p)
         self._recompute_leads()
@@ -619,10 +617,9 @@ class Game:
         bonus = 0
         for c in p.all_cards():
             bonus += c.spec_per_field_action
-        if p.has_faction("spec_per_field_action_plus_1"):
-            # proposed nerf: the Collector's +1 fires only on activate, not on a draft
-            if not (is_survey and self.d.collector_activate_only):
-                bonus += 1
+        # the Collector's +1 fires on an activate, not on a draft (Survey)
+        if p.has_faction("spec_per_activate_plus_1") and not is_survey:
+            bonus += 1
         if not p.used_first_field_action and p.has_passive("spec_first_field_action"):
             bonus += 1
         if self.leads[C.FIELD] == p.idx and p.has_passive("lead_field_bonus"):
@@ -710,10 +707,9 @@ class Game:
         p.findings -= spend
         assert p.findings >= 0
         base_str = spend + card.str_bonus
-        # proposed buff: Systematist gets +1 str on its first claim each round (a Hall
-        # hook for the patient builder, since its no-spoil power is near-useless)
-        if self.d.systematist_first_claim_str and p.faction.id == "systematist" \
-                and not p.used_first_claim_bonus:
+        # Systematist gets +1 str on its first claim each round (a Hall hook for the
+        # patient builder, since its no-spoil power is near-useless on its own)
+        if p.has_faction("first_claim_str_plus_1") and not p.used_first_claim_bonus:
             base_str += 1
             p.used_first_claim_bonus = True
         # attacker feint (offensive tactic)

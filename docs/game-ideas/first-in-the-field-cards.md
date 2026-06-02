@@ -143,14 +143,20 @@ PASSIVE:  your sealed claims reveal at +2;             on success, advance the E
 
 ## FACTION POWERS — one per player (asymmetric start)
 
-- **The Systematist** *(turtle)* — your Findings never decay; +2 Specimen stockpile cap.
-  Built to win the long game from the cold/warm bands.
+> Three faction powers were rebalanced after simulation (see `sim/REBALANCE.md`);
+> the updated wording is below, with the original first-draft text in parentheses.
+
+- **The Systematist** *(turtle)* — your Findings never decay; **+1 strength on your
+  first claim each round** *(was: +2 Specimen stockpile cap)*. The claim hook lets the
+  patient builder actually reach the Hall.
 - **The Sensationalist** *(warlord)* — each claim you *contest* advances the Exhibition
   clock +1; +1 str when attacking an occupied field. Burns the season down.
 - **The Polymath** *(comboist)* — once per turn, ignore one toll when a chain crosses a
-  band you don't lead. Enables the full-lap knockout lunge.
-- **The Collector** *(Draft-lean)* — +1 Specimen on every Field action; peek the top of
-  the Field row before drafting.
+  band you don't lead; **+1 Specimen for each chain step you take**. Rewards the full-lap
+  knockout lunge.
+- **The Collector** *(Draft-lean)* — **+1 Specimen each time you activate a Field card**
+  *(was: on every Field action — it double-dipped on drafts)*; peek the top of the Field
+  row before drafting.
 - **The Illustrator** *(Work-lean)* — once/round your first conversion is 1:1; Findings
   cap +1.
 
