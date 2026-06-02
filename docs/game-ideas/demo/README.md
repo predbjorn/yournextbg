@@ -24,6 +24,16 @@ python3 -m http.server 8765       # then open http://localhost:8765/first-in-the
 | `first-in-the-field.html` | The UI (board, interaction, log) + styling. |
 | `engine.js` | The rules engine + AI — a JS port of `../sim/engine.py` + `../sim/ai.py`. Also runs under Node: `node engine.js` runs an 800-game self-check. |
 
+## Learning the game
+
+**New here? Click ▶ "New? Play the guided tutorial" on the start screen.** It walks you
+through your first turns *on the real board* — collect → convert → claim, and the all-important
+**chain** — spotlighting the exact plane and button to click at each step, and explaining how you
+win. It hands off to free play once you've made your first claim.
+
+You can also open **ⓘ Rules & goal** any time during a game (top-right), or **Read the rules**
+from the start screen, for a one-screen summary of the planes, the turn, chaining, and winning.
+
 ## How to play
 
 1. **Start screen** — pick player count (2–4), your faction, the opponents'

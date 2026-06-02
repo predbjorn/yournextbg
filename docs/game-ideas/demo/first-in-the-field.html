@@ -42,11 +42,11 @@
   .btn:hover{filter:brightness(1.07);}
   .btn.ghost{background:none; box-shadow:inset 0 0 0 1px var(--ink3); color:var(--ink2);}
   select,input{font-family:'IM Fell English',serif; font-size:14px; padding:4px 8px; border:1px solid var(--ink3); border-radius:3px; background:rgba(255,250,235,.7); color:var(--ink);}
-  .g{display:inline-block; width:11px; height:11px; border-radius:50%; vertical-align:-1px; margin:0 1px; box-shadow:inset 0 0 0 1px rgba(0,0,0,.25);}
+  .g{display:inline-block; width:13px; height:13px; border-radius:50%; vertical-align:-2px; margin:0 1px; box-shadow:inset 0 0 0 1px rgba(0,0,0,.25);}
   .g.spec{background:#5b8a4e;} .g.find{background:#3c7c8c;} .g.stand{background:linear-gradient(180deg,var(--goldhi),var(--gold));}
   /* player badge = colour + distinct shape glyph (colour-blind safe) */
   .pb{display:inline-flex; align-items:center; gap:3px; font-family:'IM Fell English SC',serif; font-size:11px;}
-  .pb .gl{display:inline-flex; width:15px; height:15px; align-items:center; justify-content:center; border-radius:50%; color:#fff; font-size:10px; line-height:1; box-shadow:inset 0 0 0 1px rgba(0,0,0,.25);}
+  .pb .gl{display:inline-flex; width:17px; height:17px; align-items:center; justify-content:center; border-radius:50%; color:#fff; font-size:11px; line-height:1; box-shadow:inset 0 0 0 1px rgba(0,0,0,.25);}
 
   /* ---- start screen ---- */
   #start .row{display:flex; gap:18px; flex-wrap:wrap; align-items:center; margin:10px 0;}
@@ -81,9 +81,9 @@
   .meds{display:flex; gap:8px;}
   .med{flex:1; text-align:center; border:1px solid var(--ink3); border-radius:4px; padding:6px 4px; background:rgba(255,250,235,.4);}
   .med.changed{box-shadow:0 0 0 2px var(--gold), 0 0 9px rgba(179,135,58,.45);}
-  .med .disc{width:34px; height:34px; margin:0 auto 3px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+  .med .disc{width:40px; height:40px; margin:0 auto 3px; border-radius:50%; display:flex; align-items:center; justify-content:center;
     background:radial-gradient(circle at 38% 32%, var(--goldhi), var(--gold) 60%, var(--golddk)); box-shadow:inset 0 0 0 1px rgba(255,255,255,.35), 0 1px 2px rgba(0,0,0,.35);}
-  .med .disc svg{width:20px; height:20px; fill:none; stroke:#4a3408; stroke-width:2.4;}
+  .med .disc svg{width:25px; height:25px; fill:none; stroke:#4a3408; stroke-width:2.6;}
   .med .ml{font-family:'IM Fell English SC',serif; font-size:10px; letter-spacing:.04em;}
   .med .crit{font-family:'Cormorant Garamond',serif; font-style:italic; font-size:10px; color:var(--ink3); line-height:1.05;}
   .med .hold{margin-top:2px; min-height:16px;}
@@ -121,9 +121,9 @@
 
   .nodes{display:flex; gap:8px;}
   .node{flex:1; text-align:center; border:1px solid var(--ink3); border-radius:6px; padding:7px 4px; background:rgba(255,250,235,.45); position:relative;}
-  .node .ring{width:42px; height:42px; margin:0 auto 3px; border-radius:50%; display:flex; align-items:center; justify-content:center; position:relative;
+  .node .ring{width:48px; height:48px; margin:0 auto 3px; border-radius:50%; display:flex; align-items:center; justify-content:center; position:relative;
     background:radial-gradient(circle at 42% 34%, #f8efd2, #e6d3a1 96%); box-shadow:inset 0 0 0 1px var(--gold), inset 0 0 0 1.6px var(--goldhi), 0 1px 2px rgba(80,55,20,.3);}
-  .node .ring svg{width:22px;height:22px;fill:none;stroke:var(--ink2);stroke-width:2.4;}
+  .node .ring svg{width:27px;height:27px;fill:none;stroke:var(--ink2);stroke-width:2.6;}
   .node.owned .ring{box-shadow:inset 0 0 0 2px var(--oc), inset 0 0 0 3px var(--goldhi);}
   .node .nn{font-family:'IM Fell English SC',serif; font-size:10.5px; color:#27190a;}
   .node .nsub{font-family:'Cormorant Garamond',serif; font-style:italic; font-size:9.5px; color:var(--hall);}
@@ -172,10 +172,10 @@
   /* Plane identity = engraved glyph + band hue, ALWAYS paired (colour-blind safe).
      Plane hue lives on CHROME; player hue on TOKENS — the two never share a slot. */
   .pm{display:inline-flex; align-items:center; justify-content:center; flex:none; vertical-align:-3px;
-    width:16px; height:16px; border-radius:50%;
+    width:19px; height:19px; border-radius:50%;
     background:radial-gradient(circle at 38% 30%, color-mix(in srgb,var(--pc) 24%,#fffaf0), color-mix(in srgb,var(--pc) 10%,#f1e4c0));
     box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--pc) 60%,transparent), 0 0 0 .5px rgba(255,255,255,.3);}
-  .pm svg{width:11px; height:11px; fill:none; stroke:var(--pc); stroke-width:7;}
+  .pm svg{width:13px; height:13px; fill:none; stroke:var(--pc); stroke-width:7;}
   .pm.pf{--pc:var(--field);} .pm.ps{--pc:var(--study);} .pm.ph{--pc:var(--hall);} .pm.pt{--pc:var(--tactic);}
   .pm.bonus{background:rgba(255,250,235,.5);} .pm.bonus svg{stroke-width:6; opacity:.92;}
   .pmb{display:inline-flex; align-items:center;} .pmb .ar{color:var(--ink3); font-size:11px; line-height:1; margin:0 0 0 2px;}
@@ -185,20 +185,20 @@
   .planekey .note{font-family:'Cormorant Garamond',serif; font-style:italic; font-size:11.5px; color:var(--ink3);}
 
   /* ---- chip header now carries the plane markers (home + ▸bonus) ---- */
-  .chip .hd .pm{width:14px; height:14px;} .chip .hd .pm svg{width:9px; height:9px;}
+  .chip .hd .pm{width:16px; height:16px;} .chip .hd .pm svg{width:11px; height:11px;}
   .chip .hd .pmb .ar{color:rgba(255,255,255,.85); margin:0 1px;}
   .chip .hd .nmb{margin-left:1px;}
   /* ---- row card art window (1 extra <use> + 1 gradient; no ::before/::after, per perf budget) ---- */
-  .chip .art{position:relative; height:34px; margin:3px 4px 0; border-radius:2px; overflow:hidden;
+  .chip .art{position:relative; height:40px; margin:3px 4px 0; border-radius:2px; overflow:hidden;
     background:radial-gradient(110% 100% at 50% 36%, #f7eed0, #e6d4a3 96%);
     box-shadow:inset 0 0 0 1px var(--goldhi), inset 0 0 0 1.5px color-mix(in srgb,var(--bc) 34%,var(--gold));}
-  .chip .art svg{position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:26px; height:26px; fill:none; stroke:var(--ink2); stroke-width:2.4;}
+  .chip .art svg{position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:32px; height:32px; fill:none; stroke:var(--ink2); stroke-width:2.6;}
 
   /* ---- action buttons get a left plane stripe + plane-coloured kicker ---- */
   .act-b{border-left:4px solid var(--stripe,transparent);}
   .act-b.pf{--stripe:var(--field);} .act-b.ps{--stripe:var(--study);} .act-b.ph{--stripe:var(--hall);} .act-b.pt{--stripe:var(--tactic);}
   .act-b .k.pf{color:var(--field);} .act-b .k.ps{color:var(--study);} .act-b .k.ph{color:var(--hall);} .act-b .k.pt{color:var(--tactic);}
-  #chaintrail .pm{width:13px; height:13px;} #chaintrail .pm svg{width:9px; height:9px;}
+  #chaintrail .pm{width:15px; height:15px;} #chaintrail .pm svg{width:11px; height:11px;}
 
   /* ============ FULL CARD (click-to-expand popover; single instance — heavy treatment only here) ============ */
   #modal .box{max-height:92vh; overflow:auto;}
@@ -232,12 +232,34 @@
   .fcard .fwin{position:relative; height:94px; margin:4px 7px 7px; border-radius:6px; color:var(--ink2); overflow:hidden;
     background:radial-gradient(120% 100% at 50% 38%, #f8efd2, #e7d6a6 95%); box-shadow:inset 0 0 0 1px var(--gold), inset 0 0 0 1.6px var(--goldhi), inset 0 0 9px rgba(90,60,20,.3);}
   .fcard .fwin .a{position:absolute; inset:0; display:flex; align-items:center; justify-content:center;}
-  .fcard .fwin .a svg{width:78px; height:78px; fill:none; stroke:currentColor; stroke-width:2.3; stroke-linecap:round; stroke-linejoin:round;}
+  .fcard .fwin .a svg{width:86px; height:86px; fill:none; stroke:currentColor; stroke-width:2.3; stroke-linecap:round; stroke-linejoin:round;}
   .fcard .frules{flex:1; display:flex; flex-direction:column; gap:4px; padding:0 4px;}
   .fcard .frules .ln{font-size:12px; line-height:1.2; color:#322413; display:flex; gap:6px;}
   .fcard .frules .lbl{font-family:'IM Fell English SC',serif; font-size:8.5px; letter-spacing:.07em; color:var(--accent); text-transform:uppercase; flex:none; padding-top:1px; width:44px;}
   .fcard .fflav{margin-top:8px; padding-top:6px; text-align:center; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:12px; line-height:1.15; color:#6a5232;}
   .fcard .fflav::before{content:"\2767"; display:block; color:var(--gold); font-style:normal; font-size:10px; margin-bottom:1px;}
+
+  /* ============ GUIDED TUTORIAL + RULES ============ */
+  #gamebar{display:flex; justify-content:flex-end; gap:8px; margin-bottom:8px;}
+  /* coach panel lives OUTSIDE the re-rendered board, so it survives render() */
+  #coach{display:none; margin:0 0 12px; border-radius:6px; padding:11px 15px 12px; position:sticky; top:6px; z-index:20;
+    background:linear-gradient(180deg, rgba(255,248,228,.97), rgba(238,222,178,.94));
+    box-shadow:0 4px 16px rgba(0,0,0,.32), inset 0 0 0 1px var(--gold), inset 0 0 0 3px var(--goldhi);}
+  #coach .step{font-family:'IM Fell English SC',serif; font-size:10px; letter-spacing:.12em; color:var(--wax); text-transform:uppercase; margin-bottom:4px; display:flex; align-items:center; gap:6px;}
+  #coach .ct{font-family:'IM Fell English',serif; font-size:14.5px; line-height:1.45; color:#3a2c18;}
+  #coach .ct b{color:#27190a;}
+  #coach .controls{display:flex; gap:10px; align-items:center; margin-top:10px;}
+  #coach .hint{font-family:'Cormorant Garamond',serif; font-style:italic; color:var(--ink2); font-size:13px;}
+  #coach .hint b{color:var(--wax);}
+  /* spotlight a whole plane (a .band wrapper is static, so the glow survives render) */
+  .band.tut-spot{box-shadow:0 0 0 3px var(--gold), 0 0 22px rgba(179,135,58,.65), inset 0 0 0 3px rgba(255,250,235,.55) !important;}
+  /* spotlight the exact action button to click */
+  .act-b.tut-btn{box-shadow:0 0 0 3px var(--gold), 0 0 16px rgba(179,135,58,.75) !important; background:#fff !important;}
+  /* rules overlay */
+  .rules h3{margin:0 0 4px;}
+  .rules .rsub{font-family:'Cormorant Garamond',serif; font-style:italic; color:var(--ink2); font-size:13.5px; margin:3px 0 8px; display:flex; align-items:center; gap:6px; flex-wrap:wrap;}
+  .rules .rules-sec{display:flex; align-items:center; gap:8px; margin:5px 0; font-size:14px;}
+  .rules p{font-size:13.5px; line-height:1.5; margin:8px 0;}
 </style>
 </head>
 <body>
@@ -296,6 +318,8 @@
       </select></span>
       <span><label>Seed</label><input id="seed" type="number" style="width:90px" placeholder="random"></span>
       <button class="btn" id="startbtn">Begin the Exhibition</button>
+      <button class="btn" id="tutbtn">▶ New? Play the guided tutorial</button>
+      <button class="btn ghost" id="rulesbtn0">Read the rules</button>
     </div>
     <div class="planekey">
       <span class="it"><span class="pm pf"><svg viewBox="0 0 100 100"><use href="#a-fern"/></svg></span><span class="planeword pf">Field</span></span>
@@ -311,7 +335,9 @@
 
   <!-- ============ GAME ============ -->
   <section id="game">
+    <div id="gamebar"><button class="btn ghost" id="rulesbtn">ⓘ Rules &amp; goal</button></div>
     <div id="turnbanner"></div>
+    <div id="coach"></div>
     <div class="topbar">
       <div class="panel parch"><h3>The Exhibition Clock</h3><div class="clock" id="clock"></div><div class="muted" id="clocknote" style="margin-top:4px"></div></div>
       <div class="panel parch" style="max-width:380px"><h3>Lead Medallions</h3><div class="meds" id="meds"></div></div>
@@ -464,6 +490,110 @@ function startGame(){
   runGame();
 }
 
+// ---------- rules overlay (always available) ----------
+function getRulesHTML(){
+  const P=(b,lab,txt)=>`<div class="rules-sec">${planeMark(b)} <b class="planeword ${PLANE_CLS[b]}">${lab}</b> — ${txt}</div>`;
+  return `<div class="rules"><h3>How to play — First in the Field</h3>`+
+    `<div class="rsub">You're a Victorian naturalist racing rivals to be <b>first to name</b> new species. Build a little engine, then turn discoveries into named claims.</div>`+
+    P("field","The Field","collect <b>Specimens</b> — activate Field cards.")+
+    P("study","The Study","convert Specimens into <b>Findings</b> (cap 3; the rest spoil).")+
+    P("hall","The Hall","spend Findings to <b>claim</b> the five nodes.")+
+    `<p><b>Your turn is one action</b> in one plane. If the card you use shows a <b>▸</b> marker, you may <b>chain</b> a free follow-up into that next plane (Field ▸ Study ▸ Hall, then back to Field). Chaining is the heart of the game. Stepping into a plane you don't lead costs a small <b>toll</b>.</p>`+
+    `<p>Leading a plane earns its gilt <b>medallion</b>: <b>Field</b> = biggest Specimen collection · <b>Study</b> = most converted last turn · <b>Hall</b> = most nodes held.</p>`+
+    `<p><b>To win:</b> hold the <b>most medallions</b> when the Exhibition <b>clock closes</b> — or hold <b>all three</b> at the start of a round (a knockout).</p>`+
+    `<div class="rsub"><span class="pm pt"><svg viewBox="0 0 100 100"><use href="#a-tactic"/></svg></span> <b>Tactics</b> are one-shot tricks (used in a Hall challenge or for tempo) — not tied to a plane.</div></div>`;
+}
+function openRules(){
+  document.getElementById("modalbody").innerHTML = getRulesHTML()+
+    `<div style="text-align:center;margin-top:12px"><button class="btn" id="rclose">Close</button></div>`;
+  openModal(); document.getElementById("rclose").onclick=closeModal;
+}
+document.getElementById("rulesbtn0").onclick=openRules;
+document.getElementById("rulesbtn").onclick=openRules;
+document.getElementById("tutbtn").onclick=startTutorial;
+
+// ---------- guided tutorial (walks the real first turns on the actual board) ----------
+let tutFlags = {};
+const TUT = {
+  active:false, i:0,
+  steps:[
+    { key:"field", sel:".band.field", btn:"Collecting Trip:",
+      html:`<b>Step 1 — collect in the Field.</b> Click the glowing <b>Collecting Trip</b> button under the board. It gathers Specimens, and because it carries a <b>▸ Study</b> marker it lets you <b>chain</b> straight on into the Study.`,
+      done:()=>!!tutFlags.field },
+    { key:"study", sel:".band.study", btn:"Field Notes:",
+      html:`<b>Step 2 — chain into the Study.</b> You collected Specimens and chained on. Now click <b>Field Notes</b> to convert Specimens into a <b>Finding</b> — the currency you spend to make claims.`,
+      done:(g)=> g.players[HUMAN].findings>0 },
+    { key:"rival", sel:null, btn:null,
+      html:`<b>You made your first Finding!</b> Field Notes can't chain any further, so your turn ends here. Your rival now takes a turn — the board dims while they play. Watch what changes, then you're up again.`,
+      done:(g)=> ui._turn===HUMAN && g.round>=2 },
+    { key:"hall", sel:".band.hall", btn:"Present a Paper:",
+      html:`<b>Step 3 — claim in the Hall.</b> Spend your Finding to stake a claim: click a glowing <b>Present a Paper</b> button, pick an empty node, and confirm. Holding a node makes you <b>lead the Hall</b>.`,
+      done:(g)=> g.nodesHeld(HUMAN)>0 },
+    { key:"done", sel:null, btn:null, manual:true, last:true,
+      html:`<b>You hold a Lead medallion!</b> Look up top — the Hall medallion is yours. That's the whole loop: <b>collect ▸ convert ▸ claim</b>. Win by holding the <b>most of the three medallions</b> when the clock closes (or all three at a round's start). You can keep chaining into the Field now, or press <b>Stop</b> to end your turn. You're ready — play on, and reopen <b>ⓘ Rules &amp; goal</b> any time.` }
+  ]
+};
+function startTutorial(){
+  const seed=4242;
+  const factions=["collector","sensationalist"], strategies=["human","greedy"];
+  game=new F.Game({factions,strategies,seed});
+  policies=strategies.map((s,i)=> i===HUMAN?null:F.makePolicy(s,seed*131+i));
+  game.priority=[HUMAN,1];                       // you act first in the tutorial
+  TUT.active=true; TUT.i=0; TUT.scrolledKey=null; tutFlags={};
+  document.getElementById("start").style.display="none";
+  document.getElementById("game").style.display="block";
+  document.getElementById("coach").style.display="block";
+  document.getElementById("youhdr").textContent="You — "+FACTION["collector"].name+" "+PGLYPH[HUMAN];
+  logTurn("Tutorial — the Exhibition opens.");
+  document.getElementById("modalbody").innerHTML=getRulesHTML()+
+    `<div style="text-align:center;margin-top:12px"><button class="btn" id="tbegin">Begin — take your first turn ▸</button></div>`;
+  openModal();
+  document.getElementById("tbegin").onclick=()=>{ closeModal(); tutShow(); runGame(); };
+}
+function tutSpot(sel){
+  document.querySelectorAll(".band.tut-spot").forEach((e)=>e.classList.remove("tut-spot"));
+  if(sel){ const el=document.querySelector(sel); if(el) el.classList.add("tut-spot"); }
+}
+function tutHighlightButtons(){
+  if(!TUT.active) return;
+  const s=TUT.steps[TUT.i]||{}, want=s.btn; let first=null;
+  document.querySelectorAll("#actbtns .act-b").forEach((b)=>{
+    const on = !!want && b.textContent.indexOf(want)>=0;
+    b.classList.toggle("tut-btn", on);
+    if(on && !first) first=b;
+  });
+  // bring the move-to-make into view once per step (helps on short screens; coach stays pinned)
+  if(first && TUT.scrolledKey!==s.key){ TUT.scrolledKey=s.key; first.scrollIntoView({behavior:"smooth", block:"center"}); }
+}
+function tutShow(){
+  if(!TUT.active) return;
+  const s=TUT.steps[TUT.i], c=document.getElementById("coach");
+  const controls = s.manual
+    ? `<button class="btn" id="tutnext">${s.last?"Play on ▸":"Next ▸"}</button>`+(s.last?"":`<button class="btn ghost" id="tutskip">Skip tutorial</button>`)
+    : `<span class="hint">▸ make the highlighted move to continue</span><button class="btn ghost" id="tutskip">Skip tutorial</button>`;
+  c.innerHTML=`<div class="step">📜 Guided tutorial · ${TUT.i+1}/${TUT.steps.length}</div><div class="ct">${s.html}</div><div class="controls">${controls}</div>`;
+  const nx=document.getElementById("tutnext"); if(nx) nx.onclick=tutNext;
+  const sk=document.getElementById("tutskip"); if(sk) sk.onclick=endTutorial;
+  tutSpot(s.sel); tutHighlightButtons();
+}
+function tutCheck(){
+  if(!TUT.active) return;
+  let s=TUT.steps[TUT.i];
+  while(s && !s.manual && s.done && s.done(game) && !s.last){ TUT.i++; s=TUT.steps[TUT.i]; }
+  tutShow();
+}
+function tutNext(){
+  const s=TUT.steps[TUT.i];
+  if(s && s.last){ endTutorial(); return; }
+  TUT.i++; tutCheck();
+}
+function endTutorial(){
+  TUT.active=false;
+  document.getElementById("coach").style.display="none";
+  tutSpot(null);
+  document.querySelectorAll("#actbtns .act-b.tut-btn").forEach((b)=>b.classList.remove("tut-btn"));
+}
+
 // ---------- helpers ----------
 function pName(idx){ return idx===HUMAN?"You":game.players[idx].faction.name; }
 function pBadge(idx){ return `<span class="pb"><span class="gl" style="background:${PHEX[idx]}">${PGLYPH[idx]}</span>${pName(idx)}</span>`; }
@@ -594,6 +724,7 @@ function render(){
       `<span class="stat"><span class="g spec"></span>${p.specimens} <span class="g find"></span>${p.findings} <span class="g stand"></span>${p.standing} · meds ${game.medallions(p.idx)} · nodes ${game.nodesHeld(p.idx)} · cards ${p.tableau.field.length+p.tableau.study.length+p.tableau.hall.length} · tactics ${p.hand.length}</span>`;
     opps.appendChild(el);
   });
+  if(TUT.active) tutCheck();
 }
 function showTactic(t){
   document.getElementById("modalbody").innerHTML = fullTactic(t)+
@@ -644,6 +775,7 @@ function showActions(prompt, options){
     b.innerHTML=(L.k?`<span class="k ${plc}">${L.k}</span>`:"")+L.t;
     b.onclick=()=>{ box.innerHTML=""; document.getElementById("prompt").textContent="…"; chooseAct(a); };
     box.appendChild(b); });
+  tutHighlightButtons();
 }
 let chooseAct=null;
 
@@ -721,6 +853,7 @@ function pickChain(p, cs, band){
   });
 }
 async function applyChosen(p, a){
+  if(TUT.active && (a.kind==="field"||a.kind==="survey")) tutFlags.field=true;
   if(a.kind==="hall"){
     const params=await hallModal(CARD[a.cardId], a.nodeId);
     if(!params) return null;
