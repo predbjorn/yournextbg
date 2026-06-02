@@ -120,3 +120,97 @@ state-derived and render-survivable.**"
 - [x] All objections resolved or explicitly rejected (R1–R13)
 - [x] Decision Log complete
 - [x] Arbiter declared the design acceptable → **APPROVED**
+
+---
+
+# Round 2 — full card designs + a plane-marker system
+
+Second structured review (multi-agent-brainstorming). User request, verbatim:
+"do the full card designs too. Would be nice to use the symbols to be able to
+recognize which plane they work in (there already are symbols, but they need a
+bit more of a distinct color so they are recognizable). They need to be on the
+cards when the cards can be used in that plane or on the card, if it has a bonus
+action there! That goes for everywhere on the board… Also, are there any other
+things that should be represented like that for less cognitive load?"
+
+## Understanding Lock (confirmed against the code)
+
+- **Planes = bands:** Field (collect Specimens) · Study (Specimens→Findings) ·
+  Hall (spend Findings → claim nodes). A card is *activated* in its **home plane**.
+- A card with a chain **`trigger`** (engine.js card data) grants a free **bonus
+  action** in the next plane (Field→Study, Study→Hall, Hall→Field loop-back). In
+  the engine that `trigger` field **is** "a bonus action in another plane" — so
+  "used in that plane **or** has a bonus action there" = **home band + trigger target**.
+- Goal A: in-game cards should look like the **full print-and-play card**
+  (`../first-in-the-field-cards.html`). Goal B: a **distinct-colour plane symbol**
+  on each card (home plane + any bonus plane) and **everywhere on the board**.
+  Goal C: recommend more such markers to cut cognitive load.
+- Constraints (unchanged): no build / no deps beyond the linked Google Fonts;
+  file://; engine untouched; `render()` rebuilds innerHTML each action/AI step
+  (no transient motion); desktop-first; player identity already = colour + glyph ●▲■◆.
+
+## Phase 2 — review synthesis (3 constrained agents)
+
+Two **root errors** were caught (both BLOCKER):
+1. **Skeptic #2:** "marker when a card can be *used* in a plane" is unimplementable —
+   ~9 cards are **passive-only** (never appear in `legalInitial`/`_*Options`).
+   **Skeptic #1:** `trigger` is **not** the only cross-plane effect — node loop-back
+   perks (`_loopbackPerks`, engine.js:490) feed Field (Cache→+1 Specimen) / Standing
+   (Beacon). So the v0 marrker premise was both under- and over-inclusive.
+2. **UA #1:** a `trigger` only *attempts* a chain (the engine grants the step only
+   if you have the fuel and can pay/waive the toll). A permanent "bonus-plane" marker
+   would tell the player "you can act here now" when they usually can't — the exact
+   misleading-marker failure the request is trying to kill.
+
+Plus: **UA core-tension** (user praised the muted look; "distinct colour" must not
+mean saturation) and **Skeptic #4/#3** (plane-green≈player-green p2, plane-red≈player-red
+p1; shifting Study to azure fights the print deck's hard-coded `#2b5563`); **CG #2**
+(full card ×6 on the board, rebuilt in the AI loop = paint storm) with **CG #4** (one
+popover instance is fine); **CG #1/Skeptic #7** (symbol dedup is **7 IDs**, not 1 —
+`a-fern/beetle/bird/nautilus/coral/microscope/lectern` all already in the demo, three
+with divergent bodies); **CG #5** (full-card rules would be a **third** transcription of
+already-disagreeing rules text).
+
+## Resolutions → revised design (v1)
+
+| # | Objection(s) | Disposition | Resolution |
+|---|---|---|---|
+| R2-1 | Skeptic #2 ("used" undefined), Skeptic #1 (trigger ≠ only cross-plane) | **ACCEPT** | Card marker = **home band** (always; a passive card still belongs to its band) + **bonus marker iff `trigger`** (the one cross-plane *action*). Node loop-back perks are node properties → **excluded** from the card-marker system (kept in perk text + the Record). |
+| R2-2 | UA #1 (must not read "legal now") | **ACCEPT** | Bonus marker is a **static** card property (small, outlined, leading ▸), **never** lit with the gold `.legal` glow. The live `#chaintrail` + legal glow remain the *only* "act here now" cue. |
+| R2-3 | Skeptic #3/#4, UA #2, UA core-tension | **ACCEPT** | **Keep canonical band hues** (`#3f6b43`/`#2b5563`/`#8a3030`) — recognizability from **colouring the glyph itself** (was white) + always glyph+hue, **not** saturation. **Discipline:** plane hue → *chrome* (band frames, marker glyphs, card stripe, trail, medallion icon); player hue → *tokens* (owner rings, ●▲■◆ badges, holders). Never tint a token with a plane hue. |
+| R2-4 | UA #3 (find-blue ≈ player-blue), Skeptic #10 (gold overloaded) | **ACCEPT (light)** | **Don't brighten resources.** Keep muted pips aligned spec→Field-green / find→Study-teal at existing desaturation; Standing stays gold **with its inset border** vs the gilt chrome. |
+| R2-5 | CG #2 (paint storm), CG #4 (popover OK), UA #5 (sidebar) | **ACCEPT** | **Full print card = the click popover only** (one instance, never in render()/AI loop). **Row (6) = richer mini-cards** within the chip budget: plane home-glyph + small art window (1 extra `<use>` + 1 radial gradient; no `::before/::after`, ≤1 frame shadow) + name + effect + ▸bonus + cost seal. **Tableau/hand = compact chips** (home glyph recoloured in the existing header slot + ▸bonus, CSS only). |
+| R2-6 | CG #1, Skeptic #7 (7-ID dedup) | **ACCEPT** | Inline **only missing** art symbols (~27: card art + tactic art + `orn-corner`); the demo's existing 7 are **not** re-added → zero duplicate IDs. Full-card art for those 7 reuses the demo's engravings (minor fidelity tradeoff, documented). |
+| R2-7 | CG #5 (third transcription) | **ACCEPT** | Popover rules **reuse `META[cid].e`** (already in the demo) + a derived "chains → {Plane}" line from `CARD.trigger` + derived cost/tier. **No new rules prose.** |
+| R2-8 | CG #3 (perf), Skeptic #8 (stripe redundant mid-chain) | **ACCEPT** | Cards/medallions/headers use `<use>` (bounded). **Action buttons use a CSS plane stripe + plane-coloured kicker** (no extra `<use>`); most value on the **initial** menu (3 planes), subdued in the one-plane chain step. Chain trail uses small `<use>` glyphs (≤3). |
+| R2-9 | Skeptic #9, UA #6 (toll currency ≠ destination plane) | **ACCEPT (skip marker)** | **No toll plane-badge.** Keep inline toll **cost text**, shown only when actually due this step. |
+| R2-10 | UA #7 ("everywhere" vs Tactics), Skeptic #13 (no 4th purple) | **ACCEPT** | Tactics get a **distinct non-plane glyph** (purple lozenge, reusing `--tactic`) + one legend line "Tactics aren't tied to a plane." System reads complete without faking a plane. |
+| R2-11 | UA #7 (teaching) | **ACCEPT** | Add a compact **plane legend** on the start screen: Field·fern, Study·microscope, Hall·lectern, Tactic·lozenge (not a plane), and the home vs ▸bonus convention. |
+| R2-12 | Skeptic #5 (glyph distinctness) | **ACCEPT** | Plane vocabulary = **exactly** {fern, microscope, lectern}; node **discipline** glyphs (coral/nautilus/beetle/…) are a *separate* vocabulary, never reused as plane cues. |
+| R2-13 | Skeptic #11 (narrow wrap) | **ACCEPT (light)** | Desktop-first; row keeps `flex-wrap` → a 2×3 wrap on narrow widths is accepted/documented. |
+| R2-14 | Skeptic #6 (px port + overflow) | **ACCEPT** | Full card authored at a fixed px scale; modal centers and caps height with internal scroll so an 88mm-equivalent card never overflows. |
+| R2-15 | D-list: node-perk markers; conversion-dialog colours | **REJECT** | Little truthful cross-plane content (UA #8); the Study path has no dialog (Skeptic). Both add a competing colour signal → dropped. |
+
+## Phase 3 — Arbitration
+
+- The two BLOCKERs are fixed at the **root**: the marker rule is redefined off the
+  engine's actual structure (home band + `trigger`), and the bonus marker is made a
+  static property that can never masquerade as a legal-now cue.
+- The colour system is re-grounded on the user's **real** preference (antique/muted):
+  distinctness via **coloured glyph + placement**, not saturation — which dissolves
+  every plane↔player collision the reviewers raised, without a palette war with the
+  print deck.
+- "Full card designs" are delivered where they're cheap and high-impact (the popover)
+  and *previewed* on the board within the render budget.
+- All BLOCKER/HIGH objections ACCEPTED & addressed or (R2-15) REJECTED with rationale.
+  Engine untouched; no new deps; no transient motion; colorblind-safe (plane = glyph+hue,
+  player = ●▲■◆+hue, never colour alone).
+
+**Disposition: APPROVED** (v1). Cleared for implementation.
+
+## Exit criteria (Round 2)
+- [x] Understanding Lock completed & confirmed
+- [x] All reviewer agents invoked (Skeptic, Constraint Guardian, User Advocate)
+- [x] All objections resolved or explicitly rejected (R2-1…R2-15)
+- [x] Decision Log complete
+- [x] Arbiter declared the design acceptable → **APPROVED**

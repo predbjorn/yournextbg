@@ -45,6 +45,35 @@ The right column shows your tableau, hand, the rivals, and a running **Record** 
 everything that happens. The top bar shows the clock, the three medallions, and who
 holds each.
 
+## Reading the board — planes at a glance
+
+Everything is colour-and-symbol coded by **plane** so you can see, at a glance, *where*
+each thing acts:
+
+| Plane | Glyph | Colour |
+|---|---|---|
+| **Field** (collect Specimens) | fern | green |
+| **Study** (convert → Findings) | microscope | teal |
+| **Hall** (claim the nodes) | lectern | red |
+| **Tactic** (an interrupt — *not* a plane) | lozenge | purple |
+
+- **Every card shows its home plane**, plus — if it can **chain a bonus action** into the
+  next plane — a smaller **▸ marker** for that plane. (e.g. *Collecting Trip* shows
+  **Field ▸ Study**; *Present a Paper* shows **Hall ▸ Field**.) The ▸ marker is a property
+  of the *card*; whether you can actually take that step this turn depends on having the
+  fuel + toll, which the glowing legal moves and the live **chain trail** tell you.
+- The same glyph+colour repeats **everywhere**: band headers, the **Lead medallions**, the
+  **chain trail**, and a coloured **stripe on each action button** (so you can see which
+  plane a move acts in before you click).
+- **Plane colour lives on the furniture; player colour lives on the tokens.** A node's
+  *owner* is shown by a player-coloured ring + the player's shape badge (●▲■◆); the node's
+  *plane* is the Hall around it. The two never share a slot, so colour-blind play is safe
+  and plane↔player colours never collide.
+- **Click any card** (in the row, your tableau, your hand, or a Tactic) to see the **full
+  engraved card** — the same art, frame, rules and flavour as the print-and-play deck —
+  with its plane markers called out at the top.
+- A small **legend** on the start screen names the four glyphs.
+
 ## Rules fidelity
 
 `engine.js` is a faithful port of the simulator's canonical engine, including the
