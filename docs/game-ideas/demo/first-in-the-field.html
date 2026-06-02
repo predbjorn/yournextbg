@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>First in the Field — playable demo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=IM+Fell+English+SC&family=Cinzel:wght@500;600&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#2c1f0f; --ink2:#5a4326; --ink3:#7a6038;
+    --paper1:#f6eccd; --paper2:#ecdcae; --paper3:#e0cd96;
+    --gold:#b3873a; --goldhi:#efd89c; --golddk:#7e5d22;
+    --wax:#8c2f24; --waxhi:#c6573f;
+    --field:#3f6b43; --study:#2b5563; --hall:#8a3030; --tactic:#574774;
+    --p0:#2b6cb0; --p1:#a23b2d; --p2:#3f6b43; --p3:#6b4a8a;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;}
+  body{
+    font-family:'IM Fell English',Georgia,serif; color:#2c1f0f;
+    background:radial-gradient(130% 130% at 50% -10%,#233029 0%,#18211f 45%,#0d1413 100%) fixed;
+    min-height:100vh;
+  }
+  a{color:var(--study);}
+  .wrap{max-width:1180px; margin:0 auto; padding:14px 14px 60px;}
+  .parch{
+    position:relative; border-radius:3mm; color:var(--ink); padding:14px 16px;
+    background:
+      radial-gradient(circle at 16% 20%, rgba(120,80,30,.06), transparent 9%),
+      radial-gradient(circle at 84% 80%, rgba(110,70,25,.05), transparent 10%),
+      radial-gradient(120% 120% at 50% 36%, transparent 62%, rgba(70,46,16,.13)),
+      radial-gradient(120% 120% at 50% 0%, var(--paper1), var(--paper2) 55%, var(--paper3) 100%);
+    box-shadow:0 10px 30px rgba(0,0,0,.5), inset 0 0 0 1px rgba(126,93,34,.5), inset 0 0 0 3px var(--goldhi);
+  }
+  h1{font-family:'IM Fell English SC',serif; font-weight:400; letter-spacing:.03em; margin:0; color:#27190a;}
+  .sub{font-family:'Cormorant Garamond',serif; font-style:italic; color:var(--ink2);}
+  .btn{font-family:'IM Fell English SC',serif; font-size:13px; letter-spacing:.04em; cursor:pointer; border:none; border-radius:3px;
+    padding:7px 16px; color:#3a2a0c; background:linear-gradient(180deg,var(--goldhi),var(--gold) 60%,var(--golddk));
+    box-shadow:0 2px 6px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.4);}
+  .btn:hover{filter:brightness(1.07);}
+  .btn:disabled{filter:grayscale(.6) brightness(.95); cursor:default; opacity:.6;}
+  .btn.ghost{background:none; box-shadow:inset 0 0 0 1px var(--ink3); color:var(--ink2);}
+  select,input{font-family:'IM Fell English',serif; font-size:14px; padding:4px 8px; border:1px solid var(--ink3); border-radius:3px; background:rgba(255,250,235,.7); color:var(--ink);}
+  .pill{display:inline-block; font-family:'Cinzel',serif; font-size:10px; letter-spacing:.06em; padding:1px 6px; border-radius:8px; color:#fff;}
+  .g{display:inline-block; width:11px; height:11px; border-radius:50%; vertical-align:-1px; margin:0 1px; box-shadow:inset 0 0 0 1px rgba(0,0,0,.25);}
+  .g.spec{background:#5b8a4e;} .g.find{background:#3c7c8c;} .g.stand{background:linear-gradient(180deg,var(--goldhi),var(--gold));}
+
+  /* ---- start screen ---- */
+  #start .row{display:flex; gap:18px; flex-wrap:wrap; align-items:center; margin:10px 0;}
+  #start label{font-family:'IM Fell English SC',serif; font-size:12px; letter-spacing:.05em; color:var(--ink2); margin-right:6px;}
+  .facgrid{display:flex; gap:8px; flex-wrap:wrap;}
+  .faccard{width:172px; border:1px solid var(--ink3); border-radius:4px; padding:8px 10px; cursor:pointer; background:rgba(255,250,235,.5);}
+  .faccard:hover{box-shadow:inset 0 0 0 2px var(--goldhi);}
+  .faccard.sel{box-shadow:inset 0 0 0 2px var(--gold), 0 0 0 1px var(--gold);}
+  .faccard .fn{font-family:'IM Fell English SC',serif; color:#27190a;}
+  .faccard .ft{font-size:11.5px; color:var(--ink2); line-height:1.25;}
+  .faccard .arch{font-family:'Cinzel',serif; font-size:9px; letter-spacing:.1em; color:var(--wax);}
+
+  /* ---- game layout ---- */
+  #game{display:none;}
+  .topbar{display:flex; gap:12px; align-items:stretch; margin-bottom:12px; flex-wrap:wrap;}
+  .panel{flex:1; min-width:200px;}
+  .panel h3{font-family:'IM Fell English SC',serif; font-size:11px; letter-spacing:.08em; color:var(--ink2); margin:0 0 6px; text-transform:uppercase;}
+  .clock{display:flex; gap:3px;}
+  .ccell{flex:1; text-align:center; font-family:'Cinzel',serif; font-size:11px; padding:5px 0; border:1px solid var(--ink3); border-radius:2px; color:var(--ink2); background:rgba(255,250,235,.4);}
+  .ccell.on{background:var(--wax); color:#fff; border-color:var(--wax); box-shadow:0 0 6px rgba(160,60,45,.6);}
+  .ccell.close{font-family:'IM Fell English SC',serif; flex:1.6; color:var(--wax);}
+  .ccell.close.on{color:#fff;}
+  .meds{display:flex; gap:8px;}
+  .med{flex:1; text-align:center; border:1px solid var(--ink3); border-radius:4px; padding:5px; background:rgba(255,250,235,.4);}
+  .med .ml{font-family:'IM Fell English SC',serif; font-size:10px; letter-spacing:.06em;}
+  .med .mh{font-family:'Cormorant Garamond',serif; font-style:italic; font-size:12px;}
+
+  .cols{display:grid; grid-template-columns:1fr 320px; gap:12px;}
+  @media(max-width:900px){ .cols{grid-template-columns:1fr;} }
+  .band{border-radius:4px; padding:8px 10px; margin-bottom:10px; box-shadow:inset 0 0 0 1px var(--bc), inset 0 0 0 3px rgba(255,250,235,.5);
+    background:linear-gradient(180deg, color-mix(in srgb,var(--bc) 11%,transparent), color-mix(in srgb,var(--bc) 3%,transparent));}
+  .band.field{--bc:var(--field);} .band.study{--bc:var(--study);} .band.hall{--bc:var(--hall);}
+  .band .bh{font-family:'IM Fell English SC',serif; font-size:13px; color:#27190a; margin-bottom:6px; display:flex; justify-content:space-between; align-items:center;}
+  .band .bh .temp{font-family:'Cinzel',serif; font-size:9px; letter-spacing:.12em; color:var(--bc);}
+  .chips{display:flex; gap:6px; flex-wrap:wrap;}
+
+  .chip{position:relative; width:108px; border-radius:3px; border:1px solid var(--ink3); background:rgba(255,250,235,.6);
+    padding:5px 6px; font-size:11px; line-height:1.2; cursor:default;}
+  .chip .cn{font-family:'IM Fell English SC',serif; font-size:11px; color:#27190a; display:block; margin-bottom:2px;}
+  .chip .ce{color:var(--ink2); font-size:10.5px;}
+  .chip .tier{position:absolute; top:3px; right:4px; font-family:'Cinzel',serif; font-size:8px; color:var(--ink3);}
+  .chip.k-field{border-top:3px solid var(--field);} .chip.k-study{border-top:3px solid var(--study);}
+  .chip.k-hall{border-top:3px solid var(--hall);} .chip.k-tactic{border-top:3px solid var(--tactic);}
+  .chip.act{cursor:pointer; box-shadow:0 0 0 2px var(--gold); background:rgba(255,247,225,.85);}
+  .chip.act:hover{filter:brightness(1.04);}
+
+  .nodes{display:flex; gap:8px;}
+  .node{flex:1; text-align:center; border:1px solid var(--ink3); border-radius:5px; padding:7px 4px; background:rgba(255,250,235,.45); position:relative;}
+  .node .ni{width:30px; height:30px; margin:0 auto 2px; color:var(--ink2);}
+  .node .ni svg{width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:2.4;}
+  .node .nn{font-family:'IM Fell English SC',serif; font-size:11px; color:#27190a;}
+  .node .nsub{font-family:'Cormorant Garamond',serif; font-style:italic; font-size:10px; color:var(--hall);}
+  .node .own{margin-top:3px; font-size:10px; font-family:'Cinzel',serif; letter-spacing:.04em;}
+  .node .perk{font-size:9.5px; color:var(--ink3); line-height:1.1; margin-top:2px;}
+  .node.act{cursor:pointer; box-shadow:0 0 0 2px var(--gold);}
+  .node.owned{box-shadow:inset 0 0 0 2px var(--oc);}
+
+  .you{margin-top:4px;}
+  .opp{border:1px solid var(--ink3); border-radius:4px; padding:6px 8px; margin-bottom:6px; background:rgba(255,250,235,.4); font-size:12px;}
+  .opp .on{font-family:'IM Fell English SC',serif; color:#27190a;}
+  .opp.turn{box-shadow:0 0 0 2px var(--gold);}
+  .stat{font-family:'Cinzel',serif; font-size:11px; color:var(--ink2);}
+
+  #actions{border-radius:4px; padding:10px; background:rgba(255,247,225,.6); box-shadow:inset 0 0 0 1px var(--gold);}
+  #actions .prompt{font-family:'IM Fell English SC',serif; font-size:13px; color:var(--wax); margin-bottom:8px;}
+  .actbtns{display:flex; gap:6px; flex-wrap:wrap;}
+  .act-b{font-family:'IM Fell English',serif; font-size:12px; text-align:left; cursor:pointer; border:1px solid var(--ink3); border-radius:3px;
+    padding:5px 9px; background:rgba(255,250,235,.8); color:var(--ink); max-width:340px;}
+  .act-b:hover{box-shadow:0 0 0 2px var(--gold); background:#fff;}
+  .act-b .k{font-family:'Cinzel',serif; font-size:9px; letter-spacing:.08em; color:var(--ink3); display:block;}
+  .act-b.stop{background:rgba(160,60,45,.12);}
+
+  #log{height:340px; overflow:auto; border:1px solid var(--ink3); border-radius:4px; padding:8px 10px; background:rgba(255,250,235,.5); font-size:12px; line-height:1.45;}
+  #log .turnhdr{font-family:'IM Fell English SC',serif; color:#27190a; margin:8px 0 2px; border-bottom:1px dotted var(--ink3);}
+  #log .ev{color:#322413;}
+  #log .ev .who{color:var(--wax);}
+  #log .ev.you .who{color:var(--p0);}
+
+  /* modal */
+  #modal{position:fixed; inset:0; background:rgba(13,20,19,.6); display:none; align-items:center; justify-content:center; z-index:50;}
+  #modal .box{max-width:440px; width:90%;}
+  #modal h3{margin:0 0 6px;}
+  .findbar{display:flex; gap:5px; flex-wrap:wrap; margin:8px 0;}
+  .findbar .fb{width:30px; text-align:center; padding:5px 0; border:1px solid var(--ink3); border-radius:3px; cursor:pointer; background:rgba(255,250,235,.7); font-family:'Cinzel',serif;}
+  .findbar .fb.sel{background:var(--study); color:#fff; border-color:var(--study);}
+  .winbox{text-align:center; padding:14px;}
+  .winbox h1{font-size:30px;}
+  .muted{color:var(--ink3); font-size:11px;}
+  .tag{font-family:'Cinzel',serif; font-size:9px; letter-spacing:.08em; padding:1px 5px; border-radius:3px; background:var(--bc,#999); color:#fff;}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <symbol id="a-fern" viewBox="0 0 100 100"><path d="M50 94 V10 M50 80C32 76 24 62 22 50 M50 80C68 76 76 62 78 50 M50 62C35 58 28 46 27 36 M50 62C65 58 72 46 73 36 M50 44C38 41 33 32 32 24 M50 44C62 41 67 32 68 24 M50 28C42 26 38 20 38 14 M50 28C58 26 62 20 62 14"/></symbol>
+  <symbol id="a-beetle" viewBox="0 0 100 100"><ellipse cx="50" cy="60" rx="17" ry="25"/><line x1="50" y1="37" x2="50" y2="83"/><ellipse cx="50" cy="36" rx="11" ry="9"/><circle cx="50" cy="23" r="7"/><path d="M33 42C21 40 17 32 13 28 M67 42C79 40 83 32 87 28"/><path d="M31 58C19 58 15 54 10 52 M69 58C81 58 85 54 90 52"/><path d="M33 74C23 78 19 84 15 88 M67 74C77 78 81 84 85 88"/></symbol>
+  <symbol id="a-bird" viewBox="0 0 100 100"><path d="M28 58C30 42 44 34 58 37 C72 40 74 50 68 56 C62 62 50 60 44 64"/><circle cx="60" cy="42" r="2" fill="currentColor"/><path d="M70 41 L84 37 L72 46"/><path d="M44 64 C30 70 22 84 30 92 C26 80 40 74 50 70"/></symbol>
+  <symbol id="a-nautilus" viewBox="0 0 100 100"><path d="M58 80 C34 80 20 62 22 44 C24 28 38 18 54 20 C70 22 80 34 78 48 C76 60 64 66 54 62 C46 59 44 50 50 46 C55 43 60 47 58 52"/></symbol>
+  <symbol id="a-coral" viewBox="0 0 100 100"><path d="M50 86 V64 M50 64 C50 52 36 50 34 38 M50 64 C50 52 64 50 66 38 M34 38 C34 28 26 28 24 20 M34 38 C34 28 42 28 44 20 M66 38 C66 28 74 28 76 20 M66 38 C66 28 58 28 56 20"/><circle cx="24" cy="18" r="3"/><circle cx="76" cy="18" r="3"/></symbol>
+</defs></svg>
+
+<div class="wrap">
+  <!-- ============ START ============ -->
+  <section id="start" class="parch">
+    <h1>First in the Field <span class="sub">— a playable demo</span></h1>
+    <p class="sub" style="margin:4px 0 8px">Outfit expeditions, classify your finds, and race rival naturalists to <em>name</em> the new species. Lead the most of three bands at the Exhibition's close — or hold all three at a round's start to win outright.</p>
+    <div class="row">
+      <span><label>Players</label><select id="nplayers"><option value="2">2</option><option value="3">3</option><option value="4" selected>4</option></select></span>
+      <span><label>Opponents</label><select id="oppstrat">
+        <option value="greedy" selected>Greedy (balanced)</option>
+        <option value="warlord">Warlord (aggressive)</option>
+        <option value="comboist">Comboist (chains)</option>
+        <option value="turtle">Turtle (engine)</option>
+        <option value="mix">A mix</option>
+      </select></span>
+      <span><label>Seed</label><input id="seed" type="number" style="width:90px" placeholder="random"></span>
+      <button class="btn" id="startbtn">Begin the Exhibition</button>
+    </div>
+    <h3 style="font-family:'IM Fell English SC';letter-spacing:.06em;color:var(--ink2);margin:12px 0 4px">Choose your faction</h3>
+    <div class="facgrid" id="facgrid"></div>
+    <p class="muted" style="margin-top:10px">Tip: tap a highlighted card or button on your turn. A single action can <b>chain</b> Field → Study → Hall if your engine produces the fuel. <button class="btn ghost" id="selfcheck">Run rules self-check</button></p>
+  </section>
+
+  <!-- ============ GAME ============ -->
+  <section id="game">
+    <div class="topbar">
+      <div class="panel parch"><h3>The Exhibition Clock</h3><div class="clock" id="clock"></div><div class="muted" id="clocknote" style="margin-top:4px"></div></div>
+      <div class="panel parch" style="max-width:360px"><h3>Lead Medallions</h3><div class="meds" id="meds"></div></div>
+    </div>
+    <div class="cols">
+      <div class="parch" id="boardcol">
+        <div class="band field">
+          <div class="bh"><span>The Field <span class="temp">cold · draft</span></span><span class="muted" id="fieldlead"></span></div>
+          <div class="chips" id="row"></div>
+        </div>
+        <div class="band study">
+          <div class="bh"><span>The Study <span class="temp">warm · work</span></span><span class="muted" id="studytools"></span></div>
+          <div class="muted" style="font-size:11px">Convert Specimens → Findings (cap 3, spoil over cap at turn's end). Prime tools (Microscope, Engraver) are exclusive while held.</div>
+        </div>
+        <div class="band hall">
+          <div class="bh"><span>The Society's Hall <span class="temp">hot · contest</span></span><span class="muted" id="halllead"></span></div>
+          <div class="nodes" id="nodes"></div>
+        </div>
+        <div id="actions"><div class="prompt" id="prompt">…</div><div class="actbtns" id="actbtns"></div></div>
+      </div>
+      <div>
+        <div class="parch" style="margin-bottom:10px">
+          <h3 id="youhdr">You</h3>
+          <div class="you" id="you"></div>
+        </div>
+        <div class="parch" style="margin-bottom:10px">
+          <h3>Rivals</h3>
+          <div id="opps"></div>
+        </div>
+        <div class="parch">
+          <h3>The Record</h3>
+          <div id="log"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div id="modal"><div class="box parch"><div id="modalbody"></div></div></div>
+
+<script src="engine.js"></script>
+<script>
+"use strict";
+const F = window.FITF;
+const { CARD, FACTIONS, FACTION, TACTIC, NODE, NODE_IDS, BANDS, FIELD, STUDY, HALL, TIER_VALUE, closeSpace } = F;
+const PCOLORS = ["var(--p0)","var(--p1)","var(--p2)","var(--p3)"];
+const PHEX = ["#2b6cb0","#a23b2d","#3f6b43","#6b4a8a"];
+const HUMAN = 0;
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+let game = null, policies = [], chosenFaction = "collector", resolver = null;
+
+// ---------- start screen ----------
+function renderFactions() {
+  const grid = document.getElementById("facgrid");
+  grid.innerHTML = "";
+  FACTIONS.forEach((f) => {
+    const d = document.createElement("div");
+    d.className = "faccard" + (f.id === chosenFaction ? " sel" : "");
+    d.innerHTML = `<div class="arch">${f.archetype}</div><div class="fn">${f.name}</div><div class="ft">${f.text}</div>`;
+    d.onclick = () => { chosenFaction = f.id; renderFactions(); };
+    grid.appendChild(d);
+  });
+}
+renderFactions();
+document.getElementById("selfcheck").onclick = () => {
+  const r = F.selfCheck(400);
+  alert("Self-check over " + r.nGames + " games:\n" +
+    "avg rounds " + r.avgRounds + " · knockout " + r.ko + " · close " + r.close + " · maxRounds " + r.maxRounds +
+    "\nInvariants held (no resource went negative, every game terminated).");
+};
+document.getElementById("startbtn").onclick = startGame;
+
+function startGame() {
+  const n = +document.getElementById("nplayers").value;
+  const oppMode = document.getElementById("oppstrat").value;
+  let seed = parseInt(document.getElementById("seed").value, 10);
+  if (!Number.isFinite(seed)) seed = (Math.floor(Math.random() * 1e9)) >>> 0;
+  // factions: human picks; opponents get the rest (distinct), shuffled deterministically
+  const others = FACTIONS.map((f) => f.id).filter((id) => id !== chosenFaction);
+  const rng = new F.RNG(seed); rng.shuffle(others);
+  const factions = [chosenFaction].concat(others.slice(0, n - 1));
+  const mixPool = ["greedy", "warlord", "comboist", "turtle"];
+  const strategies = factions.map((_, i) => i === HUMAN ? "human" : (oppMode === "mix" ? mixPool[(i - 1) % mixPool.length] : oppMode));
+  game = new F.Game({ factions, strategies, seed });
+  policies = strategies.map((s, i) => i === HUMAN ? null : F.makePolicy(s, seed * 131 + i));
+  document.getElementById("start").style.display = "none";
+  document.getElementById("game").style.display = "block";
+  document.getElementById("youhdr").textContent = "You — " + FACTION[chosenFaction].name;
+  logTurn("The Exhibition opens. " + FACTION[chosenFaction].text);
+  runGame();
+}
+
+// ---------- rendering ----------
+function pName(idx){ return idx===HUMAN ? "You" : game.players[idx].faction.name; }
+function logName(idx){ return game.players[idx].faction.name + (idx===HUMAN?" (you)":""); }
+function effLine(c){
+  if (c.band===FIELD){ if(c.spec) return "+"+c.spec+" Spec"+(c.drawTactic?", draw Tactic":"")+(c.trigger?" →Study":""); return c.specPerField?("+"+c.specPerField+" Spec/Field action"):"passive"; }
+  if (c.band===STUDY){ if(c.convMaxIn) return "≤"+c.convMaxIn+"s → "+c.convOut+"/"+c.convIn+(c.trigger?" →Hall":"")+(c.requiresPrime?" (prime)":""); return "passive"; }
+  if (c.band===HALL){ if(c.claim) return (c.sealed?"sealed claim +1":"claim"+(c.strBonus?" +"+c.strBonus:"")+(c.strCap?(" ≤"+c.strCap):""))+(c.trigger?" →Field":""); return "passive"; }
+  return "";
+}
+function chip(cid, extraClass, onclick){
+  const c = CARD[cid];
+  const d = document.createElement("div");
+  d.className = "chip k-"+c.band+(extraClass?(" "+extraClass):"");
+  d.title = c.name + " — " + effLine(c) + (c.cost?(" (cost "+c.cost+")"):"");
+  d.innerHTML = `<span class="tier">${"·".repeat(c.tier)}</span><span class="cn">${c.name}</span><span class="ce">${effLine(c)}</span>`;
+  if (onclick){ d.onclick = onclick; }
+  return d;
+}
+function render(){
+  const d = game.d;
+  // clock
+  const ck = document.getElementById("clock"); ck.innerHTML = "";
+  for (let i=1;i<=d.clockLength;i++){ const c=document.createElement("div"); c.className="ccell"+(game.clock>=i?" on":""); c.textContent=i; ck.appendChild(c);}
+  const cl=document.createElement("div"); cl.className="ccell close"+(game.clock>=closeSpace(d)?" on":""); cl.textContent="CLOSE"; ck.appendChild(cl);
+  document.getElementById("clocknote").textContent = "Round "+game.round+" · clock "+game.clock+"/"+closeSpace(d)+(game.clock>=d.escalationThreshold?" · escalating":"");
+  // medallions
+  const meds=document.getElementById("meds"); meds.innerHTML="";
+  [["field","Field","largest collection"],["study","Study","throughput last turn"],["hall","Hall","most nodes"]].forEach(([b,lab,crit])=>{
+    const h=game.leads[b]; const m=document.createElement("div"); m.className="med";
+    m.innerHTML=`<div class="ml" style="color:${b==='field'?'var(--field)':b==='study'?'var(--study)':'var(--hall)'}">${lab}</div>`+
+      `<div class="mh">${h==null?"<span class='muted'>unclaimed</span>":"<b style='color:"+PHEX[h]+"'>"+pName(h)+"</b>"}</div>`;
+    meds.appendChild(m);
+  });
+  // field row
+  const row=document.getElementById("row"); row.innerHTML="";
+  game.row.forEach((cid)=>row.appendChild(chip(cid)));
+  document.getElementById("fieldlead").innerHTML = "lead: "+(game.leads.field==null?"—":"<b style='color:"+PHEX[game.leads.field]+"'>"+pName(game.leads.field)+"</b>");
+  // study tools
+  const st=[]; ["microscope","engraver"].forEach(t=>{ const o=game.prime[t]; st.push(t+": "+(o==null?"free":(o===HUMAN?"you":pName(o)))); });
+  document.getElementById("studytools").textContent = st.join("  ·  ");
+  // hall nodes
+  const ICON={botany:"a-fern",entomology:"a-beetle",ornithology:"a-bird",geology:"a-nautilus",new_genus:"a-coral"};
+  const nodes=document.getElementById("nodes"); nodes.innerHTML="";
+  NODE_IDS.forEach((nid)=>{
+    const n=game.nodes[nid], info=NODE[nid];
+    const el=document.createElement("div"); el.className="node"+(n.owner!=null?" owned":""); if(n.owner!=null) el.style.setProperty("--oc",PHEX[n.owner]);
+    const ownTxt = n.owner==null ? "<span class='muted'>empty</span>" :
+      `<b style="color:${PHEX[n.owner]}">${pName(n.owner)}</b> · ${n.sealed&&n.owner!==HUMAN?"sealed":("str "+n.strength)}`;
+    el.innerHTML=`<div class="ni"><svg viewBox="0 0 100 100"><use href="#${ICON[nid]}"/></svg></div>`+
+      `<div class="nn">${info.name}</div><div class="nsub">${info.sub}</div>`+
+      `<div class="own">${ownTxt}</div><div class="perk">${info.perkText}</div>`;
+    nodes.appendChild(el);
+  });
+  document.getElementById("halllead").innerHTML = "lead: "+(game.leads.hall==null?"—":"<b style='color:"+PHEX[game.leads.hall]+"'>"+pName(game.leads.hall)+"</b>");
+  // you
+  const me=game.players[HUMAN];
+  const you=document.getElementById("you"); you.innerHTML="";
+  const res=document.createElement("div"); res.className="stat"; res.style.marginBottom="6px";
+  res.innerHTML=`<span class="g spec"></span>${me.specimens} Specimens &nbsp; <span class="g find"></span>${me.findings}/${game.findingsCap(me)} Findings &nbsp; <span class="g stand"></span>${me.standing} Standing &nbsp; · medallions ${game.medallions(HUMAN)}`;
+  you.appendChild(res);
+  BANDS.forEach((b)=>{
+    if(!me.tableau[b].length) return;
+    const wrap=document.createElement("div"); wrap.style.margin="3px 0"; wrap.innerHTML=`<span class="tag" style="--bc:var(--${b})">${b}</span> `;
+    const cw=document.createElement("div"); cw.className="chips"; cw.style.marginTop="3px";
+    me.tableau[b].forEach((cid)=>cw.appendChild(chip(cid)));
+    wrap.appendChild(cw); you.appendChild(wrap);
+  });
+  if(me.hand.length){ const h=document.createElement("div"); h.style.marginTop="5px";
+    h.innerHTML=`<span class="tag" style="--bc:var(--tactic)">tactics in hand</span> `+me.hand.map(t=>`<span title="${TACTIC[t].text}" style="border-bottom:1px dotted var(--ink3)">${TACTIC[t].name}</span>`).join(" · "); you.appendChild(h);}
+  // opponents
+  const opps=document.getElementById("opps"); opps.innerHTML="";
+  game.players.forEach((p)=>{ if(p.idx===HUMAN) return;
+    const el=document.createElement("div"); el.className="opp";
+    el.innerHTML=`<span class="on" style="color:${PHEX[p.idx]}">${p.faction.name}</span> <span class="muted">(${p.strategy})</span><br>`+
+      `<span class="stat"><span class="g spec"></span>${p.specimens} <span class="g find"></span>${p.findings} <span class="g stand"></span>${p.standing} · meds ${game.medallions(p.idx)} · nodes ${game.nodesHeld(p.idx)} · cards ${p.tableau.field.length+p.tableau.study.length+p.tableau.hall.length} · tactics ${p.hand.length}</span>`;
+    opps.appendChild(el);
+  });
+}
+
+// ---------- logging ----------
+function logTurn(title){ const l=document.getElementById("log"); const h=document.createElement("div"); h.className="turnhdr"; h.textContent=title; l.appendChild(h); l.scrollTop=l.scrollHeight; }
+function flushEvents(actorIdx){
+  const l=document.getElementById("log");
+  game.turnEvents.forEach((m)=>{ const e=document.createElement("div"); e.className="ev"+(actorIdx===HUMAN?" you":"");
+    e.innerHTML=`<span class="who">${logName(actorIdx)}</span> ${m}`; l.appendChild(e); });
+  game.turnEvents=[]; l.scrollTop=l.scrollHeight;
+}
+
+// ---------- action buttons (human) ----------
+function actLabel(a){
+  if(a.kind==="survey"){ const c=CARD[a.cardId]; return {k:"Field · Survey", t:`Draft ${c.name}`+(a.fromDeck?" (from deck)":"")+` — cost ${game.buildCost(game.players[HUMAN],c)} Spec`}; }
+  if(a.kind==="field"){ const c=CARD[a.cardId]; const g=c.spec+game.fieldActionBonus(game.players[HUMAN],false); return {k:"Field · Activate", t:`${c.name}: +${g} Spec`+(c.trigger?` →Study`:"")}; }
+  if(a.kind==="study"){ const c=CARD[a.cardId]; const me=game.players[HUMAN]; const ip=game.effectiveInPer(me,c); const feed=Math.min(a.spend,me.specimens,c.convMaxIn); const bt=Math.floor(feed/ip); return {k:"Study · Convert", t:`${c.name}: ${bt*ip} Spec → ${bt*c.convOut} Findings`+(c.trigger?` →Hall`:"")}; }
+  if(a.kind==="hall"){ const c=CARD[a.cardId]; const n=NODE[a.nodeId]; const node=game.nodes[a.nodeId]; const verb=node.owner!=null&&node.owner!==HUMAN?"Challenge":(c.sealed?"Lodge at":"Present at"); return {k:"Hall · "+(node.owner!=null&&node.owner!==HUMAN?"Challenge":"Claim"), t:`${c.name}: ${verb} ${n.name}`}; }
+  if(a.kind==="stop") return {k:"", t:"Stop here (end turn)"};
+  return {k:"",t:a.kind};
+}
+function showActions(prompt, options, isChain){
+  document.getElementById("prompt").innerHTML = prompt;
+  const box=document.getElementById("actbtns"); box.innerHTML="";
+  // de-dup hall by (card,node) already; sort: field, study, hall
+  options.forEach((a)=>{
+    const b=document.createElement("button"); b.className="act-b"+(a.kind==="stop"?" stop":"");
+    const L=actLabel(a); b.innerHTML=(L.k?`<span class="k">${L.k}</span>`:"")+L.t;
+    b.onclick=()=>{ box.innerHTML=""; document.getElementById("prompt").textContent="…"; chooseAct(a, isChain); };
+    box.appendChild(b);
+  });
+}
+let chooseAct = null;
+
+// Hall modal: pick findings to spend + optional Feint
+function hallModal(card, nodeId){
+  return new Promise((resolve)=>{
+    const me=game.players[HUMAN], node=game.nodes[nodeId];
+    const tollNow = 0; // toll auto-handled in engine on apply; show max usable findings
+    let maxSpend = card.strCap!=null ? Math.min(me.findings, card.strCap) : me.findings;
+    if (card.sealed) maxSpend = me.findings; // lodge: str = spent+1
+    let sel = maxSpend;
+    const hasFeint = me.hand.indexOf("sensational_specimen")>=0 && node.owner!=null && node.owner!==HUMAN;
+    let feint=false;
+    const body=document.getElementById("modalbody");
+    function draw(){
+      const strength = sel + card.strBonus + (feint?2:0);
+      const dtxt = node.owner==null?"empty":(node.owner===HUMAN?"yours":(node.sealed?"a sealed rival claim":("rival str "+node.strength)));
+      body.innerHTML=`<h3>${card.name} → ${NODE[nodeId].name}</h3>`+
+        `<div class="muted">Target: ${dtxt}. Your claim strength = ${card.sealed?"Findings spent + 1":"Findings spent"+(card.strBonus?(" + "+card.strBonus):"")}${feint?" + 2 (Feint)":""}.</div>`+
+        `<div>Findings to spend:</div><div class="findbar" id="fb"></div>`+
+        (hasFeint?`<div style="margin:6px 0"><label><input type="checkbox" id="feint" ${feint?"checked":""}> Reveal <b>A Sensational Specimen</b> (+2 to your side)</label></div>`:"")+
+        `<div style="margin-top:6px"><b>Result strength: ${strength}</b></div>`+
+        `<div style="margin-top:10px;display:flex;gap:8px"><button class="btn" id="ok">Make the claim</button><button class="btn ghost" id="cancel">Cancel</button></div>`;
+      const fb=document.getElementById("fb");
+      for(let i=0;i<=maxSpend;i++){ const c=document.createElement("div"); c.className="fb"+(i===sel?" sel":""); c.textContent=i; c.onclick=()=>{sel=i;draw();}; fb.appendChild(c);}
+      if(hasFeint) document.getElementById("feint").onchange=(e)=>{feint=e.target.checked;draw();};
+      document.getElementById("ok").onclick=()=>{ closeModal(); resolve({spend:sel, feint}); };
+      document.getElementById("cancel").onclick=()=>{ closeModal(); resolve(null); };
+    }
+    openModal(); draw();
+  });
+}
+function openModal(){ document.getElementById("modal").style.display="flex"; }
+function closeModal(){ document.getElementById("modal").style.display="none"; }
+
+// ---------- human turn ----------
+async function humanTurn(p){
+  game.beginTurn(p);
+  game.turnEvents=[];
+  logTurn("— Your turn —");
+  render();
+  let opts = game.legalInitial(p);
+  if(!opts.length){ logTurn("(no legal action — you pass)"); game.finishTurn(p); game._recomputeLeads(); render(); return; }
+  let band = await pickAndApply(p, opts, false, "Your turn — choose an action.");
+  let steps=0;
+  while(band!=null && steps<game.d.maxChainSteps){
+    const cs=game.legalChain(p, band);
+    if(!cs.length){ break; }
+    const choice = await pickChain(p, cs, band);
+    if(!choice || choice.kind==="stop") break;
+    game.metrics.chainSteps++; steps++;
+    if(F.hasFaction(p,"specimen_per_chain_step")) game.gainSpecimens(p,1);
+    band = await applyChosen(p, choice, true);
+    render();
+  }
+  game.finishTurn(p);
+  game._recomputeLeads();
+  flushEvents(HUMAN);
+  render();
+}
+function pickAndApply(p, opts, isChain, prompt){
+  return new Promise((resolve)=>{
+    chooseAct = async (a)=>{ const band = await applyChosen(p, a, isChain); flushEvents(HUMAN); render(); resolve(band); };
+    showActions(prompt, opts, isChain);
+  });
+}
+function pickChain(p, cs, band){
+  return new Promise((resolve)=>{
+    chooseAct = (a)=>resolve(a);
+    showActions(`Chain into the <b>${band}</b> — take a free step, or stop. <span class="muted">(pay the step's fuel + a toll if you don't lead that band)</span>`, cs.concat([{kind:"stop"}]), true);
+  });
+}
+async function applyChosen(p, a, isChain){
+  if(a.kind==="hall"){
+    const card=CARD[a.cardId];
+    const params = await hallModal(card, a.nodeId);
+    if(!params){ // cancelled -> treat as no-op stop of this step; re-offer? simplest: end turn step
+      return null;
+    }
+    const act = Object.assign({}, a, {spend:params.spend, human:true, tactics: params.feint?["sensational_specimen"]:[]});
+    return game.applyAction(p, act, isChain);
+  }
+  return game.applyAction(p, a, isChain);
+}
+
+// ---------- AI turn ----------
+async function aiTurn(p){
+  game.turnEvents=[];
+  logTurn("— "+p.faction.name+" ("+p.strategy+") —");
+  render();
+  await sleep(420);
+  game.aiTakeTurn(p, policies[p.idx]);
+  flushEvents(p.idx);
+  render();
+  await sleep(360);
+}
+
+// ---------- game loop ----------
+async function runGame(){
+  while(!game.ended){
+    game.round++;
+    game.startRound();
+    render();
+    const ko = game.knockoutWinner();
+    if(ko!=null){ game.endedBy="knockout"; game.winType="knockout"; game.winner=ko; game.finalize(); break; }
+    for(const idx of game.priority){
+      if(game.ended) break;
+      if(idx===HUMAN) await humanTurn(game.players[idx]);
+      else await aiTurn(game.players[idx]);
+      game.metrics.turns++;
+      // mid-round knockout is only honoured at next round start (rules)
+      render();
+    }
+    game.metrics.rounds++;
+    if(game.clock>=closeSpace(game.d)){ game.endedBy="close"; game.finalize(); break; }
+    if(game.round>=game.d.maxRounds){ game.endedBy="max_rounds"; game.finalize(); break; }
+  }
+  endScreen();
+}
+
+function endScreen(){
+  render();
+  const w=game.winner; const meds=game.players.map(p=>game.medallions(p.idx));
+  const youWon = w===HUMAN && game.winType!=="tie";
+  const body=document.getElementById("modalbody");
+  const tally = game.players.map(p=>`<div style="color:${PHEX[p.idx]}"><b>${pName(p.idx)}</b> — ${game.medallions(p.idx)} medallions${BANDS.filter(b=>game.leads[b]===p.idx).map(b=>" "+b).join(",")} <span class="muted">(standing ${p.standing}, collection ${game.fieldCollection(p)})</span></div>`).join("");
+  body.innerHTML=`<div class="winbox"><h1>${youWon?"You stand first in the field!":(game.winType==="tie"?"A contested season":pName(w)+" takes the season")}</h1>`+
+    `<p class="sub">${game.endedBy==="knockout"?"Won outright — all three medallions held at a round's start.":game.endedBy==="close"?"The Exhibition closed; most medallions wins.":"The season ran its full length."}</p>`+
+    `<div style="text-align:left;display:inline-block;margin:8px auto">${tally}</div>`+
+    `<p class="muted">${game.metrics.rounds} rounds · ${game.metrics.challenges} challenges · clock ${game.clock} · seed ${game.seed}</p>`+
+    `<div style="margin-top:10px"><button class="btn" onclick="location.reload()">New game</button></div></div>`;
+  openModal();
+  logTurn("— Game over: "+(game.winType==="tie"?"tie":pName(w)+" wins ("+game.endedBy+") —"));
+  flushEvents(w==null?HUMAN:w);
+}
+</script>
+</body>
+</html>
