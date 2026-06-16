@@ -6,7 +6,7 @@ card colors / styling**.
 
 ## Understanding Lock (confirmed)
 
-- **Target:** `docs/game-ideas/demo/first-in-the-field.html` (+ `engine.js`).
+- **Target:** `docs/game-ideas/first-in-the-field/demo/first-in-the-field.html` (+ `engine.js`).
 - **Goal A:** more engaging gameplay (today: flat text buttons, mono chips, instant
   state changes, text log).
 - **Goal B:** reuse the print-and-play card palette/styling (`../first-in-the-field-cards.html`:

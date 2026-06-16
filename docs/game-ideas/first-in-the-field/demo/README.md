@@ -13,7 +13,7 @@ If your browser blocks the local `engine.js` load (rare, some locked-down setups
 serve the folder instead:
 
 ```bash
-cd docs/game-ideas/demo
+cd docs/game-ideas/first-in-the-field/demo
 python3 -m http.server 8765       # then open http://localhost:8765/first-in-the-field.html
 ```
 

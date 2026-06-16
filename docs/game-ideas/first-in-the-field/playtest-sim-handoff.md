@@ -16,7 +16,7 @@ flagging problems (with data) and suggested fixes.
 
 ## Where the authoritative design lives
 
-All under `docs/game-ideas/`:
+All under `docs/game-ideas/first-in-the-field/`:
 
 | File | What it is |
 |---|---|
@@ -71,7 +71,7 @@ stats — consider parsing it, or transcribe it into a `cards.py`/`cards.json`.
 4. **A simulation runner** — play N games for given (player-count, strategy line-up,
    dial-set), with seeds; collect metrics; aggregate.
 5. **A dial-sweep + report** — vary the provisional dials, summarise sensitivity,
-   write a markdown balance report to `docs/game-ideas/sim/REPORT.md` (plus raw
+   write a markdown balance report to `docs/game-ideas/first-in-the-field/sim/REPORT.md` (plus raw
    CSVs). Optional: simple plots if a plotting lib is available, else tables only.
 
 ## AI strategies to implement (start simple, then add one heuristic bot)
@@ -135,7 +135,7 @@ swings the failure-mode metrics.
 - **Python 3, standard library only** (optional: `matplotlib`/`pandas` if present,
   but keep a no-deps fallback). Pure-Python keeps it portable and fast enough for
   thousands of games.
-- Layout under `docs/game-ideas/sim/`:
+- Layout under `docs/game-ideas/first-in-the-field/sim/`:
   ```
   sim/
     cards.py        # card definitions (parsed/transcribed) + effect handlers
