@@ -150,7 +150,7 @@
       throughputLast: 0, throughputNow: 0, startSeat: 0,
       usedFirstFieldAction: false, usedFirstConvRound: false, usedFirstConvSeason: false,
       usedFirstBuildCheaper: false, usedPolymathToll: false, usedTollgate: false,
-      usedBorrowedToll: false, usedFirstClaimBonus: false,
+      usedBorrowedToll: false, usedFirstClaimBonus: false, usedLoopback: false,
     };
   }
   const hasFaction = (p, power) => p.faction.powers.indexOf(power) >= 0;
@@ -437,8 +437,8 @@
       this._onClaimSuccess(p, card);
       this._tickClockForClaim(p, card, true, false);
       this._recomputeLeads();
-      if (card.trigger === FIELD) { this._loopbackPerks(p); return FIELD; }
-      return card.trigger;
+      if (card.trigger === FIELD && this._canLoopback(p)) { this._loopbackPerks(p); return FIELD; }
+      return card.trigger && card.trigger !== FIELD ? card.trigger : null;
     }
     _resolveChallenge(p, card, nid, attackStr, spend, nm) {
       const node = this.nodes[nid], defender = this.players[node.owner];
@@ -457,7 +457,7 @@
         this._onClaimSuccess(p, card);
         this._tickEscalation(p, true);
         this._recomputeLeads();
-        if (card.trigger === FIELD) { this._loopbackPerks(p); return FIELD; }
+        if (card.trigger === FIELD && this._canLoopback(p)) { this._loopbackPerks(p); return FIELD; }
         return card.trigger;
       } else if (attackStr === defStr) {
         node.owner = null; node.strength = 0; node.sealed = false;
@@ -487,7 +487,8 @@
       if (card.onSuccessClock) this._tickClock(card.onSuccessClock);
       if (card.onSuccessDrawTactic) for (let i = 0; i < card.onSuccessDrawTactic; i++) { const t = this._drawTactic(); if (t) p.hand.push(t); }
     }
-    _loopbackPerks(p) {
+    _canLoopback(p) { return !p.usedLoopback; }
+    _loopbackPerks(p) { p.usedLoopback = true;
       for (const nid of NODE_IDS) {
         if (this.nodes[nid].owner !== p.idx) continue;
         const perk = NODE[nid].perk;
@@ -556,7 +557,7 @@
 
     // ---- turn lifecycle ----
     beginTurn(p) {
-      p.throughputNow = 0; p.usedPolymathToll = false; p.usedTollgate = false; p.usedBorrowedToll = false;
+      p.throughputNow = 0; p.usedPolymathToll = false; p.usedTollgate = false; p.usedBorrowedToll = false; p.usedLoopback = false;
     }
     finishTurn(p) {
       const noDecay = hasFaction(p, "findings_never_decay") || hasPassive(p, "no_decay_round");
