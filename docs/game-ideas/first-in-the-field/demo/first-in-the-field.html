@@ -343,6 +343,27 @@
 
 /* ============ SLIM RIVAL ROWS ============ */
 .opp-fuel{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.04em;color:var(--ink2);}
+
+/* ============ CHALLENGE REVEAL MODAL ============ */
+.cr-wrap{padding:4px 0 8px;}
+.cr-title{font-family:'IM Fell English SC',serif;font-size:18px;color:#27190a;margin:0 0 4px;}
+.cr-node{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:14px;color:var(--ink2);margin-bottom:12px;}
+.cr-face{display:flex;align-items:stretch;gap:0;margin:8px 0 12px;border:1px solid var(--ink3);border-radius:6px;overflow:hidden;}
+.cr-side{flex:1;padding:12px 14px;text-align:center;}
+.cr-side.atk{background:color-mix(in srgb,var(--hall) 8%,var(--paper1));}
+.cr-side.def{background:color-mix(in srgb,var(--ink3) 8%,var(--paper1));}
+.cr-vs{display:flex;align-items:center;justify-content:center;padding:0 10px;font-family:'Cinzel',serif;font-size:13px;color:var(--ink3);background:var(--paper2);border-left:1px solid var(--ink3);border-right:1px solid var(--ink3);}
+.cr-who{font-family:'IM Fell English SC',serif;font-size:11px;letter-spacing:.08em;color:var(--ink2);margin-bottom:4px;}
+.cr-str{font-family:'Cinzel',serif;font-size:36px;font-weight:600;line-height:1;color:#27190a;}
+.cr-str.winner{color:var(--field);}
+.cr-str.loser{color:var(--wax);opacity:.6;}
+.cr-card{font-size:12.5px;color:var(--ink2);margin-top:4px;}
+.cr-tactics{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:13px;color:var(--wax);margin-top:3px;min-height:18px;}
+.cr-outcome{text-align:center;font-family:'IM Fell English SC',serif;font-size:17px;letter-spacing:.04em;padding:10px 14px;border-radius:4px;margin-bottom:10px;}
+.cr-outcome.win{background:color-mix(in srgb,var(--field) 14%,transparent);color:var(--field);}
+.cr-outcome.loss{background:color-mix(in srgb,var(--wax) 12%,transparent);color:var(--wax);}
+.cr-outcome.tie{background:color-mix(in srgb,var(--ink3) 10%,transparent);color:var(--ink2);}
+.cr-detail{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:14px;color:var(--ink2);margin-bottom:10px;}
 </style>
 </head>
 <body>
@@ -990,6 +1011,85 @@ function hallModal(card, nodeId){
 function openModal(){ document.getElementById("modal").style.display="flex"; }
 function closeModal(){ document.getElementById("modal").style.display="none"; }
 
+// ---------- challenge reveal modal ----------
+function showChallengeReveal(events, card, params, nodeId){
+  return new Promise((resolve)=>{
+    // Parse "challenges X at Y: ATK vs DEF." from turnEvents
+    let atkStr=null, defStr=null;
+    const matchLine = events.find(e=>/challenges .+ at .+: \d+ vs \d+/.test(e));
+    if(matchLine){ const m=matchLine.match(/: (\d+) vs (\d+)/); if(m){ atkStr=+m[1]; defStr=+m[2]; } }
+
+    // Determine outcome
+    const captured = events.some(e=>e.includes("captures "));
+    const repelled = events.some(e=>e.includes("claim is repelled"));
+    const discredited = events.some(e=>e.includes("both papers are discredited"));
+    const ambushed = events.some(e=>e.includes("Prior Publication"));
+
+    // Collect tactic events (lines that aren't the main challenge or outcome line)
+    const tacticLines = events.filter(e=>
+      !e.startsWith("challenges ") && !e.includes("captures ") &&
+      !e.includes("claim is repelled") && !e.includes("both papers are discredited")
+    );
+
+    // Defender name
+    const node = game.nodes[nodeId];
+    const defName = node.owner!=null ? game.players[node.owner].faction.name : "—";
+    const nodeName = NODE[nodeId].name;
+
+    // Outcome config
+    let outcomeCls, outcomeText, detailText;
+    if(ambushed){
+      outcomeCls="loss"; outcomeText="✗ Paper Discredited";
+      detailText="Prior Publication blocked your challenge before it could be compared.";
+    } else if(captured){
+      outcomeCls="win"; outcomeText="✓ Claim Successful";
+      const newStr = node.owner===HUMAN ? node.strength : null;
+      detailText = "You now hold "+nodeName+(newStr!=null?" at strength "+newStr:"")+".";
+    } else if(repelled){
+      outcomeCls="loss"; outcomeText="✗ Claim Repelled";
+      detailText = defName+" holds "+nodeName+" and gains 1 Standing.";
+    } else if(discredited){
+      outcomeCls="tie"; outcomeText="~ Both Papers Discredited";
+      detailText = nodeName+" falls empty — neither claim stands.";
+    } else {
+      outcomeCls="win"; outcomeText="✓ Claimed";
+      detailText = "";
+    }
+
+    // Build strength display (unknown if sealed defender)
+    const wasSealed = events.some(e=>e.includes("sealed"));
+    const defDisplay = (defStr!=null) ? defStr : (wasSealed?"?":"—");
+    const atkWins = captured || (atkStr!=null && defStr!=null && atkStr>defStr);
+    const defWins = repelled || (atkStr!=null && defStr!=null && defStr>atkStr);
+
+    const body=document.getElementById("modalbody");
+    body.innerHTML=`<div class="cr-wrap">
+      <div class="cr-title">Challenge Reveal</div>
+      <div class="cr-node">${planeMark("hall")} ${nodeName}</div>
+      <div class="cr-face">
+        <div class="cr-side atk">
+          <div class="cr-who">Your Paper</div>
+          <div class="cr-str ${atkWins?"winner":defWins?"loser":""}">${atkStr!=null?atkStr:"—"}</div>
+          <div class="cr-card">${card.name}</div>
+          <div class="cr-tactics">${params.feint?"+ A Sensational Specimen (+2)":""}</div>
+        </div>
+        <div class="cr-vs">vs</div>
+        <div class="cr-side def">
+          <div class="cr-who">${defName}'s Defence</div>
+          <div class="cr-str ${defWins?"winner":atkWins?"loser":""}">${defDisplay}</div>
+          <div class="cr-card">${wasSealed?"Sealed claim — strength hidden until now":""}</div>
+          <div class="cr-tactics">${tacticLines.length?tacticLines.join("<br>"):""}</div>
+        </div>
+      </div>
+      <div class="cr-outcome ${outcomeCls}">${outcomeText}</div>
+      ${detailText?`<div class="cr-detail">${detailText}</div>`:""}
+      <div style="text-align:center"><button class="btn" id="crclose">Continue</button></div>
+    </div>`;
+    openModal();
+    document.getElementById("crclose").onclick=()=>{ closeModal(); resolve(); };
+  });
+}
+
 // ---------- human turn ----------
 async function humanTurn(p){
   ui._turn=HUMAN; game.beginTurn(p); game.turnEvents=[]; ui.trail=[];
@@ -1036,8 +1136,15 @@ async function applyChosen(p, a){
   if(a.kind==="hall"){
     const params=await hallModal(CARD[a.cardId], a.nodeId);
     if(!params) return null;
+    const isChallenge = game.nodes[a.nodeId].owner!=null && game.nodes[a.nodeId].owner!==HUMAN;
+    const prevLen = game.turnEvents.length;
     const act=Object.assign({},a,{spend:params.spend, human:true, tactics:params.feint?["sensational_specimen"]:[]});
-    return game.applyAction(p, act, ui.trail.length>0);
+    const result = game.applyAction(p, act, ui.trail.length>0);
+    if(isChallenge){
+      const newEvents = game.turnEvents.slice(prevLen);
+      await showChallengeReveal(newEvents, CARD[a.cardId], params, a.nodeId);
+    }
+    return result;
   }
   return game.applyAction(p, a, ui.trail.length>0);
 }
