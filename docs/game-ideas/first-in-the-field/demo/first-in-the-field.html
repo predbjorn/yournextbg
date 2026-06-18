@@ -615,7 +615,8 @@ function getRulesHTML(){
     P("field","The Field","collect <b>Specimens</b> — activate Field cards.")+
     P("study","The Study","convert Specimens into <b>Findings</b> (cap 3; the rest spoil).")+
     P("hall","The Hall","spend Findings to <b>claim</b> the five nodes.")+
-    `<p><b>Your turn is one action</b> in one plane. If the card you use shows a <b>▸</b> marker, you may <b>chain</b> a free follow-up into that next plane (Field ▸ Study ▸ Hall, then back to Field). Chaining is the heart of the game. Stepping into a plane you don't lead costs a small <b>toll</b>.</p>`+
+    `<p><b>Your turn is one action</b> in one plane. If the card you use shows a <b>▸</b> marker, you may <b>chain</b> a free follow-up into that next plane (Field ▸ Study ▸ Hall, then back to Field). Chaining is the heart of the game.</p>`+
+    `<p><b>Tolls:</b> chaining into a plane you don't lead costs <b>1 Specimen</b> (into the Study) or <b>1 Finding</b> (into the Hall). If you lead that plane the toll is waived automatically. You can also spend <b>1 Standing</b> to waive any toll. Some faction powers, node perks, and Tactics waive tolls too — the game always tells you when one is paid or waived.</p>`+
     `<p>Leading a plane earns its gilt <b>medallion</b>: <b>Field</b> = biggest Specimen collection · <b>Study</b> = most converted last turn · <b>Hall</b> = most nodes held.</p>`+
     `<p><b>To win:</b> hold the <b>most medallions</b> when the Exhibition <b>clock closes</b> — or hold <b>all three</b> at the start of a round (a knockout).</p>`+
     `<div class="rsub"><span class="pm pt"><svg viewBox="0 0 100 100"><use href="#a-tactic"/></svg></span> <b>Tactics</b> are one-shot tricks (used in a Hall challenge or for tempo) — not tied to a plane.</div></div>`;
@@ -739,7 +740,8 @@ const CORNERS = ["tl","tr","bl","br"].map((p)=>`<span class="corner ${p}"><svg v
 // derived "chains →" rules line, straight from the engine's `trigger` (no new rules prose)
 function planeLineFor(c){
   if(!c.trigger) return "";
-  return `<div class="ln"><span class="lbl">Then</span><span>Chain a free step into the ${planeMark(c.trigger,{bonus:true})} <b class="planeword ${PLANE_CLS[c.trigger]}">${BAND_LAB[c.trigger]}</b> — if you can pay its fuel + toll.</span></div>`;
+  const tollCur=c.trigger==="study"?"1 Specimen":"1 Finding";
+  return `<div class="ln"><span class="lbl">Then</span><span>Chain into ${planeMark(c.trigger,{bonus:true})} <b class="planeword ${PLANE_CLS[c.trigger]}">${BAND_LAB[c.trigger]}</b> — free if you lead it, otherwise costs <b>${tollCur} toll</b> (or 1 Standing).</span></div>`;
 }
 // full print-style card (single instance, popover only). Rules reuse META.e — no third transcription.
 function fullCard(cid){
@@ -957,13 +959,21 @@ function flushEvents(idx){ const l=document.getElementById("log");
   game.turnEvents=[]; l.scrollTop=l.scrollHeight; }
 
 // ---------- action labels ----------
+function tollTag(band){
+  if(!game||!ui.trail||ui.trail.length===0) return "";
+  const me=game.players[HUMAN];
+  const toll=game.tollDue(me,band,true);
+  if(toll<=0) return "";
+  const cur=band==="study"?"Sp":"Fi";
+  return ` <span style="color:var(--wax);font-size:10.5px;font-family:'Cinzel',serif">+1 ${cur} toll</span>`;
+}
 function actLabel(a){
   const me=game.players[HUMAN];
   const bonus=(c)=> c.trigger ? (" "+planeMark(c.trigger,{bonus:true})) : "";
   if(a.kind==="survey"){ const c=CARD[a.cardId]; return {k:"Field · Survey",pl:"field",t:`Draft ${c.name}`+(a.fromDeck?" (from deck)":"")+` — ${game.buildCost(me,c)} Spec`}; }
-  if(a.kind==="field"){ const c=CARD[a.cardId]; const g=c.spec+game.fieldActionBonus(me,false); return {k:"Field · Activate",pl:"field",t:`${c.name}: +${g} Spec`+bonus(c)}; }
-  if(a.kind==="study"){ const c=CARD[a.cardId]; const ip=game.effectiveInPer(me,c); const feed=Math.min(a.spend,me.specimens,c.convMaxIn); const bt=Math.floor(feed/ip); return {k:"Study · Convert",pl:"study",t:`${c.name}: ${bt*ip} Spec → ${bt*c.convOut} Find`+bonus(c)}; }
-  if(a.kind==="hall"){ const c=CARD[a.cardId]; const n=NODE[a.nodeId]; const node=game.nodes[a.nodeId]; const verb=node.owner!=null&&node.owner!==HUMAN?"Challenge":(c.sealed?"Lodge at":"Present at"); return {k:"Hall · "+(node.owner!=null&&node.owner!==HUMAN?"Challenge":"Claim"),pl:"hall",t:`${c.name}: ${verb} ${n.name}`+bonus(c)}; }
+  if(a.kind==="field"){ const c=CARD[a.cardId]; const g=c.spec+game.fieldActionBonus(me,false); return {k:"Field · Activate",pl:"field",t:`${c.name}: +${g} Spec`+bonus(c)+tollTag("field")}; }
+  if(a.kind==="study"){ const c=CARD[a.cardId]; const ip=game.effectiveInPer(me,c); const feed=Math.min(a.spend,me.specimens,c.convMaxIn); const bt=Math.floor(feed/ip); return {k:"Study · Convert",pl:"study",t:`${c.name}: ${bt*ip} Spec → ${bt*c.convOut} Find`+bonus(c)+tollTag("study")}; }
+  if(a.kind==="hall"){ const c=CARD[a.cardId]; const n=NODE[a.nodeId]; const node=game.nodes[a.nodeId]; const verb=node.owner!=null&&node.owner!==HUMAN?"Challenge":(c.sealed?"Lodge at":"Present at"); return {k:"Hall · "+(node.owner!=null&&node.owner!==HUMAN?"Challenge":"Claim"),pl:"hall",t:`${c.name}: ${verb} ${n.name}`+bonus(c)+tollTag("hall")}; }
   if(a.kind==="stop") return {k:"",pl:null,t:"Stop here (end turn)"};
   return {k:"",pl:null,t:a.kind};
 }
@@ -1124,11 +1134,19 @@ function pickAndApply(p, opts, prompt){
     showActions(prompt, opts);
   });
 }
+function chainTollNote(band){
+  const me=game.players[HUMAN];
+  const toll=game.tollDue(me,band,true);
+  if(toll<=0) return `<span style="color:var(--field);font-family:'Cinzel',serif;font-size:11px"> — no toll (you lead the ${band})</span>`;
+  const cur=band==="study"?"Specimen":"Finding";
+  const canStanding=me.standing>=1;
+  return `<span style="color:var(--wax);font-family:'Cinzel',serif;font-size:11px"> — toll: 1 ${cur} (or 1 Standing${canStanding?"":", which you don't have"}) since you don't lead the ${band}</span>`;
+}
 function pickChain(p, cs, band){
   return new Promise((resolve)=>{
     ui.legalNow=cs; render();
     chooseAct=(a)=>{ ui.legalNow=[]; resolve(a); };
-    showActions(`Chain into the <b>${band}</b> — take a free step (pay its fuel + a toll if you don't lead that band), or stop.`, cs.concat([{kind:"stop"}]));
+    showActions(`Chain into the <b>${band}</b>${chainTollNote(band)} — choose a card to activate, or stop.`, cs.concat([{kind:"stop"}]));
   });
 }
 async function applyChosen(p, a){
