@@ -260,6 +260,89 @@
   .rules .rsub{font-family:'Cormorant Garamond',serif; font-style:italic; color:var(--ink2); font-size:15.5px; margin:3px 0 8px; display:flex; align-items:center; gap:6px; flex-wrap:wrap;}
   .rules .rules-sec{display:flex; align-items:center; gap:8px; margin:5px 0; font-size:16px;}
   .rules p{font-size:15.5px; line-height:1.5; margin:8px 0;}
+
+/* ============ ROUND BEACON ============ */
+#roundbeacon{
+  display:flex; flex-direction:column; align-items:stretch; gap:4px;
+  padding:8px 14px 6px; margin-bottom:10px; border-radius:3mm;
+  background:linear-gradient(180deg,rgba(255,248,228,.97),rgba(235,218,172,.9));
+  box-shadow:inset 0 0 0 1px var(--gold),inset 0 0 0 3px var(--goldhi);
+}
+.rb-row1{display:flex;align-items:center;gap:14px;}
+.rb-round{font-family:'Cinzel',serif;font-size:13px;letter-spacing:.1em;color:var(--ink2);white-space:nowrap;flex:none;}
+.rb-num{font-size:22px;font-weight:600;color:var(--wax);line-height:1;vertical-align:-2px;}
+.rb-note{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:13px;color:var(--ink3);white-space:nowrap;flex:none;}
+.rb-esc{color:var(--wax);font-style:normal;font-family:'Cinzel',serif;font-size:11px;letter-spacing:.08em;}
+.rb-clock-row{display:flex;gap:4px;align-items:center;}
+
+/* ============ STANDINGS PANEL ============ */
+#standingswrap{flex:1.4;min-width:220px;}
+.sg-head,.sg-row{display:grid;grid-template-columns:100px 1fr 1fr 1fr 46px;gap:3px;align-items:center;font-family:'Cinzel',serif;font-size:11.5px;}
+.sg-head{border-bottom:1px dotted var(--ink3);padding-bottom:4px;margin-bottom:4px;color:var(--ink2);letter-spacing:.07em;}
+.sg-hcol{text-align:center;}
+.sg-hcol.pf{color:var(--field);} .sg-hcol.ps{color:var(--study);} .sg-hcol.ph{color:var(--hall);}
+.sg-row{padding:3px 0;border-bottom:1px solid rgba(90,60,20,.09);}
+.sg-row.sg-you{background:rgba(255,247,220,.7);border-radius:3px;padding:3px 4px;}
+.sg-name{font-family:'IM Fell English SC',serif;font-size:12px;color:#27190a;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.sg-val{text-align:center;padding:1px 3px;border-radius:3px;transition:background .25s,color .25s;color:var(--ink2);}
+.sg-val.leads.pf{background:color-mix(in srgb,var(--field) 18%,transparent);color:var(--field);font-weight:700;}
+.sg-val.leads.ps{background:color-mix(in srgb,var(--study) 18%,transparent);color:var(--study);font-weight:700;}
+.sg-val.leads.ph{background:color-mix(in srgb,var(--hall) 18%,transparent);color:var(--hall);font-weight:700;}
+.sg-medals{text-align:center;letter-spacing:1px;font-size:13px;}
+#standings-legend{display:flex;gap:10px;flex-wrap:wrap;margin-top:5px;font-family:'Cinzel',serif;font-size:10.5px;letter-spacing:.06em;color:var(--ink3);}
+.leg-it{display:inline-flex;align-items:center;gap:3px;}
+.leg-dot{width:9px;height:9px;border-radius:50%;display:inline-block;}
+.leg-dot.pf{background:var(--field);} .leg-dot.ps{background:var(--study);} .leg-dot.ph{background:var(--hall);}
+@media(max-width:480px){
+  .sg-head,.sg-row{grid-template-columns:1fr 46px;}
+  .sg-val:not(.sg-medals){display:none;}
+  .sg-hcol:not(:last-child){display:none;}
+  #standings-legend{display:none;}
+}
+
+/* ============ DRAFT BUTTON ON CHIP ============ */
+.chip-draft{
+  display:block; width:100%; font-family:'IM Fell English SC',serif; font-size:11px;
+  letter-spacing:.05em; cursor:pointer; border:none; border-top:1px solid var(--goldhi);
+  padding:3px 0; color:#fff; margin-top:2px;
+  background:linear-gradient(180deg,color-mix(in srgb,var(--bc) 80%,#000),var(--bc));
+}
+.chip-draft:hover:not(:disabled){filter:brightness(1.1);}
+.chip-draft:disabled{opacity:.38;cursor:not-allowed;}
+
+/* ============ IN-BAND ACTION ZONES ============ */
+.band-actions{margin-top:8px;padding:7px 8px 5px;border-top:1px dotted rgba(126,93,34,.4);}
+.ba-prompt{font-family:'IM Fell English SC',serif;font-size:13px;color:var(--ink2);margin-bottom:5px;letter-spacing:.04em;}
+.ba-cards{display:flex;flex-direction:column;gap:5px;}
+.ba-row{display:flex;align-items:center;justify-content:space-between;gap:8px;
+  padding:5px 8px;border-radius:4px;background:rgba(255,250,235,.75);border:1px solid var(--ink3);}
+.ba-row.dimcard{opacity:.4;filter:grayscale(.3);}
+.ba-info{flex:1;min-width:0;}
+.ba-name{font-family:'IM Fell English SC',serif;font-size:12.5px;color:#27190a;display:block;}
+.ba-eff{font-size:11.5px;color:var(--ink2);}
+.ba-btn{font-family:'IM Fell English SC',serif;font-size:12px;letter-spacing:.04em;padding:3px 11px;flex:none;cursor:pointer;border:none;border-radius:3px;
+  color:#fff;background:linear-gradient(180deg,color-mix(in srgb,var(--ba-c,var(--field)) 80%,#fff 20%),var(--ba-c,var(--field)));}
+.ba-btn:disabled{opacity:.38;cursor:not-allowed;}
+.band.field .ba-btn{--ba-c:var(--field);}
+.band.study .ba-btn{--ba-c:var(--study);}
+.band.hall .ba-btn{--ba-c:var(--hall);}
+
+/* ============ PRIME TOOL CHIPS ============ */
+.prime-chips{display:flex;gap:7px;align-items:center;flex-wrap:wrap;}
+.prime-chip{display:inline-flex;align-items:center;gap:4px;padding:2px 7px 2px 4px;
+  border:1px solid var(--study);border-radius:3px;
+  background:color-mix(in srgb,var(--study) 8%,transparent);
+  font-family:'Cinzel',serif;font-size:10.5px;letter-spacing:.06em;
+  cursor:default;pointer-events:none;user-select:none;}
+.prime-icon{width:13px;height:13px;color:var(--study);flex:none;}
+.prime-icon svg{width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:2.6;}
+.prime-lbl{color:var(--ink2);}
+.prime-status{font-weight:700;}
+.prime-status.free{color:var(--field);}
+.prime-status.held{color:var(--wax);}
+
+/* ============ SLIM RIVAL ROWS ============ */
+.opp-fuel{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.04em;color:var(--ink2);}
 </style>
 </head>
 <body>
@@ -338,8 +421,21 @@
     <div id="gamebar"><button class="btn ghost" id="rulesbtn">ⓘ Rules &amp; goal</button></div>
     <div id="turnbanner"></div>
     <div id="coach"></div>
+    <div id="roundbeacon">
+      <div class="rb-row1">
+        <div class="rb-round">Round <span id="roundnum" class="rb-num">—</span></div>
+        <div class="rb-note" id="clocknote"></div>
+      </div>
+      <div class="rb-clock-row"><div class="clock" id="clock"></div></div>
+    </div>
     <div class="topbar">
-      <div class="panel parch"><h3>The Exhibition Clock</h3><div class="clock" id="clock"></div><div class="muted" id="clocknote" style="margin-top:4px"></div></div>
+      <div class="panel parch" id="standingswrap"></div>
+      <div id="standings-legend" class="panel" style="display:none;padding:4px 0;align-self:flex-end;">
+        <span class="leg-it"><span class="leg-dot pf"></span>Field lead</span>
+        <span class="leg-it"><span class="leg-dot ps"></span>Study lead</span>
+        <span class="leg-it"><span class="leg-dot ph"></span>Hall lead</span>
+        <span class="leg-it" style="color:var(--ink3)">🏅 = medallion</span>
+      </div>
       <div class="panel parch" style="max-width:380px"><h3>Lead Medallions</h3><div class="meds" id="meds"></div></div>
     </div>
     <div class="cols">
@@ -349,7 +445,7 @@
           <div class="chips" id="row"></div>
         </div>
         <div class="band study">
-          <div class="bh"><span class="lhs"><span class="pm ps"><svg viewBox="0 0 100 100"><use href="#a-microscope"/></svg></span>The Study <span class="temp">warm · work</span></span><span class="muted" id="studytools"></span></div>
+          <div class="bh"><span class="lhs"><span class="pm ps"><svg viewBox="0 0 100 100"><use href="#a-microscope"/></svg></span>The Study <span class="temp">warm · work</span></span><span id="studytools"></span></div>
           <div class="muted" style="font-size:13px">Convert Specimens → Findings (cap 3; anything over the cap spoils at turn's end). Prime tools are exclusive while held.</div>
         </div>
         <div class="band hall">
@@ -668,7 +764,26 @@ function render(){
   const ck=document.getElementById("clock"); ck.innerHTML="";
   for(let i=1;i<=d.clockLength;i++){ const c=document.createElement("div"); c.className="ccell"+(game.clock>=i?" on":"")+(game.clock===i?" now":""); c.textContent=i; ck.appendChild(c);}
   const cl=document.createElement("div"); cl.className="ccell close"+(game.clock>=closeSpace(d)?" on":""); cl.textContent="CLOSE"; ck.appendChild(cl);
-  document.getElementById("clocknote").innerHTML="Round "+game.round+" · clock "+game.clock+"/"+closeSpace(d)+(game.clock>=d.escalationThreshold?` · <b title="From here, each successful claim ticks the clock an extra +1.">escalating</b>`:"");
+  document.getElementById("roundnum").textContent=game.round;
+  document.getElementById("clocknote").innerHTML="clock "+game.clock+"/"+closeSpace(d)+(game.clock>=d.escalationThreshold?` · <span class="rb-esc" title="Each successful claim ticks the clock an extra +1.">escalating</span>`:"");
+  document.getElementById("standings-legend").style.display="flex";
+
+  // --- standings panel ---
+  const sw=document.getElementById("standingswrap");
+  let sgH=`<h3 style="font-family:'IM Fell English SC',serif;font-size:13px;letter-spacing:.08em;color:var(--ink2);margin:0 0 6px;text-transform:uppercase">Standings</h3>`+
+    `<div class="sg-head"><span></span><span class="sg-hcol pf">Field</span><span class="sg-hcol ps">Study</span><span class="sg-hcol ph">Hall</span><span class="sg-hcol">🏅</span></div>`;
+  game.players.forEach((p)=>{
+    const meds=game.medallions(p.idx);
+    const medStr=Array.from({length:3},(_, i)=>i<meds?"●":"○").join("");
+    sgH+=`<div class="sg-row${p.idx===HUMAN?" sg-you":""}">` +
+      `<span class="sg-name">${p.idx===HUMAN?"You":p.faction.name} ${PGLYPH[p.idx]}</span>`+
+      `<span class="sg-val${game.leads.field===p.idx?" leads pf":""}">${p.specimens}sp</span>`+
+      `<span class="sg-val${game.leads.study===p.idx?" leads ps":""}">${p.findings}fi</span>`+
+      `<span class="sg-val${game.leads.hall===p.idx?" leads ph":""}">${game.nodesHeld(p.idx)}nd</span>`+
+      `<span class="sg-val sg-medals">${medStr}</span>`+
+      `</div>`;
+  });
+  sw.innerHTML=sgH;
 
   const meds=document.getElementById("meds"); meds.innerHTML="";
   [["field","Field","largest collection"],["study","Study","throughput last turn"],["hall","Hall","most nodes held"]].forEach(([b,lab,crit])=>{
@@ -683,11 +798,35 @@ function render(){
   ui.legalNow.forEach((a)=>{ if(a.kind==="survey") legalRow[a.cardId]=1; else if(a.kind==="field"||a.kind==="study") legalTab[a.cardId]=1; else if(a.kind==="hall") legalNode[a.nodeId]=1; });
 
   const row=document.getElementById("row"); row.innerHTML="";
-  game.row.forEach((cid)=>row.appendChild(chip(cid,{showCost:true, art:true, legal:!!legalRow[cid], dim:ui.legalNow.length>0 && !legalRow[cid]})));
+  game.row.forEach((cid,rowIdx)=>{
+    const isLegal=!!legalRow[cid];
+    const canDraft=isLegal && typeof chooseAct==="function";
+    const ch=chip(cid,{showCost:true, art:true, legal:isLegal, dim:ui.legalNow.length>0 && !isLegal});
+    // find the action object for this row position
+    const surveyAct=ui.legalNow.find(a=>a.kind==="survey"&&a.cardId===cid);
+    const draftBtn=document.createElement("button");
+    draftBtn.className="chip-draft";
+    const draftCost=surveyAct?game.buildCost(game.players[HUMAN],CARD[cid]):"?";
+    draftBtn.textContent=canDraft?`Draft · ${draftCost} Sp`:"Draft";
+    draftBtn.disabled=!canDraft;
+    if(!canDraft) draftBtn.title="Not available to draft right now";
+    draftBtn.onclick=(e)=>{ e.stopPropagation(); if(typeof chooseAct!=="function") return; if(surveyAct) chooseAct(surveyAct); };
+    ch.appendChild(draftBtn);
+    row.appendChild(ch);
+  });
   document.getElementById("fieldlead").innerHTML="lead "+(game.leads.field==null?"—":pBadge(game.leads.field));
 
-  const st=[]; ["microscope","engraver"].forEach(t=>{ const o=game.prime[t]; st.push(t+": "+(o==null?"free":(o===HUMAN?"you":pName(o)))); });
-  document.getElementById("studytools").textContent=st.join("  ·  ");
+  const primeHtml=["microscope","engraver"].map(t=>{
+    const o=game.prime[t];
+    const artId=t==="microscope"?"a-microscope":"a-press";
+    const statusCls=o==null?"free":"held";
+    const statusTxt=o==null?"Free":(o===HUMAN?"You":pName(o));
+    const tip=t==="microscope"
+      ?"Microscope: exclusive prime tool. Required by Shared Microscope. Only one naturalist may hold it at a time."
+      :"Engraver's Workshop: exclusive prime tool. Only one naturalist may hold it at a time.";
+    return `<span class="prime-chip" title="${tip}"><span class="prime-icon"><svg viewBox="0 0 100 100"><use href="#${artId}"/></svg></span><span class="prime-lbl">${t==="microscope"?"Microscope":"Engraver"}</span><span class="prime-status ${statusCls}">${statusTxt}</span></span>`;
+  }).join("");
+  document.getElementById("studytools").innerHTML=`<span class="prime-chips">${primeHtml}</span>`;
 
   const nodes=document.getElementById("nodes"); nodes.innerHTML="";
   NODE_IDS.forEach((nid)=>{
@@ -720,10 +859,50 @@ function render(){
   const opps=document.getElementById("opps"); opps.innerHTML="";
   game.players.forEach((p)=>{ if(p.idx===HUMAN) return;
     const el=document.createElement("div"); el.className="opp"+(ui._turn===p.idx?" turn":"");
-    el.innerHTML=`${pBadge(p.idx)} <span class="muted">(${p.strategy})</span><br>`+
-      `<span class="stat"><span class="g spec"></span>${p.specimens} <span class="g find"></span>${p.findings} <span class="g stand"></span>${p.standing} · meds ${game.medallions(p.idx)} · nodes ${game.nodesHeld(p.idx)} · cards ${p.tableau.field.length+p.tableau.study.length+p.tableau.hall.length} · tactics ${p.hand.length}</span>`;
+    el.innerHTML=`${pBadge(p.idx)} <span class="muted">(${p.strategy})</span>`+
+      ` <span class="opp-fuel" title="Specimens / Findings (fuel for next turn)">⛽ ${p.specimens}sp/${p.findings}fi</span>`+
+      ` <span class="muted" style="font-size:12px">· ${p.hand.length}t</span>`;
     opps.appendChild(el);
   });
+  // --- in-band action zones ---
+  ["study","hall"].forEach((band)=>{
+    const bandEl=document.querySelector(`.band.${band}`);
+    const existing=bandEl.querySelector(".band-actions"); if(existing) existing.remove();
+    // only show during human turn when actions exist in this band
+    const bandActions=ui.legalNow.filter(a=>a.kind===band);
+    const me=game.players[HUMAN];
+    const tableau=me.tableau[band]||[];
+    if(!tableau.length) return;
+    const wrap=document.createElement("div"); wrap.className="band-actions";
+    const isActive=typeof chooseAct==="function";
+    wrap.innerHTML=`<div class="ba-prompt">${isActive?"Your "+band+" cards — choose one to activate:":"Your "+band+" cards"}</div>`;
+    const cardsDiv=document.createElement("div"); cardsDiv.className="ba-cards";
+    tableau.forEach((cid)=>{
+      const legalActs=bandActions.filter(a=>a.cardId===cid);
+      const canActivate=isActive&&legalActs.length>0;
+      const c=CARD[cid];
+      const row=document.createElement("div"); row.className="ba-row"+(canActivate?"":" dimcard");
+      const reason=!isActive?"AI turn":(!canActivate?("Cannot use now"):  "");
+      const effTxt=(META[cid]&&META[cid].e)||effLine(c);
+      row.innerHTML=`<div class="ba-info"><span class="ba-name">${c.name}</span><span class="ba-eff">${effTxt}</span></div>`;
+      if(canActivate){
+        // if multiple actions (multiple nodes for hall), show one button per action
+        legalActs.forEach((act)=>{
+          const btn=document.createElement("button");
+          btn.className="ba-btn act-b";
+          btn.textContent=band==="hall"?(NODE[act.nodeId]?NODE[act.nodeId].name:"Activate"):"Activate";
+          btn.onclick=(e)=>{ e.stopPropagation(); if(typeof chooseAct!=="function") return; chooseAct(act); };
+          row.appendChild(btn);
+        });
+      } else {
+        const btn=document.createElement("button"); btn.className="ba-btn act-b"; btn.disabled=true;
+        btn.textContent="Activate"; btn.title=reason; row.appendChild(btn);
+      }
+      cardsDiv.appendChild(row);
+    });
+    wrap.appendChild(cardsDiv); bandEl.appendChild(wrap);
+  });
+
   if(TUT.active) tutCheck();
 }
 function showTactic(t){
