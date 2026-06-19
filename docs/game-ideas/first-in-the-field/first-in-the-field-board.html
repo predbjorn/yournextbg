@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>First in the Field — the common board</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=IM+Fell+English+SC&family=Cinzel:wght@500;600&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    color-scheme:light;   /* keep parchment light when exported to PDF from a dark-mode OS/browser */
+    --ink:#2c1f0f; --ink2:#5a4326; --ink3:#7a6038;
+    --paper1:#f6eccd; --paper2:#ecdcae; --paper3:#ddc98f;
+    --gold:#b3873a; --goldhi:#efd89c; --golddk:#7e5d22;
+    --wax:#8c2f24; --waxhi:#c6573f; --waxdk:#561712;
+    --field:#3f6b43; --study:#2b5563; --hall:#8a3030;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;}
+  body{
+    font-family:'IM Fell English',Georgia,serif; color:#e7d9b6;
+    background:radial-gradient(130% 130% at 50% -10%,#233029 0%,#18211f 45%,#0d1413 100%) fixed;
+    min-height:100vh;
+  }
+  .bar{position:sticky; top:0; z-index:50; display:flex; gap:14px; align-items:center; justify-content:center;
+    padding:12px; background:linear-gradient(180deg,rgba(10,15,14,.92),rgba(10,15,14,.6)); backdrop-filter:blur(3px);}
+  .bar .ttl{font-family:'IM Fell English SC',serif; font-size:18px; letter-spacing:.05em; color:#e9dab4; margin-right:6px;}
+  .btn{font-family:'IM Fell English SC',serif; font-size:14px; letter-spacing:.05em; cursor:pointer; border:none; border-radius:3px;
+    padding:8px 18px; color:#3a2a0c; background:linear-gradient(180deg,var(--goldhi),var(--gold) 60%,var(--golddk));
+    box-shadow:0 2px 7px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.4);}
+  .btn:hover{filter:brightness(1.06);}
+  .stage{display:flex; justify-content:center; padding:24px 12px 60px; overflow:auto;}
+
+  /* ============ THE BOARD ============ */
+  .board{
+    position:relative; width:398mm; height:272mm; flex:none; transform-origin:top center;
+    border-radius:3mm; color:var(--ink); overflow:hidden; padding:7mm;
+    display:grid; grid-template-columns:1fr 46mm; grid-template-rows:44mm 1fr 23mm; gap:5mm;
+    background:
+      radial-gradient(circle at 14% 22%, rgba(120,80,30,.08), transparent 9%),
+      radial-gradient(circle at 86% 78%, rgba(110,70,25,.07), transparent 10%),
+      radial-gradient(circle at 60% 50%, rgba(120,80,30,.05), transparent 12%),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E"),
+      radial-gradient(120% 120% at 50% 38%, transparent 60%, rgba(70,46,16,.22)),
+      radial-gradient(120% 120% at 50% 0%, var(--paper1), var(--paper2) 52%, var(--paper3) 100%);
+    box-shadow:0 14px 40px rgba(0,0,0,.6);
+  }
+  .b-gold,.b-ink{position:absolute; pointer-events:none; z-index:1;}
+  .b-gold{inset:2mm; border-radius:2.4mm; border:1.1mm solid var(--gold); box-shadow:inset 0 0 0 .25mm var(--goldhi), 0 0 0 .25mm var(--golddk);}
+  .b-ink{inset:3.4mm; border-radius:1.6mm; border:.3mm solid var(--ink2);}
+  .bcorner{position:absolute; width:13mm; height:13mm; color:var(--gold); z-index:4;}
+  .bcorner svg{width:100%; height:100%; fill:none; stroke:currentColor; stroke-width:2.4;}
+  .bcorner.tl{top:2.4mm; left:2.4mm;}
+  .bcorner.tr{top:2.4mm; right:2.4mm; transform:scaleX(-1);}
+  .bcorner.bl{bottom:2.4mm; left:2.4mm; transform:scaleY(-1);}
+  .bcorner.br{bottom:2.4mm; right:2.4mm; transform:scale(-1,-1);}
+  .board>*{position:relative; z-index:2;}
+
+  /* ---- header ---- */
+  .header{grid-column:1; grid-row:1; display:flex; align-items:center; gap:6mm; padding:0 3mm;}
+  .rose{width:30mm; height:30mm; color:var(--ink2); flex:none;}
+  .rose svg{width:100%; height:100%; fill:none; stroke:currentColor; stroke-width:1.8;}
+  .titleblock{flex:1; text-align:center;}
+  .titleblock h1{font-family:'IM Fell English SC',serif; font-weight:400; font-size:30pt; line-height:.95; margin:0; color:#27190a; letter-spacing:.02em;}
+  .titleblock .sub{font-family:'Cormorant Garamond',serif; font-style:italic; font-size:13pt; color:var(--ink3); margin-top:1mm;}
+  .titleblock .rule{display:flex; align-items:center; gap:3mm; margin:1.4mm 18mm 0;}
+  .titleblock .rule::before,.titleblock .rule::after{content:""; flex:1; height:.3mm; background:linear-gradient(90deg,transparent,var(--gold),transparent);}
+  .titleblock .rule span{color:var(--gold); font-size:11pt;}
+  .legendbox{width:62mm; flex:none; border:.3mm solid var(--ink2); border-radius:1.5mm; padding:2.4mm 3mm;
+    background:rgba(255,250,235,.35); box-shadow:inset 0 0 0 .3mm var(--goldhi);}
+  .legendbox h4{font-family:'IM Fell English SC',serif; font-size:8.4pt; letter-spacing:.1em; margin:0 0 1.6mm; color:var(--ink2); text-align:center;}
+  .flow{display:flex; align-items:center; justify-content:center; gap:1.6mm; font-family:'Cormorant Garamond',serif; font-size:10pt; color:#322413;}
+  .flow b{font-weight:600;} .flow .ar{color:var(--gold); font-size:11pt;}
+  .legendbox .loop{margin-top:1.6mm; text-align:center; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:9pt; color:var(--ink3);}
+
+  /* ---- bands wrapper ---- */
+  .bands{grid-column:1; grid-row:2; display:flex; flex-direction:column; gap:4mm; min-height:0;}
+  .band{flex:1; position:relative; display:flex; align-items:stretch; gap:3mm; border-radius:2mm; padding:2.6mm 3mm 2.6mm 2.6mm;
+    background:linear-gradient(180deg, color-mix(in srgb,var(--bandc) 13%,transparent), color-mix(in srgb,var(--bandc) 4%,transparent));
+    box-shadow:inset 0 0 0 .3mm var(--bandc), inset 0 0 0 .7mm rgba(255,250,235,.5);}
+  .band.field{--bandc:var(--field);}
+  .band.study{--bandc:var(--study);}
+  .band.hall{--bandc:var(--hall); flex:1.18;}
+
+  .blabel{width:42mm; flex:none; border-right:.3mm dashed color-mix(in srgb,var(--bandc) 60%,transparent);
+    padding-right:3mm; display:flex; flex-direction:column; justify-content:center; gap:.6mm;}
+  .blabel .nm{font-family:'IM Fell English SC',serif; font-size:15pt; line-height:.96; color:#27190a;}
+  .blabel .temp{font-family:'Cinzel',serif; font-size:7.2pt; letter-spacing:.14em; text-transform:uppercase; color:var(--bandc);}
+  .blabel .cur{font-family:'Cormorant Garamond',serif; font-style:italic; font-size:10.5pt; color:var(--ink2); margin-top:.8mm;}
+  .blabel .hint{font-family:'IM Fell English',serif; font-size:8pt; color:var(--ink3); line-height:1.12; margin-top:1mm;}
+
+  .bmain{flex:1; display:flex; align-items:center; gap:2.6mm; min-width:0;}
+
+  /* lead medallion */
+  .lead{width:30mm; flex:none; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; gap:1mm;}
+  .lead .disc{width:18mm; height:18mm; border-radius:50%; display:flex; align-items:center; justify-content:center;
+    background:radial-gradient(circle at 36% 30%, var(--goldhi), var(--gold) 58%, var(--golddk));
+    box-shadow:0 1.5px 3px rgba(0,0,0,.35), inset 0 0 0 .5mm rgba(255,255,255,.35), inset 0 -1mm 2mm rgba(80,55,15,.4);
+    font-family:'IM Fell English SC',serif; font-size:7.2pt; color:#4a3408; letter-spacing:.05em; text-align:center; line-height:.95;}
+  .lead .crit{font-family:'Cormorant Garamond',serif; font-style:italic; font-size:8.4pt; color:var(--ink2); line-height:1.05;}
+
+  /* field band pieces */
+  .deck{width:24mm; height:34mm; flex:none; border:.4mm solid var(--ink2); border-radius:1.5mm;
+    background:repeating-linear-gradient(48deg, rgba(90,67,38,.16) 0 .5mm, transparent .5mm 2mm), rgba(255,250,235,.4);
+    display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; gap:.8mm;
+    box-shadow:1.2mm 1.2mm 0 rgba(90,60,25,.18), inset 0 0 0 .25mm var(--goldhi);}
+  .deck .dn{font-family:'IM Fell English SC',serif; font-size:7.4pt; color:var(--ink2); line-height:1;}
+  .deck .di{width:8mm; height:8mm; color:var(--ink3);} .deck .di svg{width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:2.4;}
+  .slot{flex:1; height:34mm; border:.35mm dashed var(--ink3); border-radius:1.5mm; min-width:0;
+    display:flex; align-items:flex-end; justify-content:center; padding-bottom:1.5mm;
+    background:rgba(255,250,235,.22);}
+  .slot span{font-family:'Cormorant Garamond',serif; font-style:italic; font-size:8pt; color:var(--ink3);}
+  .priority{flex:none; display:flex; flex-direction:column; align-items:center; gap:1mm; padding-left:1mm;}
+  .pn{font-family:'IM Fell English SC',serif; font-size:6.6pt; color:var(--ink3); letter-spacing:.06em;}
+  .ppip{width:7mm; height:7mm; border-radius:50%; border:.3mm solid var(--ink2); display:flex; align-items:center; justify-content:center;
+    font-family:'Cinzel',serif; font-size:7pt; color:var(--ink2); background:rgba(255,250,235,.35);}
+
+  /* study band pieces */
+  .spot{width:23mm; height:23mm; border-radius:50%; border:.35mm solid var(--ink3); display:flex; flex-direction:column;
+    align-items:center; justify-content:center; text-align:center; background:rgba(255,250,235,.25); gap:.4mm;}
+  .spot .si{width:8.5mm; height:8.5mm; color:var(--ink3);} .spot .si svg{width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:2.4;}
+  .spot .sn{font-family:'Cormorant Garamond',serif; font-style:italic; font-size:8pt; color:var(--ink3);}
+  .spot.prime{border:.5mm solid var(--gold); box-shadow:inset 0 0 0 .3mm var(--goldhi), 0 0 0 .2mm var(--golddk); background:rgba(255,247,225,.5);}
+  .spot.prime .si{color:var(--ink2);} .spot.prime .sn{color:var(--ink2); font-style:normal; font-family:'IM Fell English SC',serif; font-size:7.4pt; letter-spacing:.05em;}
+  .spot.prime .ptag{font-family:'Cinzel',serif; font-size:5.6pt; letter-spacing:.12em; color:var(--wax);}
+  .studynote{align-self:center; margin-left:1mm; max-width:34mm; font-family:'IM Fell English',serif; font-size:8pt; color:var(--ink3); line-height:1.15;}
+
+  /* hall nodes */
+  .node{flex:1; min-width:0; display:flex; flex-direction:column; align-items:center; text-align:center; gap:.8mm;}
+  .node .ring{width:30mm; height:30mm; border-radius:50%; display:flex; align-items:center; justify-content:center; position:relative;
+    background:radial-gradient(circle at 42% 34%, #f8efd2, #e6d3a1 96%);
+    box-shadow:inset 0 0 0 .4mm var(--gold), inset 0 0 0 .65mm var(--goldhi), inset 0 0 8px rgba(90,60,20,.3), 0 1.5mm 3mm rgba(80,55,20,.22);}
+  .node .ring::before{content:""; position:absolute; inset:2mm; border-radius:50%; border:.25mm dashed color-mix(in srgb,var(--hall) 55%,transparent);}
+  .node .ni{width:15mm; height:15mm; color:var(--ink2);} .node .ni svg{width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:2.3;}
+  .node .nn{font-family:'IM Fell English SC',serif; font-size:9pt; color:#27190a; line-height:.95;}
+  .node .nsub{font-family:'Cormorant Garamond',serif; font-style:italic; font-size:8.4pt; color:var(--hall);}
+  .node .nperk{font-family:'IM Fell English',serif; font-size:7.4pt; color:var(--ink2); line-height:1.1; max-width:38mm;}
+  .node .perktag{display:inline-block; font-family:'Cinzel',serif; font-size:6pt; letter-spacing:.1em; color:#fff;
+    background:var(--hall); border-radius:1mm; padding:.3mm 1.4mm; margin-bottom:.4mm; box-shadow:inset 0 0 0 .2mm rgba(255,255,255,.3);}
+
+  /* flow arrows between bands */
+  .flowtag{position:absolute; right:34mm; z-index:5; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:9.5pt; color:var(--ink3);
+    background:rgba(246,236,205,.85); padding:0 1.4mm; border-radius:1mm;}
+
+  /* ---- exhibition clock (right column) ---- */
+  .clock{grid-column:2; grid-row:1 / 4; border:.3mm solid var(--ink2); border-radius:2mm; padding:3mm 2.6mm;
+    background:rgba(255,250,235,.32); box-shadow:inset 0 0 0 .3mm var(--goldhi);
+    display:flex; flex-direction:column; align-items:center; gap:1.6mm;}
+  .clock h3{font-family:'IM Fell English SC',serif; font-size:11pt; margin:0; color:#27190a; text-align:center; line-height:1;}
+  .clock .csub{font-family:'Cormorant Garamond',serif; font-style:italic; font-size:8.6pt; color:var(--ink3); text-align:center; margin-bottom:1mm;}
+  .ccells{flex:1; width:100%; display:flex; flex-direction:column; gap:1.4mm;}
+  .ccell{flex:1; border:.3mm solid var(--ink3); border-radius:1.2mm; display:flex; align-items:center; justify-content:center; gap:2mm;
+    font-family:'Cinzel',serif; font-size:8pt; color:var(--ink2); background:rgba(255,250,235,.3);}
+  .ccell .tick{width:3.6mm; height:3.6mm; border-radius:50%; border:.3mm solid var(--ink3);}
+  .ccell.close{border:.5mm solid var(--wax); color:var(--wax); font-family:'IM Fell English SC',serif; letter-spacing:.06em;
+    background:rgba(160,60,45,.1); box-shadow:inset 0 0 0 .3mm rgba(198,87,63,.5);}
+  .clock .cnote{font-family:'IM Fell English',serif; font-size:7.4pt; color:var(--ink3); text-align:center; line-height:1.14; margin-top:1mm;}
+
+  /* ---- footer: standing + victory ---- */
+  .footer{grid-column:1; grid-row:3; display:flex; align-items:center; gap:4mm;}
+  .standing{flex:1; border:.3mm solid var(--ink2); border-radius:1.6mm; padding:2mm 2.6mm; background:rgba(255,250,235,.32); box-shadow:inset 0 0 0 .3mm var(--goldhi);}
+  .standing .sh{font-family:'IM Fell English SC',serif; font-size:8.4pt; letter-spacing:.08em; color:var(--ink2); margin-bottom:1.4mm; display:flex; justify-content:space-between;}
+  .strack{display:flex; gap:1.2mm;}
+  .scell{flex:1; height:6.4mm; border:.3mm solid var(--ink3); border-radius:1mm; display:flex; align-items:center; justify-content:center;
+    font-family:'Cinzel',serif; font-size:6.6pt; color:var(--ink3); background:rgba(255,250,235,.3);}
+  .victory{width:96mm; flex:none; border:.4mm solid var(--gold); border-radius:1.6mm; padding:2mm 3mm; background:rgba(255,247,225,.5);
+    box-shadow:inset 0 0 0 .3mm var(--goldhi);}
+  .victory h4{font-family:'IM Fell English SC',serif; font-size:9pt; letter-spacing:.06em; margin:0 0 1mm; color:var(--wax); text-align:center;}
+  .victory p{font-family:'Cormorant Garamond',serif; font-size:9.4pt; line-height:1.18; color:#322413; margin:.4mm 0; text-align:center;}
+  .victory .k{font-family:'IM Fell English SC',serif; font-size:8pt; color:var(--hall);}
+
+  /* tiles (4 x A4) — hidden on screen, built by JS */
+  #tiles{display:none;}
+  .tilepage{position:relative; width:281mm; height:194mm; overflow:hidden; background:#fff;}
+  .tilabel{position:absolute; top:2mm; left:2.6mm; z-index:99; font-family:'IM Fell English SC',serif;
+    font-size:8.5pt; letter-spacing:.05em; color:#8a754a; background:rgba(255,252,244,.7); padding:0 1mm; border-radius:1mm;}
+
+  /* ---- print ---- */
+  @page { size:A3 landscape; margin:6mm; }       /* default */
+  @page a3page { size:A3 landscape; margin:6mm; }
+  @page a4tile { size:A4 landscape; margin:8mm; }
+  @media print{
+    body{background:#fff;} .bar{display:none !important;} .stage{padding:0; overflow:visible;}
+    #board{transform:none !important; box-shadow:none;}
+    .board{-webkit-print-color-adjust:exact; print-color-adjust:exact;}
+
+    /* single A3 mode */
+    body.m-a3 #tiles{display:none;}
+    body.m-a3 #board{page:a3page;}
+
+    /* 4 x A4 tiled mode */
+    body.m-tiles .stage{display:none;}
+    body.m-tiles #tiles{display:block;}
+    body.m-tiles .tilepage{page:a4tile; break-after:page; outline:.2mm solid #c9bb95; outline-offset:-.1mm;}
+    body.m-tiles .tilepage:last-child{break-after:auto;}
+  }
+</style>
+</head>
+<body>
+
+<!-- engravings -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <symbol id="orn-corner" viewBox="0 0 40 40"><path d="M3 3 H17 M3 3 V17 M3 9 C11 9 15 7 17 3 M9 3 C9 11 7 15 3 17 M4 4 C14 6 20 12 22 22"/><circle cx="22" cy="22" r="1.5"/></symbol>
+  <symbol id="o-compass" viewBox="0 0 100 100">
+    <circle cx="50" cy="50" r="42"/><circle cx="50" cy="50" r="31" stroke-dasharray="2 4"/>
+    <path d="M50 6 L56 50 L50 94 L44 50 Z"/><path d="M6 50 L50 44 L94 50 L50 56 Z"/>
+    <path d="M22 22 L46 46 M78 22 L54 46 M22 78 L46 54 M78 78 L54 54"/>
+    <circle cx="50" cy="50" r="3" fill="currentColor"/><path d="M50 2 l-4 9 h8 z" fill="currentColor"/>
+  </symbol>
+  <symbol id="a-fern" viewBox="0 0 100 100"><path d="M50 94 V10 M50 80C32 76 24 62 22 50 M50 80C68 76 76 62 78 50 M50 62C35 58 28 46 27 36 M50 62C65 58 72 46 73 36 M50 44C38 41 33 32 32 24 M50 44C62 41 67 32 68 24 M50 28C42 26 38 20 38 14 M50 28C58 26 62 20 62 14"/></symbol>
+  <symbol id="a-beetle" viewBox="0 0 100 100"><ellipse cx="50" cy="60" rx="17" ry="25"/><line x1="50" y1="37" x2="50" y2="83"/><ellipse cx="50" cy="36" rx="11" ry="9"/><circle cx="50" cy="23" r="7"/><path d="M44 19C38 11 34 13 33 8 M56 19C62 11 66 13 67 8"/><path d="M33 42C21 40 17 32 13 28 M67 42C79 40 83 32 87 28"/><path d="M31 58C19 58 15 54 10 52 M69 58C81 58 85 54 90 52"/><path d="M33 74C23 78 19 84 15 88 M67 74C77 78 81 84 85 88"/></symbol>
+  <symbol id="a-bird" viewBox="0 0 100 100"><path d="M28 58C30 42 44 34 58 37 C72 40 74 50 68 56 C62 62 50 60 44 64"/><circle cx="60" cy="42" r="2" fill="currentColor"/><path d="M70 41 L84 37 L72 46"/><path d="M44 64 C30 70 22 84 30 92 C26 80 40 74 50 70"/><path d="M40 66 l2 18 M50 66 l3 20"/><path d="M28 58 C19 56 14 50 16 44"/><line x1="22" y1="80" x2="48" y2="80"/></symbol>
+  <symbol id="a-nautilus" viewBox="0 0 100 100"><path d="M58 80 C34 80 20 62 22 44 C24 28 38 18 54 20 C70 22 80 34 78 48 C76 60 64 66 54 62 C46 59 44 50 50 46 C55 43 60 47 58 52"/><path d="M54 20 L57 40 M40 24 L50 41 M28 36 L46 46 M24 52 L46 52 M30 66 L48 58"/></symbol>
+  <symbol id="a-coral" viewBox="0 0 100 100"><path d="M50 86 V64 M50 64 C50 52 36 50 34 38 M50 64 C50 52 64 50 66 38 M34 38 C34 28 26 28 24 20 M34 38 C34 28 42 28 44 20 M66 38 C66 28 74 28 76 20 M66 38 C66 28 58 28 56 20"/><circle cx="24" cy="18" r="3"/><circle cx="44" cy="18" r="3"/><circle cx="56" cy="18" r="3"/><circle cx="76" cy="18" r="3"/><circle cx="50" cy="62" r="3"/></symbol>
+  <symbol id="a-microscope" viewBox="0 0 100 100"><path d="M30 84 q20 -5 40 0"/><path d="M38 84 C36 70 36 60 45 56"/><path d="M47 56 C40 46 43 28 54 21"/><rect x="49" y="11" width="9" height="14" rx="3"/><line x1="53" y1="25" x2="51" y2="41"/><circle cx="51" cy="45" r="3"/><line x1="39" y1="53" x2="63" y2="53"/><circle cx="52" cy="53" r="1.8" fill="currentColor"/><path d="M58 62 a6 6 0 1 0 0.1 0"/></symbol>
+  <symbol id="a-press" viewBox="0 0 100 100"><circle cx="50" cy="16" r="10"/><path d="M50 6 v20 M40 16 h20 M43 9 l14 14 M57 9 l-14 14"/><rect x="22" y="40" width="56" height="9" rx="2"/><path d="M28 49 v30 M72 49 v30 M28 79 l-7 7 M72 79 l7 7"/><rect x="38" y="52" width="24" height="18" rx="1"/></symbol>
+  <symbol id="a-quill" viewBox="0 0 100 100"><path d="M30 84 C50 60 70 40 86 16 C72 24 50 44 34 74"/><path d="M42 60 q9 -3 15 -9 M50 50 q9 -3 15 -9 M58 40 q9 -3 15 -9"/><path d="M24 88 l8 -12"/><path d="M20 80 h26 v9 a13 6 0 0 1 -26 0 z"/></symbol>
+  <symbol id="a-drawer" viewBox="0 0 100 100"><rect x="16" y="22" width="68" height="56" rx="2"/><circle cx="34" cy="40" r="6"/><circle cx="66" cy="40" r="6"/><circle cx="50" cy="60" r="6"/><line x1="34" y1="33" x2="34" y2="47"/><line x1="66" y1="33" x2="66" y2="47"/><line x1="50" y1="53" x2="50" y2="67"/></symbol>
+</defs></svg>
+
+<div class="bar">
+  <span class="ttl">First in the Field — the common board</span>
+  <button class="btn" onclick="printMode('a3')">Print A3</button>
+  <button class="btn" onclick="printMode('tiles')">Print 4&times;A4</button>
+  <button class="btn" onclick="fit()">Fit width</button>
+  <button class="btn" onclick="full()">100%</button>
+</div>
+
+<div class="stage" id="stage">
+<div class="board" id="board">
+  <div class="b-gold"></div><div class="b-ink"></div>
+  <span class="bcorner tl"><svg viewBox="0 0 40 40"><use href="#orn-corner"/></svg></span>
+  <span class="bcorner tr"><svg viewBox="0 0 40 40"><use href="#orn-corner"/></svg></span>
+  <span class="bcorner bl"><svg viewBox="0 0 40 40"><use href="#orn-corner"/></svg></span>
+  <span class="bcorner br"><svg viewBox="0 0 40 40"><use href="#orn-corner"/></svg></span>
+
+  <!-- header -->
+  <div class="header">
+    <div class="rose"><svg viewBox="0 0 100 100"><use href="#o-compass"/></svg></div>
+    <div class="titleblock">
+      <h1>First in the Field</h1>
+      <div class="sub">The Grand Exhibition &mdash; a race for priority among rival naturalists</div>
+      <div class="rule"><span>&#10070;</span></div>
+    </div>
+    <div class="legendbox">
+      <h4>The Refinement of Discovery</h4>
+      <div class="flow"><b>Specimens</b><span class="ar">&rarr;</span><b>Findings</b><span class="ar">&rarr;</span><b>Acclaim</b></div>
+      <div class="loop">&#8618; Acclaim earns Standing, and Standing buys priority.</div>
+    </div>
+  </div>
+
+  <!-- the three bands -->
+  <div class="bands">
+    <div class="band field">
+      <div class="flowtag" style="bottom:-2.4mm">Specimens &darr;</div>
+      <div class="blabel">
+        <div class="nm">The Field</div>
+        <div class="temp">Draft &middot; cold</div>
+        <div class="cur">yields Specimens</div>
+        <div class="hint">Claim the card first. No one may take what you have built.</div>
+      </div>
+      <div class="bmain" id="field-main"></div>
+      <div class="lead"><div class="disc">FIELD<br>LEAD</div><div class="crit">most built Field-card tiers</div></div>
+    </div>
+
+    <div class="band study">
+      <div class="flowtag" style="bottom:-2.4mm">Findings &darr;</div>
+      <div class="blabel">
+        <div class="nm">The Study</div>
+        <div class="temp">Work &middot; warm</div>
+        <div class="cur">Specimens &rarr; Findings</div>
+        <div class="hint">Open benches are shared; the prime tools are not.</div>
+      </div>
+      <div class="bmain" id="study-main"></div>
+      <div class="lead"><div class="disc">STUDY<br>LEAD</div><div class="crit">highest throughput last turn</div></div>
+    </div>
+
+    <div class="band hall">
+      <div class="blabel">
+        <div class="nm">The Society&rsquo;s Hall</div>
+        <div class="temp">Contest &middot; hot</div>
+        <div class="cur">Findings &rarr; Acclaim</div>
+        <div class="hint">Present, or lodge a sealed claim. To be scooped is to be ruined.</div>
+      </div>
+      <div class="bmain" id="hall-main"></div>
+      <div class="lead"><div class="disc">HALL<br>LEAD</div><div class="crit">the most nodes held</div></div>
+    </div>
+  </div>
+
+  <!-- exhibition clock -->
+  <div class="clock">
+    <h3>The Exhibition</h3>
+    <div class="csub">Season Clock</div>
+    <div class="ccells" id="clock"></div>
+    <div class="cnote">Each battle advances the clock. When it reaches CLOSE, the current round is the last.</div>
+  </div>
+
+  <!-- footer -->
+  <div class="footer">
+    <div class="standing">
+      <div class="sh"><span>Standing in the Society</span><span>&mdash; sets draft priority &middot; spend to waive a toll or bump a ratio</span></div>
+      <div class="strack" id="standing"></div>
+    </div>
+    <div class="victory">
+      <h4>&#9876; The Race for Priority</h4>
+      <p>At the Exhibition&rsquo;s close, <span class="k">lead the most bands</span> to win.</p>
+      <p>Lead <span class="k">all three</span> at the start of a round &mdash; win outright.</p>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- 4 x A4 tiles built by JS -->
+<div id="tiles"></div>
+
+<script>
+/* field band */
+const fm=document.getElementById('field-main');
+fm.innerHTML =
+  `<div class="deck"><div class="di"><svg viewBox="0 0 100 100"><use href="#a-quill"/></svg></div><div class="dn">The Field<br>draw deck</div></div>`
+  + Array.from({length:6},()=>`<div class="slot"><span>specimen</span></div>`).join('')
+  + `<div class="priority"><div class="pn">PRIORITY</div>`
+    + [1,2,3,4].map(n=>`<div class="ppip">${n}</div>`).join('') + `</div>`;
+
+/* study band */
+const sm=document.getElementById('study-main');
+const bench = (n)=>`<div class="spot"><div class="sn">bench</div></div>`;
+sm.innerHTML =
+  bench()+bench()+bench()
+  + `<div class="spot prime"><div class="si"><svg viewBox="0 0 100 100"><use href="#a-microscope"/></svg></div><div class="sn">Microscope</div><div class="ptag">PRIME</div></div>`
+  + `<div class="spot prime"><div class="si"><svg viewBox="0 0 100 100"><use href="#a-press"/></svg></div><div class="sn">Engraver</div><div class="ptag">PRIME</div></div>`
+  + `<div class="studynote">Hold a prime tool to run the high-throughput cards. Findings spoil if hoarded &mdash; spend them.</div>`;
+
+/* hall nodes */
+const NODES=[
+ {nm:'Botany',sub:'The Grand Library',tag:'FORGE',perk:'Bump one conversion ratio while held.',art:'a-fern'},
+ {nm:'Entomology',sub:'The Cabinet',tag:'CACHE',perk:'Claim a spoils specimen on a loop-back.',art:'a-beetle'},
+ {nm:'Ornithology',sub:'The Rostrum',tag:'BEACON',perk:'+1 Standing on each loop-back.',art:'a-bird'},
+ {nm:'Geology',sub:'The Journal',tag:'TOLL-GATE',perk:'Publish free &mdash; waive one toll per turn.',art:'a-nautilus'},
+ {nm:'The New Genus',sub:'Open Ground',tag:'OPEN',perk:'A landing pad; the first claim founds it.',art:'a-coral'}
+];
+document.getElementById('hall-main').innerHTML = NODES.map(d=>`
+  <div class="node">
+    <div class="ring"><div class="ni"><svg viewBox="0 0 100 100"><use href="#${d.art}"/></svg></div></div>
+    <div class="nn">${d.nm}</div><div class="nsub">${d.sub}</div>
+    <div class="nperk"><span class="perktag">${d.tag}</span><br>${d.perk}</div>
+  </div>`).join('');
+
+/* clock + standing */
+document.getElementById('clock').innerHTML =
+  Array.from({length:9},(_,i)=>`<div class="ccell"><span class="tick"></span>${i+1}</div>`).join('')
+  + `<div class="ccell close">CLOSE &mdash; the Exhibition opens</div>`;
+document.getElementById('standing').innerHTML =
+  Array.from({length:14},(_,i)=>`<div class="scell">${i}</div>`).join('');
+
+/* screen scaling */
+const board=document.getElementById('board'), stage=document.getElementById('stage');
+function setScale(s){ board.style.transform='scale('+s+')'; stage.style.height=(board.offsetHeight*s+48)+'px'; }
+function fit(){ const s=Math.min(1,(window.innerWidth-40)/board.offsetWidth); setScale(s); }
+function full(){ setScale(1); }
+window.addEventListener('resize',()=>{ if(board.dataset.fit==='1') fit(); });
+document.querySelector('.btn[onclick="fit()"]').addEventListener('click',()=>board.dataset.fit='1');
+document.querySelector('.btn[onclick="full()"]').addEventListener('click',()=>board.dataset.fit='0');
+board.dataset.fit='1'; fit();
+
+/* ---- print mode + 4 x A4 tiling ---- */
+function printMode(m){ document.body.className = (m==='tiles') ? 'm-tiles' : 'm-a3'; setTimeout(()=>window.print(),60); }
+document.body.className='m-a3';
+(function buildTiles(){
+  const PW=281, PH=194, K=562/398, vpad=2;   /* A4-landscape printable @8mm margin; 2x2 poster = 562x388mm */
+  const tiles=document.getElementById('tiles');
+  const place=['top-left','top-right','bottom-left','bottom-right'];
+  for(let r=0;r<2;r++) for(let c=0;c<2;c++){
+    const page=document.createElement('div'); page.className='tilepage';
+    const clone=board.cloneNode(true); clone.removeAttribute('id');
+    clone.style.position='absolute'; clone.style.transformOrigin='top left';
+    clone.style.transform='scale('+K+')'; clone.style.boxShadow='none';
+    clone.style.left=(-c*PW)+'mm'; clone.style.top=(vpad - r*PH)+'mm';
+    const lab=document.createElement('div'); lab.className='tilabel';
+    lab.textContent='Sheet '+(r*2+c+1)+' / 4 · '+place[r*2+c]+' — trim margins, butt-join';
+    page.appendChild(clone); page.appendChild(lab); tiles.appendChild(page);
+  }
+})();
+</script>
+</body>
+</html>

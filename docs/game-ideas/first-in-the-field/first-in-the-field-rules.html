@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>First in the Field — rules (first draft)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=IM+Fell+English+SC&family=Cinzel:wght@500;600&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    color-scheme:light;   /* keep parchment light when exported to PDF from a dark-mode OS/browser */
+    --ink:#2c1f0f; --ink2:#5a4326; --ink3:#7a6038;
+    --paper1:#f6eccd; --paper2:#ecdcae; --paper3:#e2d099;
+    --gold:#b3873a; --goldhi:#efd89c; --golddk:#7e5d22;
+    --wax:#8c2f24; --waxhi:#c6573f;
+    --field:#3f6b43; --study:#2b5563; --hall:#8a3030;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;}
+  body{font-family:'IM Fell English',Georgia,serif; color:#e7d9b6;
+    background:radial-gradient(130% 130% at 50% -10%,#233029 0%,#18211f 45%,#0d1413 100%) fixed; min-height:100vh;}
+  .bar{position:sticky; top:0; z-index:50; display:flex; gap:12px; align-items:center; justify-content:center;
+    padding:12px; background:linear-gradient(180deg,rgba(10,15,14,.92),rgba(10,15,14,.55)); backdrop-filter:blur(3px);}
+  .bar .ttl{font-family:'IM Fell English SC',serif; font-size:18px; letter-spacing:.05em; color:#e9dab4;}
+  .btn{font-family:'IM Fell English SC',serif; font-size:14px; letter-spacing:.05em; cursor:pointer; border:none; border-radius:3px;
+    padding:8px 20px; color:#3a2a0c; background:linear-gradient(180deg,var(--goldhi),var(--gold) 60%,var(--golddk));
+    box-shadow:0 2px 7px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.4);}
+  .btn:hover{filter:brightness(1.06);}
+  .book{display:flex; flex-direction:column; align-items:center; gap:26px; padding:26px 12px 70px;}
+
+  /* ---- a page ---- */
+  .page{position:relative; width:210mm; min-height:297mm; padding:17mm 18mm 15mm; color:var(--ink); overflow:hidden;
+    background:
+      radial-gradient(circle at 16% 20%, rgba(120,80,30,.07), transparent 9%),
+      radial-gradient(circle at 84% 80%, rgba(110,70,25,.06), transparent 10%),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E"),
+      radial-gradient(120% 120% at 50% 36%, transparent 62%, rgba(70,46,16,.16)),
+      radial-gradient(120% 120% at 50% 0%, var(--paper1), var(--paper2) 55%, var(--paper3) 100%);
+    box-shadow:0 12px 34px rgba(0,0,0,.55);}
+  .pf-gold,.pf-ink{position:absolute; pointer-events:none; z-index:1;}
+  .pf-gold{inset:6mm; border:0.6mm solid var(--gold); box-shadow:inset 0 0 0 .2mm var(--goldhi);}
+  .pf-ink{inset:7.1mm; border:0.22mm solid var(--ink2);}
+  .pcorner{position:absolute; width:9mm; height:9mm; color:var(--gold); z-index:3;}
+  .pcorner svg{width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:2.6;}
+  .pcorner.tl{top:6.4mm;left:6.4mm;} .pcorner.tr{top:6.4mm;right:6.4mm;transform:scaleX(-1);}
+  .pcorner.bl{bottom:6.4mm;left:6.4mm;transform:scaleY(-1);} .pcorner.br{bottom:6.4mm;right:6.4mm;transform:scale(-1,-1);}
+  .page>*:not(.pf-gold):not(.pf-ink):not(.pcorner){position:relative; z-index:2;}
+
+  .runhead{display:flex; justify-content:space-between; align-items:center; font-family:'IM Fell English SC',serif;
+    font-size:8pt; letter-spacing:.12em; color:var(--ink3); border-bottom:.2mm solid var(--ink3); padding-bottom:1.4mm; margin-bottom:4mm;}
+  .pageno{position:absolute; bottom:8.5mm; left:0; right:0; text-align:center; z-index:2; color:var(--gold); font-size:9pt;}
+  .pageno::before,.pageno::after{content:"\2014"; margin:0 2mm; color:var(--ink3);}
+
+  h2.sec{font-family:'IM Fell English SC',serif; font-weight:400; font-size:18pt; color:#27190a; letter-spacing:.02em;
+    margin:0 0 1mm; display:flex; align-items:center; gap:3mm;}
+  h2.sec .ico{width:8mm;height:8mm;color:var(--accent,var(--ink2));flex:none;} h2.sec .ico svg{width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:2.4;}
+  .secrule{height:.3mm; background:linear-gradient(90deg,var(--gold),transparent); margin:0 0 3mm;}
+  h3{font-family:'IM Fell English SC',serif; font-weight:400; font-size:11.5pt; color:var(--hall); margin:4mm 0 1mm; letter-spacing:.03em;}
+  h3.field{color:var(--field);} h3.study{color:var(--study);} h3.hall{color:var(--hall);}
+  p{font-size:10.2pt; line-height:1.42; margin:0 0 2mm; color:#322413;}
+  p.lead::first-letter{font-family:'Cinzel',serif; font-weight:600; float:left; font-size:30pt; line-height:.8; padding:1mm 1.6mm 0 0; color:var(--gold);}
+  ul,ol{margin:0 0 2mm; padding-left:6mm;} li{font-size:10.2pt; line-height:1.4; margin-bottom:1mm; color:#322413;}
+  b,strong{color:#241808;} em{color:var(--ink2);}
+  .small{font-size:9pt; color:var(--ink2);}
+
+  /* tokens / glyphs */
+  .g{display:inline-block; width:3.4mm; height:3.4mm; border-radius:50%; vertical-align:-.4mm; margin:0 .2mm; box-shadow:inset 0 0 0 .2mm rgba(0,0,0,.25);}
+  .g.spec{background:#5b8a4e;} .g.find{background:#3c7c8c;} .g.accl{background:#b1402f;} .g.stand{background:linear-gradient(180deg,var(--goldhi),var(--gold));}
+  .ar{color:var(--gold); font-weight:600;}
+
+  /* callouts */
+  .note,.ex{border-radius:1.5mm; padding:2.6mm 3.4mm; margin:3mm 0; font-size:9.6pt; line-height:1.34;}
+  .note{background:rgba(160,60,45,.08); border:.3mm solid var(--wax); box-shadow:inset 0 0 0 .3mm rgba(198,87,63,.35);}
+  .note h4{font-family:'IM Fell English SC',serif; margin:0 0 1.2mm; color:var(--wax); font-size:9.4pt; letter-spacing:.06em;}
+  .ex{background:rgba(255,247,225,.6); border:.3mm solid var(--gold); box-shadow:inset 0 0 0 .3mm var(--goldhi);}
+  .ex h4{font-family:'IM Fell English SC',serif; margin:0 0 1.2mm; color:var(--ink2); font-size:9.4pt; letter-spacing:.06em;}
+  .ex em{color:var(--ink3);}
+
+  table{width:100%; border-collapse:collapse; margin:2mm 0 3mm; font-size:9.4pt;}
+  th,td{text-align:left; padding:1.6mm 2.4mm; border-bottom:.2mm solid var(--ink3); color:#322413; vertical-align:top;}
+  th{font-family:'IM Fell English SC',serif; font-weight:400; color:var(--ink2); letter-spacing:.05em; border-bottom:.35mm solid var(--ink2);}
+  tr:last-child td{border-bottom:none;}
+  td.k{font-family:'IM Fell English SC',serif; color:#241808; white-space:nowrap;}
+
+  .cols{column-count:2; column-gap:8mm;}
+  .cols h3{break-after:avoid;}
+  .avoid{break-inside:avoid;}
+
+  /* cover */
+  .cover{display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; min-height:263mm;}
+  .cover .rose{width:64mm; height:64mm; color:var(--ink2); margin-bottom:6mm;}
+  .cover .rose svg{width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:1.6;}
+  .cover h1{font-family:'IM Fell English SC',serif; font-weight:400; font-size:46pt; line-height:.92; margin:0; color:#27190a; letter-spacing:.02em;}
+  .cover .sub{font-family:'Cormorant Garamond',serif; font-style:italic; font-size:17pt; color:var(--ink2); margin:4mm 14mm 0;}
+  .cover .rule{display:flex; align-items:center; gap:4mm; margin:7mm 28mm; width:60%;}
+  .cover .rule::before,.cover .rule::after{content:""; flex:1; height:.3mm; background:linear-gradient(90deg,transparent,var(--gold),transparent);}
+  .cover .rule span{color:var(--gold); font-size:13pt;}
+  .cover .blurb{font-family:'Cormorant Garamond',serif; font-size:12.5pt; line-height:1.4; color:#3a2c19; max-width:120mm;}
+  .cover .meta{margin-top:10mm; font-family:'IM Fell English SC',serif; font-size:10pt; letter-spacing:.1em; color:var(--ink3);}
+  .stamp{margin-top:5mm; display:inline-block; font-family:'IM Fell English SC',serif; font-size:9pt; letter-spacing:.14em;
+    color:var(--wax); border:.4mm solid var(--wax); border-radius:1.5mm; padding:1.6mm 5mm; transform:rotate(-3deg); box-shadow:inset 0 0 0 .3mm rgba(198,87,63,.4);}
+
+  @page{size:A4 portrait; margin:0;}
+  @media print{
+    body{background:#fff;} .bar{display:none !important;} .book{gap:0; padding:0;}
+    .page{box-shadow:none; break-after:page; -webkit-print-color-adjust:exact; print-color-adjust:exact;}
+    .page:last-child{break-after:auto;}
+  }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <symbol id="orn-corner" viewBox="0 0 40 40"><path d="M3 3 H17 M3 3 V17 M3 9 C11 9 15 7 17 3 M9 3 C9 11 7 15 3 17 M4 4 C14 6 20 12 22 22"/><circle cx="22" cy="22" r="1.5"/></symbol>
+  <symbol id="o-compass" viewBox="0 0 100 100"><circle cx="50" cy="50" r="42"/><circle cx="50" cy="50" r="31" stroke-dasharray="2 4"/><path d="M50 6 L56 50 L50 94 L44 50 Z"/><path d="M6 50 L50 44 L94 50 L50 56 Z"/><path d="M22 22 L46 46 M78 22 L54 46 M22 78 L46 54 M78 78 L54 54"/><circle cx="50" cy="50" r="3" fill="currentColor"/><path d="M50 2 l-4 9 h8 z" fill="currentColor"/></symbol>
+  <symbol id="a-fern" viewBox="0 0 100 100"><path d="M50 94 V10 M50 80C32 76 24 62 22 50 M50 80C68 76 76 62 78 50 M50 62C35 58 28 46 27 36 M50 62C65 58 72 46 73 36 M50 44C38 41 33 32 32 24 M50 44C62 41 67 32 68 24 M50 28C42 26 38 20 38 14 M50 28C58 26 62 20 62 14"/></symbol>
+  <symbol id="a-microscope" viewBox="0 0 100 100"><path d="M30 84 q20 -5 40 0"/><path d="M38 84 C36 70 36 60 45 56"/><path d="M47 56 C40 46 43 28 54 21"/><rect x="49" y="11" width="9" height="14" rx="3"/><line x1="53" y1="25" x2="51" y2="41"/><circle cx="51" cy="45" r="3"/><line x1="39" y1="53" x2="63" y2="53"/><circle cx="52" cy="53" r="1.8" fill="currentColor"/><path d="M58 62 a6 6 0 1 0 0.1 0"/></symbol>
+  <symbol id="a-lectern" viewBox="0 0 100 100"><path d="M30 38 L70 38 L62 60 L38 60 Z"/><path d="M34 44 h32 M37 51 h26"/><line x1="50" y1="60" x2="50" y2="84"/><path d="M36 84 h28"/><path d="M50 38 V30"/><circle cx="50" cy="26" r="3.4"/></symbol>
+  <symbol id="a-clock" viewBox="0 0 100 100"><circle cx="50" cy="52" r="34"/><path d="M50 52 L50 30 M50 52 L66 60"/><path d="M50 14 v6 M86 52 h-6 M50 90 v-6 M14 52 h6"/><path d="M38 12 l-6 -6 M62 12 l6 -6"/></symbol>
+  <symbol id="a-laurel" viewBox="0 0 100 100"><path d="M50 86 C30 78 20 60 22 38 M50 86 C70 78 80 60 78 38"/><path d="M28 70 q-8 -2 -10 -8 M30 58 q-8 -2 -10 -8 M34 46 q-8 -2 -10 -8 M72 70 q8 -2 10 -8 M70 58 q8 -2 10 -8 M66 46 q8 -2 10 -8"/><path d="M44 26 l6 -10 6 10"/></symbol>
+</defs></svg>
+
+<div class="bar">
+  <span class="ttl">First in the Field — rules (first draft)</span>
+  <button class="btn" onclick="window.print()">Print (A4)</button>
+</div>
+
+<div class="book">
+
+<!-- ===== COVER ===== -->
+<section class="page">
+  <div class="pf-gold"></div><div class="pf-ink"></div>
+  <span class="pcorner tl"><svg viewBox="0 0 40 40"><use href="#orn-corner"/></svg></span>
+  <span class="pcorner tr"><svg viewBox="0 0 40 40"><use href="#orn-corner"/></svg></span>
+  <span class="pcorner bl"><svg viewBox="0 0 40 40"><use href="#orn-corner"/></svg></span>
+  <span class="pcorner br"><svg viewBox="0 0 40 40"><use href="#orn-corner"/></svg></span>
+  <div class="cover">
+    <div class="rose"><svg viewBox="0 0 100 100"><use href="#o-compass"/></svg></div>
+    <h1>First in the Field</h1>
+    <div class="sub">A game of discovery, scholarship &amp; cutthroat priority among rival naturalists</div>
+    <div class="rule"><span>&#10070;</span></div>
+    <div class="blurb">The Grand Exhibition approaches. Outfit expeditions, classify your finds, and
+      race your rivals to <em>name</em> the new species — for at the Society&rsquo;s Hall, to be
+      scooped is to be ruined. Build the cleverest engine of discovery, and stand first in the field.</div>
+    <div class="meta">2&ndash;4 naturalists &middot; 45&ndash;75 minutes &middot; ages 12+</div>
+    <div class="stamp">First Draft &mdash; for playtest</div>
+  </div>
+</section>
+
+<!-- ===== PAGE 2: premise / goal / components ===== -->
+<section class="page">
+  <div class="pf-gold"></div><div class="pf-ink"></div>
+  <span class="pcorner tl"><svg viewBox="0 0 40 40"><use href="#orn-corner"/></svg></span><span class="pcorner tr"><svg viewBox="0 0 40 40"><use href="#orn-corner"/></svg></span><span class="pcorner bl"><svg viewBox="0 0 40 40"><use href="#orn-corner"/></svg></span><span class="pcorner br"><svg viewBox="0 0 40 40"><use href="#orn-corner"/></svg></span>
+  <div class="runhead"><span>First in the Field</span><span>The Premise &middot; Components</span></div>
+
+  <h2 class="sec">The Premise</h2><div class="secrule"></div>
+  <p class="lead">You are a naturalist of the age of wonder, vying to be remembered. The world&rsquo;s
+    cabinets are filling with strange beetles, ghost orchids and impossible birds, and whoever
+    describes a creature <em>first, and correctly,</em> wins their name upon it forever. Glory is finite:
+    every discovery one rival claims is one you cannot.</p>
+  <p>The game plays across <b>three bands</b> of the common board, each with its own temperature.
+    The <b class="k" style="color:var(--field)">Field</b> is cold and patient &mdash; you draft cards and
+    build a discovery engine, untroubled. The <b class="k" style="color:var(--study)">Study</b> is warmer
+    &mdash; you refine specimens into findings, jostling for the few prime instruments. The
+    <b class="k" style="color:var(--hall)">Society&rsquo;s Hall</b> is hot &mdash; rival claims clash, sealed
+    and revealed, and reputations are made or broken.</p>
+
+  <h2 class="sec" style="margin-top:6mm"><span class="ico"><svg viewBox="0 0 100 100"><use href="#a-laurel"/></svg></span>The Goal</h2><div class="secrule"></div>
+  <p>You strive to <b>lead</b> the three bands. Each band awards a <b>Lead medallion</b> to whoever
+    best fulfils its condition; the medallion moves the instant another overtakes it.</p>
+  <ul>
+    <li><b>At the Exhibition&rsquo;s close</b> &mdash; the naturalist holding <b>the most Lead medallions</b> wins.</li>
+    <li><b>Outright</b> &mdash; if ever you hold <b>all three medallions at the start of a round</b>,
+      the table cannot stop you in time: you win at once.</li>
+  </ul>
+  <p>There are no victory points to tally. Standing is everything.</p>
+
+  <h2 class="sec" style="margin-top:6mm">Components <span class="small" style="margin-left:2mm">(provisional)</span></h2><div class="secrule"></div>
+  <ul>
+    <li><b>1 common board</b> &mdash; the Field, the Study and the Society&rsquo;s Hall, the Exhibition clock and the Standing track.</li>
+    <li><b>~50 engine cards</b> &mdash; Field, Study and Hall cards in three tiers (the deck that feeds the Field row).</li>
+    <li><b>~16 Tactic cards</b> &mdash; one-shot tricks, held hidden in hand.</li>
+    <li><b>5 Faction cards</b> &mdash; one asymmetric power each.</li>
+    <li><b>Resource tokens</b> &mdash; <span class="g spec"></span> Specimens, <span class="g find"></span> Findings, <span class="g stand"></span> Standing markers.</li>
+    <li><b>3 Lead medallions</b> (Field, Study, Hall) &middot; <b>1 Exhibition marker</b> &middot; <b>2 Prime Tool tokens</b> (Microscope, Engraver).</li>
+    <li><b>Per player:</b> a set of <b>claim markers</b> (for the Hall), a priority pawn, and a player colour.</li>
+  </ul>
+
+  <div class="note avoid">
+    <h4>&#9874; A first draft</h4>
+    Every number in this booklet &mdash; ratios, caps, costs, clock length, hand sizes &mdash; is a
+    starting guess set down so the game can be played and felt. Expect them to move. The
+    most likely to change are flagged in the <em>Provisional dials</em> box on the last page.
+  </div>
+</section>
+
+<!-- ===== PAGE 3: setup / concepts ===== -->
+<section class="page">
+  <div class="pf-gold"></div><div class="pf-ink"></div>
+  <span class="pcorner tl"><svg viewBox="0 0 40 40"><use href="#orn-corner"/></svg></span><span class="pcorner tr"><svg viewBox="0 0 40 40"><use href="#orn-corner"/></svg></span><span class="pcorner bl"><svg viewBox="0 0 40 40"><use href="#orn-corner"/></svg></span><span class="pcorner br"><svg viewBox="0 0 40 40"><use href="#orn-corner"/></svg></span>
+  <div class="runhead"><span>First in the Field</span><span>Setup &middot; Key Concepts</span></div>
+
+  <h2 class="sec">Setup</h2><div class="secrule"></div>
+  <ol>
+    <li>Place the <b>board</b> in the middle. Put the <b>Exhibition marker</b> on clock space&nbsp;1, and set the three <b>Lead medallions</b> beside the board, unowned.</li>
+    <li>Place the two <b>Prime Tool tokens</b> (Microscope, Engraver) on their spots in the Study.</li>
+    <li>Shuffle the <b>engine deck</b> and deal <b>6 cards</b> face-up to the <b>Field row</b>. Shuffle the <b>Tactic deck</b> nearby.</li>
+    <li>Each player chooses (or draws) a <b>Faction card</b> and takes their three starting cards &mdash; one each of
+      <em>Collecting Trip</em>, <em>Field Notes</em>, <em>Present a Paper</em> &mdash; into their tableau, plus <b>3</b> <span class="g spec"></span>Specimens and <b>1</b> Tactic in hand.</li>
+    <li>Randomly set the starting <b>priority</b> order; place priority pawns on the track. All begin at <b>0</b> Standing.</li>
+  </ol>
+
+  <h2 class="sec" style="margin-top:5mm">Key Concepts</h2><div class="secrule"></div>
+  <div class="cols">
+    <h3 class="field">The three currencies</h3>
+    <p>Discovery refines upward, and each step keeps less well than the last &mdash; <em>how well a
+      currency stores is how hot its band runs.</em></p>
+    <ul>
+      <li><span class="g spec"></span><b>Specimens</b> &mdash; raw finds. Stockpile freely.</li>
+      <li><span class="g find"></span><b>Findings</b> &mdash; prepared work. <b>Cap 3;</b> any above your cap <b>spoil</b> at the end of your turn.</li>
+      <li><span class="g accl"></span><b>Acclaim</b> &mdash; the strength of a claim. Never stored; spent the instant it is made.</li>
+    </ul>
+
+    <h3 class="study">Your tableau &amp; your hand</h3>
+    <p>Cards you <b>build</b> sit permanently in your tableau, sorted into <b>Field / Study / Hall</b> rows
+      &mdash; your engine, which no rival may destroy. <b>Tactics</b> stay hidden in hand until played.</p>
+
+    <h3 class="hall">The Leads (flow, not hoard)</h3>
+    <ul>
+      <li><b>Field</b> &mdash; the largest <em>collection</em> (highest total tier of your built Field cards).</li>
+      <li><b>Study</b> &mdash; the highest <em>throughput</em> (most Findings you produced on your last turn).</li>
+      <li><b>Hall</b> &mdash; the most <em>claims standing</em> (nodes you hold).</li>
+    </ul>
+    <p class="small">Ties leave a medallion unowned until broken.</p>
+
+    <h3>Standing &amp; tolls</h3>
+    <p><span class="g stand"></span><b>Standing</b> is your tempo. It sets <b>priority</b> each round, and may be spent
+      &mdash; <b>1 Standing</b> to waive a toll, or to improve one conversion by one step for a turn.</p>
+    <p>A <b>toll</b> is paid whenever a chain passes through a band <em>you do not lead:</em>
+      <b>+1</b> of that band&rsquo;s input currency (Specimens to cross the Study, Findings to cross the Hall).</p>
+  </div>
+</section>
+
+<!-- ===== PAGE 4: turn + chains ===== -->
+<section class="page">
+  <div class="pf-gold"></div><div class="pf-ink"></div>
+  <span class="pcorner tl"><svg viewBox="0 0 40 40"><use href="#orn-corner"/></svg></span><span class="pcorner tr"><svg viewBox="0 0 40 40"><use href="#orn-corner"/></svg></span><span class="pcorner bl"><svg viewBox="0 0 40 40"><use href="#orn-corner"/></svg></span><span class="pcorner br"><svg viewBox="0 0 40 40"><use href="#orn-corner"/></svg></span>
+  <div class="runhead"><span>First in the Field</span><span>A Turn &middot; Chains</span></div>
+
+  <h2 class="sec">Anatomy of a Turn</h2><div class="secrule"></div>
+  <p class="lead">Play proceeds in <b>rounds</b>; in each round every naturalist takes one turn, in priority
+    order. On your turn you take <b>one action</b> in one band &mdash; then end your turn.</p>
+  <table>
+    <tr><th>Band</th><th>Your one action</th></tr>
+    <tr><td class="k" style="color:var(--field)">Field</td><td><b>Survey</b> &mdash; take a face-up card into your tableau, paying its build cost in <span class="g spec"></span>Specimens (then refill the row) &mdash; <em>or</em> <b>activate</b> a built Field card to gain Specimens.</td></tr>
+    <tr><td class="k" style="color:var(--study)">Study</td><td><b>Activate</b> a built Study card to convert <span class="g spec"></span>Specimens <span class="ar">&rarr;</span> <span class="g find"></span>Findings at its ratio.</td></tr>
+    <tr><td class="k" style="color:var(--hall)">Hall</td><td><b>Activate</b> a built Hall card to <b>Present</b> or <b>Lodge</b> a claim (see <em>The Hall</em>).</td></tr>
+  </table>
+  <p>The card you activate resolves its <b>Activate</b> line; its <b>Passives</b> are always in effect.
+    If it bears a <b>Trigger</b> (<span class="ar">&rarr;</span>&nbsp;Band), you may immediately take a <b>free chained action</b> in that band.</p>
+  <p><b>Ending your turn:</b> any <span class="g find"></span>Findings above your cap <b>spoil</b>; note your throughput for the Study lead; pass priority to the next naturalist.</p>
+
+  <h2 class="sec" style="margin-top:5mm">Chains</h2><div class="secrule"></div>
+  <p>A <b>Trigger</b> hands you a free action in the band it points to &mdash; but you must still <b>pay that
+    step&rsquo;s fuel</b> (the currency it consumes) and any <b>toll</b> for crossing a band you do not lead.
+    That step&rsquo;s own Trigger may chain onward, and so on, until the fuel runs dry, a step fails, or you choose to stop.</p>
+  <ul>
+    <li>Chains generally run <b>down</b> the stack: Field <span class="ar">&rarr;</span> Study <span class="ar">&rarr;</span> Hall.</li>
+    <li>A successful Hall claim with a <span class="ar">&rarr;</span>&nbsp;Field trigger loops back to the top &mdash; the <b>spoils</b> of a discovery funding the next.</li>
+    <li>A Hall step that is <b>repelled</b> ends the chain at once.</li>
+  </ul>
+
+  <div class="ex avoid">
+    <h4>&#10070; A discovery, start to finish</h4>
+    <p style="margin-bottom:1.4mm"><em>You spend your action to activate</em> <b>Expedition Upriver</b> (Field): <b>+4</b> <span class="g spec"></span>. Its <span class="ar">&rarr;</span>Study trigger fires.</p>
+    <p style="margin-bottom:1.4mm"><em>Free Study step</em> &mdash; <b>Classify</b>: convert 4 <span class="g spec"></span> <span class="ar">&rarr;</span> 4 <span class="g find"></span> (you lead the Study, so no toll). Its <span class="ar">&rarr;</span>Hall trigger fires.</p>
+    <p style="margin-bottom:0"><em>Free Hall step</em> &mdash; <b>Present a Paper</b> at <b>Entomology</b> (empty): a claim of strength&nbsp;3. It stands. The node&rsquo;s <b>Cache</b> perk lets you draw a specimen, and the card&rsquo;s <span class="ar">&rarr;</span>Field trigger could begin another lap &mdash; if you have the fuel. One action; a whole discovery.</p>
+  </div>
+</section>
+
+<!-- ===== PAGE 5: field + study ===== -->
+<section class="page">
+  <div class="pf-gold"></div><div class="pf-ink"></div>
+  <span class="pcorner tl"><svg viewBox="0 0 40 40"><use href="#orn-corner"/></svg></span><span class="pcorner tr"><svg viewBox="0 0 40 40"><use href="#orn-corner"/></svg></span><span class="pcorner bl"><svg viewBox="0 0 40 40"><use href="#orn-corner"/></svg></span><span class="pcorner br"><svg viewBox="0 0 40 40"><use href="#orn-corner"/></svg></span>
+  <div class="runhead"><span>First in the Field</span><span>The Field &middot; The Study</span></div>
+
+  <h2 class="sec" style="--accent:var(--field)"><span class="ico"><svg viewBox="0 0 100 100"><use href="#a-fern"/></svg></span>The Field <span class="small" style="margin-left:2mm">cold &middot; draft</span></h2><div class="secrule"></div>
+  <p class="lead">The Field is where you build. The only contact here is the race to claim a card first &mdash;
+    no rival may ever take or spoil what you have already built. Setbacks are missed chances, never losses.</p>
+  <h3 class="field">Surveying (drafting)</h3>
+  <p>The Field offers <b>6 face-up cards</b>. To Survey, take one into your tableau and pay its
+    <b>build cost</b> in <span class="g spec"></span>Specimens (Tier&nbsp;I&nbsp;= 0, II&nbsp;= 2, III&nbsp;= 4&ndash;5). Then slide the row up and refill from the deck.</p>
+  <h3 class="field">Collecting</h3>
+  <p>Instead of Surveying, you may <b>activate</b> a built Field card for its <span class="g spec"></span>Specimens (and any chain).</p>
+  <h3 class="field">Priority</h3>
+  <p>At the start of each round, set turn order by <b>Standing</b>, highest first (ties keep the previous order).
+    The Field lead &mdash; <b>the largest collection</b> &mdash; is the steady reward for the patient drafter.</p>
+
+  <h2 class="sec" style="--accent:var(--study); margin-top:5mm"><span class="ico"><svg viewBox="0 0 100 100"><use href="#a-microscope"/></svg></span>The Study <span class="small" style="margin-left:2mm">warm &middot; work</span></h2><div class="secrule"></div>
+  <p>The Study turns raw finds into scholarship. It runs warmer than the Field for one reason: the
+    <b>prime instruments</b> are few, and only their holder may use them.</p>
+  <h3 class="study">Converting</h3>
+  <p>Activate a built Study card to convert <span class="g spec"></span>Specimens <span class="ar">&rarr;</span> <span class="g find"></span>Findings at its printed
+    ratio (the base is <b>2:1</b>; better cards reach <b>1:1</b>). Remember: <span class="g find"></span>Findings spoil above your <b>cap of 3</b> at turn&rsquo;s end &mdash; refine to spend, not to hoard.</p>
+  <h3 class="study">Prime tools (the friction)</h3>
+  <p>The <b>Microscope</b> and <b>Engraver</b> are exclusive spots. The first naturalist to use a card that
+    requires one places their disc there and <b>holds the tool until the end of the round</b>; while held, no
+    rival may run a card needing that tool. This is the Study&rsquo;s only aggression &mdash; denial, never destruction.</p>
+  <h3 class="study">The Study lead</h3>
+  <p>Awarded for <b>throughput</b> &mdash; the most <span class="g find"></span>Findings produced on your <em>last</em> turn. It rewards
+    running the engine, not sitting on a pile, which keeps the game moving.</p>
+</section>
+
+<!-- ===== PAGE 6: the hall ===== -->
+<section class="page">
+  <div class="pf-gold"></div><div class="pf-ink"></div>
+  <span class="pcorner tl"><svg viewBox="0 0 40 40"><use href="#orn-corner"/></svg></span><span class="pcorner tr"><svg viewBox="0 0 40 40"><use href="#orn-corner"/></svg></span><span class="pcorner bl"><svg viewBox="0 0 40 40"><use href="#orn-corner"/></svg></span><span class="pcorner br"><svg viewBox="0 0 40 40"><use href="#orn-corner"/></svg></span>
+  <div class="runhead"><span>First in the Field</span><span>The Society&rsquo;s Hall</span></div>
+
+  <h2 class="sec" style="--accent:var(--hall)"><span class="ico"><svg viewBox="0 0 100 100"><use href="#a-lectern"/></svg></span>The Society&rsquo;s Hall <span class="small" style="margin-left:2mm">hot &middot; contest</span></h2><div class="secrule"></div>
+  <p class="lead">Here scholarship becomes reputation. The Hall holds <b>five fields of study</b>, each a node
+    granting a perk to whoever holds it. To present is to stake a claim; to challenge is to risk ruin.</p>
+
+  <h3 class="hall">Two ways to act</h3>
+  <ul>
+    <li><b>Present</b> &mdash; spend <span class="g find"></span>Findings to make an open claim of <b>strength S = Findings spent</b> (capped by the card). Aim it at a node.</li>
+    <li><b>Lodge a Claim</b> &mdash; place a <b>face-down sealed claim</b> of <b>strength = Findings&nbsp;+1</b> on an empty node or one you hold. Its strength is hidden &mdash; this is your garrison, and your bluff.</li>
+  </ul>
+  <p>Present onto an <b>empty node</b> (or one you already hold) and your claim simply stands. Present onto a
+    node a <b>rival holds</b>, and you must <b>challenge</b> it.</p>
+
+  <h3 class="hall">Challenge &mdash; reveal, compare, consequence</h3>
+  <p>Your attack strength <b>S</b> meets the defender&rsquo;s revealed claim <b>D</b> (the defender may add one Tactic / reserve). Then:</p>
+  <table>
+    <tr><th>Outcome</th><th>Consequence</th></tr>
+    <tr><td class="k">S &gt; D</td><td>You take the node. The rival&rsquo;s claim is <b>discredited</b> (removed); yours stands as the new garrison. Excess <b>S&minus;D is lost</b>. The loop-back perk fires; a <span class="ar">&rarr;</span>Field trigger may chain on.</td></tr>
+    <tr><td class="k">S = D</td><td><b>Both</b> claims are discredited; the node falls empty. The chain ends.</td></tr>
+    <tr><td class="k">S &lt; D</td><td>Your paper is <b>discredited</b> (Findings lost); the rival&rsquo;s claim stands; the defender gains <b>1</b> <span class="g stand"></span>Standing. The chain ends.</td></tr>
+  </table>
+  <p class="small">Nothing here is violence &mdash; a discredited claim is a reputation scooped, not a piece destroyed.</p>
+
+  <h3 class="hall">Tactics &amp; the bluff</h3>
+  <p>Tactics are one-shot cards, held hidden and played at the moment named on them &mdash; a <em>Feint</em> to swell a
+    claim on reveal, an <em>Ambush</em> (Prior Publication) to discredit a challenger before the compare. Because a Lodged
+    claim&rsquo;s strength is concealed, every attacker gambles: over-commit and waste findings, or under-commit and be repelled.</p>
+
+  <h3 class="hall">The nodes &amp; their perks (while held)</h3>
+  <table>
+    <tr><th>Field of study</th><th>Perk</th></tr>
+    <tr><td class="k">Botany &mdash; the Grand Library</td><td><b>Forge:</b> improve one conversion by a step.</td></tr>
+    <tr><td class="k">Entomology &mdash; the Cabinet</td><td><b>Cache:</b> draw a spoils specimen on a loop-back.</td></tr>
+    <tr><td class="k">Ornithology &mdash; the Rostrum</td><td><b>Beacon:</b> +1 <span class="g stand"></span>Standing on each loop-back.</td></tr>
+    <tr><td class="k">Geology &mdash; the Journal</td><td><b>Toll-gate:</b> waive one toll per turn.</td></tr>
+    <tr><td class="k">The New Genus</td><td><b>Open ground:</b> no perk; the first claim founds it.</td></tr>
+  </table>
+  <p><b>The Hall lead</b> goes to whoever holds <b>the most nodes</b> (ties broken by total claim strength).</p>
+</section>
+
+<!-- ===== PAGE 7: clock / leads / end ===== -->
+<section class="page">
+  <div class="pf-gold"></div><div class="pf-ink"></div>
+  <span class="pcorner tl"><svg viewBox="0 0 40 40"><use href="#orn-corner"/></svg></span><span class="pcorner tr"><svg viewBox="0 0 40 40"><use href="#orn-corner"/></svg></span><span class="pcorner bl"><svg viewBox="0 0 40 40"><use href="#orn-corner"/></svg></span><span class="pcorner br"><svg viewBox="0 0 40 40"><use href="#orn-corner"/></svg></span>
+  <div class="runhead"><span>First in the Field</span><span>The Clock &middot; Winning</span></div>
+
+  <h2 class="sec"><span class="ico"><svg viewBox="0 0 100 100"><use href="#a-clock"/></svg></span>The Exhibition Clock</h2><div class="secrule"></div>
+  <p class="lead">A shared clock counts down to the Grand Exhibition. Crucially, <em>the players drive it</em> &mdash;
+    every clash in the Hall brings the end nearer, so the aggressor sets the pace.</p>
+  <ul>
+    <li><b>Advance the marker +1</b> each time a <b>challenge is resolved</b> in the Hall, and whenever a card says so (e.g. <em>Sensational Discovery</em>, <em>Press Sensation</em>).</li>
+    <li><b>Escalation:</b> from clock space&nbsp;<b>5</b>, every <em>successful</em> claim advances the marker an <b>extra +1</b> &mdash; the season accelerates, claims come thick and fast, and a double-leader can suddenly reach for the third band.</li>
+    <li><b>The close:</b> when the marker reaches <b>CLOSE</b>, finish the current round (so all have had equal turns); then the game ends.</li>
+  </ul>
+  <p class="small">The patient builder wants a long, quiet season; the sensationalist wants to slam it shut before the great engine matures. The Hall is the clock.</p>
+
+  <h2 class="sec" style="margin-top:5mm">Determining the Leads</h2><div class="secrule"></div>
+  <p>The three <b>Lead medallions</b> are always held by whoever currently best meets each condition, and
+    pass <b>the instant</b> someone overtakes &mdash; check after every action.</p>
+  <table>
+    <tr><th>Medallion</th><th>Held by</th><th>Tie-break</th></tr>
+    <tr><td class="k" style="color:var(--field)">Field</td><td>largest collection (total tier of built Field cards)</td><td>fewer cards; else unowned</td></tr>
+    <tr><td class="k" style="color:var(--study)">Study</td><td>most Findings produced last turn</td><td>unowned</td></tr>
+    <tr><td class="k" style="color:var(--hall)">Hall</td><td>most nodes held</td><td>greatest total claim strength; else unowned</td></tr>
+  </table>
+
+  <h2 class="sec" style="margin-top:5mm">Winning the Game</h2><div class="secrule"></div>
+  <h3>Outright &mdash; the knockout</h3>
+  <p>At the <b>start of any round</b>, if one naturalist holds <b>all three medallions</b>, they win immediately.
+    Because it is checked only at a round&rsquo;s start, the table always gets one full round&rsquo;s warning to break a
+    two-medallion threat &mdash; so a knockout must be <em>defended</em>, not merely seized.</p>
+  <h3>At the close</h3>
+  <p>When the clock closes and the round is finished, the naturalist holding <b>the most medallions</b> wins.
+    If tied, break by: most <span class="g stand"></span>Standing, then largest collection, then most <span class="g find"></span>Findings banked.</p>
+
+  <div class="note avoid">
+    <h4>&#9876; Why nobody turtles</h4>
+    Ignore the Hall and you never tick the clock, never gain Standing, and slowly lose draft priority to
+    the warlord who does &mdash; who, unchecked, simply takes a third band and wins outright. The cold
+    engine must, sooner or later, present.
+  </div>
+</section>
+
+<!-- ===== PAGE 8: reference ===== -->
+<section class="page">
+  <div class="pf-gold"></div><div class="pf-ink"></div>
+  <span class="pcorner tl"><svg viewBox="0 0 40 40"><use href="#orn-corner"/></svg></span><span class="pcorner tr"><svg viewBox="0 0 40 40"><use href="#orn-corner"/></svg></span><span class="pcorner bl"><svg viewBox="0 0 40 40"><use href="#orn-corner"/></svg></span><span class="pcorner br"><svg viewBox="0 0 40 40"><use href="#orn-corner"/></svg></span>
+  <div class="runhead"><span>First in the Field</span><span>Reference</span></div>
+
+  <h2 class="sec">Factions &amp; Tactics</h2><div class="secrule"></div>
+  <div class="cols">
+    <h3>The Factions</h3>
+    <ul>
+      <li><b>The Systematist</b> &mdash; Findings never spoil; +1 strength on your first claim each round. <em>(the long game)</em></li>
+      <li><b>The Sensationalist</b> &mdash; each claim you contest ticks the clock +1; +1 str attacking a held node. <em>(the aggressor)</em></li>
+      <li><b>The Polymath</b> &mdash; once a turn ignore one toll; +1 Specimen per chain step. <em>(the combo)</em></li>
+      <li><b>The Collector</b> &mdash; +1 Specimen each time you activate a Field card; peek the row before drafting. <em>(the drafter)</em></li>
+      <li><b>The Illustrator</b> &mdash; once a round, first conversion is 1:1; Findings cap +1. <em>(the producer)</em></li>
+    </ul>
+    <h3>The Tactics</h3>
+    <ul class="small">
+      <li><b>A Sensational Specimen</b> (Feint) &mdash; +2 to your side on reveal.</li>
+      <li><b>Prior Publication</b> (Ambush) &mdash; discredit a challenger before the compare.</li>
+      <li><b>A Whole New Genus</b> (Overrun) &mdash; excess Acclaim carries to an adjacent field.</li>
+      <li><b>Anonymous Referee</b> &mdash; cancel a Tactic just revealed.</li>
+      <li><b>Pre-emptive Letter</b> &mdash; when challenged, +1 defence per field you lead.</li>
+      <li><b>Press Sensation</b> &mdash; +2 Standing; clock +1.</li>
+      <li><b>Borrowed Type Specimen</b> &mdash; ignore the Hall toll once this turn.</li>
+      <li><b>Erratum</b> &mdash; recover the Findings from a failed claim.</li>
+    </ul>
+  </div>
+
+  <h2 class="sec" style="margin-top:4mm">Iconography</h2><div class="secrule"></div>
+  <p class="small" style="margin-bottom:3mm">
+    <span class="g spec"></span> Specimen &nbsp;&middot;&nbsp; <span class="g find"></span> Finding &nbsp;&middot;&nbsp;
+    <span class="g accl"></span> Acclaim (claim strength) &nbsp;&middot;&nbsp; <span class="g stand"></span> Standing &nbsp;&middot;&nbsp;
+    <span class="ar">&rarr;</span>&nbsp;Band = chain trigger &nbsp;&middot;&nbsp; wax seal = a card&rsquo;s build cost.
+  </p>
+
+  <div class="cols">
+    <div class="avoid">
+      <h2 class="sec" style="font-size:14pt">Turn at a glance</h2><div class="secrule"></div>
+      <ol class="small">
+        <li><b>Take one action</b> in one band (Field / Study / Hall).</li>
+        <li>Resolve its <b>Activate</b>; <b>Passives</b> always on.</li>
+        <li>Follow any <b>Trigger</b> &mdash; pay fuel + toll &mdash; and chain on.</li>
+        <li>A <b>repelled</b> Hall step ends the chain.</li>
+        <li><b>End:</b> spoil Findings above cap; note throughput; pass priority.</li>
+        <li>At each <b>round start:</b> reset priority by Standing; check the knockout.</li>
+      </ol>
+    </div>
+    <div class="note avoid">
+      <h4>&#9874; Provisional dials</h4>
+      <p class="small" style="margin:0">Most likely to change in playtest:</p>
+      <ul class="small" style="margin-top:1mm">
+        <li>Findings <b>cap (3)</b> &amp; the base <b>2:1</b> ratio.</li>
+        <li>Build costs (<b>0 / 2 / 4&ndash;5</b>).</li>
+        <li>Clock <b>length (9&rarr;CLOSE)</b> &amp; the escalation threshold (<b>5</b>).</li>
+        <li>Starting hand, Specimens &amp; <b>Field row size (6)</b>.</li>
+        <li>Player count scaling (benches, priority pips).</li>
+      </ul>
+    </div>
+  </div>
+
+  <p style="text-align:center; margin-top:6mm; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:11pt; color:var(--ink3)">
+    &#10070;&nbsp; Stand first in the field, and the name is yours forever. &nbsp;&#10070;</p>
+</section>
+
+</div>
+</body>
+</html>

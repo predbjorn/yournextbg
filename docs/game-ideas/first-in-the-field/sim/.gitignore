@@ -1,0 +1,12 @@
+# Python caches
+__pycache__/
+*.pyc
+
+# run logs
+run_full.log
+*.log
+
+# Large per-game CSVs are regenerable via `python3 run.py all` and are too big to
+# track. The aggregated data/sweeps.csv and the generated REPORT.md ARE committed.
+data/games.csv
+data/players.csv

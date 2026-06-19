@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>First in the Field — setup &amp; playtest aids</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=IM+Fell+English+SC&family=Cinzel:wght@500;600&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    color-scheme:light;   /* keep parchment light when exported to PDF from a dark-mode OS/browser */
+    --ink:#2c1f0f; --ink2:#5a4326; --ink3:#7a6038;
+    --paper1:#f6eccd; --paper2:#ecdcae; --paper3:#e2d099;
+    --gold:#b3873a; --goldhi:#efd89c; --golddk:#7e5d22;
+    --wax:#8c2f24; --waxhi:#c6573f;
+    --field:#3f6b43; --study:#2b5563; --hall:#8a3030;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;}
+  body{font-family:'IM Fell English',Georgia,serif; color:#e7d9b6;
+    background:radial-gradient(130% 130% at 50% -10%,#233029 0%,#18211f 45%,#0d1413 100%) fixed; min-height:100vh;}
+  .bar{position:sticky; top:0; z-index:50; display:flex; gap:12px; align-items:center; justify-content:center;
+    padding:12px; background:linear-gradient(180deg,rgba(10,15,14,.92),rgba(10,15,14,.55)); backdrop-filter:blur(3px);}
+  .bar .ttl{font-family:'IM Fell English SC',serif; font-size:18px; letter-spacing:.05em; color:#e9dab4;}
+  .btn{font-family:'IM Fell English SC',serif; font-size:14px; letter-spacing:.05em; cursor:pointer; border:none; border-radius:3px;
+    padding:8px 20px; color:#3a2a0c; background:linear-gradient(180deg,var(--goldhi),var(--gold) 60%,var(--golddk));
+    box-shadow:0 2px 7px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.4);}
+  .btn:hover{filter:brightness(1.06);}
+  .book{display:flex; flex-direction:column; align-items:center; gap:26px; padding:26px 12px 70px;}
+
+  /* ---- a page ---- */
+  .page{position:relative; width:210mm; min-height:297mm; padding:13mm 16mm 11mm; color:var(--ink); overflow:hidden;
+    background:
+      radial-gradient(circle at 16% 20%, rgba(120,80,30,.07), transparent 9%),
+      radial-gradient(circle at 84% 80%, rgba(110,70,25,.06), transparent 10%),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E"),
+      radial-gradient(120% 120% at 50% 36%, transparent 62%, rgba(70,46,16,.16)),
+      radial-gradient(120% 120% at 50% 0%, var(--paper1), var(--paper2) 55%, var(--paper3) 100%);
+    background-color:var(--paper2);   /* opaque fallback so a dropped gradient can't show through to black */
+    box-shadow:0 12px 34px rgba(0,0,0,.55);}
+  .pf-gold,.pf-ink{position:absolute; pointer-events:none; z-index:1;}
+  .pf-gold{inset:6mm; border:0.6mm solid var(--gold); box-shadow:inset 0 0 0 .2mm var(--goldhi);}
+  .pf-ink{inset:7.1mm; border:0.22mm solid var(--ink2);}
+  .pcorner{position:absolute; width:9mm; height:9mm; color:var(--gold); z-index:3;}
+  .pcorner svg{width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:2.6;}
+  .pcorner.tl{top:6.4mm;left:6.4mm;} .pcorner.tr{top:6.4mm;right:6.4mm;transform:scaleX(-1);}
+  .pcorner.bl{bottom:6.4mm;left:6.4mm;transform:scaleY(-1);} .pcorner.br{bottom:6.4mm;right:6.4mm;transform:scale(-1,-1);}
+  .page>*:not(.pf-gold):not(.pf-ink):not(.pcorner){position:relative; z-index:2;}
+
+  .runhead{display:flex; justify-content:space-between; align-items:center; font-family:'IM Fell English SC',serif;
+    font-size:8pt; letter-spacing:.12em; color:var(--ink3); border-bottom:.2mm solid var(--ink3); padding-bottom:1.4mm; margin-bottom:4mm;}
+  .pageno{position:absolute; bottom:7.5mm; left:0; right:0; text-align:center; z-index:2; color:var(--gold); font-size:9pt;}
+  .pageno::before,.pageno::after{content:"\2014"; margin:0 2mm; color:var(--ink3);}
+
+  h2.sec{font-family:'IM Fell English SC',serif; font-weight:400; font-size:16pt; color:#27190a; letter-spacing:.02em;
+    margin:0 0 1mm; display:flex; align-items:center; gap:3mm;}
+  h2.sec .ico{width:7mm;height:7mm;color:var(--accent,var(--ink2));flex:none;} h2.sec .ico svg{width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:2.4;}
+  .secrule{height:.3mm; background:linear-gradient(90deg,var(--gold),transparent); margin:0 0 2.6mm;}
+  h3{font-family:'IM Fell English SC',serif; font-weight:400; font-size:10.5pt; color:var(--hall); margin:3.4mm 0 1mm; letter-spacing:.03em;}
+  p{font-size:9.6pt; line-height:1.38; margin:0 0 1.8mm; color:#322413;}
+  ol,ul{margin:0 0 2mm; padding-left:5.4mm;} li{font-size:9.6pt; line-height:1.34; margin-bottom:1.2mm; color:#322413;}
+  b,strong{color:#241808;} em{color:var(--ink2);}
+  .small{font-size:8.4pt; color:var(--ink2);}
+  .field{color:var(--field);} .study{color:var(--study);} .hall{color:var(--hall);}
+
+  /* resource dots */
+  .g{display:inline-block; width:3.2mm; height:3.2mm; border-radius:50%; vertical-align:-.3mm; margin:0 .2mm; box-shadow:inset 0 0 0 .2mm rgba(0,0,0,.25);}
+  .g.spec{background:#5b8a4e;} .g.find{background:#3c7c8c;} .g.stand{background:linear-gradient(180deg,var(--goldhi),var(--gold));}
+  .ar{color:var(--gold); font-weight:600;}
+
+  /* "suggested" tag */
+  .sug{display:inline-block; font-family:'IM Fell English SC',serif; font-size:6.6pt; letter-spacing:.08em; color:var(--wax);
+    border:.25mm solid var(--wax); border-radius:1mm; padding:0 1mm; vertical-align:.3mm; text-transform:uppercase; margin-left:1mm;}
+
+  /* inline plane glyph */
+  .pg{display:inline-block; width:4.1mm; height:4.1mm; vertical-align:-1mm;}
+  .pg svg{width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:3.4; stroke-linecap:round; stroke-linejoin:round;}
+  .pg.field{color:var(--field);} .pg.study{color:var(--study);} .pg.hall{color:var(--hall);}
+
+  table{width:100%; border-collapse:collapse; margin:1mm 0 2.4mm; font-size:8.8pt;}
+  th,td{text-align:left; padding:1.3mm 2mm; border-bottom:.2mm solid var(--ink3); color:#322413; vertical-align:top;}
+  th{font-family:'IM Fell English SC',serif; font-weight:400; color:var(--ink2); letter-spacing:.05em; border-bottom:.35mm solid var(--ink2);}
+  tr:last-child td{border-bottom:none;}
+  td.k{font-family:'IM Fell English SC',serif; color:#241808; white-space:nowrap;}
+  td.q{font-family:'Cinzel',serif; color:var(--wax); white-space:nowrap; text-align:center;}
+
+  .cols{column-count:2; column-gap:7mm;}
+  .cols h3{break-after:avoid;} .cols h2.sec{break-after:avoid;} .cols table,.cols ol{break-inside:avoid;} .avoid{break-inside:avoid;}
+
+  .note{border-radius:1.5mm; padding:2.2mm 3mm; margin:2.6mm 0; font-size:8.8pt; line-height:1.3;
+    background:rgba(160,60,45,.08); border:.3mm solid var(--wax); box-shadow:inset 0 0 0 .3mm rgba(198,87,63,.35);}
+  .note h4{font-family:'IM Fell English SC',serif; margin:0 0 1mm; color:var(--wax); font-size:8.8pt; letter-spacing:.06em;}
+
+  /* cover-ish header block */
+  .head{display:flex; align-items:center; gap:6mm; margin-bottom:4mm;}
+  .head .rose{width:24mm;height:24mm;color:var(--ink2);flex:none;} .head .rose svg{width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:1.7;}
+  .head h1{font-family:'IM Fell English SC',serif; font-weight:400; font-size:25pt; line-height:.95; margin:0; color:#27190a; letter-spacing:.02em;}
+  .head .sub{font-family:'Cormorant Garamond',serif; font-style:italic; font-size:12pt; color:var(--ink3); margin-top:1mm;}
+
+  /* ---------- cut-out player aids ---------- */
+  .cuthint{text-align:center; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:9.4pt; color:var(--ink3); margin:0 0 2mm;}
+  .aids{display:grid; grid-template-columns:1fr 1fr; gap:4mm;}
+  .aid{position:relative; min-height:110mm; border:.35mm dashed var(--ink3); border-radius:2mm; padding:3.4mm 4mm; background:rgba(255,250,235,.4);
+    box-shadow:inset 0 0 0 .25mm var(--goldhi); break-inside:avoid; display:flex; flex-direction:column;}
+  .aid .scis{position:absolute; top:-2.2mm; right:2mm; font-size:8pt; color:var(--ink3);}
+  .aid .at{font-family:'IM Fell English SC',serif; font-size:11pt; color:#27190a; letter-spacing:.04em; text-align:center; margin-bottom:.6mm;}
+  .aid .as{font-family:'Cormorant Garamond',serif; font-style:italic; font-size:8.6pt; color:var(--ink3); text-align:center; margin-bottom:2mm;}
+  .aid ol{padding-left:4.4mm; margin:0 0 1.6mm;} .aid ol li{font-size:8.5pt; line-height:1.26; margin-bottom:.9mm;}
+  .aid .blk{margin-top:auto;}
+  .aid .kv{font-size:7.9pt; line-height:1.3; color:#3a2c17; border-top:.2mm solid var(--ink3); padding-top:1.4mm; margin-top:1.4mm;}
+  .aid .kv b{font-family:'IM Fell English SC',serif; color:var(--ink2); font-size:7pt; letter-spacing:.06em;}
+  .band{font-family:'IM Fell English SC',serif; font-size:8.2pt; letter-spacing:.02em;}
+  .band.field{color:var(--field);} .band.study{color:var(--study);} .band.hall{color:var(--hall);}
+
+  /* ---------- punch-out tokens ---------- */
+  .tokwrap{display:flex; flex-wrap:wrap; gap:7mm; justify-content:flex-start; align-content:flex-start;}
+  .tokgroup{border:.3mm solid var(--ink3); border-radius:2mm; padding:3.4mm 4mm 4mm; background:rgba(255,250,235,.34); box-shadow:inset 0 0 0 .3mm var(--goldhi);}
+  .tokgroup h3{margin:.4mm 0 2.6mm; color:var(--ink2);}
+  .row{display:flex; flex-wrap:wrap; gap:5mm; align-items:flex-start;}
+  .disc{width:22mm; height:22mm; border-radius:50%; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; gap:.4mm;
+    border:.3mm dashed var(--ink3); box-shadow:inset 0 0 0 .25mm var(--goldhi);}
+  .disc .ti{width:8mm;height:8mm;color:var(--ink2);} .disc .ti svg{width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:2.6;}
+  .disc .tl{font-family:'IM Fell English SC',serif; font-size:6.6pt; letter-spacing:.04em; color:var(--ink2); line-height:.98;}
+  .medal{background:radial-gradient(circle at 36% 30%, var(--goldhi), var(--gold) 58%, var(--golddk)); color:#3a2a08;}
+  .medal .bigL{font-family:'Cinzel',serif; font-weight:600; font-size:15pt; color:#3a2a08; line-height:.9;}
+  .medal .tl{color:#4a3408;}
+  .exhib{background:radial-gradient(circle at 36% 30%, var(--waxhi), var(--wax) 55%, #561712); color:#f6ddcf;}
+  .exhib .ti{color:#f6ddcf;} .exhib .tl{color:#f6ddcf;}
+  .prime{background:rgba(255,247,225,.7); border:.45mm solid var(--gold);}
+  .prime .ptag{font-family:'Cinzel',serif; font-size:5.6pt; letter-spacing:.12em; color:var(--wax);}
+  .tokgroup .cap{font-family:'Cormorant Garamond',serif; font-style:italic; font-size:8.4pt; color:var(--ink3); margin:2.6mm 0 0;}
+
+  @page{size:A4 portrait; margin:0;}
+  @media print{
+    body{background:#fff;} .bar{display:none !important;} .book{gap:0; padding:0;}
+    .page{box-shadow:none; break-after:page; -webkit-print-color-adjust:exact; print-color-adjust:exact;}
+    .page:last-child{break-after:auto;}
+  }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <symbol id="orn-corner" viewBox="0 0 40 40"><path d="M3 3 H17 M3 3 V17 M3 9 C11 9 15 7 17 3 M9 3 C9 11 7 15 3 17 M4 4 C14 6 20 12 22 22"/><circle cx="22" cy="22" r="1.5"/></symbol>
+  <symbol id="o-compass" viewBox="0 0 100 100"><circle cx="50" cy="50" r="42"/><circle cx="50" cy="50" r="31" stroke-dasharray="2 4"/><path d="M50 6 L56 50 L50 94 L44 50 Z"/><path d="M6 50 L50 44 L94 50 L50 56 Z"/><path d="M22 22 L46 46 M78 22 L54 46 M22 78 L46 54 M78 78 L54 54"/><circle cx="50" cy="50" r="3" fill="currentColor"/><path d="M50 2 l-4 9 h8 z" fill="currentColor"/></symbol>
+  <symbol id="a-fern" viewBox="0 0 100 100"><path d="M50 94 V10 M50 80C32 76 24 62 22 50 M50 80C68 76 76 62 78 50 M50 62C35 58 28 46 27 36 M50 62C65 58 72 46 73 36 M50 44C38 41 33 32 32 24 M50 44C62 41 67 32 68 24 M50 28C42 26 38 20 38 14 M50 28C58 26 62 20 62 14"/></symbol>
+  <symbol id="a-microscope" viewBox="0 0 100 100"><path d="M30 84 q20 -5 40 0"/><path d="M38 84 C36 70 36 60 45 56"/><path d="M47 56 C40 46 43 28 54 21"/><rect x="49" y="11" width="9" height="14" rx="3"/><line x1="53" y1="25" x2="51" y2="41"/><circle cx="51" cy="45" r="3"/><line x1="39" y1="53" x2="63" y2="53"/><circle cx="52" cy="53" r="1.8" fill="currentColor"/><path d="M58 62 a6 6 0 1 0 0.1 0"/></symbol>
+  <symbol id="a-press" viewBox="0 0 100 100"><circle cx="50" cy="16" r="10"/><path d="M50 6 v20 M40 16 h20 M43 9 l14 14 M57 9 l-14 14"/><rect x="22" y="40" width="56" height="9" rx="2"/><path d="M28 49 v30 M72 49 v30 M28 79 l-7 7 M72 79 l7 7"/><rect x="38" y="52" width="24" height="18" rx="1"/></symbol>
+  <symbol id="a-lectern" viewBox="0 0 100 100"><path d="M30 38 L70 38 L62 60 L38 60 Z"/><path d="M34 44 h32 M37 51 h26"/><line x1="50" y1="60" x2="50" y2="84"/><path d="M36 84 h28"/><path d="M50 38 V30"/><circle cx="50" cy="26" r="3.4"/></symbol>
+  <symbol id="a-clock" viewBox="0 0 100 100"><circle cx="50" cy="52" r="34"/><path d="M50 52 L50 30 M50 52 L66 60"/><path d="M50 14 v6 M86 52 h-6 M50 90 v-6 M14 52 h6"/><path d="M38 12 l-6 -6 M62 12 l6 -6"/></symbol>
+  <symbol id="a-laurel" viewBox="0 0 100 100"><path d="M50 86 C30 78 20 60 22 38 M50 86 C70 78 80 60 78 38"/><path d="M28 70 q-8 -2 -10 -8 M30 58 q-8 -2 -10 -8 M34 46 q-8 -2 -10 -8 M72 70 q8 -2 10 -8 M70 58 q8 -2 10 -8 M66 46 q8 -2 10 -8"/><path d="M44 26 l6 -10 6 10"/></symbol>
+  <symbol id="a-quill" viewBox="0 0 100 100"><path d="M30 84 C50 60 70 40 86 16 C72 24 50 44 34 74"/><path d="M42 60 q9 -3 15 -9 M50 50 q9 -3 15 -9 M58 40 q9 -3 15 -9"/><path d="M24 88 l8 -12"/><path d="M20 80 h26 v9 a13 6 0 0 1 -26 0 z"/></symbol>
+</defs></svg>
+
+<div class="bar">
+  <span class="ttl">First in the Field — setup &amp; playtest aids</span>
+  <button class="btn" onclick="window.print()">Print (A4)</button>
+</div>
+
+<div class="book">
+
+<!-- ===== PAGE 1: setup & table reference ===== -->
+<section class="page">
+  <div class="pf-gold"></div><div class="pf-ink"></div>
+  <span class="pcorner tl"><svg viewBox="0 0 40 40"><use href="#orn-corner"/></svg></span><span class="pcorner tr"><svg viewBox="0 0 40 40"><use href="#orn-corner"/></svg></span><span class="pcorner bl"><svg viewBox="0 0 40 40"><use href="#orn-corner"/></svg></span><span class="pcorner br"><svg viewBox="0 0 40 40"><use href="#orn-corner"/></svg></span>
+  <div class="runhead"><span>First in the Field</span><span>Playtest Setup &middot; 2&ndash;4 players</span></div>
+
+  <div class="head">
+    <div class="rose"><svg viewBox="0 0 100 100"><use href="#o-compass"/></svg></div>
+    <div>
+      <h1>Setup &amp; Table Reference</h1>
+      <div class="sub">Print, gather, lay out &mdash; then stand first in the field.</div>
+    </div>
+  </div>
+
+  <div class="cols">
+    <h2 class="sec" style="font-size:13pt"><span class="ico"><svg viewBox="0 0 100 100"><use href="#a-quill"/></svg></span>Make &amp; gather</h2><div class="secrule"></div>
+    <table>
+      <tr><th>Piece</th><th style="text-align:center">Qty</th><th>Make / proxy</th></tr>
+      <tr><td class="k">Board</td><td class="q">1</td><td>print <em>board</em> (A3 or 4&times;A4)</td></tr>
+      <tr><td class="k">Engine deck</td><td class="q">50</td><td>each Tier&nbsp;I&nbsp;&times;3, II&nbsp;&times;2, III&nbsp;&times;1</td></tr>
+      <tr><td class="k">Starter sets</td><td class="q">1&nbsp;ea.</td><td>Collecting&nbsp;Trip&nbsp;&middot;&nbsp;Field&nbsp;Notes&nbsp;&middot;&nbsp;Present&nbsp;a&nbsp;Paper, one set per player (print extra)</td></tr>
+      <tr><td class="k">Tactic deck</td><td class="q">16</td><td>the 8 Tactics &times;2</td></tr>
+      <tr><td class="k">Faction cards</td><td class="q">5</td><td>&times;1 each</td></tr>
+      <tr><td class="k"><span class="g spec"></span>Specimens</td><td class="q">~60</td><td>cubes / beads (shared bank)</td></tr>
+      <tr><td class="k"><span class="g find"></span>Findings</td><td class="q">~30</td><td>cubes, other colour (bank)</td></tr>
+      <tr><td class="k">Lead medallions</td><td class="q">3</td><td>punch-outs p.3 (F&nbsp;/&nbsp;S&nbsp;/&nbsp;H)</td></tr>
+      <tr><td class="k">Exhibition marker</td><td class="q">1</td><td>punch-out p.3</td></tr>
+      <tr><td class="k">Prime tools</td><td class="q">2</td><td>punch-outs p.3 (Microscope, Engraver)</td></tr>
+      <tr><td class="k">Per player</td><td class="q">&mdash;</td><td>priority pawn, Standing marker, ~7 claim discs, all one colour</td></tr>
+    </table>
+    <p class="small">No Acclaim tokens &mdash; a claim&rsquo;s strength is just the Findings spent, never stored.</p>
+
+    <h2 class="sec" style="font-size:13pt; margin-top:3mm"><span class="ico"><svg viewBox="0 0 100 100"><use href="#a-laurel"/></svg></span>Setup</h2><div class="secrule"></div>
+    <ol>
+      <li>Board to the middle. <b>Exhibition marker</b> on clock space&nbsp;<b>1</b>; the three <b>Lead medallions</b> beside it, <b>unowned</b>.</li>
+      <li>Place the <b>Microscope</b> &amp; <b>Engraver</b> tokens on their Study spots.</li>
+      <li>Shuffle the <b>engine deck</b>; deal <b>6 face-up</b> to the <b>Field row</b>. Deck on its space.</li>
+      <li>Shuffle the <b>Tactic deck</b> near the board.</li>
+      <li>Each player takes a <b>Faction</b>, their <b>starter set</b>, <b>3</b>&nbsp;<span class="g spec"></span>Specimens, draws <b>1</b> Tactic, and sets their <b>Standing marker to 0</b>.</li>
+      <li><b>Randomly</b> set turn order; place priority pawns on the <b>1&ndash;4</b> track. All begin at <b>0</b> Standing.</li>
+    </ol>
+  </div>
+
+  <h2 class="sec" style="font-size:13pt; margin-top:1mm"><span class="ico"><svg viewBox="0 0 100 100"><use href="#a-lectern"/></svg></span>Where things go</h2><div class="secrule"></div>
+  <div class="cols">
+    <p><b>On the board:</b> the <b class="field">Field</b> draw deck + its 6-card row + priority track; the <b class="study">Study</b> benches + the two prime spots; the <b class="hall">Hall</b>&rsquo;s five nodes; the Exhibition clock and the Standing track (one marker each).</p>
+    <p><b>The bank</b> <span class="sug">suggested</span> &mdash; Specimens &amp; Findings in a shared pile beside the board. Spent and spoiled tokens go back here.</p>
+    <p><b>Your stores &amp; tableau</b> <span class="sug">suggested</span> &mdash; keep your Specimens/Findings in your area; build your cards into three rows <b class="field">Field</b>&thinsp;/&thinsp;<b class="study">Study</b>&thinsp;/&thinsp;<b class="hall">Hall</b> so each card&rsquo;s plane is obvious. Findings over the <b>cap&nbsp;of&nbsp;3</b> spoil to the bank at end of turn.</p>
+    <p><b>Discards</b> <span class="sug">suggested</span> &mdash; a pile beside the engine deck and another beside the Tactic deck.</p>
+    <p><b>Claims at the Hall</b> &mdash; a disc on a node ring. <b>Open:</b> strength shown (a number token or die). <b>Lodged:</b> face-down, strength hidden under it <span class="sug">suggested</span> &mdash; a chit or a jotted note. A discredited claim returns to its owner; spent Findings are simply lost.</p>
+    <p><b>Medallions when earned</b> <span class="sug">suggested</span> &mdash; hand the medallion to its holder, kept in view, so a two-medallion threat (and the all-three knockout) is obvious.</p>
+  </div>
+  <div class="pageno">1</div>
+</section>
+
+<!-- ===== PAGE 2: cut-out player aids ===== -->
+<section class="page">
+  <div class="pf-gold"></div><div class="pf-ink"></div>
+  <span class="pcorner tl"><svg viewBox="0 0 40 40"><use href="#orn-corner"/></svg></span><span class="pcorner tr"><svg viewBox="0 0 40 40"><use href="#orn-corner"/></svg></span><span class="pcorner bl"><svg viewBox="0 0 40 40"><use href="#orn-corner"/></svg></span><span class="pcorner br"><svg viewBox="0 0 40 40"><use href="#orn-corner"/></svg></span>
+  <div class="runhead"><span>First in the Field</span><span>Player Aids &middot; one each</span></div>
+  <h2 class="sec">Player aids</h2><div class="secrule"></div>
+  <p class="cuthint">Cut on the dashed lines &mdash; give one to each naturalist.</p>
+  <div class="aids" id="aids"></div>
+  <div class="pageno">2</div>
+</section>
+
+<!-- ===== PAGE 3: punch-out tokens ===== -->
+<section class="page">
+  <div class="pf-gold"></div><div class="pf-ink"></div>
+  <span class="pcorner tl"><svg viewBox="0 0 40 40"><use href="#orn-corner"/></svg></span><span class="pcorner tr"><svg viewBox="0 0 40 40"><use href="#orn-corner"/></svg></span><span class="pcorner bl"><svg viewBox="0 0 40 40"><use href="#orn-corner"/></svg></span><span class="pcorner br"><svg viewBox="0 0 40 40"><use href="#orn-corner"/></svg></span>
+  <div class="runhead"><span>First in the Field</span><span>Punch-out tokens</span></div>
+  <h2 class="sec">Punch-out tokens</h2><div class="secrule"></div>
+  <p class="cuthint">Cut out, mount on card or a coin. Use cubes for Specimens, Findings &amp; player markers.</p>
+
+  <div class="tokwrap">
+    <div class="tokgroup">
+      <h3>Lead medallions <span class="small">&mdash; held by the current leader</span></h3>
+      <div class="row">
+        <div class="disc medal"><div class="bigL">F</div><div class="tl">FIELD<br>LEAD</div></div>
+        <div class="disc medal"><div class="bigL">S</div><div class="tl">STUDY<br>LEAD</div></div>
+        <div class="disc medal"><div class="bigL">H</div><div class="tl">HALL<br>LEAD</div></div>
+      </div>
+      <p class="cap">Field = most built-card tiers &middot; Study = Findings made last turn &middot; Hall = most nodes held.</p>
+    </div>
+
+    <div class="tokgroup">
+      <h3>The Exhibition</h3>
+      <div class="row">
+        <div class="disc exhib"><div class="ti"><svg viewBox="0 0 100 100"><use href="#a-clock"/></svg></div><div class="tl">CLOCK</div></div>
+      </div>
+      <p class="cap">Starts on space&nbsp;1; advances to CLOSE.</p>
+    </div>
+
+    <div class="tokgroup">
+      <h3>Prime tools <span class="small">&mdash; on their Study spots</span></h3>
+      <div class="row">
+        <div class="disc prime"><div class="ti"><svg viewBox="0 0 100 100"><use href="#a-microscope"/></svg></div><div class="tl">Microscope</div><div class="ptag">PRIME</div></div>
+        <div class="disc prime"><div class="ti"><svg viewBox="0 0 100 100"><use href="#a-press"/></svg></div><div class="tl">Engraver</div><div class="ptag">PRIME</div></div>
+      </div>
+      <p class="cap">Claim by placing your disc here; held until the round ends.</p>
+    </div>
+  </div>
+
+  <div class="note avoid" style="margin-top:6mm">
+    <h4>&#9874; A first draft</h4>
+    Findings cap (3), the 2:1 base ratio, build costs (0&thinsp;/&thinsp;2&thinsp;/&thinsp;4&ndash;5), clock length and the Field row (6) are all provisional dials &mdash; approximate is fine for a first table.
+  </div>
+  <div class="pageno">3</div>
+</section>
+
+</div>
+
+<script>
+/* four identical player aids */
+const AID = `
+  <span class="scis">&#9986;</span>
+  <div class="at">A Turn</div>
+  <div class="as">one action, then chain</div>
+  <ol>
+    <li>Take <b>one action</b> in one band:
+      <br><span class="band field"><span class="pg field"><svg viewBox="0 0 100 100"><use href="#a-fern"/></svg></span> Field</span> &mdash; <b>Survey</b> (pay Specimens) or <b>Activate</b> &rarr; Specimens
+      <br><span class="band study"><span class="pg study"><svg viewBox="0 0 100 100"><use href="#a-microscope"/></svg></span> Study</span> &mdash; <b>Activate</b> &rarr; Specimens to Findings
+      <br><span class="band hall"><span class="pg hall"><svg viewBox="0 0 100 100"><use href="#a-lectern"/></svg></span> Hall</span> &mdash; <b>Activate</b> &rarr; Present / Lodge a claim</li>
+    <li>Resolve its <b>Activate</b>; <b>Passives</b> are always on.</li>
+    <li>A <b>Trigger</b> (<span class="ar">&rarr;</span>&nbsp;band) gives a free chained step &mdash; pay that step&rsquo;s <b>fuel + toll</b>, then it may chain on.</li>
+    <li>A <b>repelled</b> Hall step ends the chain.</li>
+    <li><b>End:</b> Findings over <b>3</b> spoil &middot; note throughput &middot; pass priority.</li>
+    <li><b>Round start:</b> reset priority by Standing &middot; check the knockout.</li>
+  </ol>
+  <div class="blk">
+    <div class="kv"><b>KEY</b>&nbsp; Findings cap <b>3</b> &middot; Toll <b>+1</b> into a band you don&rsquo;t lead &middot; Build I/II/III = <b>0&thinsp;/&thinsp;2&thinsp;/&thinsp;4&ndash;5</b> &middot; Field row <b>6</b> &middot; Clock <b>9&rarr;CLOSE</b>, +1 extra per success from space <b>5</b>.</div>
+    <div class="kv"><b>LEADS</b>&nbsp; <span class="field">Field</span> = most built Field-card tiers &middot; <span class="study">Study</span> = Findings made last turn &middot; <span class="hall">Hall</span> = most nodes held.</div>
+    <div class="kv"><b>WIN</b>&nbsp; the most medallions at CLOSE &mdash; or all <b>three</b> at the start of a round.</div>
+  </div>`;
+const wrap = document.getElementById('aids');
+for (let i=0;i<4;i++){ const d=document.createElement('div'); d.className='aid'; d.innerHTML=AID; wrap.appendChild(d); }
+</script>
+</body>
+</html>
