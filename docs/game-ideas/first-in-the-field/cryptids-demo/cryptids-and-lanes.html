@@ -3,73 +3,62 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Cryptids, Trophies & Lanes — playtest demo</title>
+<title>Cryptids, Trophies &amp; Lanes — playtest demo</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=IM+Fell+English+SC&family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
 <style>
-/* ══════════════════════════════════════════════════════════════════════
-   PALETTE — inkwell black ground, aged vellum paper, raw amber gold
-   ══════════════════════════════════════════════════════════════════════ */
+/* ══════════════════════════════════════════════════════════════════
+   PALETTE
+   ══════════════════════════════════════════════════════════════════ */
 :root {
   --ground:   #0e0c09;
   --ground2:  #1a1610;
   --ground3:  #27201a;
-
   --vellum:   #f8f2e0;
   --paper:    #ede4c2;
   --paper2:   #e1d6a4;
   --paper3:   #cfc58c;
-
   --ink:      #1c1208;
   --ink2:     #4a3820;
   --ink3:     #7a6040;
   --ink4:     #a08060;
-
   --gold:     #c9943a;
   --goldhi:   #e8c870;
   --goldmid:  #d4a840;
   --golddk:   #8a6018;
-
   --wax:      #9c2c2c;
   --waxhi:    #c54840;
   --waxdk:    #601818;
-
-  /* Lane identities — distinct material characters */
-  --exp:      #7a4c26;   /* worn leather */
+  --exp:      #7a4c26;
   --exp-dk:   #3a2010;
   --exp-hi:   #c87c3e;
-  --fld:      #2c6034;   /* verdigris */
+  --fld:      #2c6034;
   --fld-dk:   #142e18;
   --fld-hi:   #58a05c;
-  --std:      #1e3e70;   /* Prussian blue */
+  --std:      #1e3e70;
   --std-dk:   #0c1c38;
   --std-hi:   #4878b0;
-  --hll:      #681a28;   /* oxblood */
+  --hll:      #681a28;
   --hll-dk:   #300c14;
   --hll-hi:   #a83c4c;
-
-  /* Player portrait palette */
   --p0: #2060a0;
   --p1: #a83828;
   --p2: #2a6e3a;
   --p3: #7050a0;
-
-  /* Dubious species */
   --dub:      #5a4878;
   --dub-dk:   #281e38;
   --dub-hi:   #9070c0;
 }
 
-/* ══════════════════════════════════════════════════════════════════════
+/* ══════════════════════════════════════════════════════════════════
    RESET & BASE
-   ══════════════════════════════════════════════════════════════════════ */
-*, *::before, *::after { box-sizing: border-box; }
-html, body { margin: 0; padding: 0; }
+   ══════════════════════════════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
   font-family: 'IM Fell English', Georgia, serif;
-  font-size: 15px;
+  font-size: 14px;
   line-height: 1.5;
   color: var(--ink);
   background: var(--ground);
@@ -78,66 +67,91 @@ body {
     radial-gradient(ellipse 80% 60% at 20% 10%, rgba(50,34,16,.5) 0%, transparent 60%),
     radial-gradient(ellipse 60% 80% at 80% 90%, rgba(30,20,8,.4) 0%, transparent 60%);
 }
+body.game-active { overflow: hidden; }
 
-.wrap { max-width: 1300px; margin: 0 auto; padding: 16px 14px 80px; }
+/* ══════════════════════════════════════════════════════════════════
+   ANIMATIONS
+   ══════════════════════════════════════════════════════════════════ */
+@keyframes float-up {
+  0%   { opacity: 1; transform: translateY(0) scale(1); }
+  60%  { opacity: .85; }
+  100% { opacity: 0; transform: translateY(-72px) scale(.82); }
+}
+@keyframes card-deal {
+  from { opacity: 0; transform: translateY(10px) scale(.97); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes trophy-claim {
+  0%   { filter: brightness(1); }
+  35%  { filter: brightness(1.6) drop-shadow(0 0 12px rgba(230,190,80,.9)); }
+  100% { filter: brightness(1); }
+}
+@keyframes bust-shake {
+  0%, 100% { transform: translateX(0); }
+  14%  { transform: translateX(-13px); }
+  28%  { transform: translateX(11px); }
+  42%  { transform: translateX(-8px); }
+  57%  { transform: translateX(6px); }
+  71%  { transform: translateX(-4px); }
+  85%  { transform: translateX(2px); }
+}
+@keyframes bust-flash {
+  0%   { opacity: 0; }
+  18%  { opacity: .5; }
+  100% { opacity: 0; }
+}
 
-/* ══════════════════════════════════════════════════════════════════════
+/* ══════════════════════════════════════════════════════════════════
    PARCHMENT SURFACE
-   ══════════════════════════════════════════════════════════════════════ */
+   ══════════════════════════════════════════════════════════════════ */
 .parch {
   position: relative;
-  border-radius: 2px;
+  border-radius: 3px;
   color: var(--ink);
-  padding: 14px 16px;
+  padding: 11px 13px;
   background:
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='.038'/%3E%3C/svg%3E"),
     radial-gradient(120% 120% at 50% 0%, var(--vellum) 0%, var(--paper) 55%, var(--paper2) 100%);
   box-shadow:
     0 0 0 1px rgba(138,96,24,.45),
-    0 0 0 3px rgba(240,232,192,.1),
-    0 10px 36px rgba(0,0,0,.65),
+    0 0 0 3px rgba(240,232,192,.08),
+    0 8px 28px rgba(0,0,0,.6),
     inset 0 1px 0 rgba(255,255,255,.45);
 }
-
 .parch::before {
   content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: 2px;
-  pointer-events: none;
+  position: absolute; inset: 0; border-radius: 3px; pointer-events: none;
   background:
     radial-gradient(circle at 2% 2%, rgba(90,60,18,.12) 0%, transparent 30%),
     radial-gradient(circle at 98% 98%, rgba(90,60,18,.10) 0%, transparent 30%);
 }
-
-/* Section label used in parch panels */
 .panel-head {
   font-family: 'Cinzel', serif;
-  font-size: 9.5px;
+  font-size: 8.5px;
   letter-spacing: .22em;
   text-transform: uppercase;
   color: var(--gold);
-  margin-bottom: 10px;
-  padding-bottom: 7px;
+  margin-bottom: 8px;
+  padding-bottom: 6px;
   border-bottom: 1px solid var(--paper3);
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-/* ══════════════════════════════════════════════════════════════════════
-   BUTTONS
-   ══════════════════════════════════════════════════════════════════════ */
+/* ══════════════════════════════════════════════════════════════════
+   BUTTONS & FORMS
+   ══════════════════════════════════════════════════════════════════ */
 .btn {
   font-family: 'IM Fell English SC', serif;
-  font-size: 14px;
+  font-size: 13px;
   letter-spacing: .06em;
   cursor: pointer;
   border: none;
   border-radius: 2px;
-  padding: 8px 20px;
+  padding: 7px 18px;
   color: var(--ink);
-  background: linear-gradient(180deg, var(--goldhi) 0%, var(--gold) 50%, var(--golddk) 100%);
+  background: linear-gradient(180deg, var(--goldhi) 0%, var(--gold) 52%, var(--golddk) 100%);
   box-shadow:
     inset 0 1px 0 rgba(255,255,255,.5),
     inset 0 -1px 0 rgba(0,0,0,.15),
@@ -145,25 +159,22 @@ body {
     0 0 0 1px var(--golddk);
   transition: filter .12s, transform .08s;
 }
-.btn:hover { filter: brightness(1.08); }
+.btn:hover  { filter: brightness(1.08); }
 .btn:active { filter: brightness(.94); transform: translateY(1px); }
-
-.btn.ghost {
+.btn.ghost  {
   background: transparent;
   box-shadow: inset 0 0 0 1px var(--ink3);
   color: var(--ink2);
 }
 .btn.ghost:hover { background: rgba(0,0,0,.06); }
-
 .btn.danger {
-  background: linear-gradient(180deg, var(--waxhi), var(--wax) 50%, var(--waxdk));
+  background: linear-gradient(180deg, var(--waxhi), var(--wax) 52%, var(--waxdk));
   color: var(--vellum);
   box-shadow: 0 2px 8px rgba(0,0,0,.5), 0 0 0 1px var(--waxdk);
 }
-
 select, input {
   font-family: 'IM Fell English', serif;
-  font-size: 15px;
+  font-size: 14px;
   padding: 5px 10px;
   border: 1px solid var(--ink3);
   border-radius: 2px;
@@ -171,10 +182,10 @@ select, input {
   color: var(--ink);
 }
 
-/* ══════════════════════════════════════════════════════════════════════
+/* ══════════════════════════════════════════════════════════════════
    START SCREEN
-   ══════════════════════════════════════════════════════════════════════ */
-#start { max-width: 900px; margin: 36px auto; }
+   ══════════════════════════════════════════════════════════════════ */
+#start { max-width: 900px; margin: 36px auto; padding: 0 14px 80px; }
 
 .start-header {
   text-align: center;
@@ -182,45 +193,40 @@ select, input {
   margin-bottom: 20px;
   border-bottom: 1px solid var(--paper3);
 }
-
 .start-header::after {
   content: '· · ✦ · ·';
   display: block;
   font-family: 'Cormorant Garamond', serif;
   font-style: italic;
   font-size: 14px;
-  letter-spacing: .25em;
+  letter-spacing: .28em;
   color: var(--gold);
   margin-top: 12px;
 }
-
 .start-title {
   font-family: 'IM Fell English SC', serif;
-  font-size: clamp(30px, 5vw, 50px);
+  font-size: clamp(28px, 5vw, 48px);
   letter-spacing: .04em;
   color: var(--ink);
   line-height: 1.0;
   margin-bottom: 10px;
 }
-
 .start-sub {
   font-family: 'Cormorant Garamond', serif;
   font-style: italic;
-  font-size: 18px;
+  font-size: 17px;
   color: var(--ink2);
   max-width: 560px;
   margin: 0 auto;
   line-height: 1.4;
 }
-
 .start-config {
   display: flex;
-  gap: 20px;
+  gap: 18px;
   align-items: center;
   flex-wrap: wrap;
   margin: 16px 0;
 }
-
 .start-config label {
   font-family: 'Cinzel', serif;
   font-size: 10px;
@@ -229,14 +235,12 @@ select, input {
   color: var(--ink3);
   margin-right: 3px;
 }
-
 .facgrid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(172px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(168px, 1fr));
   gap: 9px;
   margin: 12px 0 20px;
 }
-
 .faccard {
   border: 1px solid var(--paper3);
   border-radius: 2px;
@@ -247,7 +251,6 @@ select, input {
   position: relative;
   overflow: hidden;
 }
-
 .faccard::after {
   content: '';
   position: absolute;
@@ -257,44 +260,14 @@ select, input {
   opacity: .35;
   transition: opacity .14s;
 }
-
-.faccard:hover {
-  background: rgba(255,252,236,.9);
-  box-shadow: 0 0 0 1.5px var(--gold), 0 4px 14px rgba(0,0,0,.2);
-}
-
+.faccard:hover { background: rgba(255,252,236,.9); box-shadow: 0 0 0 1.5px var(--gold), 0 4px 14px rgba(0,0,0,.2); }
 .faccard:hover::after { opacity: .9; }
-
-.faccard.sel {
-  background: rgba(255,247,208,.88);
-  box-shadow: 0 0 0 2px var(--gold), 0 6px 20px rgba(180,130,50,.2);
-}
+.faccard.sel { background: rgba(255,247,208,.88); box-shadow: 0 0 0 2px var(--gold), 0 6px 20px rgba(180,130,50,.2); }
 .faccard.sel::after { opacity: 1; background: var(--gold); }
-
-.faccard .arch {
-  font-family: 'Cinzel', serif;
-  font-size: 8.5px;
-  letter-spacing: .2em;
-  text-transform: uppercase;
-  color: var(--wax);
-  margin-bottom: 4px;
-}
-.faccard .fn {
-  font-family: 'IM Fell English SC', serif;
-  font-size: 15px;
-  color: var(--ink);
-  margin-bottom: 5px;
-}
-.faccard .ft {
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-  font-size: 12.5px;
-  color: var(--ink2);
-  line-height: 1.3;
-}
-
+.faccard .arch { font-family: 'Cinzel', serif; font-size: 8px; letter-spacing: .2em; text-transform: uppercase; color: var(--wax); margin-bottom: 4px; }
+.faccard .fn   { font-family: 'IM Fell English SC', serif; font-size: 15px; color: var(--ink); margin-bottom: 5px; }
+.faccard .ft   { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 12px; color: var(--ink2); line-height: 1.3; }
 .start-cta { margin-top: 4px; }
-
 .start-rules {
   margin-top: 16px;
   padding: 11px 14px;
@@ -303,133 +276,51 @@ select, input {
   color: var(--ink2);
   line-height: 1.65;
 }
-.start-rules strong {
-  font-family: 'IM Fell English SC', serif;
-  letter-spacing: .03em;
-  color: var(--ink);
+.start-rules strong { font-family: 'IM Fell English SC', serif; letter-spacing: .03em; color: var(--ink); }
+
+/* ══════════════════════════════════════════════════════════════════
+   GAME — FIXED VIEWPORT LAYOUT
+   ══════════════════════════════════════════════════════════════════ */
+#game {
+  display: none;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
 }
 
-/* ══════════════════════════════════════════════════════════════════════
-   GAME CONTAINER
-   ══════════════════════════════════════════════════════════════════════ */
-#game { display: none; }
-
-/* ══════════════════════════════════════════════════════════════════════
-   TURN BANNER
-   ══════════════════════════════════════════════════════════════════════ */
-#turnbanner {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  padding: 9px 16px;
-  margin-bottom: 10px;
-  font-family: 'IM Fell English SC', serif;
-  font-size: 15px;
-  letter-spacing: .06em;
-  border-radius: 2px;
-  background: rgba(248,242,224,.07);
-  border: 1px solid rgba(200,148,58,.2);
-  color: rgba(248,242,224,.85);
-  text-shadow: 0 1px 4px rgba(0,0,0,.9);
-}
-
-#turnbanner.you {
-  background: linear-gradient(180deg, var(--goldhi) 0%, var(--gold) 52%, var(--golddk) 100%);
-  border-color: var(--golddk);
-  color: var(--ink);
-  text-shadow: none;
-  box-shadow: 0 0 24px rgba(200,148,50,.25), 0 2px 10px rgba(0,0,0,.5);
-}
-
-/* ══════════════════════════════════════════════════════════════════════
-   CLOCK BAR
-   ══════════════════════════════════════════════════════════════════════ */
-.clockbar {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  flex-wrap: wrap;
-  margin-bottom: 11px;
-  padding: 8px 14px;
-  background: rgba(248,242,224,.06);
-  border: 1px solid rgba(200,148,58,.15);
-  border-radius: 2px;
-}
-
-.round-display {
-  font-family: 'Cinzel', serif;
-  color: rgba(248,242,224,.7);
-  font-size: 12px;
-  letter-spacing: .06em;
-  white-space: nowrap;
+/* ── Game Header ── */
+#game-header {
   flex-shrink: 0;
-}
-.round-display strong {
-  font-size: 22px;
-  font-weight: 600;
-  color: var(--goldhi);
-  display: inline-block;
-  vertical-align: middle;
-  line-height: 1;
-  margin-left: 4px;
+  padding: 8px 12px 6px;
+  background: linear-gradient(180deg, rgba(14,12,9,1) 0%, rgba(14,12,9,.9) 100%);
+  border-bottom: 1px solid rgba(200,148,58,.14);
 }
 
-.clock-label {
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-  font-size: 12.5px;
-  color: rgba(248,242,224,.4);
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-
-.clock { display: flex; gap: 2px; flex: 1; min-width: 140px; }
-
-.ccell {
-  flex: 1;
-  height: 12px;
-  border-radius: 1px;
-  background: rgba(248,242,224,.07);
-  border: 1px solid rgba(248,242,224,.12);
-  transition: background .25s, border-color .25s, box-shadow .25s;
-}
-.ccell.on {
-  background: var(--wax);
-  border-color: var(--waxhi);
-  box-shadow: 0 0 7px rgba(180,60,50,.45);
-}
-
-/* ══════════════════════════════════════════════════════════════════════
-   TROPHY MEDALLIONS
-   ══════════════════════════════════════════════════════════════════════ */
-.trophies {
+/* ── Trophy Bar ── */
+#trophies {
   display: flex;
   gap: 8px;
-  margin-bottom: 12px;
+  justify-content: center;
+  margin-bottom: 7px;
 }
-
 .trophy {
-  flex: 1;
   display: flex;
   align-items: center;
-  gap: 11px;
-  padding: 9px 13px;
-  border-radius: 2px;
-  border: 1px solid rgba(200,148,58,.18);
-  background: rgba(248,242,224,.05);
+  gap: 10px;
+  padding: 7px 14px 7px 8px;
+  border-radius: 3px;
+  border: 1px solid rgba(200,148,58,.17);
+  background: rgba(248,242,224,.04);
+  min-width: 210px;
   transition: background .2s, border-color .2s, box-shadow .2s;
 }
-
 .trophy.held {
   background: rgba(200,148,50,.1);
   border-color: rgba(200,148,50,.5);
-  box-shadow: 0 0 0 1px rgba(200,148,50,.15), 0 6px 20px rgba(140,98,28,.18);
+  box-shadow: 0 0 0 1px rgba(200,148,50,.14), 0 4px 18px rgba(140,98,28,.18);
 }
-
 .trophy .disc {
-  width: 56px;
-  height: 56px;
+  width: 50px; height: 50px;
   flex-shrink: 0;
   border-radius: 50%;
   display: flex;
@@ -440,191 +331,260 @@ select, input {
   box-shadow:
     inset 0 0 0 2px rgba(255,255,255,.18),
     inset 0 1px 0 rgba(255,255,255,.4),
-    0 2px 10px rgba(0,0,0,.55),
+    0 2px 8px rgba(0,0,0,.5),
     0 0 0 1px var(--golddk);
 }
-
-/* Inner ring engraving detail */
 .trophy .disc::before {
   content: '';
-  position: absolute;
-  inset: 7px;
-  border-radius: 50%;
+  position: absolute; inset: 6px; border-radius: 50%;
   border: 1px solid rgba(255,255,255,.22);
 }
-
 .trophy.held .disc {
   background: radial-gradient(circle at 36% 28%, #fff3a0 0%, var(--goldhi) 30%, var(--gold) 65%, var(--golddk) 100%);
   box-shadow:
     inset 0 0 0 2px rgba(255,255,255,.3),
     inset 0 1px 0 rgba(255,255,255,.55),
     0 0 0 1px var(--golddk),
-    0 0 18px rgba(200,148,50,.55),
+    0 0 20px rgba(200,148,50,.55),
     0 4px 14px rgba(0,0,0,.45);
+  animation: trophy-claim 1.4s ease-in-out;
 }
-
 .trophy .disc svg {
-  width: 26px;
-  height: 26px;
-  fill: none;
-  stroke: rgba(26,18,8,.7);
-  stroke-width: 2.2;
-  position: relative;
-  z-index: 1;
+  width: 23px; height: 23px; fill: none;
+  stroke: rgba(26,18,8,.7); stroke-width: 2.2;
+  position: relative; z-index: 1;
 }
 .trophy.held .disc svg { stroke: rgba(26,18,8,.85); }
-
 .trophy .info { flex: 1; min-width: 0; }
-
-.trophy .tn {
-  font-family: 'IM Fell English SC', serif;
-  font-size: 13px;
-  letter-spacing: .04em;
-  color: rgba(248,242,224,.75);
-  line-height: 1.15;
-}
+.trophy .tn { font-family: 'IM Fell English SC', serif; font-size: 12px; letter-spacing: .04em; color: rgba(248,242,224,.75); line-height: 1.15; }
 .trophy.held .tn { color: var(--goldhi); }
-
-.trophy .th {
-  font-family: 'Cinzel', serif;
-  font-size: 10.5px;
-  letter-spacing: .03em;
-  color: rgba(248,242,224,.5);
-  margin-top: 2px;
-  min-height: 13px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
+.trophy .th { font-family: 'Cinzel', serif; font-size: 10px; letter-spacing: .03em; color: rgba(248,242,224,.5); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .trophy.held .th { color: var(--goldmid); }
+.trophy .tcrit { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 10px; color: rgba(248,242,224,.28); margin-top: 1px; }
 
-.trophy .tcrit {
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-  font-size: 11px;
-  color: rgba(248,242,224,.33);
-  margin-top: 1px;
-  line-height: 1.1;
+/* ── Turn Banner + Clock ── */
+#turn-status-row {
+  display: flex;
+  gap: 9px;
+  align-items: center;
 }
-
-/* ══════════════════════════════════════════════════════════════════════
-   LAYOUT
-   ══════════════════════════════════════════════════════════════════════ */
-.cols {
-  display: grid;
-  grid-template-columns: 1fr 296px;
-  gap: 12px;
-  align-items: start;
-}
-@media (max-width: 900px) { .cols { grid-template-columns: 1fr; } }
-
-/* ══════════════════════════════════════════════════════════════════════
-   EXPEDITION SUB-STATE
-   ══════════════════════════════════════════════════════════════════════ */
-#exp-ui {
-  display: none;
-  margin-bottom: 11px;
-  padding: 11px 13px;
-  border-radius: 2px;
-  border: 1px solid var(--exp);
-  background:
-    repeating-linear-gradient(
-      45deg,
-      transparent, transparent 7px,
-      rgba(200,120,60,.03) 7px, rgba(200,120,60,.03) 8px
-    ),
-    linear-gradient(180deg, rgba(122,76,38,.22), rgba(58,32,16,.28));
-  box-shadow: 0 0 24px rgba(120,70,28,.14);
-}
-
-#exp-ui h3 {
+#turnbanner {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 5px 16px;
   font-family: 'IM Fell English SC', serif;
   font-size: 13px;
-  letter-spacing: .05em;
-  color: var(--exp-hi);
-  margin-bottom: 5px;
-}
-
-.exp-depth-info {
-  font-family: 'Cinzel', serif;
-  font-size: 11px;
-  letter-spacing: .04em;
-  color: rgba(248,242,224,.55);
-  margin-bottom: 8px;
-}
-
-.exp-tokens { display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 10px; }
-
-.exp-tok {
-  padding: 3px 9px;
+  letter-spacing: .06em;
   border-radius: 2px;
-  font-family: 'Cinzel', serif;
-  font-size: 11px;
-  letter-spacing: .05em;
-  color: var(--vellum);
-  text-shadow: 0 1px 2px rgba(0,0,0,.5);
+  background: rgba(248,242,224,.05);
+  border: 1px solid rgba(200,148,58,.18);
+  color: rgba(248,242,224,.85);
+  text-shadow: 0 1px 4px rgba(0,0,0,.9);
+  white-space: nowrap;
 }
-.exp-tok.specimen { background: var(--fld);  border: 1px solid var(--fld-hi); }
-.exp-tok.finding  { background: var(--std);  border: 1px solid var(--std-hi); }
-.exp-tok.sighting { background: var(--dub);  border: 1px solid var(--dub-hi); }
-.exp-tok.hazard   { background: var(--wax);  border: 1px solid var(--waxhi);  }
+#turnbanner.you {
+  background: linear-gradient(180deg, var(--goldhi) 0%, var(--gold) 52%, var(--golddk) 100%);
+  border-color: var(--golddk);
+  color: var(--ink);
+  text-shadow: none;
+  box-shadow: 0 0 20px rgba(200,148,50,.22), 0 2px 8px rgba(0,0,0,.5);
+}
+.clockbar {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 5px 12px;
+  background: rgba(248,242,224,.04);
+  border: 1px solid rgba(200,148,58,.11);
+  border-radius: 2px;
+}
+.round-display {
+  font-family: 'Cinzel', serif;
+  color: rgba(248,242,224,.6);
+  font-size: 11px;
+  letter-spacing: .06em;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.round-display strong {
+  font-size: 19px; font-weight: 600;
+  color: var(--goldhi);
+  vertical-align: middle; line-height: 1; margin-left: 4px;
+}
+.clock-label {
+  font-family: 'Cormorant Garamond', serif; font-style: italic;
+  font-size: 11px; color: rgba(248,242,224,.36);
+  white-space: nowrap; flex-shrink: 0;
+}
+.clock { display: flex; gap: 2px; flex: 1; min-width: 80px; }
+.ccell {
+  flex: 1; height: 10px; border-radius: 1px;
+  background: rgba(248,242,224,.06);
+  border: 1px solid rgba(248,242,224,.1);
+  transition: background .25s, border-color .25s, box-shadow .25s;
+}
+.ccell.on { background: var(--wax); border-color: var(--waxhi); box-shadow: 0 0 6px rgba(180,60,50,.4); }
 
-.exp-btns { display: flex; gap: 8px; }
+/* ══════════════════════════════════════════════════════════════════
+   GAME BODY — 3-COLUMN
+   ══════════════════════════════════════════════════════════════════ */
+#game-body {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 248px 1fr 224px;
+  overflow: hidden;
+  min-height: 0;
+}
+#left-col {
+  overflow-y: auto;
+  padding: 9px 8px 9px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  border-right: 1px solid rgba(200,148,58,.1);
+}
+#center-col {
+  overflow-y: auto;
+  padding: 9px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  min-height: 0;
+}
+#right-col {
+  overflow-y: auto;
+  padding: 9px 10px 9px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  border-left: 1px solid rgba(200,148,58,.1);
+}
+#left-col::-webkit-scrollbar,
+#center-col::-webkit-scrollbar,
+#right-col::-webkit-scrollbar { width: 4px; }
+#left-col::-webkit-scrollbar-track,
+#center-col::-webkit-scrollbar-track,
+#right-col::-webkit-scrollbar-track { background: transparent; }
+#left-col::-webkit-scrollbar-thumb,
+#center-col::-webkit-scrollbar-thumb,
+#right-col::-webkit-scrollbar-thumb { background: rgba(200,148,58,.22); border-radius: 2px; }
 
-/* ══════════════════════════════════════════════════════════════════════
+/* ══════════════════════════════════════════════════════════════════
+   LANES GRID — horizontal 4 columns
+   ══════════════════════════════════════════════════════════════════ */
+#lanes-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+}
+
+.band {
+  border-radius: 3px;
+  overflow: hidden;
+  border: 1px solid var(--bc);
+  box-shadow: 0 2px 8px rgba(0,0,0,.35);
+}
+.band.k-expedition { --bc: var(--exp); --bchi: var(--exp-hi); --bcbg: var(--exp-dk); }
+.band.k-field      { --bc: var(--fld); --bchi: var(--fld-hi); --bcbg: var(--fld-dk); }
+.band.k-study      { --bc: var(--std); --bchi: var(--std-hi); --bcbg: var(--std-dk); }
+.band.k-hall       { --bc: var(--hll); --bchi: var(--hll-hi); --bcbg: var(--hll-dk); }
+
+.band .bh {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  padding: 5px 9px;
+  background: linear-gradient(180deg, color-mix(in srgb,var(--bc) 85%,white 15%) 0%, var(--bc) 100%);
+  border-bottom: 1px solid rgba(0,0,0,.2);
+}
+.band .bh .lhs {
+  display: flex; align-items: center; gap: 6px;
+  font-family: 'Cinzel', serif;
+  font-size: 8px; letter-spacing: .16em; text-transform: uppercase;
+  color: rgba(255,255,255,.88);
+  text-shadow: 0 1px 3px rgba(0,0,0,.5);
+}
+.band .bh .lhs .lane-icon { font-size: 11px; line-height: 1; }
+.band .bh .lead {
+  font-family: 'Cormorant Garamond', serif; font-style: italic;
+  font-size: 10px; color: rgba(255,255,255,.5);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  max-width: 80px;
+}
+
+/* Per-lane engraving backgrounds */
+.band-body { padding: 7px 8px; min-height: 68px; }
+.band.k-expedition .band-body {
+  background:
+    repeating-linear-gradient(45deg, transparent, transparent 5px, rgba(200,120,60,.04) 5px, rgba(200,120,60,.04) 6px),
+    var(--bcbg);
+}
+.band.k-field .band-body {
+  background:
+    repeating-linear-gradient(0deg, transparent, transparent 6px, rgba(70,150,80,.04) 6px, rgba(70,150,80,.04) 7px),
+    var(--bcbg);
+}
+.band.k-study .band-body {
+  background:
+    repeating-linear-gradient(45deg,  transparent, transparent 5px, rgba(60,100,180,.035) 5px, rgba(60,100,180,.035) 6px),
+    repeating-linear-gradient(-45deg, transparent, transparent 5px, rgba(60,100,180,.035) 5px, rgba(60,100,180,.035) 6px),
+    var(--bcbg);
+}
+.band.k-hall .band-body {
+  background:
+    repeating-linear-gradient(90deg, transparent, transparent 9px, rgba(140,40,50,.04) 9px, rgba(140,40,50,.04) 10px),
+    var(--bcbg);
+}
+
+/* Cards inside lanes stack vertically and fill column width */
+.band-body .chips {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.band-body .chip { width: 100%; }
+
+/* ══════════════════════════════════════════════════════════════════
    ENGINE CARD CHIPS
-   ══════════════════════════════════════════════════════════════════════ */
-.chips { display: flex; gap: 8px; flex-wrap: wrap; }
+   ══════════════════════════════════════════════════════════════════ */
+/* Draft row chips animate in; lane chips don't */
+#row-cards .chip { animation: card-deal .18s ease-out both; }
+
+.chips { display: flex; gap: 7px; flex-wrap: wrap; }
 
 .chip {
-  width: 126px;
+  width: 118px;
   border-radius: 2px;
   overflow: hidden;
   background: linear-gradient(180deg, var(--vellum), var(--paper2) 100%);
   box-shadow:
     0 0 0 1px rgba(138,96,24,.5),
-    0 3px 8px rgba(0,0,0,.4),
+    0 3px 7px rgba(0,0,0,.4),
     inset 0 1px 0 rgba(255,255,255,.55);
   transition: transform .1s, box-shadow .1s;
 }
 .chip:hover:not(.dimcard) { transform: translateY(-2px); }
 
 .chip .hd {
-  display: flex;
-  align-items: center;
-  gap: 4px;
+  display: flex; align-items: center; gap: 4px;
   padding: 4px 7px;
   color: rgba(248,242,224,.92);
-  font-family: 'Cinzel', serif;
-  font-size: 8.5px;
-  letter-spacing: .14em;
-  text-transform: uppercase;
+  font-family: 'Cinzel', serif; font-size: 8px; letter-spacing: .14em; text-transform: uppercase;
   text-shadow: 0 1px 2px rgba(0,0,0,.4);
 }
-
 .chip.k-expedition .hd { background: linear-gradient(180deg, color-mix(in srgb,var(--exp) 130%,white 20%), var(--exp)); }
 .chip.k-field      .hd { background: linear-gradient(180deg, color-mix(in srgb,var(--fld) 130%,white 20%), var(--fld)); }
 .chip.k-study      .hd { background: linear-gradient(180deg, color-mix(in srgb,var(--std) 130%,white 20%), var(--std)); }
 .chip.k-hall       .hd { background: linear-gradient(180deg, color-mix(in srgb,var(--hll) 130%,white 20%), var(--hll)); }
 
 .chip .hd .tr { margin-left: auto; opacity: .75; }
-
-.chip .nm {
-  font-family: 'IM Fell English SC', serif;
-  font-size: 12px;
-  color: var(--ink);
-  padding: 4px 7px 0;
-  line-height: 1.1;
-}
-
-.chip .ce {
-  font-size: 10.5px;
-  color: var(--ink2);
-  padding: 2px 7px 5px;
-  line-height: 1.2;
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-}
+.chip .nm { font-family: 'IM Fell English SC', serif; font-size: 11px; color: var(--ink); padding: 4px 7px 0; line-height: 1.1; }
+.chip .ce { font-size: 10px; color: var(--ink2); padding: 2px 7px 5px; line-height: 1.2; font-family: 'Cormorant Garamond', serif; font-style: italic; }
 
 .chip.legal {
   box-shadow:
@@ -633,481 +593,187 @@ select, input {
     0 6px 16px rgba(180,128,44,.28),
     inset 0 1px 0 rgba(255,255,255,.55);
 }
-
 .chip.dimcard { opacity: .38; filter: grayscale(.5); cursor: default; }
 .chip.dimcard:hover { transform: none; }
 
 .chip-btn {
-  display: block;
-  width: 100%;
-  font-family: 'Cinzel', serif;
-  font-size: 9px;
-  letter-spacing: .1em;
-  text-transform: uppercase;
-  cursor: pointer;
-  border: none;
-  border-top: 1px solid rgba(0,0,0,.08);
-  padding: 4px 0;
-  color: var(--vellum);
-  text-shadow: 0 1px 2px rgba(0,0,0,.4);
+  display: block; width: 100%;
+  font-family: 'Cinzel', serif; font-size: 8.5px; letter-spacing: .1em; text-transform: uppercase;
+  cursor: pointer; border: none; border-top: 1px solid rgba(0,0,0,.1); padding: 4px 0;
+  color: var(--vellum); text-shadow: 0 1px 2px rgba(0,0,0,.4);
   transition: filter .1s;
 }
 .chip.k-expedition .chip-btn { background: var(--exp); }
 .chip.k-field      .chip-btn { background: var(--fld); }
 .chip.k-study      .chip-btn { background: var(--std); }
 .chip.k-hall       .chip-btn { background: var(--hll); }
-
-.chip-btn:hover:not(:disabled) { filter: brightness(1.18); }
+.chip-btn:hover:not(:disabled) { filter: brightness(1.2); }
 .chip-btn:disabled { opacity: .28; cursor: not-allowed; }
 
-/* ══════════════════════════════════════════════════════════════════════
-   SPECIES MARKET — Victorian specimen labels
-   ══════════════════════════════════════════════════════════════════════ */
-#market-wrap { margin-bottom: 11px; }
-.mkt-row { display: flex; gap: 9px; flex-wrap: wrap; }
+/* ══════════════════════════════════════════════════════════════════
+   SPECIES MARKET
+   ══════════════════════════════════════════════════════════════════ */
+.mkt-row { display: flex; flex-direction: column; gap: 7px; }
 
 .scard {
-  width: 140px;
+  width: 100%;
   border-radius: 2px;
   border: 1px solid var(--paper3);
   background: var(--vellum);
   position: relative;
   overflow: hidden;
-  box-shadow: 0 2px 10px rgba(0,0,0,.22), inset 0 1px 0 rgba(255,255,255,.5);
-  display: flex;
-  flex-direction: column;
+  box-shadow: 0 2px 8px rgba(0,0,0,.2), inset 0 1px 0 rgba(255,255,255,.5);
+  display: flex; flex-direction: column;
 }
-
-/* Stripe — plain for normal, vivid for dubious, gold for named */
 .scard::before {
   content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 4px;
-  background: var(--ink3);
-  opacity: .25;
+  position: absolute; top: 0; left: 0; right: 0; height: 4px;
+  background: var(--ink3); opacity: .25;
 }
 .scard.dubious::before { background: var(--dub); opacity: .85; }
 .scard.named::before   { background: var(--gold); opacity: 1; }
 
-.scard .scard-body { padding: 10px 9px 6px; flex: 1; }
-
-.scard .sn {
-  font-family: 'IM Fell English SC', serif;
-  font-size: 13px;
-  color: var(--ink);
-  line-height: 1.1;
-  margin-bottom: 3px;
-}
-
-.scard .sr {
-  font-family: 'Cinzel', serif;
-  font-size: 8.5px;
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  color: var(--ink3);
-  margin-bottom: 5px;
-}
-
-.scard .ssets {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 12px;
-  color: var(--ink2);
-  margin-bottom: 2px;
-}
-
-.scard .scost {
-  font-family: 'Cinzel', serif;
-  font-size: 9.5px;
-  letter-spacing: .03em;
-  color: var(--std);
-  margin-bottom: 2px;
-}
-
-.scard .sfld {
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-  font-size: 11px;
-  color: var(--fld);
-  margin-bottom: 4px;
-  line-height: 1.2;
-}
-
+.scard .scard-body { padding: 9px 9px 5px; flex: 1; }
+.scard .sn { font-family: 'IM Fell English SC', serif; font-size: 12px; color: var(--ink); line-height: 1.1; margin-bottom: 3px; }
+.scard .sr { font-family: 'Cinzel', serif; font-size: 8px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink3); margin-bottom: 4px; }
+.scard .ssets { font-family: 'Cormorant Garamond', serif; font-size: 11px; color: var(--ink2); margin-bottom: 2px; }
+.scard .scost { font-family: 'Cinzel', serif; font-size: 9px; letter-spacing: .03em; color: var(--std); margin-bottom: 2px; }
+.scard .sfld  { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 10px; color: var(--fld); margin-bottom: 3px; line-height: 1.2; }
 .scard .sflav {
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-  font-size: 11.5px;
-  color: var(--ink3);
-  line-height: 1.2;
-  padding-top: 4px;
-  border-top: 1px dotted var(--paper3);
-  margin-bottom: 0;
+  font-family: 'Cormorant Garamond', serif; font-style: italic;
+  font-size: 10.5px; color: var(--ink3); line-height: 1.2;
+  padding-top: 4px; border-top: 1px dotted var(--paper3);
 }
-
 .scard .badge {
-  position: absolute;
-  top: 7px; right: 6px;
-  font-family: 'Cinzel', serif;
-  font-size: 8.5px;
-  letter-spacing: .07em;
-  padding: 1px 5px;
-  border-radius: 1px;
-  background: var(--dub);
-  color: var(--vellum);
+  position: absolute; top: 7px; right: 6px;
+  font-family: 'Cinzel', serif; font-size: 8px; letter-spacing: .07em;
+  padding: 1px 5px; border-radius: 1px; background: var(--dub); color: var(--vellum);
 }
-
-.scard .bag {
-  margin: 0 9px;
-  padding: 5px 0;
-  border-top: 1px dotted rgba(90,72,120,.3);
-}
-
-.scard .bag-row {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  margin-bottom: 3px;
-  font-size: 11px;
-  color: var(--dub);
-}
-
-.scard .bag-dot {
-  width: 8px; height: 8px;
-  border-radius: 50%;
-  background: var(--dub);
-  opacity: .2;
-  flex-shrink: 0;
-}
+.scard .bag { margin: 0 9px; padding: 4px 0; border-top: 1px dotted rgba(90,72,120,.3); }
+.scard .bag-row { display: flex; align-items: center; gap: 4px; margin-bottom: 2px; font-size: 10px; color: var(--dub); }
+.scard .bag-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--dub); opacity: .2; flex-shrink: 0; }
 .scard .bag-dot.filled { opacity: 1; }
-
 .scard .named-by {
-  padding: 4px 9px;
-  font-family: 'Cinzel', serif;
-  font-size: 9px;
-  letter-spacing: .05em;
-  color: var(--golddk);
-  background: rgba(200,150,50,.08);
-  border-top: 1px solid rgba(200,150,50,.2);
+  padding: 3px 9px;
+  font-family: 'Cinzel', serif; font-size: 8.5px; letter-spacing: .05em;
+  color: var(--golddk); background: rgba(200,150,50,.08); border-top: 1px solid rgba(200,150,50,.2);
 }
-
 .scard .scta {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  padding: 5px 5px 5px;
-  border-top: 1px solid var(--paper3);
+  display: flex; flex-direction: column; gap: 2px;
+  padding: 4px 5px; border-top: 1px solid var(--paper3);
   background: rgba(240,232,196,.45);
 }
-
 .scard .scta button {
   width: 100%;
-  font-family: 'Cinzel', serif;
-  font-size: 8.5px;
-  letter-spacing: .1em;
-  text-transform: uppercase;
-  cursor: pointer;
-  border: none;
-  border-radius: 1px;
-  padding: 4px 6px;
-  color: var(--vellum);
-  text-shadow: 0 1px 2px rgba(0,0,0,.4);
+  font-family: 'Cinzel', serif; font-size: 8px; letter-spacing: .1em; text-transform: uppercase;
+  cursor: pointer; border: none; border-radius: 1px; padding: 4px 6px;
+  color: var(--vellum); text-shadow: 0 1px 2px rgba(0,0,0,.4);
   transition: filter .1s;
 }
 .scard .scta button          { background: var(--std); }
 .scard .scta button.name-btn { background: var(--hll); }
 .scard .scta button:disabled { opacity: .28; cursor: not-allowed; }
 .scard .scta button:not(:disabled):hover { filter: brightness(1.16); }
-
 .scard.named { border-color: var(--goldmid); background: #fffce8; }
 
-/* ══════════════════════════════════════════════════════════════════════
-   LANE BANDS — the aesthetic risk: each lane has its own engraving
-   background pattern, drawn from Victorian print-illustration idioms.
-   Expedition = diagonal sketch, Field = horizontal wash,
-   Study = crosshatch, Hall = fine ruling.
-   ══════════════════════════════════════════════════════════════════════ */
-.band {
-  border-radius: 2px;
-  margin-bottom: 10px;
-  overflow: hidden;
-  border: 1px solid var(--bc);
-  box-shadow: 0 2px 8px rgba(0,0,0,.35);
-}
-
-.band.k-expedition { --bc:var(--exp); --bchi:var(--exp-hi); --bcbg:var(--exp-dk); }
-.band.k-field      { --bc:var(--fld); --bchi:var(--fld-hi); --bcbg:var(--fld-dk); }
-.band.k-study      { --bc:var(--std); --bchi:var(--std-hi); --bcbg:var(--std-dk); }
-.band.k-hall       { --bc:var(--hll); --bchi:var(--hll-hi); --bcbg:var(--hll-dk); }
-
-.band .bh {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  padding: 6px 11px;
-  background: linear-gradient(180deg, color-mix(in srgb,var(--bc) 85%,white 15%) 0%, var(--bc) 100%);
-  border-bottom: 1px solid rgba(0,0,0,.18);
-}
-
-.band .bh .lhs {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-family: 'Cinzel', serif;
-  font-size: 9.5px;
-  letter-spacing: .18em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,.88);
-  text-shadow: 0 1px 3px rgba(0,0,0,.5);
-}
-
-.band .bh .lhs .lane-icon { font-size: 13px; line-height: 1; }
-
-.band .bh .lead {
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-  font-size: 11.5px;
-  color: rgba(255,255,255,.6);
-}
-
-/* Band bodies with period engraving patterns */
-.band-body { padding: 9px 10px; }
-
-.band.k-expedition .band-body {
-  background:
-    repeating-linear-gradient(
-      45deg,
-      transparent, transparent 5px,
-      rgba(200,120,60,.04) 5px, rgba(200,120,60,.04) 6px
-    ),
-    var(--bcbg);
-}
-.band.k-field .band-body {
-  background:
-    repeating-linear-gradient(
-      0deg,
-      transparent, transparent 6px,
-      rgba(70,150,80,.04) 6px, rgba(70,150,80,.04) 7px
-    ),
-    var(--bcbg);
-}
-.band.k-study .band-body {
-  background:
-    repeating-linear-gradient( 45deg, transparent, transparent 5px, rgba(60,100,180,.035) 5px, rgba(60,100,180,.035) 6px),
-    repeating-linear-gradient(-45deg, transparent, transparent 5px, rgba(60,100,180,.035) 5px, rgba(60,100,180,.035) 6px),
-    var(--bcbg);
-}
-.band.k-hall .band-body {
-  background:
-    repeating-linear-gradient(
-      90deg,
-      transparent, transparent 9px,
-      rgba(140,40,50,.04) 9px, rgba(140,40,50,.04) 10px
-    ),
-    var(--bcbg);
-}
-
-/* ══════════════════════════════════════════════════════════════════════
+/* ══════════════════════════════════════════════════════════════════
    NAMED SPECIES LIST
-   ══════════════════════════════════════════════════════════════════════ */
-#named-wrap { margin-bottom: 11px; }
-.named-list { display: flex; gap: 6px; flex-wrap: wrap; }
-
+   ══════════════════════════════════════════════════════════════════ */
+.named-list { display: flex; gap: 5px; flex-wrap: wrap; }
 .named-tag {
-  font-family: 'IM Fell English SC', serif;
-  font-size: 12px;
-  padding: 3px 9px;
-  border-radius: 2px;
-  background: rgba(200,148,50,.09);
-  border: 1px solid var(--gold);
-  color: var(--ink);
+  font-family: 'IM Fell English SC', serif; font-size: 11px;
+  padding: 3px 8px; border-radius: 2px;
+  background: rgba(200,148,50,.09); border: 1px solid var(--gold); color: var(--ink);
 }
-
 .named-tag .holder {
-  display: block;
-  font-family: 'Cinzel', serif;
-  font-size: 8.5px;
-  letter-spacing: .07em;
-  text-transform: uppercase;
-  color: var(--golddk);
-  margin-top: 1px;
+  display: block; font-family: 'Cinzel', serif; font-size: 8px;
+  letter-spacing: .07em; text-transform: uppercase; color: var(--golddk); margin-top: 1px;
 }
 
-/* ══════════════════════════════════════════════════════════════════════
+/* ══════════════════════════════════════════════════════════════════
    SET TAGS
-   ══════════════════════════════════════════════════════════════════════ */
+   ══════════════════════════════════════════════════════════════════ */
 .sets-wrap { display: flex; gap: 4px; flex-wrap: wrap; margin: 4px 0; }
-
 .set-tag {
-  font-family: 'Cinzel', serif;
-  font-size: 8.5px;
-  letter-spacing: .1em;
-  text-transform: uppercase;
-  padding: 2px 6px;
-  border-radius: 2px;
-  background: rgba(60,40,20,.07);
-  border: 1px solid var(--paper3);
-  color: var(--ink3);
+  font-family: 'Cinzel', serif; font-size: 8px; letter-spacing: .1em; text-transform: uppercase;
+  padding: 2px 5px; border-radius: 2px;
+  background: rgba(60,40,20,.07); border: 1px solid var(--paper3); color: var(--ink3);
 }
-.set-tag.done {
-  background: rgba(200,148,50,.14);
-  border-color: var(--gold);
-  color: var(--golddk);
-}
+.set-tag.done { background: rgba(200,148,50,.14); border-color: var(--gold); color: var(--golddk); }
 
-/* ══════════════════════════════════════════════════════════════════════
-   YOUR PANEL + OPPONENTS (right column)
-   ══════════════════════════════════════════════════════════════════════ */
+/* ══════════════════════════════════════════════════════════════════
+   YOUR PANEL
+   ══════════════════════════════════════════════════════════════════ */
 .your-panel-head {
-  display: flex;
-  align-items: baseline;
-  gap: 8px;
-  margin-bottom: 7px;
-  padding-bottom: 7px;
-  border-bottom: 1px solid var(--paper3);
+  display: flex; align-items: baseline; gap: 8px;
+  margin-bottom: 7px; padding-bottom: 6px; border-bottom: 1px solid var(--paper3);
 }
-.your-panel-name {
-  font-family: 'IM Fell English SC', serif;
-  font-size: 18px;
-  color: var(--ink);
-  line-height: 1;
-}
-.your-panel-tag {
-  font-family: 'Cinzel', serif;
-  font-size: 9px;
-  letter-spacing: .14em;
-  text-transform: uppercase;
-  color: var(--ink3);
-}
-
+.your-panel-name { font-family: 'IM Fell English SC', serif; font-size: 16px; color: var(--ink); line-height: 1; }
+.your-panel-tag  { font-family: 'Cinzel', serif; font-size: 9px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink3); }
 .power {
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-  font-size: 13px;
-  color: var(--ink2);
-  padding: 5px 9px;
-  margin: 6px 0;
-  border-left: 2.5px solid var(--gold);
-  background: rgba(200,148,50,.06);
-  line-height: 1.4;
+  font-family: 'Cormorant Garamond', serif; font-style: italic;
+  font-size: 12px; color: var(--ink2);
+  padding: 4px 8px; margin: 5px 0;
+  border-left: 2.5px solid var(--gold); background: rgba(200,148,50,.06); line-height: 1.4;
 }
-
-.res { display: flex; gap: 7px; flex-wrap: wrap; margin: 7px 0; }
-
+.res { display: flex; gap: 5px; flex-wrap: wrap; margin: 6px 0; }
 .res-item {
-  text-align: center;
-  padding: 5px 8px;
-  border-radius: 2px;
-  background: rgba(60,40,20,.06);
-  border: 1px solid var(--paper3);
-  min-width: 54px;
+  text-align: center; padding: 5px 7px; border-radius: 2px;
+  background: rgba(60,40,20,.06); border: 1px solid var(--paper3); min-width: 50px;
 }
 .res-item .rv {
-  display: block;
-  font-family: 'Cinzel', serif;
-  font-size: 21px;
-  font-weight: 600;
-  color: var(--wax);
-  line-height: 1;
+  display: block; font-family: 'Cinzel', serif; font-size: 19px; font-weight: 600;
+  color: var(--wax); line-height: 1;
 }
 .res-item .rl {
-  display: block;
-  font-family: 'Cinzel', serif;
-  font-size: 8.5px;
-  letter-spacing: .1em;
-  text-transform: uppercase;
-  color: var(--ink3);
-  margin-top: 2px;
+  display: block; font-family: 'Cinzel', serif; font-size: 7.5px;
+  letter-spacing: .1em; text-transform: uppercase; color: var(--ink3); margin-top: 2px;
 }
+.medals-row { font-family: 'Cinzel', serif; font-size: 10px; letter-spacing: .03em; color: var(--ink2); margin-bottom: 3px; }
 
-.medals-row {
-  font-family: 'Cinzel', serif;
-  font-size: 10.5px;
-  letter-spacing: .03em;
-  color: var(--ink2);
-  margin-bottom: 3px;
-}
-
+/* ══════════════════════════════════════════════════════════════════
+   OPPONENT PANELS
+   ══════════════════════════════════════════════════════════════════ */
 .opp {
-  border: 1px solid var(--paper3);
-  border-radius: 2px;
-  padding: 8px 10px;
-  margin-bottom: 6px;
-  background: rgba(255,252,228,.28);
-  font-size: 13.5px;
+  border: 1px solid var(--paper3); border-radius: 2px;
+  padding: 7px 9px; margin-bottom: 5px;
+  background: rgba(255,252,228,.28); font-size: 12.5px;
   box-shadow: inset 0 1px 0 rgba(255,255,255,.4);
 }
-.opp-name {
-  font-family: 'IM Fell English SC', serif;
-  font-size: 14px;
-  margin-bottom: 2px;
-}
-.opp .stat {
-  font-family: 'Cinzel', serif;
-  font-size: 10px;
-  letter-spacing: .02em;
-  color: var(--ink2);
-  line-height: 1.5;
-}
+.opp:last-child { margin-bottom: 0; }
+.opp-name { font-family: 'IM Fell English SC', serif; font-size: 13px; margin-bottom: 2px; }
+.opp .stat { font-family: 'Cinzel', serif; font-size: 9.5px; letter-spacing: .02em; color: var(--ink2); line-height: 1.5; }
 
-/* ══════════════════════════════════════════════════════════════════════
+/* ══════════════════════════════════════════════════════════════════
    ACTIONS PANEL
-   ══════════════════════════════════════════════════════════════════════ */
+   ══════════════════════════════════════════════════════════════════ */
 #actions {
   border-radius: 2px;
-  padding: 11px 12px 10px;
+  padding: 10px 12px;
   background: rgba(255,252,230,.72);
-  box-shadow:
-    0 0 0 1px var(--golddk),
-    inset 0 0 0 1px rgba(255,255,255,.5);
+  box-shadow: 0 0 0 1px var(--golddk), inset 0 0 0 1px rgba(255,255,255,.5);
 }
-
 #actions .prompt {
-  font-family: 'IM Fell English SC', serif;
-  font-size: 15px;
-  letter-spacing: .02em;
-  color: var(--wax);
-  margin-bottom: 3px;
+  font-family: 'IM Fell English SC', serif; font-size: 14px; letter-spacing: .02em;
+  color: var(--wax); margin-bottom: 3px;
 }
-
 #chaintrail {
-  font-family: 'Cinzel', serif;
-  font-size: 9.5px;
-  letter-spacing: .18em;
-  text-transform: uppercase;
-  color: var(--gold);
-  margin-bottom: 8px;
-  min-height: 13px;
+  font-family: 'Cinzel', serif; font-size: 9px; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 7px; min-height: 12px;
 }
-
-.actbtns { display: flex; gap: 6px; flex-wrap: wrap; }
-
+.actbtns { display: flex; gap: 5px; flex-wrap: wrap; }
 .act-b {
-  font-family: 'IM Fell English', serif;
-  font-size: 13px;
-  text-align: left;
-  cursor: pointer;
-  border: 1px solid var(--paper3);
-  border-left: 4px solid transparent;
-  border-radius: 2px;
-  padding: 6px 10px;
-  background: rgba(255,252,236,.88);
-  color: var(--ink);
-  max-width: 440px;
-  transition: box-shadow .1s, background .1s;
-  line-height: 1.35;
+  font-family: 'IM Fell English', serif; font-size: 12.5px; text-align: left;
+  cursor: pointer; border: 1px solid var(--paper3); border-left: 4px solid transparent;
+  border-radius: 2px; padding: 6px 10px;
+  background: rgba(255,252,236,.88); color: var(--ink);
+  max-width: 420px; transition: box-shadow .1s, background .1s; line-height: 1.35;
 }
 .act-b:hover { box-shadow: 0 0 0 2px var(--gold); background: var(--vellum); }
-
 .act-b .k {
-  font-family: 'Cinzel', serif;
-  font-size: 8.5px;
-  letter-spacing: .18em;
-  text-transform: uppercase;
-  display: block;
-  margin-bottom: 1px;
+  font-family: 'Cinzel', serif; font-size: 8px; letter-spacing: .18em; text-transform: uppercase;
+  display: block; margin-bottom: 1px;
 }
-
 .act-b.k-expedition { border-left-color: var(--exp); }
 .act-b.k-expedition .k { color: var(--exp); }
 .act-b.k-field      { border-left-color: var(--fld); }
@@ -1121,107 +787,170 @@ select, input {
 .act-b.stop         { background: rgba(156,44,44,.07); border-left-color: var(--wax); }
 .act-b.stop .k      { color: var(--wax); }
 
-/* ══════════════════════════════════════════════════════════════════════
-   FIELD LOG — journal paper with ruling lines
-   ══════════════════════════════════════════════════════════════════════ */
+/* ══════════════════════════════════════════════════════════════════
+   FIELD LOG
+   ══════════════════════════════════════════════════════════════════ */
 #log {
-  height: 270px;
-  overflow: auto;
-  border: 1px solid var(--paper3);
-  border-radius: 2px;
-  padding: 8px 10px;
-  font-size: 13px;
-  line-height: 1.55;
+  height: 200px; overflow: auto;
+  border: 1px solid var(--paper3); border-radius: 2px;
+  padding: 7px 9px; font-size: 12px; line-height: 1.55;
   background:
-    repeating-linear-gradient(
-      180deg,
-      transparent 0px,
-      transparent 22px,
-      rgba(60,40,20,.055) 22px,
-      rgba(60,40,20,.055) 23px
-    ),
+    repeating-linear-gradient(180deg, transparent 0px, transparent 21px, rgba(60,40,20,.05) 21px, rgba(60,40,20,.05) 22px),
     var(--vellum);
 }
-
 #log .turnhdr {
-  font-family: 'Cinzel', serif;
-  font-size: 10px;
-  letter-spacing: .14em;
-  text-transform: uppercase;
-  color: var(--ink3);
-  margin: 9px 0 2px;
-  padding-bottom: 2px;
-  border-bottom: 1px dotted var(--paper3);
-  display: flex;
-  align-items: center;
-  gap: 6px;
+  font-family: 'Cinzel', serif; font-size: 9.5px; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--ink3); margin: 8px 0 2px; padding-bottom: 2px; border-bottom: 1px dotted var(--paper3);
+  display: flex; align-items: center; gap: 6px;
 }
 #log .turnhdr::before {
   content: '§';
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-  font-size: 14px;
-  color: var(--gold);
-  line-height: 1;
+  font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 14px;
+  color: var(--gold); line-height: 1;
 }
-
 #log .ev .who { color: var(--ink2); font-weight: 600; }
 
-/* ══════════════════════════════════════════════════════════════════════
-   MODAL
-   ══════════════════════════════════════════════════════════════════════ */
-#modal {
-  position: fixed;
-  inset: 0;
-  background: rgba(10,8,5,.8);
-  backdrop-filter: blur(4px);
+/* ══════════════════════════════════════════════════════════════════
+   EXPEDITION OVERLAY — full-screen theater
+   ══════════════════════════════════════════════════════════════════ */
+#exp-ui {
+  position: fixed; inset: 0; z-index: 100;
+  background: rgba(10,8,5,.88);
+  backdrop-filter: blur(10px);
   display: none;
   align-items: center;
   justify-content: center;
-  z-index: 50;
 }
-#modal .box {
-  max-width: 490px;
-  width: 94%;
-  max-height: 92vh;
-  overflow: auto;
+.exp-theater {
+  max-width: 460px; width: 90%;
+  padding: 28px 24px 22px;
+  border-radius: 4px;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='.04'/%3E%3C/svg%3E"),
+    linear-gradient(180deg, var(--vellum) 0%, var(--paper) 60%, var(--paper2) 100%);
+  box-shadow:
+    0 0 0 1px rgba(138,96,24,.5),
+    0 24px 72px rgba(0,0,0,.85),
+    inset 0 1px 0 rgba(255,255,255,.5);
+  position: relative; overflow: hidden;
 }
-#modal h3 {
-  font-family: 'IM Fell English SC', serif;
-  font-size: 20px;
-  margin-bottom: 8px;
+.exp-theater.bust-shake { animation: bust-shake .45s ease-in-out; }
+.exp-bust-flash {
+  position: absolute; inset: 0; border-radius: 4px;
+  background: rgba(180,40,40,.55);
+  pointer-events: none;
+  animation: bust-flash .65s ease-out forwards;
+}
+.exp-title {
+  font-family: 'IM Fell English SC', serif; font-size: 17px; letter-spacing: .04em;
+  color: var(--ink); margin-bottom: 16px; text-align: center;
+}
+.exp-title em { color: var(--exp-hi); font-style: normal; }
+
+/* Flip card */
+.exp-flip-zone { display: flex; justify-content: center; margin-bottom: 16px; }
+.flip-card { width: 154px; height: 224px; perspective: 900px; }
+.flip-card-inner {
+  position: relative; width: 100%; height: 100%;
+  transform-style: preserve-3d;
+  transition: transform .55s cubic-bezier(.4,0,.2,1);
+}
+.flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
+.flip-front, .flip-back {
+  position: absolute; inset: 0; border-radius: 5px;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  display: flex; align-items: center; justify-content: center;
+}
+.flip-front {
+  background:
+    repeating-linear-gradient(45deg, transparent, transparent 7px, rgba(200,120,60,.05) 7px, rgba(200,120,60,.05) 8px),
+    linear-gradient(180deg, var(--exp-dk) 0%, color-mix(in srgb,var(--exp-dk) 85%,black) 100%);
+  border: 1px solid var(--exp);
+  box-shadow: 0 4px 16px rgba(0,0,0,.55);
+}
+.flip-q {
+  font-family: 'IM Fell English SC', serif; font-size: 62px;
+  color: rgba(200,120,60,.32);
+  text-shadow: 0 0 28px rgba(200,120,60,.18);
+  user-select: none;
+}
+.flip-back {
+  transform: rotateY(180deg);
+  box-shadow: 0 4px 16px rgba(0,0,0,.55);
+  border: 1px solid rgba(255,255,255,.14);
+}
+.flip-back-content {
+  text-align: center; padding: 16px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  width: 100%; height: 100%;
+}
+.flip-tok-label {
+  font-family: 'IM Fell English SC', serif; font-size: 19px;
+  color: var(--vellum); text-shadow: 0 2px 8px rgba(0,0,0,.6);
+  letter-spacing: .04em; margin-bottom: 8px;
+}
+.flip-bust-label {
+  font-family: 'Cinzel', serif; font-size: 26px; font-weight: 600;
+  color: #fff; letter-spacing: .1em;
+  text-shadow: 0 0 20px rgba(255,80,60,.9);
 }
 
+.exp-depth-info {
+  font-family: 'Cinzel', serif; font-size: 11px; letter-spacing: .05em;
+  color: var(--ink2); text-align: center; margin-bottom: 12px;
+}
+.exp-depth-info strong { color: var(--wax); font-size: 14px; }
+
+.exp-tokens { display: flex; gap: 5px; flex-wrap: wrap; justify-content: center; margin-bottom: 14px; min-height: 28px; }
+.exp-tok { padding: 3px 9px; border-radius: 2px; font-family: 'Cinzel', serif; font-size: 11px; letter-spacing: .05em; color: var(--vellum); text-shadow: 0 1px 2px rgba(0,0,0,.5); }
+.exp-tok.specimen { background: var(--fld);  border: 1px solid var(--fld-hi); }
+.exp-tok.finding  { background: var(--std);  border: 1px solid var(--std-hi); }
+.exp-tok.sighting { background: var(--dub);  border: 1px solid var(--dub-hi); }
+.exp-tok.hazard   { background: var(--wax);  border: 1px solid var(--waxhi);  }
+
+.exp-btns { display: flex; gap: 8px; justify-content: center; }
+
+/* ══════════════════════════════════════════════════════════════════
+   FLOATING RESOURCE BADGE
+   ══════════════════════════════════════════════════════════════════ */
+.float-badge {
+  position: fixed;
+  font-family: 'Cinzel', serif; font-size: 14px; font-weight: 600;
+  pointer-events: none;
+  animation: float-up .88s ease-out forwards;
+  z-index: 300;
+  white-space: nowrap;
+  text-shadow: 0 2px 6px rgba(0,0,0,.85);
+}
+.float-badge.pos { color: var(--goldhi); }
+.float-badge.neg { color: var(--waxhi); }
+
+/* ══════════════════════════════════════════════════════════════════
+   MODAL
+   ══════════════════════════════════════════════════════════════════ */
+#modal {
+  position: fixed; inset: 0;
+  background: rgba(10,8,5,.8); backdrop-filter: blur(4px);
+  display: none; align-items: center; justify-content: center; z-index: 50;
+}
+#modal .box { max-width: 490px; width: 94%; max-height: 92vh; overflow: auto; }
+#modal h3 { font-family: 'IM Fell English SC', serif; font-size: 19px; margin-bottom: 8px; }
 .find-picker { display: flex; gap: 5px; flex-wrap: wrap; margin: 8px 0; }
 .fp-b {
-  width: 30px;
-  text-align: center;
-  padding: 5px 0;
-  border: 1px solid var(--paper3);
-  border-radius: 2px;
-  cursor: pointer;
-  background: rgba(255,250,235,.7);
-  font-family: 'Cinzel', serif;
-  font-size: 13px;
-  color: var(--ink);
+  width: 30px; text-align: center; padding: 5px 0;
+  border: 1px solid var(--paper3); border-radius: 2px; cursor: pointer;
+  background: rgba(255,250,235,.7); font-family: 'Cinzel', serif; font-size: 13px; color: var(--ink);
 }
 .fp-b.sel { background: var(--std); color: var(--vellum); border-color: var(--std); }
-
 .winbox { text-align: center; padding: 18px 12px; }
-.winbox h1 {
-  font-family: 'IM Fell English SC', serif;
-  font-size: 38px;
-  margin-bottom: 8px;
-  color: var(--ink);
-}
-
+.winbox h1 { font-family: 'IM Fell English SC', serif; font-size: 38px; margin-bottom: 8px; color: var(--ink); }
 .muted { color: var(--ink3); font-size: 13px; }
 </style>
 </head>
 <body>
-<div class="wrap">
 
-<!-- ═══════════════════════ START SCREEN ═══════════════════════ -->
+<!-- ═══════════════════════════ START SCREEN ═══════════════════════════ -->
 <div id="start" class="parch">
   <div class="start-header">
     <div class="start-title">Cryptids, Trophies &amp; Lanes</div>
@@ -1243,9 +972,7 @@ select, input {
     </select>
   </div>
 
-  <div style="margin-bottom:8px;">
-    <div class="panel-head">Your Faction</div>
-  </div>
+  <div style="margin-bottom:8px;"><div class="panel-head">Your Faction</div></div>
   <div class="facgrid" id="facgrid"></div>
 
   <div class="start-cta">
@@ -1260,81 +987,93 @@ select, input {
   </div>
 </div>
 
-<!-- ═══════════════════════ GAME ═══════════════════════ -->
+<!-- ═══════════════════════════ GAME ═══════════════════════════ -->
 <div id="game">
-  <div id="turnbanner"></div>
 
-  <!-- Trophy medallions -->
-  <div class="trophies" id="trophies"></div>
-
-  <!-- Round + clock -->
-  <div class="clockbar">
-    <div class="round-display">Round <strong id="round-num">1</strong></div>
-    <div class="clock-label">Clock closes at <strong id="clock-max">12</strong></div>
-    <div class="clock" id="clock-cells"></div>
+  <!-- Header: trophies + turn status -->
+  <div id="game-header">
+    <div id="trophies"></div>
+    <div id="turn-status-row">
+      <div id="turnbanner"></div>
+      <div class="clockbar">
+        <div class="round-display">Round <strong id="round-num">1</strong></div>
+        <div class="clock-label">Clock closes at <strong id="clock-max">12</strong></div>
+        <div class="clock" id="clock-cells"></div>
+      </div>
+    </div>
   </div>
 
-  <div class="cols">
-    <!-- Left: board -->
-    <div id="boardcol">
+  <!-- Body: left sidebar | center lanes+draft+actions | right market+log -->
+  <div id="game-body">
 
-      <!-- Expedition sub-state UI -->
-      <div id="exp-ui">
-        <h3>⛵ Expedition Active — <span id="exp-card-name">?</span></h3>
-        <div class="exp-depth-info">Depth: <strong id="exp-depth">0</strong> &nbsp;·&nbsp; Protection remaining: <strong id="exp-prot">0</strong></div>
-        <div class="exp-tokens" id="exp-tokens"></div>
-        <div class="exp-btns">
-          <button class="btn" onclick="doExpPress()">Press Deeper</button>
-          <button class="btn ghost" onclick="doExpBank()">Bank &amp; Return</button>
-        </div>
-      </div>
-
-      <!-- Engine card row -->
-      <div id="row-wrap" class="parch">
-        <div class="panel-head">Available Cards</div>
-        <div class="chips" id="row-cards"></div>
-      </div>
-
-      <!-- Species market -->
-      <div id="market-wrap" class="parch">
-        <div class="panel-head">Species Market</div>
-        <div class="mkt-row" id="market-cards"></div>
-      </div>
-
-      <!-- Named species -->
+    <!-- ── Left column: your stats + opponents + named ── -->
+    <div id="left-col">
+      <div class="parch" id="your-panel"></div>
+      <div class="parch" id="opp-panels"></div>
       <div id="named-wrap" class="parch">
         <div class="panel-head">Named Species</div>
         <div class="named-list" id="named-list"></div>
       </div>
+    </div>
 
-      <!-- Lanes -->
-      <div id="exp-lane"   class="band k-expedition"></div>
-      <div id="field-lane" class="band k-field"></div>
-      <div id="study-lane" class="band k-study"></div>
-      <div id="hall-lane"  class="band k-hall"></div>
-
-      <!-- Actions -->
+    <!-- ── Center column: 4 lanes + draft row + actions ── -->
+    <div id="center-col">
+      <div id="lanes-grid">
+        <div id="exp-lane"   class="band k-expedition"></div>
+        <div id="field-lane" class="band k-field"></div>
+        <div id="study-lane" class="band k-study"></div>
+        <div id="hall-lane"  class="band k-hall"></div>
+      </div>
+      <div id="row-wrap" class="parch">
+        <div class="panel-head">Available Cards</div>
+        <div class="chips" id="row-cards"></div>
+      </div>
       <div id="actions" class="parch">
         <div class="prompt" id="act-prompt">Choose an action</div>
         <div id="chaintrail"></div>
         <div class="actbtns" id="actbtns"></div>
       </div>
-
     </div>
 
-    <!-- Right: stats + log -->
-    <div>
-      <div class="parch" id="your-panel" style="margin-bottom:10px;"></div>
-      <div class="parch" id="opp-panels" style="margin-bottom:10px;"></div>
+    <!-- ── Right column: species market + log ── -->
+    <div id="right-col">
+      <div id="market-wrap" class="parch">
+        <div class="panel-head">Species Market</div>
+        <div class="mkt-row" id="market-cards"></div>
+      </div>
       <div class="parch">
         <div class="panel-head">Field Log</div>
         <div id="log"></div>
       </div>
     </div>
+
+  </div><!-- /game-body -->
+</div><!-- /game -->
+
+<!-- ═══════════════════════════ EXPEDITION OVERLAY ═══════════════════════════ -->
+<div id="exp-ui">
+  <div class="exp-theater" id="exp-theater">
+    <div class="exp-title">&#9941; Expedition &mdash; <em id="exp-card-name">?</em></div>
+    <div class="exp-flip-zone">
+      <div class="flip-card" id="exp-flip-card">
+        <div class="flip-card-inner">
+          <div class="flip-front"><div class="flip-q">?</div></div>
+          <div class="flip-back" id="exp-flip-back"></div>
+        </div>
+      </div>
+    </div>
+    <div class="exp-depth-info">
+      Depth <strong id="exp-depth">0</strong> &nbsp;&middot;&nbsp; Protection <strong id="exp-prot">0</strong>
+    </div>
+    <div class="exp-tokens" id="exp-tokens"></div>
+    <div class="exp-btns">
+      <button class="btn" onclick="doExpPress()">Press Deeper</button>
+      <button class="btn ghost" onclick="doExpBank()">Bank &amp; Return</button>
+    </div>
   </div>
 </div>
 
-<!-- Modal -->
+<!-- ═══════════════════════════ MODAL ═══════════════════════════ -->
 <div id="modal" onclick="closeModal()">
   <div class="box parch" onclick="event.stopPropagation()">
     <div id="modal-body"></div>
@@ -1348,13 +1087,15 @@ select, input {
 <script>
 "use strict";
 
-// ---- globals ----
+// ── globals ──
 let G, POLICIES, humanIdx, aiDelay = 400;
 let pendingChain = null;
 let expeditionPending = false;
 let humanPlayerIdx = 0;
+let prevResources = null;
+let expFlipBusy = false;
 
-// ---- helpers ----
+// ── helpers ──
 const PC = ["var(--p0)","var(--p1)","var(--p2)","var(--p3)"];
 const RARITY_LABEL = { common:"Common", rare:"Rare", sensational:"Sensational", legendary:"Legendary" };
 const BAND_LABEL = { expedition:"Expedition", field:"Field", study:"Study", hall:"Hall" };
@@ -1362,7 +1103,7 @@ const BAND_LABEL = { expedition:"Expedition", field:"Field", study:"Study", hall
 function pColor(idx) { return PC[idx % 4]; }
 function pName(p) { return p.faction.name; }
 
-// ---- start screen ----
+// ── start screen ──
 function buildFacGrid() {
   const grid = document.getElementById("facgrid");
   grid.innerHTML = "";
@@ -1400,12 +1141,14 @@ function startGame() {
   G = new CTL.Game({ factions, strategies, seed: Date.now() & 0xffffffff });
   POLICIES = strategies.map((s, i) => s === "human" ? null : CTL.makePolicy(s, i * 137 + 7));
   document.getElementById("start").style.display = "none";
-  document.getElementById("game").style.display = "block";
+  document.getElementById("game").style.display = "flex";
+  document.body.classList.add("game-active");
+  prevResources = null;
   render();
   scheduleHumanTurn();
 }
 
-// ---- main render ----
+// ── main render ──
 function render() {
   renderTrophies();
   renderClock();
@@ -1420,14 +1163,17 @@ function render() {
 
 function renderTrophies() {
   const icons = {
-    collector:     `<svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>`,
-    systematist:   `<svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="3" rx="1"/><rect x="4" y="9" width="11" height="3" rx="1"/><rect x="4" y="14" width="14" height="3" rx="1"/><rect x="4" y="19" width="8" height="3" rx="1"/></svg>`,
-    sensationalist:`<svg viewBox="0 0 24 24"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>`,
+    collector:
+      `<svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>`,
+    systematist:
+      `<svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="3" rx="1"/><rect x="4" y="9" width="11" height="3" rx="1"/><rect x="4" y="14" width="14" height="3" rx="1"/><rect x="4" y="19" width="8" height="3" rx="1"/></svg>`,
+    sensationalist:
+      `<svg viewBox="0 0 24 24"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>`,
   };
   const defs = [
-    { id:"collector",     label:"Collector",     crit:"most species named",    fn: () => G.collectorLead() },
-    { id:"systematist",   label:"Systematist",   crit:"most complete sets",    fn: () => G.systematistLead() },
-    { id:"sensationalist",label:"Sensationalist",crit:"most confirmed dubious", fn: () => G.sensationalistLead() },
+    { id:"collector",      label:"Collector",     crit:"most species named",     fn: () => G.collectorLead() },
+    { id:"systematist",    label:"Systematist",   crit:"most complete sets",     fn: () => G.systematistLead() },
+    { id:"sensationalist", label:"Sensationalist",crit:"most confirmed dubious", fn: () => G.sensationalistLead() },
   ];
   const wrap = document.getElementById("trophies");
   wrap.innerHTML = defs.map((d) => {
@@ -1474,10 +1220,10 @@ function renderRow() {
 function chipHtml(card, canAct, onclickFn) {
   const label = BAND_LABEL[card.band] || card.band;
   let stats = "";
-  if (card.band === "expedition") stats = `Mount: ${card.mountCost}⚙  Draws: ${card.draws}`;
-  else if (card.band === "field") stats = card.spec ? `+${card.spec} Spec` : card.specPerField ? `+${card.specPerField}/field` : "";
-  else if (card.band === "study") stats = `${card.convIn}→${card.convOut} (max ${card.convMaxIn})`;
-  else if (card.band === "hall") stats = `Str +${card.strBonus}${card.sealed ? ", Sealed" : ""}`;
+  if (card.band === "expedition")      stats = `Mount: ${card.mountCost}⚙  Draws: ${card.draws}`;
+  else if (card.band === "field")      stats = card.spec ? `+${card.spec} Spec` : card.specPerField ? `+${card.specPerField}/field` : "";
+  else if (card.band === "study")      stats = `${card.convIn}→${card.convOut} (max ${card.convMaxIn})`;
+  else if (card.band === "hall")       stats = `Str +${card.strBonus}${card.sealed ? ", Sealed" : ""}`;
   if (card.trigger) stats += `  →${BAND_LABEL[card.trigger]}`;
   const btnLabel = card.band === "expedition" ? "Mount" : card.band === "field" ? "Activate" : card.band === "study" ? "Convert" : "Name →";
   return `<div class="chip k-${card.band}${canAct ? " legal" : " dimcard"}">
@@ -1565,14 +1311,14 @@ function renderLanes() {
 function renderBand(elemId, band, label, icon, p) {
   const el = document.getElementById(elemId);
   const lead = G.leads[band];
-  const leadName = lead != null ? pName(G.players[lead]) : "None";
+  const leadName = lead != null ? pName(G.players[lead]) : "—";
   const cards = p.tableau[band] || [];
   const cardHtml = cards.length ? cards.map((cid) => {
     const c = CTL.CARD[cid];
-    const canActivate  = band === "field" && (pendingChain === null || pendingChain === "field");
-    const canStudy     = band === "study" && (pendingChain === "study" || pendingChain === null) && p.specimens >= c.convIn;
-    const canExpedition= band === "expedition" && pendingChain === null && p.specimens >= c.mountCost && !expeditionPending;
-    const canHall      = band === "hall" && c.claim && (pendingChain === "hall" || pendingChain === null);
+    const canActivate   = band === "field"      && (pendingChain === null || pendingChain === "field");
+    const canStudy      = band === "study"      && (pendingChain === "study" || pendingChain === null) && p.specimens >= c.convIn;
+    const canExpedition = band === "expedition" && pendingChain === null && p.specimens >= c.mountCost && !expeditionPending;
+    const canHall       = band === "hall"       && c.claim && (pendingChain === "hall" || pendingChain === null);
     const active = canActivate || canStudy || canExpedition || canHall;
     return chipHtml(c, active, () => {
       if (band === "expedition") return `doAction({kind:'expedition',cardId:'${cid}'})`;
@@ -1584,17 +1330,33 @@ function renderBand(elemId, band, label, icon, p) {
       if (band === "hall") return `openNameModal(null,'${cid}')`;
       return "null";
     });
-  }).join("") : `<span style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:13px;color:rgba(248,242,224,.4);">No ${label} cards</span>`;
+  }).join("") : `<span style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:12px;color:rgba(248,242,224,.38);">Empty</span>`;
 
   el.innerHTML = `<div class="bh">
     <div class="lhs"><span class="lane-icon">${icon}</span><span>${label}</span></div>
-    <span class="lead">Lead: ${leadName}</span>
+    <span class="lead">${leadName}</span>
   </div>
   <div class="band-body"><div class="chips">${cardHtml}</div></div>`;
 }
 
 function renderYourPanel() {
   const p = G.players[humanIdx];
+  // Fire float badges for resource changes
+  const cur = { specimens: p.specimens, findings: p.findings, standing: p.standing, sightings: p.sightings };
+  if (prevResources) {
+    const keys = ["specimens","findings","standing","sightings"];
+    const labels = { specimens:"Spec", findings:"Find", standing:"Stand", sightings:"Sight" };
+    let offset = 0;
+    for (const k of keys) {
+      const diff = cur[k] - prevResources[k];
+      if (diff !== 0) {
+        floatBadge(labels[k], diff, window.innerWidth * 0.18 + offset * 72, window.innerHeight * 0.38);
+        offset++;
+      }
+    }
+  }
+  prevResources = { ...cur };
+
   const sets = CTL.SET_IDS.map((sid) => {
     const done = p.completedSets.indexOf(sid) >= 0;
     return `<span class="set-tag${done ? " done" : ""}">${sid}</span>`;
@@ -1608,7 +1370,7 @@ function renderYourPanel() {
     <div class="power">${p.faction.text}</div>
     <div class="res">
       <div class="res-item"><span class="rv">${p.specimens}</span><span class="rl">Specimens</span></div>
-      <div class="res-item"><span class="rv">${p.findings}</span><span class="rl">Findings<span style="font-size:8px;opacity:.6;">/${findCap}</span></span></div>
+      <div class="res-item"><span class="rv">${p.findings}</span><span class="rl">Findings<span style="font-size:7.5px;opacity:.6;">/${findCap}</span></span></div>
       <div class="res-item"><span class="rv">${p.standing}</span><span class="rl">Standing</span></div>
       <div class="res-item"><span class="rv">${p.sightings}</span><span class="rl">Sightings</span></div>
     </div>
@@ -1628,7 +1390,65 @@ function renderOppPanels() {
   document.getElementById("opp-panels").innerHTML = html;
 }
 
-// ---- action handling ----
+// ── floating resource badge ──
+function floatBadge(label, delta, x, y) {
+  const badge = document.createElement("div");
+  badge.className = "float-badge " + (delta > 0 ? "pos" : "neg");
+  badge.textContent = (delta > 0 ? "+" : "") + delta + " " + label;
+  badge.style.left = x + "px";
+  badge.style.top = y + "px";
+  document.body.appendChild(badge);
+  badge.addEventListener("animationend", () => badge.remove());
+}
+
+// ── expedition flip reveal ──
+function flipReveal(tokenType, isBusted, cb) {
+  const card = document.getElementById("exp-flip-card");
+  const back = document.getElementById("exp-flip-back");
+  const theater = document.getElementById("exp-theater");
+
+  // Reset to face-down
+  card.classList.remove("flipped");
+
+  const bg = {
+    specimen: `linear-gradient(160deg, color-mix(in srgb,var(--fld) 140%,white 20%), var(--fld) 60%, var(--fld-dk))`,
+    finding:  `linear-gradient(160deg, color-mix(in srgb,var(--std) 140%,white 20%), var(--std) 60%, var(--std-dk))`,
+    sighting: `linear-gradient(160deg, color-mix(in srgb,var(--dub) 140%,white 20%), var(--dub) 60%, var(--dub-dk))`,
+    hazard:   `linear-gradient(160deg, var(--waxhi), var(--wax) 55%, var(--waxdk))`,
+  };
+  const label = {
+    specimen: "🌿 Specimen",
+    finding:  "📋 Finding",
+    sighting: "👁 Sighting",
+    hazard:   "⚠ Hazard!",
+  };
+
+  back.style.background = bg[tokenType] || bg.hazard;
+  back.innerHTML = `<div class="flip-back-content">
+    <div class="flip-tok-label">${label[tokenType] || tokenType}</div>
+    ${isBusted ? '<div class="flip-bust-label">BUST!</div>' : ""}
+  </div>`;
+
+  // Trigger flip after two rAF to ensure reset renders first
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    card.classList.add("flipped");
+  }));
+
+  if (isBusted) {
+    setTimeout(() => {
+      const flash = document.createElement("div");
+      flash.className = "exp-bust-flash";
+      theater.appendChild(flash);
+      flash.addEventListener("animationend", () => flash.remove());
+      theater.classList.add("bust-shake");
+      setTimeout(() => theater.classList.remove("bust-shake"), 500);
+    }, 290);
+  }
+
+  setTimeout(cb, isBusted ? 1250 : 920);
+}
+
+// ── action handling ──
 let awaitingHuman = false;
 
 function scheduleHumanTurn() {
@@ -1645,7 +1465,7 @@ function advancePriority() {
     const ko = G.knockoutWinner();
     if (ko != null) { G.endedBy = "knockout"; G.winType = "knockout"; G.winner = ko; G.finalize(); endGame(); return; }
     if (G.clock >= G.d.clockLength) { G.endedBy = "close"; G.finalize(); endGame(); return; }
-    if (G.round >= G.d.maxRounds) { G.endedBy = "max_rounds"; G.finalize(); endGame(); return; }
+    if (G.round >= G.d.maxRounds)   { G.endedBy = "max_rounds"; G.finalize(); endGame(); return; }
     G._turnQueue = [...G.priority];
     logTurnHeader(`Round ${G.round}`);
   }
@@ -1672,9 +1492,9 @@ function showInitialActions() {
 }
 
 function showActions(opts, prompt, chainBand) {
-  const el  = document.getElementById("actbtns");
-  const pr  = document.getElementById("act-prompt");
-  const ct  = document.getElementById("chaintrail");
+  const el = document.getElementById("actbtns");
+  const pr = document.getElementById("act-prompt");
+  const ct = document.getElementById("chaintrail");
   pr.textContent = prompt;
   ct.textContent = chainBand ? `Chain → ${BAND_LABEL[chainBand]}` : "";
   renderMarket();
@@ -1756,11 +1576,14 @@ function doAction(act) {
 
 function showExpeditionUI(p) {
   const expEl = document.getElementById("exp-ui");
-  expEl.style.display = "block";
+  expEl.style.display = "flex";
   document.getElementById("exp-card-name").textContent = p.expeditionCardId ? CTL.CARD[p.expeditionCardId].name : "?";
   updateExpeditionDisplay(p);
   document.getElementById("act-prompt").textContent = "Expedition active — press deeper or bank your findings.";
   document.getElementById("actbtns").innerHTML = "";
+  // Reset flip card to face-down
+  const card = document.getElementById("exp-flip-card");
+  card.classList.remove("flipped");
 }
 
 function updateExpeditionDisplay(p) {
@@ -1768,25 +1591,36 @@ function updateExpeditionDisplay(p) {
   document.getElementById("exp-prot").textContent = p.expeditionProtection;
   const tokEl = document.getElementById("exp-tokens");
   tokEl.innerHTML = p.expeditionBanked.map((t) => `<span class="exp-tok ${t}">${t}</span>`).join("")
-    || `<span style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:13px;color:rgba(248,242,224,.45);">Nothing banked yet</span>`;
+    || `<span style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:13px;color:var(--ink3);">Nothing banked yet</span>`;
 }
 
 function doExpPress() {
+  if (expFlipBusy) return;
   const p = G.players[humanIdx];
+  const prevBanked = [...p.expeditionBanked];
   G.turnEvents = [];
   G._doExpeditionPress(p);
   flushLog(p);
-  if (!p.expeditionActive) {
-    document.getElementById("exp-ui").style.display = "none";
-    expeditionPending = false;
-    pendingChain = null;
-    endHumanTurn();
-    return;
-  }
-  updateExpeditionDisplay(p);
+
+  const newToken = p.expeditionBanked.slice(prevBanked.length)[0] || "hazard";
+  const isBusted = !p.expeditionActive;
+
+  expFlipBusy = true;
+  flipReveal(newToken, isBusted, () => {
+    expFlipBusy = false;
+    if (isBusted) {
+      document.getElementById("exp-ui").style.display = "none";
+      expeditionPending = false;
+      pendingChain = null;
+      endHumanTurn();
+    } else {
+      updateExpeditionDisplay(p);
+    }
+  });
 }
 
 function doExpBank() {
+  if (expFlipBusy) return;
   const p = G.players[humanIdx];
   G.turnEvents = [];
   const band = G._doExpeditionBank(p);
@@ -1845,13 +1679,13 @@ function updateTurnBanner(isHuman, p) {
     el.innerHTML = `<span style="color:var(--wax);">${pName(G.players[humanIdx])}</span> &mdash; Your Turn`;
   } else {
     el.className = "";
-    const name = p ? pName(p) : "AI";
+    const name  = p ? pName(p) : "AI";
     const color = p ? pColor(p.idx) : "rgba(248,242,224,.7)";
     el.innerHTML = `<span style="color:${color};">${name}</span> &mdash; Taking their turn…`;
   }
 }
 
-// ---- name species modal ----
+// ── name species modal ──
 function openNameModal(speciesId, cardId) {
   const p = G.players[humanIdx];
   let body = "";
@@ -1904,7 +1738,7 @@ function openNameModal(speciesId, cardId) {
 
 function closeModal() { document.getElementById("modal").style.display = "none"; }
 
-// ---- log ----
+// ── log ──
 function logTurnHeader(text) {
   const el = document.getElementById("log");
   const d = document.createElement("div");
@@ -1926,7 +1760,7 @@ function flushLog(p) {
   G.turnEvents = [];
 }
 
-// ---- end game ----
+// ── end game ──
 function endGame() {
   render();
   const w = G.winner;
