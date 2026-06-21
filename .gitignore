@@ -44,5 +44,5 @@ next-env.d.ts
 # worktrees
 .worktrees/
 
-# claude code — local preview-server config (per-machine, not shared)
-.claude/launch.json
+# claude code — session state, worktrees, task outputs (not shared)
+.claude/
