@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cryptids, Trophies & Lanes — playtest demo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=IM+Fell+English+SC&family=Cinzel:wght@500;600&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#2c1f0f; --ink2:#5a4326; --ink3:#7a6038;
+  --paper1:#f6eccd; --paper2:#ecdcae; --paper3:#e0cd96;
+  --gold:#b3873a; --goldhi:#efd89c; --golddk:#7e5d22;
+  --wax:#8c2f24; --waxhi:#c6573f; --waxdk:#561712;
+  --exp:#6b4c2a; --field:#3f6b43; --study:#2b5563; --hall:#8a3030;
+  --p0:#2b6cb0; --p1:#b1402f; --p2:#3f7d4a; --p3:#7a5aa6;
+  --dubious:#574774;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;}
+body{
+  font-family:'IM Fell English',Georgia,serif; color:#2c1f0f;
+  background:radial-gradient(130% 130% at 50% -10%,#221e1a 0%,#15130f 50%,#0d0c09 100%) fixed;
+  min-height:100vh;
+}
+.wrap{max-width:1220px;margin:0 auto;padding:14px 14px 60px;}
+.parch{
+  position:relative; border-radius:3mm; color:var(--ink); padding:13px 15px;
+  background:
+    radial-gradient(circle at 16% 20%, rgba(120,80,30,.06), transparent 9%),
+    radial-gradient(circle at 84% 80%, rgba(110,70,25,.05), transparent 10%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E"),
+    radial-gradient(120% 120% at 50% 36%, transparent 62%, rgba(70,46,16,.13)),
+    radial-gradient(120% 120% at 50% 0%, var(--paper1), var(--paper2) 55%, var(--paper3) 100%);
+  box-shadow:0 10px 30px rgba(0,0,0,.5), inset 0 0 0 1px rgba(126,93,34,.5), inset 0 0 0 3px var(--goldhi);
+}
+h1{font-family:'IM Fell English SC',serif;font-weight:400;letter-spacing:.03em;margin:0;color:#27190a;}
+.sub{font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--ink2);}
+.btn{font-family:'IM Fell English SC',serif;font-size:15px;letter-spacing:.04em;cursor:pointer;border:none;border-radius:3px;
+  padding:7px 16px;color:#3a2a0c;background:linear-gradient(180deg,var(--goldhi),var(--gold) 60%,var(--golddk));
+  box-shadow:0 2px 6px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.4);}
+.btn:hover{filter:brightness(1.07);}
+.btn.ghost{background:none;box-shadow:inset 0 0 0 1px var(--ink3);color:var(--ink2);}
+.btn.danger{background:linear-gradient(180deg,var(--waxhi),var(--wax) 60%,var(--waxdk));color:#fff;}
+select,input{font-family:'IM Fell English',serif;font-size:16px;padding:4px 8px;border:1px solid var(--ink3);border-radius:3px;background:rgba(255,250,235,.7);color:var(--ink);}
+
+/* ---- start screen ---- */
+#start .row{display:flex;gap:18px;flex-wrap:wrap;align-items:center;margin:10px 0;}
+#start label{font-family:'IM Fell English SC',serif;font-size:14px;letter-spacing:.05em;color:var(--ink2);margin-right:6px;}
+.facgrid{display:flex;gap:8px;flex-wrap:wrap;}
+.faccard{width:190px;border:1px solid var(--ink3);border-radius:4px;padding:8px 10px;cursor:pointer;background:rgba(255,250,235,.5);}
+.faccard:hover{box-shadow:inset 0 0 0 2px var(--goldhi);}
+.faccard.sel{box-shadow:inset 0 0 0 2px var(--gold),0 0 0 1px var(--gold);}
+.faccard .fn{font-family:'IM Fell English SC',serif;color:#27190a;}
+.faccard .ft{font-size:13px;color:var(--ink2);line-height:1.25;}
+.faccard .arch{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.1em;color:var(--wax);}
+
+/* ---- turn banner ---- */
+#game{display:none;}
+#turnbanner{display:flex;align-items:center;justify-content:center;gap:10px;padding:8px;margin-bottom:10px;border-radius:4px;
+  font-family:'IM Fell English SC',serif;letter-spacing:.05em;font-size:17px;
+  background:linear-gradient(180deg,rgba(255,247,225,.85),rgba(236,220,174,.7));box-shadow:inset 0 0 0 1px var(--gold),inset 0 0 0 3px var(--goldhi);}
+#turnbanner.you{background:linear-gradient(180deg,var(--goldhi),var(--gold));color:#3a2a0c;box-shadow:0 0 14px rgba(179,135,58,.5),inset 0 0 0 2px var(--golddk);}
+
+/* ---- layout ---- */
+.topbar{display:flex;gap:12px;align-items:stretch;margin-bottom:12px;flex-wrap:wrap;}
+.panel{flex:1;min-width:190px;}
+.panel h3{font-family:'IM Fell English SC',serif;font-size:13px;letter-spacing:.08em;color:var(--ink2);margin:0 0 6px;text-transform:uppercase;}
+.cols{display:grid;grid-template-columns:1fr 320px;gap:12px;}
+@media(max-width:900px){.cols{grid-template-columns:1fr;}}
+
+/* ---- clock ---- */
+.clock{display:flex;gap:3px;}
+.ccell{flex:1;text-align:center;font-family:'Cinzel',serif;font-size:12px;padding:4px 0;border:1px solid var(--ink3);border-radius:2px;color:var(--ink2);background:rgba(255,250,235,.4);}
+.ccell.on{background:var(--wax);color:#fff;border-color:var(--wax);box-shadow:0 0 5px rgba(160,60,45,.5);}
+
+/* ---- trophy medallions ---- */
+.trophies{display:flex;gap:8px;margin-bottom:10px;}
+.trophy{flex:1;text-align:center;border:1px solid var(--ink3);border-radius:5px;padding:7px 5px 6px;background:rgba(255,250,235,.4);}
+.trophy.held{box-shadow:0 0 0 2px var(--gold),0 0 10px rgba(179,135,58,.4);background:rgba(255,247,210,.7);}
+.trophy .disc{width:38px;height:38px;margin:0 auto 3px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  background:radial-gradient(circle at 38% 32%,var(--goldhi),var(--gold) 60%,var(--golddk));box-shadow:inset 0 0 0 1px rgba(255,255,255,.3),0 1px 2px rgba(0,0,0,.3);}
+.trophy .disc svg{width:22px;height:22px;fill:none;stroke:#4a3408;stroke-width:2.8;}
+.trophy .tn{font-family:'IM Fell English SC',serif;font-size:12px;letter-spacing:.04em;}
+.trophy .th{font-size:12px;color:var(--ink2);min-height:16px;margin-top:2px;}
+.trophy .tcrit{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:11px;color:var(--ink3);line-height:1.1;}
+
+/* ---- band (lane) ---- */
+.band{border-radius:5px;padding:8px 10px;margin-bottom:10px;
+  box-shadow:inset 0 0 0 1px var(--bc),inset 0 0 0 3px rgba(255,250,235,.5);
+  background:linear-gradient(180deg,color-mix(in srgb,var(--bc) 13%,transparent),color-mix(in srgb,var(--bc) 4%,transparent));}
+.band.k-expedition{--bc:var(--exp);}
+.band.k-field{--bc:var(--field);}
+.band.k-study{--bc:var(--study);}
+.band.k-hall{--bc:var(--hall);}
+.band .bh{font-family:'IM Fell English SC',serif;font-size:15px;color:#27190a;margin-bottom:6px;display:flex;justify-content:space-between;align-items:center;gap:6px;}
+.band .bh .lhs{display:flex;align-items:center;gap:6px;}
+.band .bh .bi{width:17px;height:17px;color:var(--bc);}
+.band .bh .bi svg{width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:2.4;}
+.band .bh .lead{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.1em;}
+
+.chips{display:flex;gap:6px;flex-wrap:wrap;}
+.chip{position:relative;width:118px;border-radius:3px;overflow:hidden;cursor:pointer;
+  background:radial-gradient(120% 120% at 50% 0%,#f9f1d6,#ecdcae 70%,#e0cd96);
+  box-shadow:inset 0 0 0 .6px var(--golddk),inset 0 0 0 1.4px var(--goldhi),0 1px 2px rgba(0,0,0,.25);}
+.chip .hd{display:flex;align-items:center;gap:4px;padding:2px 5px;color:#fff;font-family:'IM Fell English SC',serif;font-size:11px;letter-spacing:.03em;
+  background:linear-gradient(180deg,color-mix(in srgb,var(--bc) 86%,#000 6%),var(--bc));}
+.chip .hd .tr{margin-left:auto;font-family:'Cinzel',serif;font-size:10px;opacity:.9;}
+.chip.k-expedition{--bc:var(--exp);}
+.chip.k-field{--bc:var(--field);}
+.chip.k-study{--bc:var(--study);}
+.chip.k-hall{--bc:var(--hall);}
+.chip .nm{font-family:'IM Fell English SC',serif;font-size:12px;color:#27190a;padding:3px 5px 0;line-height:1.05;}
+.chip .ce{font-size:11px;color:#3a2c18;padding:1px 5px 5px;line-height:1.15;}
+.chip.legal{box-shadow:inset 0 0 0 .6px var(--golddk),0 0 0 2px var(--gold),0 0 8px rgba(179,135,58,.5);}
+.chip.dimcard{opacity:.45;filter:grayscale(.4);}
+.chip-btn{display:block;width:100%;font-family:'IM Fell English SC',serif;font-size:11px;letter-spacing:.05em;cursor:pointer;border:none;border-top:1px solid var(--goldhi);
+  padding:3px 0;color:#fff;background:linear-gradient(180deg,color-mix(in srgb,var(--bc) 80%,#000),var(--bc));}
+.chip-btn:hover:not(:disabled){filter:brightness(1.1);}
+.chip-btn:disabled{opacity:.35;cursor:not-allowed;}
+
+/* ---- species market ---- */
+#market-wrap{margin-bottom:10px;}
+#market-wrap h3{font-family:'IM Fell English SC',serif;font-size:13px;letter-spacing:.08em;color:var(--ink2);margin:0 0 6px;}
+.mkt-row{display:flex;gap:7px;flex-wrap:wrap;}
+.scard{width:130px;border-radius:4px;padding:7px 8px;border:1px solid var(--ink3);background:rgba(255,250,235,.5);position:relative;}
+.scard.dubious{border-color:var(--dubious);background:color-mix(in srgb,var(--dubious) 8%,rgba(255,250,235,.5));}
+.scard .sn{font-family:'IM Fell English SC',serif;font-size:12.5px;color:#27190a;line-height:1.1;}
+.scard .sr{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.07em;color:var(--ink3);margin-top:2px;}
+.scard .ssets{font-size:11px;color:var(--ink2);margin-top:2px;line-height:1.2;}
+.scard .scost{font-family:'Cinzel',serif;font-size:11px;color:var(--study);margin-top:3px;}
+.scard .sfld{font-size:11px;color:var(--field);margin-top:1px;line-height:1.15;}
+.scard .sflav{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:11px;color:var(--ink3);margin-top:3px;line-height:1.15;}
+.scard .bag{margin-top:5px;padding-top:5px;border-top:1px dotted rgba(87,71,116,.35);}
+.scard .bag-row{display:flex;align-items:center;gap:4px;margin-bottom:3px;font-size:11px;color:var(--dubious);}
+.scard .bag-dot{width:9px;height:9px;border-radius:50%;background:var(--dubious);opacity:.5;display:inline-block;}
+.scard .bag-dot.filled{opacity:1;}
+.scard .badge{position:absolute;top:4px;right:4px;font-family:'Cinzel',serif;font-size:10px;letter-spacing:.05em;padding:1px 4px;border-radius:2px;background:var(--dubious);color:#fff;}
+.scard .scta{display:flex;flex-direction:column;gap:3px;margin-top:5px;}
+.scard .scta button{width:100%;font-family:'IM Fell English SC',serif;font-size:11px;letter-spacing:.04em;cursor:pointer;border:none;border-radius:2px;
+  padding:3px 6px;color:#fff;background:var(--study);}
+.scard .scta button.name-btn{background:var(--hall);}
+.scard .scta button:disabled{opacity:.35;cursor:not-allowed;}
+.scard.named{border-color:var(--gold);background:rgba(255,247,210,.6);}
+.scard .named-by{font-size:11px;color:var(--gold);margin-top:2px;}
+
+/* ---- engine card row ---- */
+#row-wrap{margin-bottom:10px;}
+#row-wrap h3{font-family:'IM Fell English SC',serif;font-size:13px;letter-spacing:.08em;color:var(--ink2);margin:0 0 6px;}
+
+/* ---- expedition sub-state ---- */
+#exp-ui{display:none;margin-bottom:10px;padding:10px 12px;border-radius:5px;
+  background:color-mix(in srgb,var(--exp) 12%,rgba(255,250,235,.8));
+  box-shadow:inset 0 0 0 1px var(--exp),0 0 14px rgba(107,76,42,.3);}
+#exp-ui h3{font-family:'IM Fell English SC',serif;font-size:13px;letter-spacing:.08em;color:var(--exp);margin:0 0 6px;}
+.exp-tokens{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:8px;}
+.exp-tok{padding:3px 8px;border-radius:3px;font-family:'Cinzel',serif;font-size:12px;letter-spacing:.05em;color:#fff;}
+.exp-tok.specimen{background:#5b8a4e;}
+.exp-tok.finding{background:var(--study);}
+.exp-tok.sighting{background:var(--dubious);}
+.exp-tok.hazard{background:var(--wax);}
+.exp-btns{display:flex;gap:8px;}
+
+/* ---- your panel ---- */
+.you{font-size:15px;}
+.you .res{display:flex;gap:14px;flex-wrap:wrap;font-family:'Cinzel',serif;font-size:13px;margin:4px 0 8px;}
+.you .res .rv{font-size:16px;font-weight:600;color:var(--wax);}
+.power{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:13px;color:var(--ink2);margin:2px 0 6px;padding:3px 6px;border-left:2px solid var(--gold);background:rgba(255,247,225,.5);}
+.opp{border:1px solid var(--ink3);border-radius:4px;padding:5px 8px;margin-bottom:5px;background:rgba(255,250,235,.4);font-size:14px;}
+.opp .stat{font-family:'Cinzel',serif;font-size:12px;color:var(--ink2);}
+
+/* ---- actions panel ---- */
+#actions{border-radius:4px;padding:10px;background:rgba(255,247,225,.65);box-shadow:inset 0 0 0 1px var(--gold);}
+#actions .prompt{font-family:'IM Fell English SC',serif;font-size:15px;color:var(--wax);margin-bottom:4px;}
+#chaintrail{font-family:'Cinzel',serif;font-size:12px;letter-spacing:.06em;color:var(--ink2);margin-bottom:7px;min-height:13px;}
+.actbtns{display:flex;gap:6px;flex-wrap:wrap;}
+.act-b{font-family:'IM Fell English',serif;font-size:14px;text-align:left;cursor:pointer;border:1px solid var(--ink3);border-radius:3px;
+  padding:5px 9px;background:rgba(255,250,235,.85);color:var(--ink);max-width:400px;border-left:4px solid transparent;}
+.act-b:hover{box-shadow:0 0 0 2px var(--gold);background:#fff;}
+.act-b .k{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.08em;display:block;}
+.act-b.k-expedition{border-left-color:var(--exp);}
+.act-b.k-expedition .k{color:var(--exp);}
+.act-b.k-field{border-left-color:var(--field);}
+.act-b.k-field .k{color:var(--field);}
+.act-b.k-study{border-left-color:var(--study);}
+.act-b.k-study .k{color:var(--study);}
+.act-b.k-hall{border-left-color:var(--hall);}
+.act-b.k-hall .k{color:var(--hall);}
+.act-b.k-dubious{border-left-color:var(--dubious);}
+.act-b.k-dubious .k{color:var(--dubious);}
+.act-b.stop{background:rgba(160,60,45,.1);}
+
+/* ---- log ---- */
+#log{height:300px;overflow:auto;border:1px solid var(--ink3);border-radius:4px;padding:8px 10px;background:rgba(255,250,235,.5);font-size:13.5px;line-height:1.45;}
+#log .turnhdr{font-family:'IM Fell English SC',serif;color:#27190a;margin:8px 0 2px;border-bottom:1px dotted var(--ink3);}
+#log .ev .who{color:var(--ink2);font-weight:600;}
+
+/* ---- modal ---- */
+#modal{position:fixed;inset:0;background:rgba(13,20,19,.6);display:none;align-items:center;justify-content:center;z-index:50;}
+#modal .box{max-width:460px;width:92%;max-height:92vh;overflow:auto;}
+#modal h3{margin:0 0 8px;}
+.find-picker{display:flex;gap:5px;flex-wrap:wrap;margin:8px 0;}
+.fp-b{width:30px;text-align:center;padding:5px 0;border:1px solid var(--ink3);border-radius:3px;cursor:pointer;background:rgba(255,250,235,.7);font-family:'Cinzel',serif;}
+.fp-b.sel{background:var(--study);color:#fff;border-color:var(--study);}
+.winbox{text-align:center;padding:14px;}
+.winbox h1{font-size:32px;}
+.muted{color:var(--ink3);font-size:13px;}
+
+/* ---- sets display ---- */
+.sets-wrap{display:flex;gap:5px;flex-wrap:wrap;margin:4px 0;}
+.set-tag{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.07em;padding:1px 5px;border-radius:2px;background:rgba(90,60,20,.12);color:var(--ink3);}
+.set-tag.done{background:var(--gold);color:#3a2a0c;}
+
+/* ---- named species list ---- */
+#named-wrap{margin-bottom:10px;}
+#named-wrap h3{font-family:'IM Fell English SC',serif;font-size:13px;letter-spacing:.08em;color:var(--ink2);margin:0 0 6px;}
+.named-list{display:flex;gap:5px;flex-wrap:wrap;}
+.named-tag{font-family:'IM Fell English SC',serif;font-size:11.5px;padding:2px 7px;border-radius:3px;background:rgba(255,247,210,.8);border:1px solid var(--gold);}
+.named-tag .holder{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.05em;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- ======================== START SCREEN ======================== -->
+<div id="start" class="parch">
+  <h1>Cryptids, Trophies &amp; Lanes</h1>
+  <p class="sub">A natural-history engine-builder. Name species, expose frauds, and collect three trophy medallions to win.</p>
+  <div class="row">
+    <label>Players</label>
+    <select id="np">
+      <option value="2">2 players</option>
+      <option value="3" selected>3 players</option>
+      <option value="4">4 players</option>
+    </select>
+    <label>AI speed</label>
+    <select id="ai-speed">
+      <option value="400">Normal</option>
+      <option value="80">Fast</option>
+      <option value="0">Instant</option>
+    </select>
+  </div>
+  <div class="row"><label>Your faction:</label></div>
+  <div class="facgrid" id="facgrid"></div>
+  <div style="margin-top:16px;">
+    <button class="btn" onclick="startGame()">Begin the Expedition</button>
+  </div>
+  <div style="margin-top:16px;font-size:13.5px;color:var(--ink2);">
+    <strong>Win:</strong> Hold all 3 trophy medallions simultaneously — <em>Collector</em> (most species named), <em>Systematist</em> (most complete sets), <em>Sensationalist</em> (most dubious species confirmed).<br>
+    <strong>Expedition:</strong> Press deeper for more tokens, but hazards bust your run. <strong>Fraud:</strong> Add Sightings to evidence bags; call Verify to expose hoaxes (or vindicate legends).
+  </div>
+</div>
+
+<!-- ======================== GAME ======================== -->
+<div id="game">
+  <div id="turnbanner"></div>
+
+  <!-- Trophy medallions -->
+  <div class="trophies" id="trophies"></div>
+
+  <!-- Round + clock -->
+  <div class="parch" style="margin-bottom:10px;padding:8px 14px;">
+    <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+      <span style="font-family:'Cinzel',serif;font-size:13px;color:var(--ink2);">Round <span id="round-num" style="font-size:20px;color:var(--wax);font-weight:600;">1</span></span>
+      <span style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:13px;color:var(--ink3);">Clock closes at <strong id="clock-max">12</strong></span>
+      <div class="clock" id="clock-cells" style="flex:1;min-width:200px;"></div>
+    </div>
+  </div>
+
+  <div class="cols">
+    <div id="boardcol">
+
+      <!-- Expedition sub-state UI -->
+      <div id="exp-ui">
+        <h3>⛵ Expedition Active — <span id="exp-card-name">?</span></h3>
+        <div style="font-size:13px;color:var(--ink2);margin-bottom:6px;">Depth: <strong id="exp-depth">0</strong> &nbsp;|&nbsp; Protection remaining: <strong id="exp-prot">0</strong></div>
+        <div class="exp-tokens" id="exp-tokens"></div>
+        <div class="exp-btns">
+          <button class="btn" onclick="doExpPress()">Press Deeper</button>
+          <button class="btn ghost" onclick="doExpBank()">Bank &amp; Return</button>
+        </div>
+      </div>
+
+      <!-- Engine card row -->
+      <div id="row-wrap" class="parch">
+        <h3>Available Cards</h3>
+        <div class="chips" id="row-cards"></div>
+      </div>
+
+      <!-- Species market -->
+      <div id="market-wrap" class="parch">
+        <h3>Species Market</h3>
+        <div class="mkt-row" id="market-cards"></div>
+      </div>
+
+      <!-- Named species -->
+      <div id="named-wrap" class="parch">
+        <h3>Named Species</h3>
+        <div class="named-list" id="named-list"></div>
+      </div>
+
+      <!-- Lanes: expedition, field, study, hall -->
+      <div id="exp-lane" class="band k-expedition"></div>
+      <div id="field-lane" class="band k-field"></div>
+      <div id="study-lane" class="band k-study"></div>
+      <div id="hall-lane" class="band k-hall"></div>
+
+      <!-- Actions -->
+      <div id="actions" class="parch">
+        <div class="prompt" id="act-prompt">Choose an action</div>
+        <div id="chaintrail"></div>
+        <div class="actbtns" id="actbtns"></div>
+      </div>
+    </div>
+
+    <!-- Right column -->
+    <div>
+      <!-- Your stats -->
+      <div class="parch" id="your-panel" style="margin-bottom:10px;"></div>
+      <!-- Opponents -->
+      <div class="parch" id="opp-panels" style="margin-bottom:10px;"></div>
+      <!-- Log -->
+      <div class="parch">
+        <div class="panel"><h3>Field Log</h3></div>
+        <div id="log"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div id="modal" onclick="closeModal()">
+  <div class="box parch" onclick="event.stopPropagation()">
+    <div id="modal-body"></div>
+    <div style="margin-top:12px;text-align:right;">
+      <button class="btn ghost" onclick="closeModal()">Close</button>
+    </div>
+  </div>
+</div>
+
+<script src="engine.js"></script>
+<script>
+"use strict";
+
+// ---- globals ----
+let G, POLICIES, humanIdx, aiDelay = 400;
+let pendingChain = null; // current chain band (null = initial)
+let expeditionPending = false;
+let humanPlayerIdx = 0;
+
+// ---- colour helpers ----
+const PC = ["var(--p0)","var(--p1)","var(--p2)","var(--p3)"];
+const RARITY_LABEL = { common:"Common", rare:"Rare", sensational:"Sensational", legendary:"Legendary" };
+const BAND_LABEL = { expedition:"Expedition", field:"Field", study:"Study", hall:"Hall" };
+
+function pColor(idx) { return PC[idx % 4]; }
+function pName(p) { return p.faction.name; }
+
+// ---- start screen ----
+function buildFacGrid() {
+  const grid = document.getElementById("facgrid");
+  grid.innerHTML = "";
+  let sel = CTL.FACTIONS[0].id;
+  CTL.FACTIONS.forEach((f) => {
+    const d = document.createElement("div");
+    d.className = "faccard" + (f.id === sel ? " sel" : "");
+    d.innerHTML = `<div class="arch">${f.archetype}</div><div class="fn">${f.name}</div><div class="ft">${f.text}</div>`;
+    d.onclick = () => {
+      document.querySelectorAll(".faccard").forEach((c) => c.classList.remove("sel"));
+      d.classList.add("sel");
+    };
+    grid.appendChild(d);
+  });
+}
+buildFacGrid();
+
+function startGame() {
+  const nPlayers = parseInt(document.getElementById("np").value);
+  aiDelay = parseInt(document.getElementById("ai-speed").value);
+  const selCard = document.querySelector(".faccard.sel");
+  const humanFac = selCard ? selCard.querySelector(".fn").textContent.trim() : CTL.FACTIONS[0].name;
+  const humanFacId = CTL.FACTIONS.find((f) => f.name === humanFac)?.id || CTL.FACTIONS[0].id;
+
+  const fids = CTL.FACTIONS.map((f) => f.id);
+  const otherFids = fids.filter((id) => id !== humanFacId);
+  const factions = [humanFacId];
+  const strategies = ["human"];
+  const aiStrats = ["greedy", "systematist_ai", "sensationalist_ai", "expeditioner"];
+  for (let i = 1; i < nPlayers; i++) {
+    factions.push(otherFids[(i - 1) % otherFids.length]);
+    strategies.push(aiStrats[(i - 1) % aiStrats.length]);
+  }
+  humanIdx = 0;
+  G = new CTL.Game({ factions, strategies, seed: Date.now() & 0xffffffff });
+  POLICIES = strategies.map((s, i) => s === "human" ? null : CTL.makePolicy(s, i * 137 + 7));
+  document.getElementById("start").style.display = "none";
+  document.getElementById("game").style.display = "block";
+  render();
+  scheduleHumanTurn();
+}
+
+// ---- main render ----
+function render() {
+  renderTrophies();
+  renderClock();
+  renderRound();
+  renderRow();
+  renderMarket();
+  renderNamedSpecies();
+  renderLanes();
+  renderYourPanel();
+  renderOppPanels();
+}
+
+function renderTrophies() {
+  const p = G.players[humanIdx];
+  const icons = {
+    collector: `<svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>`,
+    systematist: `<svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="3" rx="1"/><rect x="4" y="9" width="11" height="3" rx="1"/><rect x="4" y="14" width="14" height="3" rx="1"/><rect x="4" y="19" width="8" height="3" rx="1"/></svg>`,
+    sensationalist: `<svg viewBox="0 0 24 24"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>`,
+  };
+  const defs = [
+    { id:"collector", label:"Collector", crit:"most species named", fn: () => G.collectorLead() },
+    { id:"systematist", label:"Systematist", crit:"most complete sets", fn: () => G.systematistLead() },
+    { id:"sensationalist", label:"Sensationalist", crit:"most confirmed dubious", fn: () => G.sensationalistLead() },
+  ];
+  const wrap = document.getElementById("trophies");
+  wrap.innerHTML = defs.map((d) => {
+    const leader = d.fn();
+    const held = leader === humanIdx;
+    const holderName = leader != null ? pName(G.players[leader]) : "Contested";
+    return `<div class="trophy${held ? " held" : ""}">
+      <div class="disc">${icons[d.id]}</div>
+      <div class="tn">${d.label}</div>
+      <div class="th">${holderName}</div>
+      <div class="tcrit">${d.crit}</div>
+    </div>`;
+  }).join("");
+}
+
+function renderClock() {
+  const cells = document.getElementById("clock-cells");
+  const max = G.d.clockLength;
+  document.getElementById("clock-max").textContent = max;
+  let html = "";
+  for (let i = 1; i <= max; i++) {
+    const on = G.clock >= i;
+    html += `<div class="ccell${on ? " on" : ""}">${i}</div>`;
+  }
+  cells.innerHTML = html;
+}
+
+function renderRound() {
+  document.getElementById("round-num").textContent = G.round;
+}
+
+function renderRow() {
+  const p = G.players[humanIdx];
+  const html = G.row.map((cid) => {
+    const c = CTL.CARD[cid];
+    const affordable = c.cost <= p.specimens;
+    const isMyTurn = G.priority[0] === humanIdx; // rough check
+    return chipHtml(c, affordable, () => `doAction({kind:'build',cardId:'${cid}'})`);
+  }).join("");
+  document.getElementById("row-cards").innerHTML = html || `<span style="color:var(--ink3);font-style:italic;font-size:13px;">No cards available</span>`;
+}
+
+function chipHtml(card, canAct, onclickFn) {
+  const label = BAND_LABEL[card.band] || card.band;
+  let stats = "";
+  if (card.band === "expedition") stats = `Mount: ${card.mountCost}⚙, Draws: ${card.draws}`;
+  else if (card.band === "field") stats = card.spec ? `+${card.spec} Spec` : card.specPerField ? `+${card.specPerField}/field` : "";
+  else if (card.band === "study") stats = `${card.convIn}→${card.convOut} (max ${card.convMaxIn})`;
+  else if (card.band === "hall") stats = `Str +${card.strBonus}${card.sealed ? ", Sealed" : ""}`;
+  if (card.trigger) stats += ` →${BAND_LABEL[card.trigger]}`;
+  return `<div class="chip k-${card.band}${canAct ? " legal" : " dimcard"}">
+    <div class="hd"><span>${label}</span><span class="tr">T${card.tier}</span></div>
+    <div class="nm">${card.name}</div>
+    <div class="ce">${card.cost ? `Cost: ${card.cost} ` : "Free "}${stats}</div>
+    <button class="chip-btn" ${canAct ? `onclick="${onclickFn()}"` : "disabled"}>
+      ${card.band === "expedition" ? "Mount" : card.band === "field" ? "Activate" : card.band === "study" ? "Convert" : "Name →"}
+    </button>
+  </div>`;
+}
+
+function renderMarket() {
+  const p = G.players[humanIdx];
+  const html = G.speciesMarket.map((sid) => {
+    const sp = CTL.SPECIES[sid];
+    const namedEntry = G.namedSpecies.find((ns) => ns.speciesId === sid);
+    let cost = sp.findings;
+    if (p.faction.id === "sensationalist" && sp.isDubious) cost = Math.max(0, cost - 1);
+    const canName = p.tableau.hall.length > 0 && p.findings >= cost &&
+      (p.faction.id === "sensationalist" && sp.isDubious || sp.fields.every((f) => p.typedFields[f]));
+    const canSight = sp.isDubious && p.sightings > 0 && pendingChain === null && !expeditionPending;
+    const bag = G.fraudBags[sid];
+    const canVerify = sp.isDubious && bag && !bag.verified && bag.sightings.length >= G.d.minVerifyTokens && pendingChain === null && !expeditionPending;
+
+    let bagHtml = "";
+    if (sp.isDubious) {
+      const dots = bag ? bag.sightings.length : 0;
+      const verified = bag && bag.verified;
+      const result = bag && bag.verified ? bag.result : null;
+      bagHtml = `<div class="bag">
+        <div class="bag-row">
+          ${[...Array(Math.max(dots,4))].map((_,i) => `<span class="bag-dot${i<dots?" filled":""}"></span>`).join("")}
+          <span style="color:var(--dubious);font-family:'Cinzel',serif;font-size:10px;letter-spacing:.05em;">${dots} sighting${dots!==1?"s":""}</span>
+        </div>
+        ${verified ? `<div style="font-family:'Cinzel',serif;font-size:10px;color:${result==="genuine"?"var(--field)":"var(--wax)"};">${result==="genuine"?"✓ GENUINE":"✗ HOAX"}</div>` : ""}
+      </div>`;
+    }
+    const namedHtml = namedEntry ? `<div class="named-by" style="color:${pColor(namedEntry.namedBy)};">Named by ${pName(G.players[namedEntry.namedBy])}</div>` : "";
+
+    return `<div class="scard${sp.isDubious?" dubious":""}${namedEntry?" named":""}">
+      ${sp.isDubious ? `<span class="badge">?</span>` : ""}
+      <div class="sn">${sp.name}</div>
+      <div class="sr">${RARITY_LABEL[sp.rarity] || sp.rarity}</div>
+      <div class="ssets">${sp.sets.join(", ")}</div>
+      <div class="scost">${cost} Finding${cost!==1?"s":""} to name</div>
+      <div class="sfld">Fields: ${sp.fields.join(", ")}</div>
+      <div class="sflav">${sp.flavour}</div>
+      ${namedHtml}
+      ${bagHtml}
+      <div class="scta">
+        ${canName ? `<button class="name-btn" onclick="openNameModal('${sid}')">Name Species</button>` : ""}
+        ${canSight ? `<button onclick="doAction({kind:'sighting',speciesId:'${sid}'})">Add Sighting</button>` : ""}
+        ${canVerify ? `<button onclick="doAction({kind:'verify',speciesId:'${sid}'})">Call Verification</button>` : ""}
+      </div>
+    </div>`;
+  }).join("");
+  document.getElementById("market-cards").innerHTML = html || `<span style="color:var(--ink3);font-style:italic;font-size:13px;">Market empty</span>`;
+}
+
+function renderNamedSpecies() {
+  const list = document.getElementById("named-list");
+  if (!G.namedSpecies.length) { list.innerHTML = `<span style="color:var(--ink3);font-style:italic;font-size:13px;">None yet</span>`; return; }
+  list.innerHTML = G.namedSpecies.map((ns) => {
+    const sp = CTL.SPECIES[ns.speciesId];
+    return `<div class="named-tag" style="border-color:${pColor(ns.namedBy)};">
+      ${sp.name}
+      <div class="holder" style="color:${pColor(ns.namedBy)};">${pName(G.players[ns.namedBy])}</div>
+    </div>`;
+  }).join("");
+}
+
+function renderLanes() {
+  const p = G.players[humanIdx];
+  renderBand("exp-lane", "expedition", "Expedition", "⛵", p);
+  renderBand("field-lane", "field", "Field", "🌿", p);
+  renderBand("study-lane", "study", "Study", "🔬", p);
+  renderBand("hall-lane", "hall", "Hall", "📜", p);
+}
+
+function renderBand(elemId, band, label, icon, p) {
+  const el = document.getElementById(elemId);
+  const lead = G.leads[band];
+  const leadName = lead != null ? pName(G.players[lead]) : "None";
+  const cards = p.tableau[band] || [];
+  const cardHtml = cards.length ? cards.map((cid) => {
+    const c = CTL.CARD[cid];
+    const canActivate = band === "field" && (pendingChain === null || pendingChain === "field");
+    const canStudy = band === "study" && (pendingChain === "study" || pendingChain === null) && p.specimens >= c.convIn;
+    const canExpedition = band === "expedition" && pendingChain === null && p.specimens >= c.mountCost && !expeditionPending;
+    const canHall = band === "hall" && c.claim && (pendingChain === "hall" || pendingChain === null);
+    const active = canActivate || canStudy || canExpedition || canHall;
+    return chipHtml(c, active, () => {
+      if (band === "expedition") return `doAction({kind:'expedition',cardId:'${cid}'})`;
+      if (band === "field") return `doAction({kind:'field',cardId:'${cid}'})`;
+      if (band === "study") {
+        const spend = Math.min(p.specimens, c.convMaxIn);
+        return `doAction({kind:'study',cardId:'${cid}',spend:${spend}})`;
+      }
+      if (band === "hall") return `openNameModal(null,'${cid}')`;
+      return "null";
+    });
+  }).join("") : `<span style="color:var(--ink3);font-style:italic;font-size:13px;">No ${label} cards</span>`;
+
+  el.innerHTML = `<div class="bh">
+    <div class="lhs"><span>${icon}</span><span>${label}</span></div>
+    <span class="lead" style="color:var(--bc);">Lead: ${leadName}</span>
+  </div>
+  <div class="chips">${cardHtml}</div>`;
+}
+
+function renderYourPanel() {
+  const p = G.players[humanIdx];
+  const sets = CTL.SET_IDS.map((sid) => {
+    const done = p.completedSets.indexOf(sid) >= 0;
+    return `<span class="set-tag${done?" done":"}">${sid}</span>`;
+  }).join("");
+  document.getElementById("your-panel").innerHTML = `
+    <h1 style="font-size:18px;">${pName(p)} <span style="font-family:'Cinzel',serif;font-size:13px;color:var(--ink2);">(You)</span></h1>
+    <div class="power">${p.faction.text}</div>
+    <div class="res">
+      <span>Specimens: <span class="rv">${p.specimens}</span></span>
+      <span>Findings: <span class="rv">${p.findings}</span><span style="font-family:'Cinzel',serif;font-size:11px;color:var(--ink3);">/${G.findingsCap(p)}</span></span>
+      <span>Standing: <span class="rv">${p.standing}</span></span>
+      <span>Sightings: <span class="rv">${p.sightings}</span></span>
+    </div>
+    <div style="font-family:'Cinzel',serif;font-size:12px;color:var(--ink2);margin-bottom:4px;">
+      Named: ${p.namedCount} &nbsp;|&nbsp; Sets: ${p.completedSets.length} &nbsp;|&nbsp; Confirmed dubious: ${p.confirmedDubious} &nbsp;|&nbsp; Medallions: ${G.medallions(humanIdx)}
+    </div>
+    <div class="sets-wrap">${sets}</div>
+  `;
+}
+
+function renderOppPanels() {
+  const html = G.players.filter((p) => p.idx !== humanIdx).map((p) => `
+    <div class="opp">
+      <strong style="color:${pColor(p.idx)};">${pName(p)}</strong>
+      <span class="stat"> — Spec: ${p.specimens} Find: ${p.findings} Stand: ${p.standing} Sight: ${p.sightings}</span><br>
+      <span class="stat">Named: ${p.namedCount} Sets: ${p.completedSets.length} Dubious: ${p.confirmedDubious} 🏅${G.medallions(p.idx)}</span>
+    </div>
+  `).join("");
+  document.getElementById("opp-panels").innerHTML = html;
+}
+
+// ---- action handling ----
+let currentTurnActions = []; // track what's been done this turn
+let awaitingHuman = false;
+
+function scheduleHumanTurn() {
+  if (G.ended) { endGame(); return; }
+  advancePriority();
+}
+
+function advancePriority() {
+  if (G.ended) { endGame(); return; }
+  // Start a new round if priority queue exhausted
+  if (!G._turnQueue || !G._turnQueue.length) {
+    G.round++;
+    G.startRound();
+    renderRound();
+    const ko = G.knockoutWinner();
+    if (ko != null) { G.endedBy="knockout"; G.winType="knockout"; G.winner=ko; G.finalize(); endGame(); return; }
+    if (G.clock >= G.d.clockLength) { G.endedBy="close"; G.finalize(); endGame(); return; }
+    if (G.round >= G.d.maxRounds) { G.endedBy="max_rounds"; G.finalize(); endGame(); return; }
+    G._turnQueue = [...G.priority];
+    logTurnHeader(`Round ${G.round}`);
+  }
+  const nextIdx = G._turnQueue.shift();
+  if (nextIdx === humanIdx) {
+    startHumanTurn();
+  } else {
+    runAiTurn(nextIdx);
+  }
+}
+
+function startHumanTurn() {
+  awaitingHuman = true;
+  expeditionPending = false;
+  pendingChain = null;
+  const p = G.players[humanIdx];
+  G.beginTurn(p);
+  G.turnEvents = [];
+  updateTurnBanner(true);
+  render();
+  showInitialActions();
+}
+
+function showInitialActions() {
+  const p = G.players[humanIdx];
+  const opts = G.legalInitial(p);
+  showActions(opts, "Your turn — choose an action:", null);
+}
+
+function showActions(opts, prompt, chainBand) {
+  const el = document.getElementById("actbtns");
+  const pr = document.getElementById("act-prompt");
+  const ct = document.getElementById("chaintrail");
+  pr.textContent = prompt;
+  ct.textContent = chainBand ? `Chain → ${BAND_LABEL[chainBand]}` : "";
+
+  // render market + lanes to reflect current typedFields state
+  renderMarket();
+  renderLanes();
+
+  if (!opts.length) {
+    el.innerHTML = `<button class="act-b stop" onclick="endHumanTurn()"><span class="k">STOP</span>End Turn</button>`;
+    return;
+  }
+
+  el.innerHTML = opts.map((act, i) => {
+    let bandClass = "";
+    let label = "";
+    let desc = "";
+    if (act.kind === "build") {
+      const c = CTL.CARD[act.cardId]; bandClass = `k-${c.band}`;
+      label = c.band.toUpperCase(); desc = `Draft: ${c.name} (−${c.cost} Spec)`;
+    } else if (act.kind === "expedition") {
+      const c = CTL.CARD[act.cardId]; bandClass = "k-expedition";
+      label = "EXPEDITION"; desc = `${c.name} — ${c.draws} draws, prot: ${c.hazardProtection} (−${c.mountCost} Spec)`;
+    } else if (act.kind === "field") {
+      const c = CTL.CARD[act.cardId]; bandClass = "k-field";
+      label = "FIELD"; desc = `Activate ${c.name}: +${c.spec || 0}${p => p.faction.id==="collector"?"+1":""} Spec${c.typedField ? ` + ${c.typedField} access` : ""}${c.trigger ? ` → chain to ${BAND_LABEL[c.trigger]}` : ""}`;
+    } else if (act.kind === "study") {
+      const c = CTL.CARD[act.cardId]; bandClass = "k-study";
+      const batches = c.convIn > 0 ? Math.floor(Math.min(act.spend, G.players[humanIdx].specimens, c.convMaxIn) / c.convIn) : 0;
+      label = "STUDY"; desc = `${c.name}: convert ${batches*c.convIn} Spec → ${batches*c.convOut} Findings${c.trigger ? ` → chain to ${BAND_LABEL[c.trigger]}` : ""}`;
+    } else if (act.kind === "hall") {
+      const c = CTL.CARD[act.cardId]; const sp = CTL.SPECIES[act.speciesId]; bandClass = "k-hall";
+      label = "HALL"; desc = `${c.name}: name <em>${sp.name}</em> (cost ${act.spend} Findings, str ${act.spend + c.strBonus})`;
+    } else if (act.kind === "sighting") {
+      const sp = CTL.SPECIES[act.speciesId]; bandClass = "k-dubious";
+      label = "SIGHTING"; desc = `Add sighting token to <em>${sp.name}</em> evidence bag`;
+    } else if (act.kind === "verify") {
+      const sp = CTL.SPECIES[act.speciesId]; bandClass = "k-dubious";
+      label = "VERIFY"; desc = `Call Verification on <em>${sp.name}</em>`;
+    } else if (act.kind === "stop") {
+      return `<button class="act-b stop" onclick="endHumanTurn()"><span class="k">STOP</span>End Turn</button>`;
+    }
+    return `<button class="act-b ${bandClass}" onclick="handleActBtn(${i})"><span class="k">${label}</span>${desc}</button>`;
+  }).join("") + (chainBand != null ? `<button class="act-b stop" onclick="endHumanTurn()"><span class="k">STOP</span>End Turn</button>` : "");
+
+  // store opts for reference
+  el._opts = opts;
+}
+
+function handleActBtn(i) {
+  const opts = document.getElementById("actbtns")._opts;
+  if (!opts || !opts[i]) return;
+  doAction(opts[i]);
+}
+
+function doAction(act) {
+  if (!awaitingHuman) return;
+  const p = G.players[humanIdx];
+  G.turnEvents = [];
+  let band = G.applyAction(p, act, pendingChain !== null);
+  flushLog(p);
+
+  if (band === "expedition-active") {
+    // expedition started — show press/bank UI
+    expeditionPending = true;
+    pendingChain = null;
+    showExpeditionUI(p);
+    render();
+    return;
+  }
+
+  if (band && band !== null) {
+    pendingChain = band;
+    const opts = G.legalChain(p, band).concat([{ kind:"stop" }]);
+    showActions(opts, `Chain to ${BAND_LABEL[band]}:`, band);
+    render();
+  } else {
+    // no chain — offer more initial actions or end
+    pendingChain = null;
+    const opts = G.legalInitial(p);
+    if (opts.length) showActions(opts, "Continue — choose next action:", null);
+    else endHumanTurn();
+    render();
+  }
+}
+
+function showExpeditionUI(p) {
+  const expEl = document.getElementById("exp-ui");
+  expEl.style.display = "block";
+  document.getElementById("exp-card-name").textContent = p.expeditionCardId ? CTL.CARD[p.expeditionCardId].name : "?";
+  updateExpeditionDisplay(p);
+  document.getElementById("act-prompt").textContent = "Expedition active — press deeper or bank your findings.";
+  document.getElementById("actbtns").innerHTML = "";
+}
+
+function updateExpeditionDisplay(p) {
+  document.getElementById("exp-depth").textContent = p.expeditionDepth;
+  document.getElementById("exp-prot").textContent = p.expeditionProtection;
+  const tokEl = document.getElementById("exp-tokens");
+  tokEl.innerHTML = p.expeditionBanked.map((t) => `<span class="exp-tok ${t}">${t}</span>`).join("") || `<span style="color:var(--ink3);font-style:italic;font-size:13px;">Nothing banked yet</span>`;
+}
+
+function doExpPress() {
+  const p = G.players[humanIdx];
+  G.turnEvents = [];
+  G._doExpeditionPress(p);
+  flushLog(p);
+  if (!p.expeditionActive) {
+    // busted
+    document.getElementById("exp-ui").style.display = "none";
+    expeditionPending = false;
+    pendingChain = null;
+    endHumanTurn();
+    return;
+  }
+  updateExpeditionDisplay(p);
+}
+
+function doExpBank() {
+  const p = G.players[humanIdx];
+  G.turnEvents = [];
+  const band = G._doExpeditionBank(p);
+  flushLog(p);
+  document.getElementById("exp-ui").style.display = "none";
+  expeditionPending = false;
+  if (band) {
+    pendingChain = band;
+    const opts = G.legalChain(p, band).concat([{ kind:"stop" }]);
+    showActions(opts, `Chain to ${BAND_LABEL[band]}:`, band);
+  } else {
+    pendingChain = null;
+    const opts = G.legalInitial(p);
+    if (opts.length) showActions(opts, "Continue:", null);
+    else endHumanTurn();
+  }
+  render();
+}
+
+function endHumanTurn() {
+  awaitingHuman = false;
+  expeditionPending = false;
+  pendingChain = null;
+  const p = G.players[humanIdx];
+  G.finishTurn(p);
+  G.metrics.turns++;
+  G._recomputeLeads();
+  document.getElementById("exp-ui").style.display = "none";
+  document.getElementById("actbtns").innerHTML = "";
+  document.getElementById("act-prompt").textContent = "Waiting for AI...";
+  document.getElementById("chaintrail").textContent = "";
+  render();
+  updateTurnBanner(false);
+  setTimeout(advancePriority, aiDelay > 0 ? 80 : 0);
+}
+
+function runAiTurn(playerIdx) {
+  const p = G.players[playerIdx];
+  const policy = POLICIES[playerIdx];
+  updateTurnBanner(false, p);
+  G.turnEvents = [];
+  G.aiTakeTurn(p, policy);
+  G.metrics.turns++;
+  G._recomputeLeads();
+  flushLog(p);
+  render();
+  if (G.ended) { endGame(); return; }
+  if (aiDelay > 0) { setTimeout(advancePriority, aiDelay); }
+  else { advancePriority(); }
+}
+
+function updateTurnBanner(isHuman, p) {
+  const el = document.getElementById("turnbanner");
+  if (isHuman) {
+    el.className = "you";
+    el.innerHTML = `<span class="who" style="color:var(--wax);">${pName(G.players[humanIdx])}</span> &mdash; Your Turn`;
+  } else {
+    el.className = "";
+    const name = p ? pName(p) : "AI";
+    const color = p ? pColor(p.idx) : "var(--ink2)";
+    el.innerHTML = `<span class="who" style="color:${color};">${name}</span> &mdash; Taking their turn…`;
+  }
+}
+
+// ---- name species modal ----
+function openNameModal(speciesId, cardId) {
+  const p = G.players[humanIdx];
+  // If no speciesId, open species picker with a given card
+  // If no cardId, offer all hall cards for this species
+  let body = "";
+  if (speciesId && !cardId) {
+    const sp = CTL.SPECIES[speciesId];
+    const hallCards = p.tableau.hall.filter((c) => CTL.CARD[c].claim);
+    if (!hallCards.length) { alert("No Hall cards to name with."); return; }
+    body = `<h3>Name: ${sp.name}</h3>
+      <p class="sub">${sp.flavour}</p>
+      <p>Rarity: ${RARITY_LABEL[sp.rarity]} &nbsp;|&nbsp; Sets: ${sp.sets.join(", ")}</p>
+      <p>Fields required: ${sp.fields.join(", ")} — ${sp.fields.every(f=>p.typedFields[f]) ? "✓ Met" : "✗ Not met (need to activate field cards first)"}</p>
+      <p><strong>Choose Hall card:</strong></p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        ${hallCards.map((cid) => {
+          let cost = sp.findings;
+          if (p.faction.id === "sensationalist" && sp.isDubious) cost = Math.max(0, cost-1);
+          const c = CTL.CARD[cid];
+          const canDo = p.findings >= cost;
+          return `<button class="btn${canDo?"":" ghost"}" onclick="doAction({kind:'hall',cardId:'${cid}',speciesId:'${speciesId}',spend:${cost},isChain:${pendingChain==='hall'}});closeModal();" ${canDo?"":"disabled"}>
+            ${c.name} (str ${cost+c.strBonus})
+          </button>`;
+        }).join("")}
+      </div>`;
+  } else if (cardId) {
+    const c = CTL.CARD[cardId];
+    const affordable = G.speciesMarket.filter((sid) => {
+      const sp = CTL.SPECIES[sid];
+      let cost = sp.findings;
+      if (p.faction.id === "sensationalist" && sp.isDubious) cost = Math.max(0, cost-1);
+      const prereqOk = (p.faction.id === "sensationalist" && sp.isDubious) || sp.fields.every((f) => p.typedFields[f]);
+      return p.findings >= cost && prereqOk;
+    });
+    if (!affordable.length) { alert("No affordable species available (check typed field access and findings)."); return; }
+    body = `<h3>Name a Species via ${c.name}</h3>
+      <p>Str bonus: +${c.strBonus}${c.sealed?" (Sealed)":""}</p>
+      <p>Choose species:</p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        ${affordable.map((sid) => {
+          const sp = CTL.SPECIES[sid];
+          let cost = sp.findings;
+          if (p.faction.id === "sensationalist" && sp.isDubious) cost = Math.max(0, cost-1);
+          return `<button class="btn" onclick="doAction({kind:'hall',cardId:'${cardId}',speciesId:'${sid}',spend:${cost},isChain:${pendingChain==='hall'}});closeModal();">
+            ${sp.name} (${cost} Finding${cost!==1?"s":""})
+          </button>`;
+        }).join("")}
+      </div>`;
+  }
+  document.getElementById("modal-body").innerHTML = body;
+  document.getElementById("modal").style.display = "flex";
+}
+
+function closeModal() { document.getElementById("modal").style.display = "none"; }
+
+// ---- log ----
+function logTurnHeader(text) {
+  const el = document.getElementById("log");
+  const d = document.createElement("div");
+  d.className = "turnhdr";
+  d.textContent = text;
+  el.appendChild(d);
+  el.scrollTop = el.scrollHeight;
+}
+
+function flushLog(p) {
+  const el = document.getElementById("log");
+  for (const msg of G.turnEvents) {
+    const d = document.createElement("div");
+    d.className = "ev";
+    d.innerHTML = `<span class="who" style="color:${pColor(p.idx)};">${pName(p)}:</span> ${msg}`;
+    el.appendChild(d);
+  }
+  el.scrollTop = el.scrollHeight;
+  G.turnEvents = [];
+}
+
+// ---- end game ----
+function endGame() {
+  render();
+  const w = G.winner;
+  const wName = w != null ? pName(G.players[w]) : "nobody";
+  const isHuman = w === humanIdx;
+  document.getElementById("modal-body").innerHTML = `<div class="winbox">
+    <h1>${isHuman ? "Victory!" : "Defeat"}</h1>
+    <p class="sub">${wName} wins by <strong>${G.winType}</strong> (${G.endedBy}).</p>
+    <p>After ${G.metrics.rounds} rounds — ${G.metrics.turns} turns, ${G.metrics.expeditions} expeditions, ${G.metrics.verifications} verifications.</p>
+    <p><strong>Final standings:</strong></p>
+    ${G.players.map((p) => `<div>${pName(p)}: ${p.namedCount} species named, ${p.completedSets.length} sets, ${p.confirmedDubious} dubious confirmed, ${G.medallions(p.idx)} medallion(s)</div>`).join("")}
+    <div style="margin-top:16px;">
+      <button class="btn" onclick="location.reload()">Play Again</button>
+    </div>
+  </div>`;
+  document.getElementById("modal").style.display = "flex";
+}
+</script>
+</body>
+</html>
