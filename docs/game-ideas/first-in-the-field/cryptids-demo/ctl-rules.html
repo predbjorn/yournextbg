@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Cryptids, Trophies &amp; Lanes — Rules Reference</title>
+<style>
+/* ── Print settings ── */
+@page {
+  size: A4;
+  margin: 18mm 18mm 20mm;
+}
+@media print {
+  body { background: white; }
+  .pagebreak { page-break-before: always; }
+  .no-break { page-break-inside: avoid; }
+}
+
+/* ── Typography ── */
+@import url('https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=IM+Fell+English+SC&family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap');
+
+:root {
+  --ink:   #1c1208;
+  --ink2:  #4a3820;
+  --ink3:  #7a6040;
+  --ink4:  #a08060;
+  --gold:  #8a6018;
+  --goldlt:#c9943a;
+  --paper: #faf6ea;
+  --rule:  #d0c090;
+  --exp:   #5a3010;
+  --fld:   #1a4020;
+  --std:   #122050;
+  --hll:   #480e18;
+  --dub:   #3a2858;
+  --wax:   #7c1c1c;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { font-size: 10.5pt; }
+
+body {
+  font-family: 'IM Fell English', Georgia, serif;
+  color: var(--ink);
+  background: var(--paper);
+  line-height: 1.55;
+  max-width: 175mm;
+  margin: 0 auto;
+  padding: 10mm 0;
+}
+
+/* ── Headings ── */
+h1 {
+  font-family: 'IM Fell English SC', serif;
+  font-size: 28pt;
+  letter-spacing: .04em;
+  text-align: center;
+  color: var(--ink);
+  margin: 0 0 2mm;
+  line-height: 1.1;
+}
+.subtitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 12pt;
+  text-align: center;
+  color: var(--ink2);
+  margin-bottom: 6mm;
+}
+.ornament {
+  text-align: center;
+  font-family: 'Cormorant Garamond', serif;
+  color: var(--goldlt);
+  letter-spacing: .3em;
+  font-size: 12pt;
+  margin: 3mm 0;
+}
+h2 {
+  font-family: 'Cinzel', serif;
+  font-size: 11pt;
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--ink);
+  border-bottom: 1.5pt solid var(--rule);
+  padding-bottom: 1.5mm;
+  margin: 7mm 0 3mm;
+  page-break-after: avoid;
+}
+h3 {
+  font-family: 'IM Fell English SC', serif;
+  font-size: 10.5pt;
+  letter-spacing: .05em;
+  color: var(--ink);
+  margin: 4mm 0 1.5mm;
+  page-break-after: avoid;
+}
+h4 {
+  font-family: 'Cinzel', serif;
+  font-size: 8.5pt;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--ink2);
+  margin: 3mm 0 1mm;
+}
+
+/* ── Body text ── */
+p { margin: 0 0 2mm; }
+
+ul, ol {
+  margin: 1mm 0 2.5mm;
+  padding-left: 6mm;
+}
+li { margin-bottom: .8mm; }
+
+strong {
+  font-family: 'IM Fell English SC', serif;
+  font-weight: normal;
+  letter-spacing: .02em;
+}
+em { font-style: italic; }
+
+/* ── Layout helpers ── */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6mm;
+  margin: 2mm 0;
+}
+.three-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 5mm;
+  margin: 2mm 0;
+}
+
+/* ── Lane blocks ── */
+.lane-block {
+  border-left: 3pt solid var(--lc);
+  padding: 2mm 3mm 2mm 4mm;
+  margin: 2mm 0;
+  background: rgba(0,0,0,.028);
+  border-radius: 0 2pt 2pt 0;
+}
+.lane-block.exp { --lc: var(--exp); }
+.lane-block.fld { --lc: var(--fld); }
+.lane-block.std { --lc: var(--std); }
+.lane-block.hll { --lc: var(--hll); }
+
+.lane-label {
+  font-family: 'Cinzel', serif;
+  font-size: 8pt;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  display: inline-block;
+  margin-bottom: 1mm;
+}
+.lane-block.exp .lane-label { color: var(--exp); }
+.lane-block.fld .lane-label { color: var(--fld); }
+.lane-block.std .lane-label { color: var(--std); }
+.lane-block.hll .lane-label { color: var(--hll); }
+
+/* ── Callout box ── */
+.callout {
+  border: 1pt solid var(--rule);
+  border-radius: 2pt;
+  padding: 3mm 4mm;
+  margin: 3mm 0;
+  background: rgba(255,255,240,.55);
+}
+.callout.gold {
+  border-color: var(--goldlt);
+  background: rgba(200,148,50,.06);
+}
+.callout.red {
+  border-color: #c04040;
+  background: rgba(180,40,40,.04);
+}
+
+/* ── Token pills ── */
+.tok {
+  display: inline-block;
+  font-family: 'Cinzel', serif;
+  font-size: 7.5pt;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  padding: 0pt 4pt;
+  border-radius: 2pt;
+  border: .75pt solid currentColor;
+  margin: 0 .5mm;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+.tok.spec    { color: var(--exp); }
+.tok.find    { color: var(--std); }
+.tok.sight   { color: var(--dub); }
+.tok.hazard  { color: var(--wax); }
+.tok.trophy  { color: var(--gold); }
+
+/* ── Trophy pill ── */
+.trophy-name {
+  font-family: 'IM Fell English SC', serif;
+  font-size: 10pt;
+  display: inline;
+}
+
+/* ── Faction table ── */
+.fac-table { width: 100%; border-collapse: collapse; margin: 2mm 0; font-size: 9.5pt; }
+.fac-table th {
+  font-family: 'Cinzel', serif; font-size: 7.5pt; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--ink2); border-bottom: 1pt solid var(--rule); padding: 1mm 2mm; text-align: left;
+}
+.fac-table td { padding: 1.5mm 2mm; vertical-align: top; border-bottom: .5pt solid rgba(0,0,0,.07); }
+.fac-table tr:last-child td { border-bottom: none; }
+.fac-table .arch {
+  font-family: 'Cinzel', serif; font-size: 7pt; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--ink4);
+}
+
+/* ── Card reference table ── */
+.card-table { width: 100%; border-collapse: collapse; margin: 2mm 0; font-size: 8.5pt; }
+.card-table th {
+  font-family: 'Cinzel', serif; font-size: 7pt; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--ink2); border-bottom: 1pt solid var(--rule); padding: 1mm 1.5mm; text-align: left;
+  background: rgba(0,0,0,.03);
+}
+.card-table td { padding: 1.2mm 1.5mm; vertical-align: top; border-bottom: .5pt solid rgba(0,0,0,.06); font-size: 8pt; }
+.card-table tr:last-child td { border-bottom: none; }
+.card-table .tier { font-family: 'Cinzel', serif; font-size: 7pt; color: var(--ink3); }
+.card-table .cname { font-family: 'IM Fell English SC', serif; font-size: 9pt; }
+
+/* ── Species table ── */
+.sp-table { width: 100%; border-collapse: collapse; margin: 2mm 0; font-size: 8pt; }
+.sp-table th {
+  font-family: 'Cinzel', serif; font-size: 7pt; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--ink2); border-bottom: 1pt solid var(--rule); padding: 1mm 1.5mm; text-align: left;
+  background: rgba(0,0,0,.03);
+}
+.sp-table td { padding: 1mm 1.5mm; vertical-align: top; border-bottom: .4pt solid rgba(0,0,0,.06); }
+.sp-table tr:last-child td { border-bottom: none; }
+.sp-table .dub-row td { color: var(--dub); font-style: italic; }
+.sp-table .sp-name { font-family: 'IM Fell English SC', serif; font-size: 9pt; }
+
+/* ── Example flow ── */
+.ex-turn {
+  border: 1pt solid var(--rule);
+  border-radius: 2pt;
+  margin: 2mm 0;
+}
+.ex-turn-head {
+  font-family: 'Cinzel', serif;
+  font-size: 8pt;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  padding: 1.5mm 3mm;
+  background: rgba(0,0,0,.04);
+  border-bottom: 1pt solid var(--rule);
+  color: var(--ink2);
+  display: flex;
+  justify-content: space-between;
+}
+.ex-turn-body { padding: 2.5mm 3mm; }
+.ex-step {
+  display: grid;
+  grid-template-columns: 5mm 1fr;
+  gap: 1.5mm;
+  margin-bottom: 2mm;
+  align-items: start;
+}
+.ex-step:last-child { margin-bottom: 0; }
+.ex-num {
+  font-family: 'Cinzel', serif;
+  font-size: 8.5pt;
+  font-weight: 600;
+  color: var(--goldlt);
+  padding-top: .2mm;
+  text-align: center;
+}
+.ex-step p { margin: 0; font-size: 9.5pt; }
+.ex-log {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 9pt;
+  color: var(--ink3);
+  margin-top: .5mm;
+}
+
+/* ── State snapshot ── */
+.state-row {
+  display: flex;
+  gap: 4mm;
+  flex-wrap: wrap;
+  margin: 1.5mm 0;
+}
+.state-chip {
+  font-family: 'Cinzel', serif;
+  font-size: 8pt;
+  letter-spacing: .06em;
+  padding: 1pt 5pt;
+  border: .75pt solid var(--rule);
+  border-radius: 1.5pt;
+  background: rgba(255,255,240,.7);
+}
+.state-chip b { color: var(--wax); }
+
+/* ── Rule number ── */
+.rule-n {
+  font-family: 'Cinzel', serif;
+  font-size: 8pt;
+  color: var(--ink4);
+  float: right;
+  margin-left: 3mm;
+}
+
+/* ── Page header (non-first pages) ── */
+.page-header {
+  font-family: 'Cinzel', serif;
+  font-size: 8pt;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--ink4);
+  border-bottom: .75pt solid var(--rule);
+  padding-bottom: 2mm;
+  margin-bottom: 4mm;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* ── Cover rule ── */
+.cover-rule {
+  height: 1pt;
+  background: linear-gradient(90deg, transparent, var(--goldlt), transparent);
+  margin: 5mm 0;
+  border: none;
+}
+
+/* ── Quick-ref grid ── */
+.qr-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4mm;
+}
+.qr-box {
+  border: .75pt solid var(--rule);
+  border-radius: 2pt;
+  padding: 2.5mm 3mm;
+}
+.qr-box h4 { margin-top: 0; }
+.qr-box ul { margin: 0; padding-left: 4mm; }
+.qr-box li { font-size: 9pt; margin-bottom: .5mm; }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════
+     COVER / TITLE
+     ══════════════════════════════════════════════════════ -->
+<h1>Cryptids, Trophies &amp; Lanes</h1>
+<div class="subtitle">A natural-history engine-builder for 2–4 players</div>
+<div class="ornament">· · ✦ · ·</div>
+<hr class="cover-rule">
+
+<div class="callout gold no-break">
+  <strong>Win Condition.</strong> Be the first player to hold all three trophy medallions simultaneously:
+  <span class="trophy-name">Collector</span> (most species named),
+  <span class="trophy-name">Systematist</span> (most complete sets), and
+  <span class="trophy-name">Sensationalist</span> (most confirmed dubious species).
+  Trophies are recalculated after every action — they pass hands fluidly.
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════
+     SECTION 1 — OVERVIEW
+     ══════════════════════════════════════════════════════ -->
+<h2>1 · Overview</h2>
+
+<p>Each player controls a Victorian natural-history society. Over successive rounds you
+build an <strong>engine</strong> across four lanes — Expedition, Field, Study, Hall —
+to gather <span class="tok spec">Specimens</span>, convert them to
+<span class="tok find">Findings</span>, and use Findings to name species in the market.
+Named species score trophy leads. Hold all three leads at once and you win.</p>
+
+<p>The game also features a <strong>dubious species</strong> sub-game: cryptids and
+legendary creatures can be added to evidence bags via <span class="tok sight">Sightings</span>
+and then verified. Genuine vindications score the Sensationalist trophy; exposed hoaxes
+disgrace the top contributor.</p>
+
+<p>A shared <strong>Clock</strong> counts down to end-of-game if no knockout is achieved.
+When the clock fills, all scores are tallied and the player with the most medallions wins.</p>
+
+
+<!-- ══════════════════════════════════════════════════════
+     SECTION 2 — COMPONENTS
+     ══════════════════════════════════════════════════════ -->
+<h2>2 · Components (demo version)</h2>
+<div class="two-col">
+  <div>
+    <h4>Cards (31 engine cards)</h4>
+    <ul>
+      <li>7 Expedition cards (tiers 1–3)</li>
+      <li>8 Field cards (tiers 1–3)</li>
+      <li>8 Study cards (tiers 1–3)</li>
+      <li>8 Hall cards (tiers 1–3)</li>
+    </ul>
+  </div>
+  <div>
+    <h4>Other</h4>
+    <ul>
+      <li>27 species cards (8 common, 7 rare, 6 sensational, 6 dubious/legendary)</li>
+      <li>5 sets: Winged, Terrestrial, Botanical, Legendary, Anomalous</li>
+      <li>Discovery deck: 4 Specimen · 2 Finding · 2 Sighting · 3 Hazard</li>
+      <li>8 tactic cards (×2 copies each)</li>
+      <li>5 factions</li>
+    </ul>
+  </div>
+</div>
+
+<h4>Resources tracked per player</h4>
+<div class="state-row">
+  <span class="state-chip"><b>Specimens</b> — raw material</span>
+  <span class="state-chip"><b>Findings</b> — processed evidence (capped)</span>
+  <span class="state-chip"><b>Standing</b> — prestige / tiebreaker</span>
+  <span class="state-chip"><b>Sightings</b> — tokens for dubious bags</span>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════
+     SECTION 3 — SETUP
+     ══════════════════════════════════════════════════════ -->
+<h2>3 · Setup</h2>
+
+<ol>
+  <li>Each player chooses a <strong>faction</strong>. Turn order is randomised.</li>
+  <li>Each player starts with <strong>3 Specimens, 2 Sightings</strong>, and 1 tactic card in hand.</li>
+  <li>Each player starts with <strong>three starter cards</strong> already in their tableau:
+    <ul>
+      <li>Naturalist's Pack (Expedition) — free mount, 1 draw</li>
+      <li>Field Journal (Study) — converts 2 Spec → 1 Finding (max 4)</li>
+      <li>Field Report (Hall) — naming card, chains to Field after use</li>
+    </ul>
+  </li>
+  <li>Shuffle the engine deck (31 cards minus starters) and deal <strong>5 cards</strong> face-up as the Draft Row.</li>
+  <li>Shuffle all 27 species and deal <strong>6</strong> face-up as the Species Market. Dubious species arrive with a secret evidence bag sealed with a truth token (<em>Genuine</em> or <em>Hoax</em>, ~67%/33%).</li>
+  <li>Shuffle the Discovery deck (11 tokens, reshuffled if exhausted).</li>
+  <li>Set the Clock to 0 (closes at 12 by default).</li>
+</ol>
+
+
+<!-- ══════════════════════════════════════════════════════
+     SECTION 4 — ROUND STRUCTURE
+     ══════════════════════════════════════════════════════ -->
+<h2>4 · Round Structure</h2>
+
+<p>Play proceeds in rounds. Each round every player takes one full turn in priority order. After all players have acted the round ends; leads are recomputed and the next round begins.</p>
+
+<h3>Your Turn</h3>
+<p>On your turn you may take <strong>any number of actions</strong> until you choose to stop
+or have no legal actions remaining. Actions may be chained (see §6).
+End your turn explicitly with <strong>Stop / End Turn</strong>.</p>
+
+<p>At the start of your turn:</p>
+<ul>
+  <li>Your <strong>Findings decay to 3</strong> (the base cap) unless you hold a card with
+  <em>Never Decay</em> (Darkroom).</li>
+  <li>Your typed field access resets. You must re-activate field cards to unlock field
+  prerequisites again this turn.</li>
+</ul>
+
+<div class="callout no-break">
+  <strong>Lane Leads.</strong> Each lane has a current leader (the player scoring highest by that lane's metric).
+  Lane leads act as a tiebreaker for trophies and as a cost/discount signal in chaining.
+  They update after every action, not just at end-of-turn.
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════
+     SECTION 5 — THE FOUR ACTIONS
+     ══════════════════════════════════════════════════════ -->
+<h2>5 · The Four Actions</h2>
+
+<div class="lane-block exp no-break">
+  <div class="lane-label">Expedition Lane</div>
+  <h3 style="margin-top:1mm;">Mount an Expedition</h3>
+  <p>Pay the card's <strong>Mount Cost</strong> in Specimens. The expedition begins: draw tokens from the
+  Discovery deck equal to the card's <strong>Draws</strong> value, resolving each in order.</p>
+
+  <h4>Discovery Tokens</h4>
+  <ul>
+    <li><span class="tok spec">Specimen</span> — banked; converts to +1 Specimen on banking</li>
+    <li><span class="tok find">Finding</span> — banked; converts to +1 Finding on banking</li>
+    <li><span class="tok sight">Sighting</span> — banked; converts to +1 Sighting on banking</li>
+    <li><span class="tok hazard">Hazard</span> — if unprotected, <strong>bust</strong>: all banked tokens lost, turn ends immediately</li>
+  </ul>
+
+  <p>After the initial draws, if the expedition is still active you may:</p>
+  <ul>
+    <li><strong>Press Deeper</strong> — draw one more token, resolve it, repeat if you wish</li>
+    <li><strong>Bank &amp; Return</strong> — collect all banked tokens as resources; triggers chain if the card has a trigger</li>
+  </ul>
+
+  <p><strong>Hazard protection</strong> (Deep Expedition: 1, Royal Commission: 2) absorbs one Hazard per shield, then is expended.
+  The <em>Expeditioner</em> faction ignores the first Hazard for free each turn.</p>
+</div>
+
+<div class="lane-block fld no-break">
+  <div class="lane-label">Field Lane</div>
+  <h3 style="margin-top:1mm;">Activate a Field Card</h3>
+  <p>No cost. Gain <strong>Specimens</strong> as listed. Some cards also unlock a
+  <strong>typed field</strong> (e.g. <em>botanical</em>, <em>wetlands</em>) which is required
+  to name certain species in the Hall this turn.</p>
+
+  <ul>
+    <li>The <em>Collector</em> faction gains +1 Specimen on every Field action.</li>
+    <li><em>specPerField</em> cards (Local Guide, Patronage Contract) give a per-activation bonus once.</li>
+    <li><em>specWhileLead</em> cards (Network of Informants) give a bonus only if you currently hold the Field lead.</li>
+    <li>Cards with a <strong>trigger</strong> automatically chain into the Study lane after resolving.</li>
+  </ul>
+</div>
+
+<div class="lane-block std no-break">
+  <div class="lane-label">Study Lane</div>
+  <h3 style="margin-top:1mm;">Convert via a Study Card</h3>
+  <p>Spend <strong>Specimens</strong> in batches of <em>convIn</em> to produce
+  batches of <em>convOut</em> <strong>Findings</strong>, up to <em>convMaxIn</em> Specimens total.</p>
+
+  <p>Findings are capped at your <strong>Findings Cap</strong> (base 3; each Photography Kit
+  or Reference Library in your study adds +1). Overflow is lost unless you hold Darkroom
+  (<em>Never Decay</em>).</p>
+
+  <p>If you activate Study as a <strong>chain</strong> and you are not the Study lead, you must
+  first spend 1 Specimen as a <strong>toll</strong>. If you are the Study lead, no toll.</p>
+
+  <p>The Comparative Method doubles output if you hold the Study lead.</p>
+</div>
+
+<div class="lane-block hll no-break">
+  <div class="lane-label">Hall Lane</div>
+  <h3 style="margin-top:1mm;">Name a Species (Hall Card)</h3>
+  <p>Spend <strong>Findings</strong> equal to the species' cost. The species must be in the market.
+  You must have activated the required <strong>typed field cards</strong> earlier this turn
+  (unless you are the <em>Sensationalist</em> and the species is dubious).</p>
+
+  <p>Your <strong>Strength</strong> = Findings spent + card's <em>strBonus</em>.</p>
+
+  <h4>Uncontested Naming</h4>
+  <p>Add the species to the named list under your name. Some Hall cards grant +1 Standing on naming.</p>
+
+  <h4>Challenging a Rival's Species</h4>
+  <p>If the species is already named by another player, pay the cost and compare strengths:</p>
+  <ul>
+    <li><strong>Your strength &gt; defender's:</strong> you wrest the name; defender loses one named count.</li>
+    <li><strong>Tie:</strong> both papers are discredited; species becomes unclaimed.</li>
+    <li><strong>Your strength &lt; defender's:</strong> defender gains +1 Standing; you still pay the cost.</li>
+  </ul>
+
+  <p>If you are chaining into Hall and are not the Hall lead, pay 1 Finding toll first.</p>
+
+  <p>Named species leave the market and are replaced. The <em>Systematist</em> faction gets +1 strength
+  when naming species with 2+ field requirements.</p>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════
+     SECTION 6 — CHAINING
+     ══════════════════════════════════════════════════════ -->
+<h2>6 · Chaining</h2>
+
+<p>Several cards carry a <strong>trigger</strong> which grants a free chain into another lane
+immediately after the action resolves. You are not required to use the chain.</p>
+
+<div class="callout no-break">
+  <strong>Chain toll (Study &amp; Hall only).</strong> When entering Study or Hall via a chain,
+  you pay 1 Specimen or 1 Finding respectively <em>unless</em> you currently hold that lane's lead.
+  The toll is paid once per chain entry, not once per action within that chain.
+</div>
+
+<h4>Cards that trigger chains</h4>
+<div class="three-col">
+  <div>
+    <h4 style="color:var(--fld);">→ Field</h4>
+    <ul style="font-size:9pt;">
+      <li>Field Report → Field</li>
+      <li>Illustrated Plate → Field</li>
+      <li>Definitive Monograph → Field</li>
+      <li>Sensational Report → Field</li>
+      <li>Ghost Map → Field</li>
+    </ul>
+  </div>
+  <div>
+    <h4 style="color:var(--std);">→ Study</h4>
+    <ul style="font-size:9pt;">
+      <li>Botanical Survey → Study</li>
+      <li>Mountain Expedition (card) → Study</li>
+      <li>Fossil Dig → Study</li>
+    </ul>
+  </div>
+  <div>
+    <h4 style="color:var(--hll);">→ Hall</h4>
+    <ul style="font-size:9pt;">
+      <li>Pressing Board → Hall</li>
+      <li>Taxonomy Manual → Hall</li>
+      <li>Reference Library → Hall</li>
+      <li>Darkroom → Hall</li>
+    </ul>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════
+     SECTION 7 — DRAFTING ENGINE CARDS
+     ══════════════════════════════════════════════════════ -->
+<h2>7 · Drafting Engine Cards</h2>
+
+<p>At any point during your turn you may <strong>draft</strong> one or more cards from the
+five-card Draft Row by paying each card's cost in Specimens. The card immediately enters
+the appropriate lane of your tableau. A replacement card is drawn from the engine deck
+for each card taken.</p>
+
+<p>Tier 1 cards are free. Tier 2 cards cost 2–3. Tier 3 cards cost 4–5.</p>
+
+
+<!-- ══════════════════════════════════════════════════════
+     SECTION 8 — DUBIOUS SPECIES & FRAUD
+     ══════════════════════════════════════════════════════ -->
+<h2>8 · Dubious Species &amp; Fraud</h2>
+
+<p>Six species are marked <strong>Dubious</strong> (Kraken, Feejee Mermaid, Vegetable Lamb,
+Sea Serpent, Jackalope, Yeti). Each is sealed with a secret truth token — <em>Genuine</em>
+(~67% of the time) or <em>Hoax</em> (~33%).</p>
+
+<h3>Sightings</h3>
+<p>Spend 1 <span class="tok sight">Sighting</span> token to add an anonymous sighting to a
+dubious species' evidence bag. Sightings are tracked per player.</p>
+
+<h3>Verification</h3>
+<p>Once a bag holds ≥ 2 sightings, any player may spend an action to <strong>Call Verification</strong>.</p>
+<ul>
+  <li>The truth token is revealed.</li>
+  <li>The player with the most sightings in the bag is identified as the top contributor.</li>
+</ul>
+
+<div class="two-col no-break">
+  <div class="callout" style="border-color:var(--fld);">
+    <strong>Genuine!</strong> Top contributor gains <strong>+4 Standing</strong> and
+    <strong>+1 Confirmed Dubious</strong> (scores the Sensationalist trophy).
+    If they haven't already named the species, it is named for them at strength 0.
+  </div>
+  <div class="callout red">
+    <strong>Hoax!</strong> Top contributor loses <strong>Standing</strong> equal to their sighting count
+    (max −4) and loses their name claim on that species if they held one.
+  </div>
+</div>
+
+<p>The <em>Sensationalist</em> faction may name dubious species without field prerequisites
+and pays 1 fewer Finding per naming.</p>
+
+
+<!-- ══════════════════════════════════════════════════════
+     SECTION 9 — TROPHIES & WIN CONDITION
+     ══════════════════════════════════════════════════════ -->
+<h2>9 · Trophies &amp; Win Condition</h2>
+
+<div class="three-col no-break">
+  <div class="callout gold">
+    <h4 style="margin-top:0;color:var(--gold);">🏆 Collector</h4>
+    <p style="font-size:9pt;">Most species named. Tiebreak: Standing.</p>
+  </div>
+  <div class="callout gold">
+    <h4 style="margin-top:0;color:var(--gold);">🏆 Systematist</h4>
+    <p style="font-size:9pt;">Most <em>complete sets</em>. Tiebreak: named count.</p>
+  </div>
+  <div class="callout gold">
+    <h4 style="margin-top:0;color:var(--gold);">🏆 Sensationalist</h4>
+    <p style="font-size:9pt;">Most confirmed-genuine dubious species. Tiebreak: Standing.</p>
+  </div>
+</div>
+
+<p>All three trophies are recalculated <em>after every action</em>. A player who holds all three
+simultaneously wins immediately (<strong>knockout</strong>). If the Clock fills before
+a knockout, the player with the most trophies wins; further tiebreaks use Standing.</p>
+
+<h3>Species Sets &amp; Set Bonuses</h3>
+<p>There are five sets. Completing a set grants a one-time bonus:</p>
+<div class="two-col no-break">
+  <ul>
+    <li><strong>Winged</strong> — +2 Findings</li>
+    <li><strong>Terrestrial</strong> — +3 Specimens</li>
+    <li><strong>Botanical</strong> — +2 Standing</li>
+  </ul>
+  <ul>
+    <li><strong>Legendary</strong> — +1 Confirmed Dubious (free!)</li>
+    <li><strong>Anomalous</strong> — draw 1 Tactic card</li>
+  </ul>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════
+     SECTION 10 — THE CLOCK
+     ══════════════════════════════════════════════════════ -->
+<h2>10 · The Clock</h2>
+
+<p>The shared Clock advances by 1 at the <strong>start of each round</strong>. It closes at
+<strong>12</strong> (adjustable). When the Clock closes, the game ends immediately after the
+current round is fully resolved — no mid-round stops.</p>
+
+<p>Sensational Report (Hall tier 3) advances the Clock by 1 when played for a naming.
+Some factions or tactics may also interact with the Clock in full rules.</p>
+
+
+<!-- ══════════════════════════════════════════════════════
+     SECTION 11 — FACTIONS
+     ══════════════════════════════════════════════════════ -->
+<h2>11 · Factions</h2>
+
+<table class="fac-table">
+  <thead>
+    <tr>
+      <th>Faction</th>
+      <th>Archetype</th>
+      <th>Special Power</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>The Collector</strong></td>
+      <td><span class="arch">Accumulator</span></td>
+      <td>On each Field action, gain +1 Specimen.</td>
+    </tr>
+    <tr>
+      <td><strong>The Systematist</strong></td>
+      <td><span class="arch">Precision</span></td>
+      <td>+1 strength when naming species that require 2+ fields.</td>
+    </tr>
+    <tr>
+      <td><strong>The Sensationalist</strong></td>
+      <td><span class="arch">Risk-Taker</span></td>
+      <td>Dubious species cost 1 fewer Finding to name. May name Dubious species without all field prerequisites.</td>
+    </tr>
+    <tr>
+      <td><strong>The Expeditioner</strong></td>
+      <td><span class="arch">Explorer</span></td>
+      <td>Hazards on Expeditions are ignored once per turn. Gain +1 Sighting token when banking an Expedition.</td>
+    </tr>
+    <tr>
+      <td><strong>The Forger</strong></td>
+      <td><span class="arch">Saboteur</span></td>
+      <td>Once per round, may spend 1 Standing to add a Doubt-weighted token to any species' evidence bag.</td>
+    </tr>
+  </tbody>
+</table>
+
+
+<!-- ══════════════════════════════════════════════════════
+     PAGE BREAK → ENGINE CARD REFERENCE
+     ══════════════════════════════════════════════════════ -->
+<div class="pagebreak"></div>
+<div class="page-header">
+  <span>Cryptids, Trophies &amp; Lanes</span>
+  <span>Engine Card Reference</span>
+</div>
+
+<h2>12 · Engine Card Reference</h2>
+
+<!-- EXPEDITION CARDS -->
+<div class="lane-block exp no-break">
+  <div class="lane-label">Expedition Cards</div>
+  <table class="card-table" style="margin-top:1.5mm;">
+    <thead>
+      <tr>
+        <th>Card</th>
+        <th>Tier / Cost</th>
+        <th>Mount</th>
+        <th>Draws</th>
+        <th>Prot.</th>
+        <th>Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td class="cname">Naturalist's Pack</td><td class="tier">T1 · Free</td><td>1</td><td>1</td><td>—</td><td>Starter card</td></tr>
+      <tr><td class="cname">Field Compass</td><td class="tier">T1 · Free</td><td>1</td><td>1</td><td>—</td><td>+1 Specimen on bank</td></tr>
+      <tr><td class="cname">Survey Permit</td><td class="tier">T2 · 2</td><td>2</td><td>2</td><td>—</td><td>—</td></tr>
+      <tr><td class="cname">Charter Vessel</td><td class="tier">T2 · 3</td><td>2</td><td>3</td><td>—</td><td>+1 Sighting on bank</td></tr>
+      <tr><td class="cname">Deep Expedition</td><td class="tier">T2 · 2</td><td>3</td><td>3</td><td>1</td><td>—</td></tr>
+      <tr><td class="cname">Royal Commission</td><td class="tier">T3 · 5</td><td>3</td><td>4</td><td>2</td><td>—</td></tr>
+      <tr><td class="cname">Ghost Map</td><td class="tier">T3 · 4</td><td>2</td><td>2</td><td>—</td><td>Chains → Field on bank</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- FIELD CARDS -->
+<div class="lane-block fld no-break" style="margin-top:3mm;">
+  <div class="lane-label">Field Cards</div>
+  <table class="card-table" style="margin-top:1.5mm;">
+    <thead>
+      <tr><th>Card</th><th>Tier / Cost</th><th>Spec Gain</th><th>Typed Field</th><th>Notes</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="cname">Specimen Hunt</td><td class="tier">T1 · Free</td><td>+2</td><td>—</td><td>—</td></tr>
+      <tr><td class="cname">Local Guide</td><td class="tier">T1 · Free</td><td>+1 (+1/field)</td><td>—</td><td>Per-field bonus triggers once</td></tr>
+      <tr><td class="cname">Botanical Survey</td><td class="tier">T1 · Free</td><td>+2</td><td>botanical</td><td>Chains → Study</td></tr>
+      <tr><td class="cname">Marsh Survey</td><td class="tier">T2 · 2</td><td>+4</td><td>wetlands</td><td>—</td></tr>
+      <tr><td class="cname">Mountain Expedition</td><td class="tier">T2 · 2</td><td>+4</td><td>mountain</td><td>Chains → Study</td></tr>
+      <tr><td class="cname">Network of Informants</td><td class="tier">T2 · 2</td><td>+2 (+1 if Field lead)</td><td>—</td><td>—</td></tr>
+      <tr><td class="cname">Fossil Dig</td><td class="tier">T3 · 4</td><td>+6</td><td>geological</td><td>Chains → Study</td></tr>
+      <tr><td class="cname">Patronage Contract</td><td class="tier">T3 · 5</td><td>+2/field (×2 if lead)</td><td>—</td><td>Counts double for Field lead scoring</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- STUDY CARDS -->
+<div class="lane-block std no-break" style="margin-top:3mm;">
+  <div class="lane-label">Study Cards</div>
+  <table class="card-table" style="margin-top:1.5mm;">
+    <thead>
+      <tr><th>Card</th><th>Tier / Cost</th><th>Convert</th><th>Max In</th><th>+Cap</th><th>Notes</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="cname">Field Journal</td><td class="tier">T1 · Free</td><td>2:1</td><td>4</td><td>—</td><td>Starter card</td></tr>
+      <tr><td class="cname">Pressing Board</td><td class="tier">T1 · Free</td><td>3:1</td><td>3</td><td>—</td><td>Chains → Hall</td></tr>
+      <tr><td class="cname">Taxonomy Manual</td><td class="tier">T2 · 2</td><td>1:1</td><td>8</td><td>—</td><td>Chains → Hall</td></tr>
+      <tr><td class="cname">Dissection Lab</td><td class="tier">T2 · 2</td><td>3:2</td><td>3</td><td>—</td><td>—</td></tr>
+      <tr><td class="cname">Photography Kit</td><td class="tier">T2 · 2</td><td>1:1</td><td>4</td><td>+1</td><td>Raises Findings cap by 1</td></tr>
+      <tr><td class="cname">Reference Library</td><td class="tier">T3 · 4</td><td>1:1</td><td>10</td><td>+1</td><td>Chains → Hall; +1 cap</td></tr>
+      <tr><td class="cname">Comparative Method</td><td class="tier">T3 · 5</td><td>1:1</td><td>∞</td><td>—</td><td>Doubles output if Study lead</td></tr>
+      <tr><td class="cname">Darkroom</td><td class="tier">T3 · 4</td><td>1:1</td><td>8</td><td>—</td><td>Chains → Hall; Never Decay</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- HALL CARDS -->
+<div class="lane-block hll no-break" style="margin-top:3mm;">
+  <div class="lane-label">Hall Cards</div>
+  <table class="card-table" style="margin-top:1.5mm;">
+    <thead>
+      <tr><th>Card</th><th>Tier / Cost</th><th>Str Bonus</th><th>Sealed</th><th>Notes</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="cname">Field Report</td><td class="tier">T1 · Free</td><td>+0</td><td>No</td><td>Starter. Chains → Field after naming</td></tr>
+      <tr><td class="cname">Monograph</td><td class="tier">T1 · Free</td><td>+0</td><td>No</td><td>+1 Standing on naming</td></tr>
+      <tr><td class="cname">Systematic Paper</td><td class="tier">T2 · 2</td><td>+1</td><td>Yes</td><td>—</td></tr>
+      <tr><td class="cname">Illustrated Plate</td><td class="tier">T2 · 2</td><td>+0</td><td>No</td><td>Chains → Field; bank excess str as +1 Finding</td></tr>
+      <tr><td class="cname">Rival Nomenclature</td><td class="tier">T2 · 3</td><td>+1</td><td>No</td><td>+1 Standing if paper is unsealed on open reveal</td></tr>
+      <tr><td class="cname">Definitive Monograph</td><td class="tier">T3 · 4</td><td>+2</td><td>No</td><td>Chains → Field</td></tr>
+      <tr><td class="cname">Society Fellow</td><td class="tier">T3 · 5</td><td>+2</td><td>Yes</td><td>—</td></tr>
+      <tr><td class="cname">Sensational Report</td><td class="tier">T3 · 4</td><td>+0</td><td>No</td><td>Chains → Field; advances Clock +1</td></tr>
+    </tbody>
+  </table>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════
+     PAGE BREAK → SPECIES REFERENCE
+     ══════════════════════════════════════════════════════ -->
+<div class="pagebreak"></div>
+<div class="page-header">
+  <span>Cryptids, Trophies &amp; Lanes</span>
+  <span>Species &amp; Flow Example</span>
+</div>
+
+<h2>13 · Species Reference</h2>
+
+<table class="sp-table">
+  <thead>
+    <tr>
+      <th>Species</th>
+      <th>Rarity</th>
+      <th>Sets</th>
+      <th>Fields Required</th>
+      <th>Cost</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td class="sp-name">House Sparrow</td><td>Common</td><td>Winged</td><td>winged</td><td>1</td></tr>
+    <tr><td class="sp-name">Click Beetle</td><td>Common</td><td>Terrestrial</td><td>terrestrial</td><td>1</td></tr>
+    <tr><td class="sp-name">Common Fern</td><td>Common</td><td>Botanical</td><td>botanical</td><td>1</td></tr>
+    <tr><td class="sp-name">Garden Snail</td><td>Common</td><td>Terrestrial</td><td>terrestrial</td><td>1</td></tr>
+    <tr><td class="sp-name">Reed Warbler</td><td>Common</td><td>Winged</td><td>winged</td><td>1</td></tr>
+    <tr><td class="sp-name">Wood Anemone</td><td>Common</td><td>Botanical</td><td>botanical</td><td>1</td></tr>
+    <tr><td class="sp-name">Stag Beetle</td><td>Common</td><td>Terrestrial</td><td>terrestrial</td><td>1</td></tr>
+    <tr><td class="sp-name">Common Toad</td><td>Common</td><td>Anomalous</td><td>wetlands</td><td>1</td></tr>
+    <tr><td class="sp-name">Bird of Paradise</td><td>Rare</td><td>Winged</td><td>winged, tropical</td><td>2</td></tr>
+    <tr><td class="sp-name">Goliath Beetle</td><td>Rare</td><td>Terrestrial, Anomalous</td><td>terrestrial, tropical</td><td>2</td></tr>
+    <tr><td class="sp-name">Titan Arum</td><td>Rare</td><td>Botanical</td><td>botanical, tropical</td><td>2</td></tr>
+    <tr><td class="sp-name">Axolotl</td><td>Rare</td><td>Anomalous</td><td>wetlands</td><td>2</td></tr>
+    <tr><td class="sp-name">Snow Leopard</td><td>Rare</td><td>Terrestrial</td><td>terrestrial, mountain</td><td>2</td></tr>
+    <tr><td class="sp-name">Lyrebird</td><td>Rare</td><td>Winged, Anomalous</td><td>winged, tropical</td><td>2</td></tr>
+    <tr><td class="sp-name">Corpse Flower</td><td>Rare</td><td>Botanical, Anomalous</td><td>botanical, mountain</td><td>2</td></tr>
+    <tr><td class="sp-name">Platypus</td><td>Sensational</td><td>Terrestrial, Anomalous</td><td>terrestrial, wetlands</td><td>3</td></tr>
+    <tr><td class="sp-name">Archaeopteryx</td><td>Sensational</td><td>Winged, Anomalous</td><td>winged, geological</td><td>3</td></tr>
+    <tr><td class="sp-name">Giant Squid</td><td>Sensational</td><td>Anomalous</td><td>marine, geological</td><td>3</td></tr>
+    <tr><td class="sp-name">Welwitschia</td><td>Sensational</td><td>Botanical, Anomalous</td><td>botanical, geological</td><td>3</td></tr>
+    <tr><td class="sp-name">Okapi</td><td>Sensational</td><td>Terrestrial</td><td>terrestrial, tropical</td><td>3</td></tr>
+    <tr><td class="sp-name">Coelacanth</td><td>Sensational</td><td>Anomalous</td><td>marine, geological</td><td>3</td></tr>
+    <tr class="dub-row"><td class="sp-name">Kraken (?)</td><td>Legendary</td><td>Legendary, Anomalous</td><td>marine</td><td>2</td></tr>
+    <tr class="dub-row"><td class="sp-name">Feejee Mermaid (?)</td><td>Legendary</td><td>Legendary</td><td>marine, wetlands</td><td>2</td></tr>
+    <tr class="dub-row"><td class="sp-name">Vegetable Lamb (?)</td><td>Legendary</td><td>Legendary, Botanical</td><td>botanical</td><td>2</td></tr>
+    <tr class="dub-row"><td class="sp-name">Sea Serpent (?)</td><td>Legendary</td><td>Legendary</td><td>marine</td><td>3</td></tr>
+    <tr class="dub-row"><td class="sp-name">Jackalope (?)</td><td>Legendary</td><td>Legendary, Terrestrial</td><td>terrestrial</td><td>2</td></tr>
+    <tr class="dub-row"><td class="sp-name">Yeti (?)</td><td>Legendary</td><td>Legendary, Terrestrial</td><td>mountain</td><td>3</td></tr>
+  </tbody>
+</table>
+<p style="font-size:8.5pt;color:var(--dub);font-style:italic;margin-top:1mm;">
+  (?) = Dubious species. Truth sealed at game start. Sensationalist faction ignores field prerequisites and pays −1 Finding.
+</p>
+
+
+<!-- ══════════════════════════════════════════════════════
+     SECTION 14 — FLOW EXAMPLE
+     ══════════════════════════════════════════════════════ -->
+<h2>14 · Complete Turn Example</h2>
+
+<p style="font-size:9.5pt;color:var(--ink2);font-style:italic;">
+  3-player game, Round 4. Players: <strong>The Collector</strong> (you), The Systematist, The Expeditioner.
+  The Lyrebird is in the market (cost 2 Findings; needs <em>winged</em> and <em>tropical</em>).
+</p>
+
+<!-- STATE BEFORE TURN -->
+<div class="callout no-break" style="margin-bottom:3mm;">
+  <strong>Your state at turn start</strong>
+  <div class="state-row" style="margin-top:1.5mm;">
+    <span class="state-chip">Specimens <b>5</b></span>
+    <span class="state-chip">Findings <b>1</b> (cap 3)</span>
+    <span class="state-chip">Standing <b>2</b></span>
+    <span class="state-chip">Sightings <b>1</b></span>
+  </div>
+  <div style="font-size:9pt;margin-top:2mm;color:var(--ink2);">
+    <strong>Tableau:</strong>
+    Exp — Naturalist's Pack, Survey Permit ·
+    Field — Specimen Hunt, Botanical Survey, Marsh Survey ·
+    Study — Field Journal ·
+    Hall — Field Report
+  </div>
+  <div style="font-size:9pt;margin-top:1mm;color:var(--ink2);">
+    <strong>Draft Row:</strong> Taxonomy Manual (T2, cost 2) · Network of Informants (T2, cost 2) · Pressing Board (T1, free) · Fossil Dig (T3, cost 4) · Field Compass (T1, free)
+  </div>
+  <div style="font-size:9pt;margin-top:1mm;color:var(--ink2);">
+    <strong>Market:</strong> House Sparrow · Reed Warbler · Axolotl · Lyrebird · Jackalope(?) · Yeti(?)
+  </div>
+</div>
+
+<!-- TURN ACTIONS -->
+<div class="ex-turn no-break">
+  <div class="ex-turn-head"><span>Action 1</span><span>Draft · Pressing Board</span></div>
+  <div class="ex-turn-body">
+    <div class="ex-step">
+      <div class="ex-num">→</div>
+      <div>
+        <p>Pressing Board is free (T1, cost 0). You take it from the Draft Row into your Study lane.
+           A replacement card is drawn: Illustrated Plate appears.</p>
+        <p class="ex-log">Specimens 5 → 5 (no cost). Study tableau now has Field Journal + Pressing Board.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="ex-turn no-break">
+  <div class="ex-turn-head"><span>Action 2</span><span>Field — Botanical Survey</span></div>
+  <div class="ex-turn-body">
+    <div class="ex-step">
+      <div class="ex-num">→</div>
+      <div>
+        <p>Activate <strong>Botanical Survey</strong> (T1, free). Base gain: +2 Specimens. You are
+           The Collector, so faction ability adds +1 more. Botanical Survey also unlocks the
+           <em>botanical</em> typed field. The card has a <strong>trigger → Study</strong>.</p>
+        <p class="ex-log">Specimens 5 + 3 = <b>8</b>. Typed fields: {botanical}. Auto-chain into Study opens.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="ex-turn no-break">
+  <div class="ex-turn-head"><span>Action 2 chain</span><span>Study — Pressing Board</span></div>
+  <div class="ex-turn-body">
+    <div class="ex-step">
+      <div class="ex-num">→</div>
+      <div>
+        <p>You are entering Study via the chain from Botanical Survey.
+           <em>Are you the Study lead?</em> No — check: Study lead = player who converted the most Specimens
+           last turn; it's The Systematist. So you pay the <strong>1 Specimen toll</strong> first.</p>
+        <p>You activate <strong>Pressing Board</strong>: converts in batches of 3 Spec → 1 Finding, max 3 Spec.
+           You have 7 Specimens after the toll. One full batch: spend 3 → gain 1 Finding.
+           The card triggers → Hall.</p>
+        <p class="ex-log">Specimens 8 − 1 (toll) − 3 (convert) = <b>4</b>. Findings 1 + 1 = <b>2</b>. Chain → Hall opens.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="ex-turn no-break">
+  <div class="ex-turn-head"><span>Action 2 chain (cont.)</span><span>Hall — Field Report → name House Sparrow</span></div>
+  <div class="ex-turn-body">
+    <div class="ex-step">
+      <div class="ex-num">→</div>
+      <div>
+        <p>You are entering Hall via the Study chain. <em>Are you the Hall lead?</em>
+           Yes — you currently hold the Collector trophy (1 named species vs 0 for others). No toll.</p>
+        <p>You use <strong>Field Report</strong> to name <strong>House Sparrow</strong>.
+           Cost: 1 Finding. House Sparrow needs the <em>winged</em> typed field.
+           <em>Do you have winged access?</em> No — you only have botanical from Botanical Survey.
+           House Sparrow is blocked. You scan other affordable options: <strong>Axolotl</strong>
+           (Rare, needs <em>wetlands</em>) — also blocked. <strong>Common Fern</strong> would need botanical ✓,
+           but it's not in the market today. No naming is possible this chain entry.</p>
+        <p>However, Field Report's trigger is → Field. That chain is still granted even if you
+           don't name — you simply skip the Hall action but the chain fires.</p>
+        <p class="ex-log">Findings stay at 2. Chain → Field fires.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="ex-turn no-break">
+  <div class="ex-turn-head"><span>Action 2 chain (cont.)</span><span>Field — Marsh Survey</span></div>
+  <div class="ex-turn-body">
+    <div class="ex-step">
+      <div class="ex-num">→</div>
+      <div>
+        <p>You are in a Field chain triggered by Field Report. Activate <strong>Marsh Survey</strong>:
+           +4 Specimens + 1 Collector bonus = +5. Marsh Survey also unlocks <em>wetlands</em> typed field.</p>
+        <p class="ex-log">Specimens 4 + 5 = <b>9</b>. Typed fields: {botanical, wetlands}. No further trigger.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="ex-turn no-break">
+  <div class="ex-turn-head"><span>Action 3</span><span>Study — Field Journal</span></div>
+  <div class="ex-turn-body">
+    <div class="ex-step">
+      <div class="ex-num">→</div>
+      <div>
+        <p>Back to free actions. Activate <strong>Field Journal</strong>: converts in batches of 2 Spec → 1 Finding,
+           max 4 Spec. You have 9 Specimens, Findings cap is 3. You already have 2 Findings —
+           only 1 more fits before cap. One batch: spend 2 → gain 1 Finding = 3 Findings (cap hit).</p>
+        <p class="ex-log">Specimens 9 − 2 = <b>7</b>. Findings 2 + 1 = <b>3</b> (cap). No trigger.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="ex-turn no-break">
+  <div class="ex-turn-head"><span>Action 4</span><span>Hall — name Axolotl</span></div>
+  <div class="ex-turn-body">
+    <div class="ex-step">
+      <div class="ex-num">→</div>
+      <div>
+        <p>Use <strong>Field Report</strong> again (Hall cards can be reused each turn — they are permanent
+           engine cards, not discards). Name <strong>Axolotl</strong> (Rare, needs <em>wetlands</em>).
+           You have wetlands access from Marsh Survey ✓. Cost: 2 Findings. No existing claim.
+           Strength = 2 (cost) + 0 (strBonus) = 2. Named uncontested.</p>
+        <p>Field Report triggers → Field.</p>
+        <p class="ex-log">Findings 3 − 2 = <b>1</b>. namedCount 1 → <b>2</b>. Collector trophy lead strengthened. Chain → Field.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="ex-turn no-break">
+  <div class="ex-turn-head"><span>Action 4 chain</span><span>Field — Specimen Hunt</span></div>
+  <div class="ex-turn-body">
+    <div class="ex-step">
+      <div class="ex-num">→</div>
+      <div>
+        <p>Activate <strong>Specimen Hunt</strong>: +2 Specimens + 1 Collector bonus = +3.</p>
+        <p class="ex-log">Specimens 7 + 3 = <b>10</b>. No trigger.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="ex-turn no-break">
+  <div class="ex-turn-head"><span>Action 5</span><span>Expedition — Survey Permit</span></div>
+  <div class="ex-turn-body">
+    <div class="ex-step">
+      <div class="ex-num">→</div>
+      <div>
+        <p>Mount <strong>Survey Permit</strong> (mount cost 2, draws 2). Pay 2 Specimens.
+           Draw two Discovery tokens from the deck.</p>
+        <p><em>Draw 1:</em> <span class="tok find">Finding</span> → banked.</p>
+        <p><em>Draw 2:</em> <span class="tok spec">Specimen</span> → banked.</p>
+        <p>Expedition still active. You decide to <strong>Press Deeper</strong> once.</p>
+        <p><em>Draw 3:</em> <span class="tok hazard">Hazard!</span> Survey Permit has 0 protection.
+           You are not the Expeditioner. <strong>Bust</strong> — all three banked tokens are lost.
+           Expedition ends immediately.</p>
+        <p class="ex-log">Specimens 10 − 2 = <b>8</b>. No tokens collected. Expedition ends.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="ex-turn no-break">
+  <div class="ex-turn-head"><span>Action 6</span><span>Stop — End Turn</span></div>
+  <div class="ex-turn-body">
+    <div class="ex-step">
+      <div class="ex-num">→</div>
+      <div>
+        <p>You end your turn. Leads are recomputed.</p>
+        <div class="state-row" style="margin-top:1.5mm;">
+          <span class="state-chip">Specimens <b>8</b></span>
+          <span class="state-chip">Findings <b>1</b></span>
+          <span class="state-chip">Standing <b>2</b></span>
+          <span class="state-chip">Sightings <b>1</b></span>
+          <span class="state-chip">Named <b>2</b></span>
+        </div>
+        <p class="ex-log" style="margin-top:2mm;">
+          Collector trophy: you hold it (2 named). Systematist trophy: you have 0 complete sets.
+          Sensationalist: 0 confirmed dubious. Trophy count: 1 of 3 — not a knockout yet.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="callout gold no-break" style="margin-top:4mm;">
+  <strong>What to build next:</strong> To push toward Systematist you need a second named species
+  in the same set. Axolotl is Anomalous — name another Anomalous species (Lyrebird needs tropical;
+  draft Mountain Expedition to unlock it). For Sensationalist: add Sightings to Jackalope's bag and
+  call a Verification. A winning path runs: draft Mountain Expedition (Field) → tropical access →
+  name Lyrebird (Winged+Anomalous) → unlock Systematist lead.
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════
+     QUICK REFERENCE
+     ══════════════════════════════════════════════════════ -->
+<div class="pagebreak"></div>
+<div class="page-header">
+  <span>Cryptids, Trophies &amp; Lanes</span>
+  <span>Quick Reference</span>
+</div>
+
+<h2>Quick Reference</h2>
+
+<div class="qr-grid">
+  <div class="qr-box">
+    <h4>Turn skeleton</h4>
+    <ul>
+      <li>Findings decay to cap (3 base) at start</li>
+      <li>Typed field access resets at start</li>
+      <li>Take any number of actions in any order</li>
+      <li>Draft any time (pay Specimens)</li>
+      <li>End turn explicitly with Stop</li>
+    </ul>
+  </div>
+  <div class="qr-box">
+    <h4>Chain tolls</h4>
+    <ul>
+      <li>Study chain (non-lead): pay 1 Specimen</li>
+      <li>Hall chain (non-lead): pay 1 Finding</li>
+      <li>Field chain: no toll</li>
+      <li>Expedition: no chain in/out (overlay)</li>
+    </ul>
+  </div>
+  <div class="qr-box">
+    <h4>Discovery deck odds</h4>
+    <ul>
+      <li>4/11 Specimen (36%)</li>
+      <li>2/11 Finding (18%)</li>
+      <li>2/11 Sighting (18%)</li>
+      <li>3/11 Hazard (27%)</li>
+      <li>Reshuffled when empty</li>
+    </ul>
+  </div>
+  <div class="qr-box">
+    <h4>Trophy criteria</h4>
+    <ul>
+      <li><strong>Collector</strong> — most named. TB: Standing</li>
+      <li><strong>Systematist</strong> — most complete sets. TB: named count</li>
+      <li><strong>Sensationalist</strong> — most confirmed-genuine dubious. TB: Standing</li>
+    </ul>
+  </div>
+  <div class="qr-box">
+    <h4>Naming strength</h4>
+    <ul>
+      <li>Strength = Findings spent + card strBonus</li>
+      <li>Systematist: +1 if 2+ fields required</li>
+      <li>Win challenge: strength &gt; defender</li>
+      <li>Tie: both lose; species unclaimed</li>
+      <li>Lose challenge: defender +1 Standing</li>
+    </ul>
+  </div>
+  <div class="qr-box">
+    <h4>Verification</h4>
+    <ul>
+      <li>Requires ≥ 2 sightings in bag</li>
+      <li>Genuine → top contributor +4 Stand, +1 dubious confirmed</li>
+      <li>Hoax → top contributor −sighting count Standing (max −4), loses name claim</li>
+    </ul>
+  </div>
+  <div class="qr-box">
+    <h4>Set bonuses (one-time)</h4>
+    <ul>
+      <li>Winged → +2 Findings</li>
+      <li>Terrestrial → +3 Specimens</li>
+      <li>Botanical → +2 Standing</li>
+      <li>Legendary → +1 Confirmed Dubious</li>
+      <li>Anomalous → draw 1 Tactic</li>
+    </ul>
+  </div>
+  <div class="qr-box">
+    <h4>Clock</h4>
+    <ul>
+      <li>+1 each round at round start</li>
+      <li>Closes at 12 → end of that round</li>
+      <li>Sensational Report: +1 Clock per naming use</li>
+      <li>Knockout wins override Clock</li>
+    </ul>
+  </div>
+</div>
+
+<div class="ornament" style="margin-top:8mm;">· · ✦ · ·</div>
+<p style="text-align:center;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:9pt;color:var(--ink3);margin-top:2mm;">
+  Cryptids, Trophies &amp; Lanes — playtest rules reference
+</p>
+
+</body>
+</html>
